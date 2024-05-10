@@ -8,9 +8,11 @@ use App\Models\Department;
 
 class DeparmentData extends Controller
 {
-   public function SavaDepartment(Request $request){
+   public function SaveDepartment(Request $request){
 
-    
-
+    $data = new Department;
+    $data->dept_name = $request->department;
+    $data->save();
+    return response()->json(['status'=>'success']);
    }
 }

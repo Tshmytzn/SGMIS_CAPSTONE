@@ -1,8 +1,21 @@
 <script>
     console.log('connect');
-    function SavaDepartment(){
+
+    function SaveDepartment() {
+
+        var formData = $("form#adddepartmentform").serialize();
         
-    var formData = $("form#adddepartmentform").serialize();
-        console.log(formData);
+        $.ajax({
+            type: "POST",
+            url: "{{ route('SaveDepartment') }}",
+            data: formData,
+            success: function(response) {
+              console.log('success');
+            },
+            error: function(xhr, status, error) {
+
+                console.error(xhr.responseText);
+            }
+        });
     }
 </script>
