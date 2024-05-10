@@ -27,3 +27,7 @@ Route::get('/Evaluation', function () { return view('Admin.evaluation'); })->nam
 
 // jpubas route
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
+Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');
+Route::post('Admin/SaveSection',[DeparmentData::class,'SaveSection'] )->name('SaveSection');
+// jpubas route get
+Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');

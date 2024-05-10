@@ -13,7 +13,8 @@
     <link href="{{ asset('./dist/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('./dist/css/demo.min.css?1684106062') }}" rel="stylesheet" />
 
-   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/themes/default.min.css" />
 
     <style>
         @import url('https://rsms.me/inter/inter.css');
