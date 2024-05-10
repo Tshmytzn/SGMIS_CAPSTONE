@@ -321,7 +321,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="SavaDepartment()">Save</button>
+                <button type="button" class="btn btn-primary" onclick="SaveDepartment()">Save</button>
               </div>
             </div>
           </div>

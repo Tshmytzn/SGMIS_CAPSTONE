@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DeparmentData;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +23,7 @@ Route::get('/Settings', function () { return view('Admin.settings'); })->name('S
 Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
 Route::get('/Programs', function () { return view('Admin.programs'); })->name('Programs');
 Route::get('/Evaluation', function () { return view('Admin.evaluation'); })->name('Evaluation');
+
+
+// jpubas route
+Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
