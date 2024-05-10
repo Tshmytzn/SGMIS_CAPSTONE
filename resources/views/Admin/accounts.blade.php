@@ -36,6 +36,7 @@
   <div class="container-xl">
     <div class="card">
 
+      
       {{-- Dropdown Year Level and Create Account --}}
         <div class="row">
           <div class="row justify-content-between mt-4 align-items-end">
@@ -62,55 +63,34 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th><button class="table-sort" data-sort="sort-name">Name</button></th>
-                      <th><button class="table-sort" data-sort="sort-city">City</button></th>
-                      <th><button class="table-sort" data-sort="sort-type">Type</button></th>
-                      <th><button class="table-sort" data-sort="sort-score">Score</button></th>
-                      <th><button class="table-sort" data-sort="sort-date">Date</button></th>
-                      <th><button class="table-sort" data-sort="sort-quantity">Quantity</button></th>
-                      <th><button class="table-sort" data-sort="sort-progress">Progress</button></th>
+                      <th><button class="table-sort" data-sort="sort-name">Student ID</button></th>
+                      <th><button class="table-sort" data-sort="sort-city">First Name</button></th>
+                      <th><button class="table-sort" data-sort="sort-type">Middle Name</button></th>
+                      <th><button class="table-sort" data-sort="sort-score">Last Name</button></th>
+                      <th><button class="table-sort" data-sort="sort-date">Section</button></th>
                     </tr>
                   </thead>
                   <tbody class="table-tbody">
                     <tr>
-                      <td class="sort-name">Steel Vengeance</td>
-                      <td class="sort-city">Cedar Point, United States</td>
-                      <td class="sort-type">RMC Hybrid</td>
-                      <td class="sort-score">100,0%</td>
-                      <td class="sort-date" data-date="1628071164">August 04, 2021</td>
-                      <td class="sort-quantity">74</td>
-                      <td class="sort-progress" data-progress="30">
-                        <div class="row align-items-center">
-                          <div class="col-12 col-lg-auto">30%</div>
-                          <div class="col">
-                            <div class="progress" style="width: 5rem">
-                              <div class="progress-bar" style="width: 30%" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="30% Complete">
-                                <span class="visually-hidden">30% Complete</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
+                      <td class="sort-name">20273463</td>
+                      <td class="sort-city">Marianne</td>
+                      <td class="sort-type">Reyn</td>
+                      <td class="sort-score">Madrona</td>
+                      <td class="sort-date" data-date="1628071164">A</td>
                     </tr>
                     <tr>
-                      <td class="sort-name">Fury 325</td>
-                      <td class="sort-city">Carowinds, United States</td>
-                      <td class="sort-type">B&M Giga, Hyper, Steel</td>
-                      <td class="sort-score">99,3%</td>
-                      <td class="sort-date" data-date="1546512137">January 03, 2019</td>
-                      <td class="sort-quantity">49</td>
-                      <td class="sort-progress" data-progress="48">
-                        <div class="row align-items-center">
-                          <div class="col-12 col-lg-auto">48%</div>
-                          <div class="col">
-                            <div class="progress" style="width: 5rem">
-                              <div class="progress-bar" style="width: 48%" role="progressbar" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" aria-label="48% Complete">
-                                <span class="visually-hidden">48% Complete</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
+                      <td class="sort-name">20275643</td>
+                      <td class="sort-city">Ghiza</td>
+                      <td class="sort-type">Ann</td>
+                      <td class="sort-score">Dojoles</td>
+                      <td class="sort-date" data-date="1628071164">B</td>
+                    </tr>
+                    <tr>
+                      <td class="sort-name">20279874</td>
+                      <td class="sort-city">Perlyn</td>
+                      <td class="sort-type">Marie</td>
+                      <td class="sort-score">Buenafe</td>
+                      <td class="sort-date" data-date="1628071164">C</td>
                     </tr>
                   </tbody>
                 </table>
@@ -124,7 +104,7 @@
         {{-- MODALS --}}
 
         {{-- Create Account --}}
-        <div class="modal fade" id="createstudentacc" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal modal-blur fade" id="createstudentacc" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">

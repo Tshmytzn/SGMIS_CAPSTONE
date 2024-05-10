@@ -59,10 +59,10 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex align-items-center">
-                      <div class="subheader">Sales</div>
+                      <div class="subheader">Attendance</div>
                       <div class="ms-auto lh-1">
                         <div class="dropdown">
-                          <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                          <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Uweek</a>
                           <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item active" href="#">Last 7 days</a>
                             <a class="dropdown-item" href="#">Last 30 days</a>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="h1 mb-3">75%</div>
                     <div class="d-flex mb-2">
-                      <div>Conversion rate</div>
+                      <div>Student Present</div>
                       <div class="ms-auto">
                         <span class="text-green d-inline-flex align-items-center lh-1">
                           7% <!-- Download SVG icon from http://tabler-icons.io/i/trending-up -->
@@ -93,10 +93,10 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex align-items-center">
-                      <div class="subheader">Revenue</div>
+                      <div class="subheader">Budget</div>
                       <div class="ms-auto lh-1">
                         <div class="dropdown">
-                          <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                          <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Uweek</a>
                           <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item active" href="#">Last 7 days</a>
                             <a class="dropdown-item" href="#">Last 30 days</a>
@@ -106,7 +106,7 @@
                       </div>
                     </div>
                     <div class="d-flex align-items-baseline">
-                      <div class="h1 mb-0 me-2">$4,300</div>
+                      <div class="h1 mb-0 me-2">P 4,300</div>
                       <div class="me-auto">
                         <span class="text-green d-inline-flex align-items-center lh-1">
                           8% <!-- Download SVG icon from http://tabler-icons.io/i/trending-up -->
@@ -122,10 +122,10 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex align-items-center">
-                      <div class="subheader">New clients</div>
+                      <div class="subheader">Absentees</div>
                       <div class="ms-auto lh-1">
                         <div class="dropdown">
-                          <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                          <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Uweek</a>
                           <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item active" href="#">Last 7 days</a>
                             <a class="dropdown-item" href="#">Last 30 days</a>
@@ -135,7 +135,7 @@
                       </div>
                     </div>
                     <div class="d-flex align-items-baseline">
-                      <div class="h1 mb-3 me-2">6,782</div>
+                      <div class="h1 mb-3 me-2">134</div>
                       <div class="me-auto">
                         <span class="text-yellow d-inline-flex align-items-center lh-1">
                           0% <!-- Download SVG icon from http://tabler-icons.io/i/minus -->
@@ -151,7 +151,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex align-items-center">
-                      <div class="subheader">Active users</div>
+                      <div class="subheader">Active Students</div>
                       <div class="ms-auto lh-1">
                         <div class="dropdown">
                           <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
@@ -184,8 +184,7 @@
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="bg-primary text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2" /><path d="M12 3v3m0 12v3" /></svg>
-                            </span>
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-school"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" /><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" /></svg>                            </span>
                           </div>
                           <div class="col">
                             <div class="font-weight-medium">
@@ -205,8 +204,7 @@
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="bg-green text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/shopping-cart -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17h-11v-14h-2" /><path d="M6 5l14 1l-1 7h-13" /></svg>
-                            </span>
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-ticket"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 5l0 2" /><path d="M15 11l0 2" /><path d="M15 17l0 2" /><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" /></svg>                            </span>
                           </div>
                           <div class="col">
                             <div class="font-weight-medium">
@@ -226,8 +224,7 @@
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="bg-twitter text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c0 -.249 1.51 -2.772 1.818 -4.013z" /></svg>
-                            </span>
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-clock"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.5 21h-4.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h10" /><path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M18 16.5v1.5l.5 .5" /></svg>                            </span>
                           </div>
                           <div class="col">
                             <div class="font-weight-medium">
@@ -247,8 +244,7 @@
                         <div class="row align-items-center">
                           <div class="col-auto">
                             <span class="bg-facebook text-white avatar"><!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg>
-                            </span>
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-zoom-exclamation"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /><path d="M10 13v.01" /><path d="M10 7v3" /></svg>                            </span>
                           </div>
                           <div class="col">
                             <div class="font-weight-medium">
@@ -267,7 +263,7 @@
               <div class="col-lg-6">
                 <div class="card">
                   <div class="card-body">
-                    <h3 class="card-title">Traffic summary</h3>
+                    <h3 class="card-title">Attendance summary</h3>
                     <div id="chart-mentions" class="chart-lg"></div>
                   </div>
                 </div>
@@ -275,7 +271,7 @@
               <div class="col-lg-6">
                 <div class="card">
                   <div class="card-body">
-                    <h3 class="card-title">Locations</h3>
+                    <h3 class="card-title">Uweek Venue</h3>
                     <div class="ratio ratio-21x9">
                       <div>
                         <div id="map-world" class="w-100 h-100"></div>
