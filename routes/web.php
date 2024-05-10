@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/Admin', function () { return view('admin.index'); })->name('AdminDashboard');
-Route::get('/Accounts', function () { return view('admin.accounts'); })->name('Accounts');
-Route::get('/Events', function () { return view('admin.events'); })->name('Events');
-Route::get('/Documents', function () { return view('admin.documents'); })->name('Documents');
-Route::get('/blank', function () { return view('admin.blank'); })->name('Blank');
-Route::get('/Settings', function () { return view('admin.settings'); })->name('Settings');
-Route::get('/AdminLogin', function () { return view('admin.login'); })->name('AdminLogin');
+Route::get('/', function () { return view('Admin.index'); })->name('AdminDashboard');
+Route::get('/Accounts', function () { return view('Admin.accounts'); })->name('Accounts');
+Route::get('/Events', function () { return view('Admin.events'); })->name('Events');
+Route::get('/Documents', function () { return view('Admin.documents'); })->name('Documents');
+Route::get('/blank', function () { return view('Admin.blank'); })->name('Blank');
+Route::get('/Settings', function () { return view('Admin.settings'); })->name('Settings');
+Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
+Route::get('/Programs', function () { return view('Admin.programs'); })->name('Programs');
