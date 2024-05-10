@@ -81,8 +81,8 @@
                     <div class="d-flex align-items-center">
                       <span class="avatar me-3 rounded">JL</span>
                       <div>
-                        <div>Valentines Day</div>
-                        <div class="text-muted">5 days ago</div>
+                        <div>Coming soon</div>
+                        <div class="text-muted">5 days to go</div>
                       </div>
                       <div class="ms-auto">
                         <a href="#" class="text-muted">
@@ -107,7 +107,7 @@
                     <div class="d-flex align-items-center">
                       <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/002m.jpg)"></span>
                       <div>
-                        <div>Christmas Event</div>
+                        <div>Basketball Women</div>
                         <div class="text-muted">yesterday</div>
                       </div>
                       <div class="ms-auto">
@@ -172,29 +172,33 @@
           <div class="modal-body">
             <div class="mb-3">
               <label class="form-label">Event Name</label>
-              <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
+              <input type="text" class="form-control" name="example-text-input" placeholder="Event name">
             </div>
             <div class="mb-3">
             <label class="form-label">Purpose</label>
-            <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
+            <input type="text" class="form-control" name="example-text-input" placeholder="Event purpose">
         </div>
         <div class="mb-3">
             <label class="form-label">Duration</label>
-            <input type="number" class="form-control" name="example-text-input" placeholder="Your report name">
+            <input type="number" class="form-control" name="example-text-input" placeholder="Event duration">
         </div>
+        <div class="mb-2">
+          <label class="form-label">Event Photo</label>
+          <input type="file" class="form-control" name="example-text-input" placeholder="Choose Event Cover Photo">
+      </div>
           </div>
           <div class="modal-body">
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-3">
-                    <label class="form-label">Event Start</label>
+                    <label class="form-label">Event Start Date</label>
                     <input type="date" class="form-control">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="mb-3">
                   
-                  <label class="form-label">Event End</label>
+                  <label class="form-label">Event End Date</label>
                   <input type="date" class="form-control">
 
                 </div>
@@ -202,7 +206,7 @@
               <div class="col-lg-12">
                 <div>
                   <label class="form-label">Additional information</label>
-                  <textarea class="form-control" rows="3"></textarea>
+                  <textarea class="form-control" rows="2"></textarea>
                 </div>
               </div>
             </div>

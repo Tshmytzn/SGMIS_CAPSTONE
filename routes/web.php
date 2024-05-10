@@ -22,3 +22,4 @@ Route::get('/blank', function () { return view('Admin.blank'); })->name('Blank')
 Route::get('/Settings', function () { return view('Admin.settings'); })->name('Settings');
 Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
 Route::get('/Programs', function () { return view('Admin.programs'); })->name('Programs');
+Route::get('/Evaluation', function () { return view('Admin.evaluation'); })->name('Evaluation');

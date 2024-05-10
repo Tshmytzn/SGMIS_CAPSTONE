@@ -103,10 +103,7 @@
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <a href="#" class="dropdown-item">Status</a>
                   <a href="./profile.html" class="dropdown-item">Profile</a>
-                  <a href="#" class="dropdown-item">Feedback</a>
-                  <div class="dropdown-divider"></div>
                   <a href="{{route('Settings')}}" class="dropdown-item">Settings</a>
                   <a href="./sign-in.html" class="dropdown-item">Logout</a>
                 </div>
@@ -283,12 +280,17 @@
                       <a class="dropdown-item" href="{{route('Events')}}">
                         Attendance
                       </a>
-                      <a class="dropdown-item text-pink" href="https://github.com/sponsors/codecalm" rel="noopener">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                        Evaluations
-                      </a>
                     </div>
+                  </li>
+                  <li class="nav-item {{$active == 'Evaluation' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('Evaluation')}}" >
+                      <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 11a7 7 0 0 1 14 0v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-7" /><path d="M10 10l.01 0" /><path d="M14 10l.01 0" /><path d="M10 14a3.5 3.5 0 0 0 4 0" /></svg>
+                      </span>
+                      <span class="nav-link-title">
+                        Evaluations
+                      </span>
+                    </a>
                   </li>
                   <li class="nav-item {{$active == 'Documents' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('Documents')}}" >

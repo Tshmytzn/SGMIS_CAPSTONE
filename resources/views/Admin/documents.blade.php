@@ -33,194 +33,410 @@
           </div>
         </div>
         
-        <!-- Page body -->
-        <div class="page-body">
-          <div class="container-xl">
-            <div class="row row-deck row-cards">
-              
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="{{route('Accounts')}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                  <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" /><path d="M12 12l8 -4.5" /><path d="M12 12l0 9" /><path d="M12 12l-8 -4.5" /><path d="M16 5.25l-8 4.5" /></svg>
-                  </span>
-                  <span class="nav-link-title">
-                     Year Level
-                  </span>
-                </a>
-                <div class="dropdown-menu">
-
-                  <div class="dropdown-menu-columns">
-                    
-                    <div class="dropdown-menu-column">
-
-                        <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="{{route('Accounts')}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                              <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                              First Year
-                            </a>
-
-                            <div class="dropdown-menu">
-                            <a href="{{route('Accounts')}}" class="dropdown-item">
-                                    A
-                              </a>
-                              <a href="{{route('Accounts')}}" class="dropdown-item">
-                                B
-                              </a>
-                              <a href="{{route('Accounts')}}" class="dropdown-item">
-                                C
-                              </a>
-                              <a href="{{route('Accounts')}}" class="dropdown-item">
-                                D
-                              </a>
-                            </div>
-                          </div>
-
-                        <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                              <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                              Second Year
-                            </a>
-                            <div class="dropdown-menu">
-                              <a href="./error-404.html" class="dropdown-item">
-                                Bachelor of Science in Civil Engineering
-                              </a>
-                             
-                            </div>
-                          </div>
-
-                      <div class="dropend">
-                        <a class="dropdown-item dropdown-toggle" href="#sidebar-authentication" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                            College of Arts & Sciences
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a href="./sign-in-link.html" class="dropdown-item">
-                            Bachelor of Arts in Social Science
-                          </a>
-                          <a href="./sign-in-illustration.html" class="dropdown-item">
-                            Bachelor of Science in Psychology
-                          </a>
-                          <a href="./sign-in.html" class="dropdown-item">
-                            Bachelor of Arts in English Language
-                          </a>
-                        </div>
-                        
-                    </div>
-
-                      <div class="dropend">
-                        <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                          <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                          College of Computer Studies 
-                        </a>
-                        <div class="dropdown-menu">
-                          <a href="./error-404.html" class="dropdown-item">
-                            Bachelor of Science in Information Systems
-                          </a>
-                         
-                        </div>
-                      </div>
-
-                      <div class="dropend">
-                        <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                          <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                          College of Industrial Technology
-                        </a>
-                        <div class="dropdown-menu">
-                          <a href="./error-404.html" class="dropdown-item">
-                            Bachelor of Science in Industrial Technology
-                          </a>
-                         
-                        </div>
-                      </div>
-                      
-                      <div class="dropend">
-                        <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                          <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                          College of Business Management & Accountancy &nbsp;
-                        </a>
-                        <div class="dropdown-menu">
-                          <a href="./error-404.html" class="dropdown-item">
-                            Bachelor of Science in Hospitality Management
-                          </a>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-            </div>
-          </div>
-        </div>
+ <!-- Page body -->
+ <div class="page-body">
+  <div class="container-xl">
+    <div class="row row-cols-6 g-3">
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/brainstorming-session-with-creative-designers.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/brainstorming-session-with-creative-designers.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/finances-us-dollars-and-bitcoins-currency-money.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/finances-us-dollars-and-bitcoins-currency-money.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/group-of-people-brainstorming-and-taking-notes-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/group-of-people-brainstorming-and-taking-notes-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/blue-sofa-with-pillows-in-a-designer-living-room-interior.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/blue-sofa-with-pillows-in-a-designer-living-room-interior.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/young-woman-working-in-a-cafe.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/young-woman-working-in-a-cafe.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/everything-you-need-to-work-from-your-bed.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/everything-you-need-to-work-from-your-bed.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/young-entrepreneur-working-from-a-modern-cafe.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/young-entrepreneur-working-from-a-modern-cafe.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/finances-us-dollars-and-bitcoins-currency-money-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/finances-us-dollars-and-bitcoins-currency-money-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/group-of-people-sightseeing-in-the-city.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/group-of-people-sightseeing-in-the-city.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/color-palette-guide-sample-colors-catalog-.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/color-palette-guide-sample-colors-catalog-.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/stylish-workplace-with-computer-at-home.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/stylish-workplace-with-computer-at-home.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/pink-desk-in-the-home-office.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/pink-desk-in-the-home-office.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/coffee-on-a-table-with-other-items.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/coffee-on-a-table-with-other-items.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/young-entrepreneur-working-from-a-modern-cafe-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/young-entrepreneur-working-from-a-modern-cafe-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/soft-photo-of-woman-on-the-bed-with-the-book-and-cup-of-coffee-in-hands.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/soft-photo-of-woman-on-the-bed-with-the-book-and-cup-of-coffee-in-hands.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/fairy-lights-at-the-beach-in-bulgaria.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/fairy-lights-at-the-beach-in-bulgaria.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/woman-working-on-laptop-at-home-office.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/woman-working-on-laptop-at-home-office.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/modern-home-office.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/modern-home-office.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/blond-using-her-laptop-at-her-bedroom.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/blond-using-her-laptop-at-her-bedroom.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/tropical-palm-leaves-floral-pattern-background.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/tropical-palm-leaves-floral-pattern-background.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/woman-read-book-and-drink-coffee.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/woman-read-book-and-drink-coffee.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/book-on-the-grass.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/book-on-the-grass.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/colorful-exotic-flowers-and-greenery.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/colorful-exotic-flowers-and-greenery.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/workplace-with-laptop-on-table-at-home.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/workplace-with-laptop-on-table-at-home.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/city-lights-reflected-in-the-water-at-night.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/city-lights-reflected-in-the-water-at-night.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/cryptocurrency-bitcoin-coins.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/cryptocurrency-bitcoin-coins.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/woman-read-book-and-drink-coffee-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/woman-read-book-and-drink-coffee-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/friends-at-a-restaurant-drinking-wine.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/friends-at-a-restaurant-drinking-wine.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/beautiful-blonde-woman-on-a-wooden-pier-by-the-lake.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/beautiful-blonde-woman-on-a-wooden-pier-by-the-lake.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/white-apple-imac-computer-with-elephant-mousepad.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/white-apple-imac-computer-with-elephant-mousepad.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/workplace-with-laptop-on-table-at-home-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/workplace-with-laptop-on-table-at-home-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/working-in-a-restaurant-macbook-cheese-cake-and-cup-of-coffee.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/working-in-a-restaurant-macbook-cheese-cake-and-cup-of-coffee.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/brainstorming-session-with-creative-designers-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/brainstorming-session-with-creative-designers-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/woman-drinking-hot-tea-in-her-home-office.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/woman-drinking-hot-tea-in-her-home-office.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/stylish-workspace-with-macbook-pro.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/stylish-workspace-with-macbook-pro.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/people-by-a-banquet-table-full-with-food.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/people-by-a-banquet-table-full-with-food.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/woman-working-on-a-laptop-while-enjoying-a-breakfast-coffee-and-chocolate-in-bed.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/woman-working-on-a-laptop-while-enjoying-a-breakfast-coffee-and-chocolate-in-bed.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/businesswoman-working-at-her-laptop.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/businesswoman-working-at-her-laptop.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/finances-us-dollars-and-bitcoins-currency-money-5.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/finances-us-dollars-and-bitcoins-currency-money-5.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/cup-of-coffee-on-table-in-cafe.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/cup-of-coffee-on-table-in-cafe.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop-3.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop-3.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/man-looking-out-to-sea.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/man-looking-out-to-sea.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/cup-of-coffee-on-table-in-cafe-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/cup-of-coffee-on-table-in-cafe-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/workplace-with-laptop-on-table-at-home-3.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/workplace-with-laptop-on-table-at-home-3.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/businesswoman-working-at-her-laptop-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/businesswoman-working-at-her-laptop-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/cup-of-coffee-and-an-open-book.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/cup-of-coffee-and-an-open-book.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/group-of-people-brainstorming-and-taking-notes-4.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/group-of-people-brainstorming-and-taking-notes-4.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop-4.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/young-woman-sitting-on-the-sofa-and-working-on-her-laptop-4.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/making-magic-with-fairy-lights.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/making-magic-with-fairy-lights.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/woman-working-on-a-laptop-while-enjoying-a-breakfast-coffee-and-chocolate-in-bed-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/woman-working-on-a-laptop-while-enjoying-a-breakfast-coffee-and-chocolate-in-bed-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/woman-drinking-tea-and-reading-book.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/woman-drinking-tea-and-reading-book.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/a-woman-works-at-a-desk-with-a-laptop-and-a-cup-of-coffee.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/a-woman-works-at-a-desk-with-a-laptop-and-a-cup-of-coffee.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/everything-you-need-to-work-from-your-bed-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/everything-you-need-to-work-from-your-bed-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/workplace-with-laptop-on-table-at-home-4.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/workplace-with-laptop-on-table-at-home-4.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/stylish-workspace-with-macbook-pro-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/stylish-workspace-with-macbook-pro-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/netflix-drug-lords-from-narcos.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/netflix-drug-lords-from-narcos.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/stone-texture-high-resolution-background-2.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/stone-texture-high-resolution-background-2.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/a-visit-to-the-bookstore.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/a-visit-to-the-bookstore.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/books-and-purple-flowers-on-a-wooden-stool-by-the-bed.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/books-and-purple-flowers-on-a-wooden-stool-by-the-bed.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/people-watching-a-presentation-in-a-room.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/people-watching-a-presentation-in-a-room.jpg)"></div>
+        </a>
+      </div>
+      <div class="col">
+        <a data-fslightbox="gallery" href="./static/photos/home-office-laptop-organizer-and-cup-of-coffee.jpg">
+          <!-- Photo -->
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/home-office-laptop-organizer-and-cup-of-coffee.jpg)"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 @include('Admin.components.footer')
 
       </div>
     </div>
     
-    <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">New Event</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Event Name</label>
-              <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
-            </div>
-            <div class="mb-3">
-            <label class="form-label">Purpose</label>
-            <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Duration</label>
-            <input type="number" class="form-control" name="example-text-input" placeholder="Your report name">
-        </div>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="mb-3">
-                    <label class="form-label">Event Start</label>
-                    <input type="date" class="form-control">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="mb-3">
-                  <label class="form-label">Event End</label>
-                  <input type="date" class="form-control">
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div>
-                  <label class="form-label">Additional information</label>
-                  <textarea class="form-control" rows="3"></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-              Cancel
-            </a>
-            <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
-              <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-              Create new Event
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+
     
 @include('Admin.components.scripts')
 

@@ -39,17 +39,115 @@
       
       {{-- Dropdown Year Level and Create Account --}}
         <div class="row">
-          <div class="row justify-content-between mt-4 align-items-end">
+          <div class="row justify-content-between mt-2 align-items-end">
             <div class="col-auto mx-3">
-              <div class="dropdown">
-                <button class="btn btn-custom dropdown-toggle" type="button" id="yearLevelDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #DF7026; color:white;"> Year Level</button>
-                <ul class="dropdown-menu dropdown-menu" aria-labelledby="yearLevelDropdown">
-                  <li><a class="dropdown-item" href="#">First Year</a></li>
-                  <li><a class="dropdown-item" href="#">Second Year</a></li>
-                  <li><a class="dropdown-item" href="#">Third Year</a></li>
-                  <li><a class="dropdown-item" href="#">Fourth Year</a></li>
-                </ul>
-              </div>
+              <li class="nav-item dropdown" style="list-style-type: none;">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" style="background-color: #DF7026; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.300rem;">
+
+                  <span class="nav-link-title">
+                     Year Level
+                  </span>
+                </a>
+                <div class="dropdown-menu">
+
+                  <div class="dropdown-menu-columns">
+                    
+                    <div class="dropdown-menu-column">
+
+                        <div class="dropend">
+                            <a class="dropdown-item dropdown-toggle" href="{{route('Accounts')}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                              <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
+                              First Year
+                            </a>
+
+                            <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">
+                                Section A
+                              </a>
+                              <a href="#" class="dropdown-item">
+                                Section B
+                              </a>
+                              <a href="#" class="dropdown-item">
+                                Section C
+                              </a>
+                              <a href="#" class="dropdown-item">
+                                Section D
+                              </a>
+                            </div>
+                          </div>
+
+                        <div class="dropend">
+                            <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                              <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
+                              Second Year
+                            </a>
+                            <div class="dropdown-menu">
+                              <a href="#" class="dropdown-item">
+                                  Section A
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                  Section B
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                  Section C
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                  Section D
+                                </a>
+                              </div>
+                          </div>
+
+                      <div class="dropend">
+                        <a class="dropdown-item dropdown-toggle" href="#sidebar-authentication" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
+                            Third Year
+                        </a>
+
+                        <div class="dropdown-menu">
+                          <a href="#" class="dropdown-item">
+                              Section A
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              Section B
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              Section C
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              Section D
+                            </a>
+                          </div>
+                        
+                    </div>
+
+                      <div class="dropend">
+                        <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                          <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
+                          Fourth Year
+                        </a>
+                        <div class="dropdown-menu">
+                          <a href="#" class="dropdown-item">
+                              Section A
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              Section B
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              Section C
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              Section D
+                            </a>
+                          </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </li>
             </div>
             <div class="col-auto text-end">
               <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#createstudentacc"> Create Student Account</button>
@@ -115,18 +213,40 @@
                 
                 <form class="row g-3">
                 <div class="row g-2">
-                  <div class="col-4">
+                  <div class="col-6">
                     <label for="firstname" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="firstname" placeholder="First Name">
                   </div>
-                  <div class="col-4">
+                  <div class="col-6">
                     <label for="middlename" class="form-label">Middle Name</label>
                     <input type="text" class="form-control" id="middlename" placeholder="Middle Name">
                   </div>
-                  <div class="col-4">
-                    <label for="lastname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
-                  </div>
+                </div>
+
+                <div class="row g-2">
+                <div class="col-6">
+                  <label for="lastname" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                </div>
+                <div class="col-6">
+                  <label for="lastname" class="form-label">Ext</label>
+                  <select id="inputState" class="form-select">
+                    <option selected> None </option>
+                    <option>I (First)</option>
+                    <option>II (Second)</option>
+                    <option>III (Third)</option>
+                    <option>IV (Fourth)</option>
+                    <option>V (Fifth)</option>
+                    <option>VI (Sixth)</option>
+                    <option>VII (Seventh)</option>
+                    <option>VIII (Eighth)</option>
+                    <option>IX (Ninth)</option>
+                    <option>X (Tenth)</option>
+                    <option>XI (Eleventh)</option>
+                    <option>XII (Twelfth)</option>
+                    <option>Junior</option>
+                    <option>Senior</option>                                   
+                  </select>                </div>
                 </div>
                 <hr class="my-4 ">
                 <div class="row g-2">
@@ -152,6 +272,7 @@
                       <option>A</option>
                       <option>B</option>
                       <option>C</option>
+                      <option>D</option>
                     </select>
                   </div>
                 </div>
