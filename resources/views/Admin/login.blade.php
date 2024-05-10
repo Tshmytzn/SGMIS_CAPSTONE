@@ -5,7 +5,7 @@
 @include('Admin.components.header', ['title' => 'Settings'])
 
   <body  class=" d-flex flex-column">
-    @include('Admin.components.loader')
+    @include('Admin.components.loginloader')
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
     <div class="page page-center">
       <div class="container container-normal py-4">

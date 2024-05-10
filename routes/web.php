@@ -33,3 +33,4 @@ Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->na
 
 //Rheyan Route
 Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
+Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEvent');

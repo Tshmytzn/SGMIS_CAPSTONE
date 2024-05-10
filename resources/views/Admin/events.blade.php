@@ -11,6 +11,7 @@
 
 @include('Admin.components.nav', ['active' => 'Events'])
 
+@include('Admin.components.loading')
             <div class="page-wrapper">
 
         <!-- Page header -->
@@ -169,58 +170,65 @@
             <h5 class="modal-title">New Event</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form id="add_event" method="POST">
+          <form id="add_event" method="POST" enctype="multipart/form-data">
+            @csrf
           <div class="modal-body">
-
+            
             <div class="mb-3">
-              <label class="form-label">Event Name</label>
-              <input type="text" class="form-control" name="ev_name" placeholder="Event name">
+              <label class="form-label">Event Name   <span style="display: none" id="ev_name_e" class="text-danger ">(Don't Leave this field empty)</span></label>
+              <input type="text" class="form-control" id="ev_name" name="ev_name" placeholder="Event name">
+            
             </div>
             <div class="mb-3">
-              <div class="form-label">Department</div>
-              <select name="dept" class="form-select" >
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <div class="form-label">Department   <span style="display: none" id="dept_e" class="text-danger ">(Please Select a department....)</span></div>
+              <select id="dept" name="dept" class="form-select" >
+                @php
+                    $dept = App\Models\Department::where('dept_status', 0)->get();
+                @endphp
+                <option value="none" selected disabled>-----Select Department-----</option>
+               @foreach ($dept as $d)
+               <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
+               @endforeach
+        
               </select>
          
         </div>
         <div class="mb-3">
             <label class="form-label">Duration</label>
-            <input type="number" class="form-control" disabled id="duration" placeholder="Event duration">
+            <input type="text" class="form-control" disabled id="duration" placeholder="Event duration">
         </div>
         <div class="mb-2">
-          <label class="form-label">Event Photo</label>
-          <input type="file" class="form-control" accept="image/*" name="ev_pic" placeholder="Choose Event Cover Photo">
+          <label class="form-label">Event Photo   <span style="display: none;" id="ev_pic_e" class="text-danger ">(No Selected Photo! Please provide)</span></label>
+          <input type="file" id="ev_pic" class="form-control" accept="image/*" name="ev_pic" placeholder="Choose Event Cover Photo">
       </div>
           </div>
           <div class="modal-body">
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-3">
-                    <label class="form-label">Event Start Date</label>
-                    <input type="date" name="ev_start" class="form-control">
+                    <label class="form-label">Event Start Date   <span style="display: none" id="ev_start_e" class="text-danger ">(Please Choose a date)</span></label>
+                    <input type="date" onchange="getDays(this)" id="ev_start" name="ev_start" class="form-control">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="mb-3">
                   
-                  <label class="form-label">Event End Date</label>
-                  <input type="date" name="ev_end" class="form-control">
+                  <label class="form-label">Event End Date   <span style="display: none" id="ev_end_e" class="text-danger ">(Please Choose a date)</span></label>
+                  <input type="date" id="ev_end" onchange="getDays(this)" name="ev_end" class="form-control">
 
                 </div>
               </div>
               <div class="col-lg-12">
                 <div>
-                  <label class="form-label">Additional information</label>
-                  <textarea name="ev_description" class="form-control" rows="2"></textarea>
+                  <label class="form-label">Additional information(Description)   <span style="display: none" id="ev_description_e" class="text-danger ">(Please provide a description)</span></label>
+                  <textarea id="ev_description" name="ev_description" class="form-control" rows="2"></textarea>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" onclick="VerifyFormEvent('')" class="btn btn-primary">Save</button>
+            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}')" class="btn btn-primary">Save</button>
           </div>
         </form>
         </div>

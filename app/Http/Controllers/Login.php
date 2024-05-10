@@ -14,6 +14,7 @@ class Login extends Controller
 
       if($admin){
         if(Hash::check($req->password, $admin->admin_password)){
+            Session::put('admin_id', $admin->admin_id);
             return response()->json(['status'=>'success']);
         }else{
             return response()->json(['status'=>'incorrect']);

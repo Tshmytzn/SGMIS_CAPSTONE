@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('dept_id'); 
             $table->foreign('dept_id')->references('dept_id')->on('department');
             $table->string('event_name', 150);
-            $table->string('event_desciption');
+            $table->string('event_description');
             $table->string('event_start', 20);
             $table->string('event_end', 20);
             $table->string('event_pic', 150);
