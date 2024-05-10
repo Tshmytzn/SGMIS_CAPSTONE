@@ -169,7 +169,7 @@
             <h5 class="modal-title">New Event</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form action="">
+          <form id="add_event" method="POST">
           <div class="modal-body">
 
             <div class="mb-3">
@@ -177,8 +177,13 @@
               <input type="text" class="form-control" name="ev_name" placeholder="Event name">
             </div>
             <div class="mb-3">
-            <label class="form-label">Purpose</label>
-            <input type="text" class="form-control" name="ev_purpose" placeholder="Event purpose">
+              <div class="form-label">Department</div>
+              <select name="dept" class="form-select" >
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+         
         </div>
         <div class="mb-3">
             <label class="form-label">Duration</label>
@@ -215,7 +220,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-            <button type="button"  class="btn btn-primary">Save</button>
+            <button type="button" onclick="VerifyFormEvent('')" class="btn btn-primary">Save</button>
           </div>
         </form>
         </div>
