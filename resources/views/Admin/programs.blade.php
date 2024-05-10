@@ -368,22 +368,22 @@
               </div>
               <div class="modal-body">
                 
-                <form class="row g-3">
+                <form class="row g-3" id="addcourseform" method="POST">@csrf
                 <div class="row g-2">
                   <div class="col-12">
                     <label for="firstname" class="form-label">Department</label>
-                    <select id="inputState" class="form-select">
-                      <option selected> Select Department </option>
-                      <option>College of Engineering</option>
-                      <option>College of Education</option>
-                      <option>College of Engineering</option>    
-                      <option>College of Engineering</option>                    
-                      <option>College of Engineering</option>                                    
+                    <select id="inputState" class="form-select" name="selectedDept">
+                      @php
+                        $dept = App\Models\Department::all();
+                      @endphp
+                      @foreach ($dept as $dep)
+                      <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
+                      @endforeach                          
                     </select>                  
                   </div>
                   <div class="col-12">
                     <label for="firstname" class="form-label">Course Name</label>
-                    <input type="text" class="form-control" id="coursename" placeholder="Course Name">                
+                    <input type="text" class="form-control" name="coursename" id="coursename" placeholder="Course Name">                
                   </div>
                 </div>
 
@@ -392,7 +392,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" onclick="SaveCourse()">Save</button>
               </div>
             </div>
           </div>
@@ -450,31 +450,26 @@
                       </div>
                       <div class="modal-body">
                         
-                        <form class="row g-3">
+                        <form class="row g-3" id="addsectionform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
                             <label for="firstname" class="form-label">Department</label>
-                            <select id="inputState" class="form-select">
-                              <option selected> Select Department </option>
-                              <option>College of Engineering</option>
-                              <option>College of Education</option>
-                              <option>College of Engineering</option>    
-                              <option>College of Engineering</option>                    
-                              <option>College of Engineering</option>                                    
+                            <select class="form-select" name="selectdepartment" id="selectdepartment" onchange="GetDeptData()">
+                              <option>Select Department</option>
+                              @foreach ($dept as $dep)
+                      <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
+                      @endforeach                                  
                             </select>                  
                           </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Courses</label>
-                            <select id="inputState" class="form-select">
-                            <option selected> Select Courses </option>
-                            <option>Bachelor of Civil Engineering</option>
-                            <option>Bachelor of Education</option>
-                            <option>Bachelor of Information System</option>                                     
+                            <select class="form-select" name="selectcourse" id="selectcourse">
+                                                        
                           </select>                  
                         </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Section</label>
-                            <input type="text" class="form-control" id="section" placeholder="Section">                
+                            <input type="text" class="form-control" name="section" id="section" placeholder="Section">                
                           </div>
                         </div>
 
@@ -483,7 +478,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="SaveSection()">Save</button>
                       </div>
                     </div>
                   </div>
