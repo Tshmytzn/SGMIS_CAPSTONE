@@ -55,7 +55,6 @@
                   <div class="card-body">
                     <div class="tab-content">
 
-
                   {{-- DEPARTMENTS TAB --}}
                       <div class="tab-pane fade active show" id="departments">
                         {{-- ADD DEPARTMENT --}}
@@ -310,20 +309,19 @@
               </div>
               <div class="modal-body">
                 
-                <form class="row g-3">
+                <form class="row g-3" id="adddepartmentform" method="POST">@csrf
                 <div class="row g-2">
                   <div class="col-12">
                     <label for="firstname" class="form-label">Department Name</label>
-                    <input type="text" class="form-control" id="firstname" placeholder="Department Name">
+                    <input type="text" class="form-control" name="department" id="department" placeholder="Department Name">
                   </div>
                 </div>
-
                 </form>
 
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" onclick="SavaDepartment()">Save</button>
               </div>
             </div>
           </div>
@@ -601,6 +599,6 @@
     
     
 @include('Admin.components.scripts')
-
+@include('Admin.components.functionscript')
   </body>
 </html>
