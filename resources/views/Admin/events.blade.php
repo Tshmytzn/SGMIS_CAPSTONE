@@ -169,22 +169,24 @@
             <h5 class="modal-title">New Event</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <form action="">
           <div class="modal-body">
+
             <div class="mb-3">
               <label class="form-label">Event Name</label>
-              <input type="text" class="form-control" name="example-text-input" placeholder="Event name">
+              <input type="text" class="form-control" name="ev_name" placeholder="Event name">
             </div>
             <div class="mb-3">
             <label class="form-label">Purpose</label>
-            <input type="text" class="form-control" name="example-text-input" placeholder="Event purpose">
+            <input type="text" class="form-control" name="ev_purpose" placeholder="Event purpose">
         </div>
         <div class="mb-3">
             <label class="form-label">Duration</label>
-            <input type="number" class="form-control" name="example-text-input" placeholder="Event duration">
+            <input type="number" class="form-control" disabled id="duration" placeholder="Event duration">
         </div>
         <div class="mb-2">
           <label class="form-label">Event Photo</label>
-          <input type="file" class="form-control" name="example-text-input" placeholder="Choose Event Cover Photo">
+          <input type="file" class="form-control" accept="image/*" name="ev_pic" placeholder="Choose Event Cover Photo">
       </div>
           </div>
           <div class="modal-body">
@@ -192,29 +194,30 @@
               <div class="col-lg-6">
                 <div class="mb-3">
                     <label class="form-label">Event Start Date</label>
-                    <input type="date" class="form-control">
+                    <input type="date" name="ev_start" class="form-control">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="mb-3">
                   
                   <label class="form-label">Event End Date</label>
-                  <input type="date" class="form-control">
+                  <input type="date" name="ev_end" class="form-control">
 
                 </div>
               </div>
               <div class="col-lg-12">
                 <div>
                   <label class="form-label">Additional information</label>
-                  <textarea class="form-control" rows="2"></textarea>
+                  <textarea name="ev_description" class="form-control" rows="2"></textarea>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Save</button>
+            <button type="button"  class="btn btn-primary">Save</button>
           </div>
+        </form>
         </div>
       </div>
     </div>
