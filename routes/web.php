@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeparmentData;
+use App\Http\Controllers\SchoolEvent;
+use App\Http\Controllers\Login;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +29,7 @@ Route::get('/Evaluation', function () { return view('Admin.evaluation'); })->nam
 
 // jpubas route
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
+
+
+//Rheyan Route
+Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');

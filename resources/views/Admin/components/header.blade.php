@@ -13,8 +13,9 @@
     <link href="{{ asset('./dist/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('./dist/css/demo.min.css?1684106062') }}" rel="stylesheet" />
 
-   
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
