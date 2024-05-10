@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('event_start', 20);
             $table->string('event_end', 20);
             $table->string('event_pic', 150);
-            $table->string('event_purpose', 150);
             $table->unsignedBigInteger('admin_id'); 
             $table->foreign('admin_id')->references('admin_id')->on('admin');
             $table->timestamps();
