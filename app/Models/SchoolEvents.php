@@ -18,6 +18,7 @@ class SchoolEvents extends Model
       'event_start',
       'event_end',
       'event_pic',
+      'event_purpose',
       'admin_id',
     ];
 }
