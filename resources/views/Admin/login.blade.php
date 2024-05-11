@@ -2,7 +2,7 @@
 
 <html lang="en">
   
-@include('Admin.components.header', ['title' => 'Settings'])
+@include('Admin.components.header', ['title' => 'Login'])
 
   <body  class=" d-flex flex-column">
     @include('Admin.components.loginloader')

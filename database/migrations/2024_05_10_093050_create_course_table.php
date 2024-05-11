@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('dept_id'); 
             $table->foreign('dept_id')->references('dept_id')->on('department');
             $table->string('course_name');
-            $table->string('course_status');
+            $table->string('course_status')->default('0');
             $table->timestamps();
         });
     }
