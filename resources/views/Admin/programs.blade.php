@@ -58,10 +58,10 @@
                   {{-- DEPARTMENTS TAB --}}
                       <div class="tab-pane fade active show" id="departments">
                         {{-- ADD DEPARTMENT --}}
-                        <div class="container mx-3" style="margin-bottom: -1%;">
+                        <div class="container mx-3 mb-1">
                           <div class="row">
                               <div class="col d-flex justify-content-between mt-2 ">
-                                  <div style="margin-left: -20px;">
+                                  <div style="margin-left: -30px;">
                                     <h3>Carlos Hilado Memorial State of University Departments </h3>
                                   </div>
                                   <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Department</button>
@@ -69,61 +69,19 @@
                           </div>
                       </div>                                       
                         {{-- ADD DEPARTMENT --}}
-                                    <div id="table-default" class="table-responsive">
-                                      <table class="table  mt-4">
-                                        <thead>
-                                          <tr>
-                                            <th><button class="table-sort" data-sort="sort-name">#</button></th>
-                                            <th><button class="table-sort" data-sort="sort-city">Department Name</button></th>
-                                            <th><button class="table-sort" data-sort="sort-name">Actions</button></th>
-
-                                          </tr>
-                                        </thead>
-                                        <tbody class="table-tbody">
-                                          <tr>
-                                            <td class="sort-name">1</td>
-                                            <td class="sort-city">College of Engineering</td>
-                                            <td class="sort-type">
-                                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editdepartment">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                                  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                                  <path d="M16 5l3 3" />
-                                                </svg>
-                                              </button>                                              
-                                              <button class="btn btn-danger" >
-                                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                              </button>
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="sort-name">1</td>
-                                            <td class="sort-city">College of Engineering</td>
-                                            <td class="sort-type">
-                                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editdepartment">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                                  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                                  <path d="M16 5l3 3" />
-                                                </svg>
-                                              </button>                                              
-                                              <button class="btn btn-danger" >
-                                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                              </button>
-                                            </td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
+                            <div id="" class="table-responsive">
+                              <table id="GetDepTable" class="table" style="width:100%">
+                              <thead>
+                                  <tr>
+                                      <th>Name</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>
+                            
+                          </table>
                                     </div>
                                 </div>
                   {{-- DEPARTMENTS TAB --}}
@@ -144,63 +102,19 @@
                           </div>                                       
                           {{-- ADD Course --}}
                               <div id="table-default" class="table-responsive">
-                                <table class="table  mt-4">
-                                  <thead>
-                                    <tr>
-                                      <th><button class="table-sort" data-sort="sort-name">#</button></th>
-                                      <th><button class="table-sort" data-sort="sort-city">Department</button></th>
-                                      <th><button class="table-sort" data-sort="sort-city">Course</button></th>
-                                      <th><button class="table-sort" data-sort="sort-name">Actions</button></th>
-
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-tbody">
-                                    <tr>
-                                      <td class="sort-name">1</td>
-                                      <td class="sort-city">College of Engineering</td>
-                                      <td class="sort-city">Bachelor of Science in Civil Engineering</td>
-                                      <td class="sort-type">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editcourse">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                            <path d="M16 5l3 3" />
-                                          </svg>
-                                        </button>                                              
-                                        <button class="btn btn-danger" >
-                                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                          <path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" />
-                                          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td class="sort-name">1</td>
-                                      <td class="sort-city">College of Engineering</td>
-                                      <td class="sort-city">Bachelor of Science in Civil Engineering</td>
-                                      <td class="sort-type">
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editcourse">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                            <path d="M16 5l3 3" />
-                                          </svg>
-                                        </button>                                              
-                                        <button class="btn btn-danger" >
-                                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                          <path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" />
-                                          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                               <table id="GetCourseTable" class="table" style="width:100%">
+                              <thead>
+                                  <tr>
+                                      <th>Department</th>
+                                       <th>Course</th>
+                                      <th>Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>
+                            
+                          </table>
                               </div>
 
                             </div>
@@ -223,66 +137,20 @@
                             </div>                                       
                             {{-- ADD SECTION --}}
                             <div id="table-default" class="table-responsive">
-                              <table class="table  mt-4">
-                                <thead>
+                             <table id="GetSectionTable" class="table" style="width:100%">
+                              <thead>
                                   <tr>
-                                    <th><button class="table-sort" data-sort="sort-name">#</button></th>
-                                    <th><button class="table-sort" data-sort="sort-city">Department</button></th>
-                                    <th><button class="table-sort" data-sort="sort-city">Course</button></th>
-                                    <th><button class="table-sort" data-sort="sort-city">Sections</button></th>
-                                    <th><button class="table-sort" data-sort="sort-name">Actions</button></th>
-
+                                    <th>Department</th>
+                                    <th>Course</th>
+                                    <th>Sections</th>
+                                    <th>Actions</th>
                                   </tr>
-                                </thead>
-                                <tbody class="table-tbody">
-                                  <tr>
-                                    <td class="sort-name">1</td>
-                                    <td class="sort-city">College of Engineering</td>
-                                    <td class="sort-city">Bachelor of Science in Civil Engineering</td>
-                                    <td class="sort-city">5</td>
-                                    <td class="sort-type">
-                                      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editsection">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                          <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                          <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                          <path d="M16 5l3 3" />
-                                        </svg>
-                                      </button>                                              
-                                      <button class="btn btn-danger" >
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" />
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td class="sort-name">1</td>
-                                    <td class="sort-city">College of Engineering</td>
-                                    <td class="sort-city">Bachelor of Science in Civil Engineering</td>
-                                    <td class="sort-city">5</td>
-                                    <td class="sort-type">
-                                      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editsection">  
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                          <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                          <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                          <path d="M16 5l3 3" />
-                                        </svg>
-                                      </button>                                              
-                                      <button class="btn btn-danger" >
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" />
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>
+                            
+                          </table>
                             </div>
                         </div>
                       </div>
@@ -338,11 +206,12 @@
               </div>
               <div class="modal-body">
                 
-                <form class="row g-3">
+                <form class="row g-3" id="editdeptform" method="POST">@csrf
                 <div class="row g-2">
                   <div class="col-12">
                     <label for="firstname" class="form-label">Department Name</label>
-                    <input type="text" class="form-control" id="firstname" placeholder="Department Name">
+                    <input type="hidden" name="EditDeptId" id="EditDeptId">
+                    <input type="text" class="form-control" id="EditDeptName" name="EditDeptName" placeholder="Department Name">
                   </div>
                 </div>
 
@@ -351,7 +220,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" onclick="EditDeptInfo()">Save</button>
               </div>
             </div>
           </div>
@@ -409,22 +278,23 @@
                       </div>
                       <div class="modal-body">
                         
-                        <form class="row g-3">
+                        <form class="row g-3" id="editcourseform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
                             <label for="firstname" class="form-label">Department</label>
-                            <select id="inputState" class="form-select">
-                              <option selected> Select Department </option>
-                              <option>College of Engineering</option>
-                              <option>College of Education</option>
-                              <option>College of Engineering</option>    
-                              <option>College of Engineering</option>                    
-                              <option>College of Engineering</option>                                    
+                            <input type="hidden" name="editcourseid" id="editcourseid">
+                            <select id="editcoursedept" name="editcoursedept" class="form-select">
+                             @php
+                        $dept = App\Models\Department::all();
+                      @endphp
+                      @foreach ($dept as $dep)
+                      <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
+                      @endforeach                                      
                             </select>                  
                           </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Course Name</label>
-                            <input type="text" class="form-control" id="coursename" placeholder="Course Name">                
+                            <input type="text" class="form-control" id="editcoursename" name="editcoursename" placeholder="Course Name">                
                           </div>
                         </div>
         
@@ -433,7 +303,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="EditCourseInfo()">Save</button>
                       </div>
                     </div>
                   </div>
@@ -469,14 +339,14 @@
                         </div>
                         <div class="col-12">
                           <label for="yearlevel" class="form-label">Year Level</label>
-                          <select id="inputState" class="form-select">
-                          <option selected> Select Year Level </option>
-                          <option>First Year</option>
-                          <option>Second Year</option>
-                          <option>Third Year</option> 
-                          <option>Fourth Year</option>                                     
-                          <option>Fifth Year</option>                                                                         
-                        </select>                  
+                          <select id="selectyear" name="selectyear" class="form-select">
+                          <option>Select Year Level</option>
+                          <option value="First Year">First Year</option>
+                          <option value="Second Year">Second Year</option>
+                          <option value="Third Year">Third Year</option> 
+                          <option value="Fourth Year">Fourth Year</option>                                     
+                          <option value="Fifth Year">Fifth Year</option>                                                                         
+                        </select>                 
                       </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Section</label>
@@ -507,42 +377,37 @@
                       </div>
                       <div class="modal-body">
                         
-                        <form class="row g-3">
+                        <form class="row g-3" id="editsectionform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
                             <label for="firstname" class="form-label">Department</label>
-                            <select id="inputState" class="form-select">
-                              <option selected> Select Department </option>
-                              <option>College of Engineering</option>
-                              <option>College of Education</option>
-                              <option>College of Engineering</option>    
-                              <option>College of Engineering</option>                    
-                              <option>College of Engineering</option>                                    
+                            <input type="hidden" name="editsectionid" id="editsectionid">
+                            <select id="editsectiondept" name="editsectiondept" class="form-select" onchange="GetDeptData2()">
+                            @foreach ($dept as $dep)
+                      <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
+                      @endforeach                                          
                             </select>                  
                           </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Courses</label>
-                            <select id="inputState" class="form-select">
-                            <option selected> Select Courses </option>
-                            <option>Bachelor of Civil Engineering</option>
-                            <option>Bachelor of Education</option>
-                            <option>Bachelor of Information System</option>                                     
+                            <select id="editsectioncourse" name="editsectioncourse" class="form-select">
+                                                              
                           </select>                  
                         </div>
                         <div class="col-12">
                           <label for="yearlevel" class="form-label">Year Level</label>
-                          <select id="inputState" class="form-select">
-                          <option selected> Select Year Level </option>
-                          <option>First Year</option>
-                          <option>Second Year</option>
-                          <option>Third Year</option> 
-                          <option>Fourth Year</option>                                     
-                          <option>Fifth Year</option>                                                                         
+                          <select class="form-select" id="editsectionyear" name="editsectionyear">
+                          <option>Select Year Level</option>
+                          <option value="First Year">First Year</option>
+                          <option value="Second Year">Second Year</option>
+                          <option value="Third Year">Third Year</option> 
+                          <option value="Fourth Year">Fourth Year</option>                                     
+                          <option value="Fifth Year">Fifth Year</option>                                                                         
                         </select>                  
                       </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Section</label>
-                            <input type="text" class="form-control" id="section" placeholder="Section">                
+                            <input type="text" class="form-control" id="editsectionname" name="editsectionname" placeholder="Section">                
                           </div>
                         </div>
 
@@ -551,7 +416,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="EditSectionInfo()">Save</button>
                       </div>
                     </div>
                   </div>
