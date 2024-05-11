@@ -1,45 +1,45 @@
 function AdminLogin(route, dashboard) {
-    document.getElementById("mainLoader").style.display = "flex";
-    const formData = $("form#admin_login").serialize();
+  document.getElementById("mainLoader").style.display = "flex";
+  const formData = $("form#admin_login").serialize();
 
-    $.ajax({
-        type: "POST",
-        url: route,
-        data: formData,
-        success: (r) => {
-           
-            alertify.set('notifier','position', 'bottom-left');
-            if (r.status === "success") {
-                window.location.href = dashboard;
-            }else if(r.status === "incorrect"){
-              document.getElementById("mainLoader").style.display = "none";
-              alertify.error('Incorrect Password').dismissOthers(); 
-            }else{
-              document.getElementById("mainLoader").style.display = "none";
-              alertify.error('Username Not Found').dismissOthers(); 
-            }
-            
-        },
-        error: (xhr) => {
-            console.log(xhr.responseText);
-        },
-    });
+  $.ajax({
+    type: "POST",
+    url: route,
+    data: formData,
+    success: (r) => {
+
+      alertify.set('notifier', 'position', 'bottom-left');
+      if (r.status === "success") {
+        window.location.href = dashboard;
+      } else if (r.status === "incorrect") {
+        document.getElementById("mainLoader").style.display = "none";
+        alertify.error('Incorrect Password').dismissOthers();
+      } else {
+        document.getElementById("mainLoader").style.display = "none";
+        alertify.error('Username Not Found').dismissOthers();
+      }
+
+    },
+    error: (xhr) => {
+      console.log(xhr.responseText);
+    },
+  });
 }
 function getDays(date) {
   var dateStr1 = '';
   var dateStr2 = '';
   if (date.id === 'ev_start') {
-      dateStr1 = date.value;
-      dateStr2 = document.getElementById('ev_end').value;
+    dateStr1 = date.value;
+    dateStr2 = document.getElementById('ev_end').value;
   } else {
-      dateStr1 = document.getElementById('ev_start').value;
-      dateStr2 = date.value;
+    dateStr1 = document.getElementById('ev_start').value;
+    dateStr2 = date.value;
   }
-  
+
   // Check if either date is empty
   if (!dateStr1 || !dateStr2) {
-      console.error('Both dates must be selected.');
-      return; // Exit the function if either date is empty
+    console.error('Both dates must be selected.');
+    return; // Exit the function if either date is empty
   }
 
   const dateArr1 = dateStr1.split('-'); // Assuming input date format is "YYYY-MM-DD"
@@ -50,8 +50,8 @@ function getDays(date) {
 
   // Check if either date is invalid
   if (isNaN(date1) || isNaN(date2)) {
-      console.error('Invalid date format.');
-      return; // Exit the function if either date is invalid
+    console.error('Invalid date format.');
+    return; // Exit the function if either date is invalid
   }
 
   const differenceMs = Math.abs(date1 - date2);
@@ -63,7 +63,7 @@ function getDays(date) {
 }
 
 
-function VerifyFormEvent(route, events, images, deleteEvent){
+function VerifyFormEvent(route, events, images, deleteEvent) {
   const evname = document.getElementById('ev_name');
   const dept = document.getElementById('dept');
   const ev_pic = document.getElementById('ev_pic');
@@ -80,104 +80,105 @@ function VerifyFormEvent(route, events, images, deleteEvent){
 
   let validity = 0;
 
-  if(evname.value === ""){
+  if (evname.value === "") {
     ev_name_e.style.display = '';
     evname.classList.add("border", "border-danger");
-  }else{
+  } else {
     evname.classList.remove("border", "border-danger");
     ev_name_e.style.display = 'none';
     validity++;
   }
 
-  if(dept.value === 'none'){
+  if (dept.value === 'none') {
     dept_e.style.display = '';
     dept.classList.add("border", "border-danger");
-  }else{
+  } else {
     dept.classList.remove("border", "border-danger");
     dept_e.style.display = 'none';
     validity++;
   }
 
-  if(ev_pic.files.length === 0){
+  if (ev_pic.files.length === 0) {
     ev_pic_e.style.display = '';
     ev_pic.classList.add("border", "border-danger");
-  }else{
+  } else {
     ev_pic.classList.remove("border", "border-danger");
     ev_pic_e.style.display = 'none';
     validity++;
   }
 
-  if(ev_start.value === ''){
+  if (ev_start.value === '') {
     ev_start_e.style.display = '';
     ev_start.classList.add("border", "border-danger");
-  }else{
+  } else {
     ev_start.classList.remove("border", "border-danger");
     ev_start_e.style.display = 'none';
     validity++;
   }
 
-  if(ev_end.value === ''){
+  if (ev_end.value === '') {
     ev_end_e.style.display = '';
     ev_end.classList.add("border", "border-danger");
-  }else{
+  } else {
     ev_end.classList.remove("border", "border-danger");
     ev_end_e.style.display = 'none';
     validity++;
   }
 
-  if(ev_description.value === ''){
+  if (ev_description.value === '') {
     ev_description_e.style.display = '';
     ev_description.classList.add("border", "border-danger");
-  }else{
+  } else {
     ev_description.classList.remove("border", "border-danger");
     ev_description_e.style.display = 'none';
     validity++;
   }
 
-  if(validity === 6){
+  if (validity === 6) {
     SaveEvent(route, events, images, deleteEvent);
   }
 }
 
-function SaveEvent(route, events, images, deleteEvent){
+function SaveEvent(route, events, images, deleteEvent) {
   document.getElementById('mainLoader').style.display = 'flex';
   const formData = new FormData($('#add_event')[0]);
 
   $.ajax({
-     type:'POST',
-     url: route,
-     data: formData,
-     contentType:false,
-     processData:false,
-     success: res => {
+    type: 'POST',
+    url: route,
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: res => {
       document.getElementById('mainLoader').style.display = 'none';
-      alertify.set('notifier','position', 'top-center');
-      if(res.status=== 'success'){
+      alertify.set('notifier', 'position', 'top-center');
+      if (res.status === 'success') {
+        
         const queryRoute = events + "?ev_id=" + res.ev_id;
         AddEventsOnList(queryRoute, images, deleteEvent);
-        alertify.success('Event Created').dismissOthers(); 
-      }else{
-        alertify.error('Invalid Image type: Please provide an actual image').dismissOthers(); 
+        alertify.success('Event Created').dismissOthers();
+      } else {
+        alertify.error('Invalid Image type: Please provide an actual image').dismissOthers();
       }
-     },
-     error: xhr => {
+    },
+    error: xhr => {
       console.log(xhr.responseText);
-     }
+    }
   });
 }
 
 
-function LoadEvents(route, imageRoute, deleteEvent){
+function LoadEvents(route, imageRoute, deleteEvent) {
   $.ajax({
     url: route,
     type: "GET",
     dataType: "json",
-    success: function(response) {
+    success: function (response) {
       const eventList = document.getElementById('eventList');
       let html = '';
       eventList.innerHTML = '';
       response.event.forEach(ev => {
-        html += `<div title="${ev.event_name}" style="transform: scale(1); transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
+        html += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4 loadingEvents">
         <div class="card card-sm">
           <a href="#" class="d-block"><img src="${imageRoute}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
@@ -211,24 +212,42 @@ function LoadEvents(route, imageRoute, deleteEvent){
         </div>
       </div>`;
       });
-   eventList.innerHTML = html;
+      eventList.innerHTML = html;
+
+      const loadingEvents = document.querySelectorAll('.loadingEvents');
+      let index = 0; 
+
+      const intervalId = setInterval(() => {
+        const e = loadingEvents[index]; 
+
+        if (index < loadingEvents.length) {
+          e.style.display = '';
+          setTimeout(() => {
+            e.style.transform = "scale(1)";
+          }, 50);
+          index++; 
+        } else {
+          clearInterval(intervalId); 
+        }
+      }, 600);
+
     },
-    error: function(xhr, status, error) {
+    error: function (xhr) {
       console.error(xhr.responseText);
     }
   });
 }
 
-function AddEventsOnList(route, image, deleteEvent){
+function AddEventsOnList(route, image, deleteEvent) {
   const btn = document.getElementById('close-button');
   btn.click();
   const eventList = document.getElementById('eventList');
-  setTimeout(()=>{
+  setTimeout(() => {
     $.ajax({
-       type:"GET",
-       url: route,
-       dataType: "json",
-       success: res => {
+      type: "GET",
+      url: route,
+      dataType: "json",
+      success: res => {
         const ev = res.event;
         eventList.innerHTML += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
         <div class="card card-sm">
@@ -263,55 +282,55 @@ function AddEventsOnList(route, image, deleteEvent){
           </div>
         </div>
       </div>`;
-      const eventName = "dataEvents" + ev.event_id;
-      const eventId =  document.getElementById(eventName);
-      eventId.style.display = '';
-      setTimeout(()=>{
-      eventId.style.transform = "scale(1)";
-      }, 50);
-       },
-       error: xhr =>{
+        const eventName = "dataEvents" + ev.event_id;
+        const eventId = document.getElementById(eventName);
+        eventId.style.display = '';
+        setTimeout(() => {
+          eventId.style.transform = "scale(1)";
+        }, 50);
+      },
+      error: xhr => {
         console.log(xhr.responseText);
-       }
+      }
     });
   }, 400);
 
 }
 
-function DeleteEvent(route, ev_id){
+function DeleteEvent(route, ev_id) {
 
-  alertify.confirm('Confirm Delete', 'Are you sure do you want to delete this event?', 
-  function(){ 
-    document.getElementById('event_id').value = ev_id;
-    var formData = $('form#deleteEvent').serialize();
-    $.ajax({
-      type: "POST",
-      url: route,
-      data: formData,
-      success: res => {
-        if(res.status === 'success'){
-          RemoveEvent(ev_id);
+  alertify.confirm('Confirm Delete', 'Are you sure do you want to delete this event?',
+    function () {
+      document.getElementById('event_id').value = ev_id;
+      var formData = $('form#deleteEvent').serialize();
+      $.ajax({
+        type: "POST",
+        url: route,
+        data: formData,
+        success: res => {
+          if (res.status === 'success') {
+            RemoveEvent(ev_id);
+          }
+
+        }, error: xhr => {
+          console.log(xhr.responseText);
         }
-  
-      }, error: xhr => {
-        console.log(xhr.responseText);
-      }
-    })
-   }
-, function(){ 
-  console.log('close');
-});
+      })
+    }
+    , function () {
+      console.log('close');
+    });
 
 
-  
+
 }
 
-function RemoveEvent(ev_id){
-const ev_name = `dataEvents${ev_id}`;
-const event = document.getElementById(ev_name);
+function RemoveEvent(ev_id) {
+  const ev_name = `dataEvents${ev_id}`;
+  const event = document.getElementById(ev_name);
 
-event.style.transform = "scale(0.01)";
-setTimeout(()=>{
-event.style.display = 'none';
-}, 600);
+  event.style.transform = "scale(0.01)";
+  setTimeout(() => {
+    event.style.display = 'none';
+  }, 600);
 }
