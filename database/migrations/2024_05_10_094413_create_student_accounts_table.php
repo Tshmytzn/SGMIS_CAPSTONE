@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('student_lastname',100);
             $table->string('student_ext',100);
             $table->string('student_pass',50);
-            $table->string('student_pic',150);
+            $table->string('student_pic',150)->nullable();
             $table->timestamps();
         });
     }

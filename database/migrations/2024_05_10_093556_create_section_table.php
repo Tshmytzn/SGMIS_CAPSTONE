@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('course_id')->references('course_id')->on('course');
             $table->string('sect_name');
             $table->string('year_level');
-            $table->string('sect_status');
+            $table->string('sect_status')->default('0');
             $table->timestamps();
         });
     }
