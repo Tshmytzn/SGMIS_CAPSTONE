@@ -8,7 +8,6 @@
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
-
 @include('Admin.components.nav', ['active' => 'Events'])
 
 @include('Admin.components.loading')
@@ -48,86 +47,7 @@
         <!-- Page body -->
         <div class="page-body">
           <div class="container-xl">
-            <div class="row row-cards">
-              <div class="col-sm-6 col-lg-4">
-                <div class="card card-sm">
-                  <a href="#" class="d-block"><img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top"></a>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center">
-                      <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                      <div>
-                        <div>Uweek Celebration</div>
-                        <div class="text-muted">3 days ago</div>
-                      </div>
-                      <div class="ms-auto">
-                        <a href="#" class="text-muted">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                          467
-                        </a>
-                        <a href="#" class="ms-3 text-muted">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                          67
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4">
-                <div class="card card-sm">
-                  <a href="#" class="d-block"><img src="./static/photos/brainstorming-session-with-creative-designers.jpg" class="card-img-top"></a>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center">
-                      <span class="avatar me-3 rounded">JL</span>
-                      <div>
-                        <div>Coming soon</div>
-                        <div class="text-muted">5 days to go</div>
-                      </div>
-                      <div class="ms-auto">
-                        <a href="#" class="text-muted">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                          335
-                        </a>
-                        <a href="#" class="ms-3 text-muted">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                          80
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4">
-                <div class="card card-sm">
-                  <a href="#" class="d-block"><img src="./static/photos/finances-us-dollars-and-bitcoins-currency-money.jpg" class="card-img-top"></a>
-                  <div class="card-body">
-                    <div class="d-flex align-items-center">
-                      <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/002m.jpg)"></span>
-                      <div>
-                        <div>Basketball Women</div>
-                        <div class="text-muted">yesterday</div>
-                      </div>
-                      <div class="ms-auto">
-                        <a href="#" class="text-muted">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                          369
-                        </a>
-                        <a href="#" class="ms-3 text-muted">
-                          <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-filled text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                          32
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+            <div class="row row-cards" id="eventList">
             </div>
             <div class="d-flex" style="margin-top: 1%">
               <ul class="pagination ms-auto">
@@ -228,7 +148,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}')" class="btn btn-primary">Save</button>
+            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}')" class="btn btn-primary">Save</button>
           </div>
         </form>
         </div>
@@ -236,6 +156,10 @@
     </div>
     
 @include('Admin.components.scripts')
-
+<script>
+  window.onload = function(){
+    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}");
+  }
+</script>
   </body>
 </html>

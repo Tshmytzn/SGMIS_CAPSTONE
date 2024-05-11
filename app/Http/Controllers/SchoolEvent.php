@@ -32,6 +32,19 @@ class SchoolEvent extends Controller
         $eventUpdate = SchoolEvents::where('event_id', $event->event_id)->first();
         $eventUpdate->update(['event_pic'=>$picName]);
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['status'=>'success', 'ev_id'=>$event->event_id]);
+    }
+
+    public function GetAllEvents(){
+        $event = SchoolEvents::all();
+
+        return response()->json(['event'=>$event]);
+    }
+
+    public function GetEvent(Request $req){
+        $id = $req->ev_id;
+        $event = SchoolEvents::where('event_id', $id)->first();
+
+        return response()->json(['event'=>$event]);
     }
 }

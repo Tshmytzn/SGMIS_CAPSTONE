@@ -33,7 +33,8 @@ Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluatio
 //Rheyan Route
 Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
 Route::post('Admin/logout',[Login::class,'AdminLogout'] )->name('AdminLogout');
-
+Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
+Route::get('Events/getEvent/',[SchoolEvent::class,'GetEven'] )->name('getEvent');
 Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEvent');
 
 // jpubas route post
