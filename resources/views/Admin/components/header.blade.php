@@ -19,6 +19,10 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/themes/default.min.css" />
+    {{-- DATATABLE --}}
+
+
+
 
     <style>
         @import url('https://rsms.me/inter/inter.css');
