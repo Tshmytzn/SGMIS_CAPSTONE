@@ -177,7 +177,7 @@ function LoadEvents(route, imageRoute, deleteEvent){
       let html = '';
       eventList.innerHTML = '';
       response.event.forEach(ev => {
-        html += `<div style="transform: scale(1); transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
+        html += `<div title="${ev.event_name}" style="transform: scale(1); transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
         <div class="card card-sm">
           <a href="#" class="d-block"><img src="${imageRoute}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
@@ -230,7 +230,7 @@ function AddEventsOnList(route, image, deleteEvent){
        dataType: "json",
        success: res => {
         const ev = res.event;
-        eventList.innerHTML += `<div style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
+        eventList.innerHTML += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
         <div class="card card-sm">
           <a href="#" class="d-block"><img src="${image}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
