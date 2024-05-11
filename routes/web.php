@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeparmentData;
 use App\Http\Controllers\SchoolEvent;
 use App\Http\Controllers\Login;
+use App\Http\Controllers\SessionDetect;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,15 +17,15 @@ use App\Http\Controllers\Login;
 */
 
 
-Route::get('/', function () { return view('Admin.index'); })->name('AdminDashboard');
-Route::get('/Accounts', function () { return view('Admin.accounts'); })->name('Accounts');
-Route::get('/Events', function () { return view('Admin.events'); })->name('Events');
-Route::get('/Documents', function () { return view('Admin.documents'); })->name('Documents');
+Route::get('/', [SessionDetect::class, 'Dashboard'])->name('AdminDashboard');
+Route::get('/Accounts', [SessionDetect::class, 'Accounts'])->name('Accounts');
+Route::get('/Events', [SessionDetect::class, 'Events'])->name('Events');
+Route::get('/Documents', [SessionDetect::class, 'Documents'])->name('Documents');
 Route::get('/blank', function () { return view('Admin.blank'); })->name('Blank');
-Route::get('/Settings', function () { return view('Admin.settings'); })->name('Settings');
+Route::get('/Settings', [SessionDetect::class, 'Settings'])->name('Settings');
 Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
-Route::get('/Programs', function () { return view('Admin.programs'); })->name('Programs');
-Route::get('/Evaluation', function () { return view('Admin.evaluation'); })->name('Evaluation');
+Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
+Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
 
 
 // jpubas route
@@ -32,6 +33,8 @@ Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->na
 
 //Rheyan Route
 Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
+Route::post('Admin/logout',[Login::class,'AdminLogout'] )->name('AdminLogout');
+
 Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEvent');
 
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');
