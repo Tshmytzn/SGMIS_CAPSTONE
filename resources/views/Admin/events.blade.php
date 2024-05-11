@@ -47,6 +47,10 @@
         <!-- Page body -->
         <div class="page-body">
           <div class="container-xl">
+            <form id="deleteEvent" method="POST">
+              @csrf
+              <input type="hidden" name="event_id" id="event_id">
+            </form>
             <div class="row row-cards" id="eventList">
             </div>
             <div class="d-flex" style="margin-top: 1%">
@@ -147,8 +151,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}')" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" id="close-button" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}', '{{ route('deleteEvent') }}')" class="btn btn-primary">Save</button>
           </div>
         </form>
         </div>
@@ -158,7 +162,7 @@
 @include('Admin.components.scripts')
 <script>
   window.onload = function(){
-    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}");
+    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}");
   }
 </script>
   </body>

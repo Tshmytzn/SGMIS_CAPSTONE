@@ -47,4 +47,19 @@ class SchoolEvent extends Controller
 
         return response()->json(['event'=>$event]);
     }
+
+    public function DeleteEvent(Request $req){
+        $event_id = $req->event_id;
+
+        $event = SchoolEvents::where('event_id', $event_id)->first();
+
+        $image= public_path('event_images/'. $event->event_pic);
+        if(file_exists($image)){
+            unlink($image);
+            $event->delete(); 
+            return response()->json(['status'=>'success']);
+        }else{
+            return response()->json(['status'=>'fail']);
+        }
+    }
 }

@@ -63,7 +63,7 @@ function getDays(date) {
 }
 
 
-function VerifyFormEvent(route, events, images){
+function VerifyFormEvent(route, events, images, deleteEvent){
   const evname = document.getElementById('ev_name');
   const dept = document.getElementById('dept');
   const ev_pic = document.getElementById('ev_pic');
@@ -135,11 +135,11 @@ function VerifyFormEvent(route, events, images){
   }
 
   if(validity === 6){
-    SaveEvent(route, events, images);
+    SaveEvent(route, events, images, deleteEvent);
   }
 }
 
-function SaveEvent(route, events, images){
+function SaveEvent(route, events, images, deleteEvent){
   document.getElementById('mainLoader').style.display = 'flex';
   const formData = new FormData($('#add_event')[0]);
 
@@ -154,7 +154,7 @@ function SaveEvent(route, events, images){
       alertify.set('notifier','position', 'top-center');
       if(res.status=== 'success'){
         const queryRoute = events + "?ev_id=" + res.ev_id;
-        AddEventsOnList(queryRoute, images);
+        AddEventsOnList(queryRoute, images, deleteEvent);
         alertify.success('Event Created').dismissOthers(); 
       }else{
         alertify.error('Invalid Image type: Please provide an actual image').dismissOthers(); 
@@ -167,7 +167,7 @@ function SaveEvent(route, events, images){
 }
 
 
-function LoadEvents(route, imageRoute){
+function LoadEvents(route, imageRoute, deleteEvent){
   $.ajax({
     url: route,
     type: "GET",
@@ -177,7 +177,7 @@ function LoadEvents(route, imageRoute){
       let html = '';
       eventList.innerHTML = '';
       response.event.forEach(ev => {
-        html += `<div id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
+        html += `<div style="transform: scale(1); transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
         <div class="card card-sm">
           <a href="#" class="d-block"><img src="${imageRoute}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
@@ -188,16 +188,23 @@ function LoadEvents(route, imageRoute){
                 <div class="text-muted">3 days ago</div>
               </div>
               <div class="ms-auto">
-                <a href="#" class="text-muted">
+                <a href="#" title="View" class="text-muted">
                   <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                  467
+                   
                 </a>
-                <a href="#" class="ms-3 text-muted">
+                <button title="Delete" onclick="DeleteEvent('${deleteEvent}', '${ev.event_id}')" class="ms-3 text-muted border border-0 bg-body">
                   <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                  67
-                </a>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M4 7l16 0" />
+  <path d="M10 11l0 6" />
+  <path d="M14 11l0 6" />
+  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+</svg>
+                
+                </button>
               </div>
             </div>
           </div>
@@ -212,11 +219,9 @@ function LoadEvents(route, imageRoute){
   });
 }
 
-function AddEventsOnList(route, image){
-  var modal = document.getElementById('modal-report');
-  var closeModal = new bootstrap.Modal(modal); 
-
-  closeModal.hide();
+function AddEventsOnList(route, image, deleteEvent){
+  const btn = document.getElementById('close-button');
+  btn.click();
   const eventList = document.getElementById('eventList');
   setTimeout(()=>{
     $.ajax({
@@ -225,7 +230,7 @@ function AddEventsOnList(route, image){
        dataType: "json",
        success: res => {
         const ev = res.event;
-        eventList.innerHTML += `<div style="transform: scale(0.01); display:none; transition:transform 1s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
+        eventList.innerHTML += `<div style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
         <div class="card card-sm">
           <a href="#" class="d-block"><img src="${image}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
@@ -239,25 +244,30 @@ function AddEventsOnList(route, image){
                 <a href="#" class="text-muted">
                   <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                  467
+                
                 </a>
-                <a href="#" class="ms-3 text-muted">
+                <button onclick="DeleteEvent('${deleteEvent}', '${ev.event_id}')" class="ms-3 text-muted border border-0 bg-body">
                   <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                  67
-                </a>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M4 7l16 0" />
+                  <path d="M10 11l0 6" />
+                  <path d="M14 11l0 6" />
+                  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                </svg>
+                
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>`;
-
+      const eventName = "dataEvents" + ev.event_id;
+      const eventId =  document.getElementById(eventName);
+      eventId.style.display = '';
       setTimeout(()=>{
-        const eventName = "dataEvents" + ev.event_id;
-        const eventId =  document.getElementById(eventName);
-        
-        eventId.style.display = '';
-        eventId.style.transform = "scale(1)";
+      eventId.style.transform = "scale(1)";
       }, 50);
        },
        error: xhr =>{
@@ -266,4 +276,42 @@ function AddEventsOnList(route, image){
     });
   }, 400);
 
+}
+
+function DeleteEvent(route, ev_id){
+
+  alertify.confirm('Confirm Delete', 'Are you sure do you want to delete this event?', 
+  function(){ 
+    document.getElementById('event_id').value = ev_id;
+    var formData = $('form#deleteEvent').serialize();
+    $.ajax({
+      type: "POST",
+      url: route,
+      data: formData,
+      success: res => {
+        if(res.status === 'success'){
+          RemoveEvent(ev_id);
+        }
+  
+      }, error: xhr => {
+        console.log(xhr.responseText);
+      }
+    })
+   }
+, function(){ 
+  console.log('close');
+});
+
+
+  
+}
+
+function RemoveEvent(ev_id){
+const ev_name = `dataEvents${ev_id}`;
+const event = document.getElementById(ev_name);
+
+event.style.transform = "scale(0.01)";
+setTimeout(()=>{
+event.style.display = 'none';
+}, 600);
 }
