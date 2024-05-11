@@ -467,6 +467,17 @@
                                                         
                           </select>                  
                         </div>
+                        <div class="col-12">
+                          <label for="yearlevel" class="form-label">Year Level</label>
+                          <select id="inputState" class="form-select">
+                          <option selected> Select Year Level </option>
+                          <option>First Year</option>
+                          <option>Second Year</option>
+                          <option>Third Year</option> 
+                          <option>Fourth Year</option>                                     
+                          <option>Fifth Year</option>                                                                         
+                        </select>                  
+                      </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Section</label>
                             <input type="text" class="form-control" name="section" id="section" placeholder="Section">                
@@ -485,55 +496,6 @@
                 </div>
                 {{-- Add Section Modal --}}
 
-                    {{-- Add Section Modal --}}
-                <div class="modal modal-blur fade" id="addsection" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Add Section</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        
-                        <form class="row g-3">
-                        <div class="row g-2">
-                          <div class="col-12">
-                            <label for="firstname" class="form-label">Department</label>
-                            <select id="inputState" class="form-select">
-                              <option selected> Select Department </option>
-                              <option>College of Engineering</option>
-                              <option>College of Education</option>
-                              <option>College of Engineering</option>    
-                              <option>College of Engineering</option>                    
-                              <option>College of Engineering</option>                                    
-                            </select>                  
-                          </div>
-                          <div class="col-12">
-                            <label for="firstname" class="form-label">Courses</label>
-                            <select id="inputState" class="form-select">
-                            <option selected> Select Courses </option>
-                            <option>Bachelor of Civil Engineering</option>
-                            <option>Bachelor of Education</option>
-                            <option>Bachelor of Information System</option>                                     
-                          </select>                  
-                        </div>
-                          <div class="col-12">
-                            <label for="firstname" class="form-label">Section</label>
-                            <input type="text" class="form-control" id="section" placeholder="Section">                
-                          </div>
-                        </div>
-
-                        </form>
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Save</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {{-- Add Section Modal --}}
                 
                 {{-- EDIT Section Modal --}}
                 <div class="modal modal-blur fade" id="editsection" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -567,6 +529,17 @@
                             <option>Bachelor of Information System</option>                                     
                           </select>                  
                         </div>
+                        <div class="col-12">
+                          <label for="yearlevel" class="form-label">Year Level</label>
+                          <select id="inputState" class="form-select">
+                          <option selected> Select Year Level </option>
+                          <option>First Year</option>
+                          <option>Second Year</option>
+                          <option>Third Year</option> 
+                          <option>Fourth Year</option>                                     
+                          <option>Fifth Year</option>                                                                         
+                        </select>                  
+                      </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Section</label>
                             <input type="text" class="form-control" id="section" placeholder="Section">                
