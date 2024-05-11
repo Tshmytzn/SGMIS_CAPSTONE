@@ -145,112 +145,34 @@
                         <div class="dropdown-menu-column">
 
                             <div class="dropend">
-                                <a class="dropdown-item dropdown-toggle" href="{{route('Accounts')}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                                  <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                                  College of Education
-                                </a>
-
-                                <div class="dropdown-menu">
-                                <a href="{{route('Accounts')}}" class="dropdown-item">
-                                        Bachelor of Physical Education
-                                  </a>
-                                  <a href="{{route('Accounts')}}" class="dropdown-item">
-                                    Bachelor of Elementary Education
-                                  </a>
-                                  <a href="{{route('Accounts')}}" class="dropdown-item">
-                                    Bachelor of Special Needs Education
-                                  </a>
-                                  <a href="{{route('Accounts')}}" class="dropdown-item">
-                                    Bachelor of Early Childhood Education
-                                  </a>
-                                  <a href="{{route('Accounts')}}" class="dropdown-item">
-                                    Bachelor of Technology and Livelihood Education
-                                  </a>
-                                  <a href="{{route('Accounts')}}" class="dropdown-item">
-                                    Bachelor of Science in Education (Math & Science)
-                                  </a>
-                                  <a href="{{route('Accounts')}}" class="dropdown-item">
-                                    Bachelor of Science in Education (English & Filipino)
-                                  </a>
-                                </div>
-                              </div>
-
-                            <div class="dropend">
-                                <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                                  <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                                  College of Engineering
-                                </a>
-                                <div class="dropdown-menu">
-                                  <a href="./error-404.html" class="dropdown-item">
-                                    Bachelor of Science in Civil Engineering
-                                  </a>
-                                 
-                                </div>
-                              </div>
-
-                          <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#sidebar-authentication" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                              @php
+                                  $department = App\Models\Department::all();
+                              @endphp
+                              @foreach ($department as $dept)
+                              <a class="dropdown-item dropdown-toggle" href="{{route('Accounts')}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                                <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                                College of Arts & Sciences
-                            </a>
+                               {{$dept->dept_name}}
+                              </a>
 
-                            <div class="dropdown-menu">
-                              <a href="./sign-in-link.html" class="dropdown-item">
-                                Bachelor of Arts in Social Science
-                              </a>
-                              <a href="./sign-in-illustration.html" class="dropdown-item">
-                                Bachelor of Science in Psychology
-                              </a>
-                              <a href="./sign-in.html" class="dropdown-item">
-                                Bachelor of Arts in English Language
-                              </a>
-                            </div>
+                              <div class="dropdown-menu">
+                                @php
+                                $course = App\Models\Course::where('dept_id', $dept->dept_id)->get();
+                            @endphp
+                            @foreach ($course as $cour)
+                            <a href="{{route('Accounts')}}?course_id={{$cour->course_id}}" class="dropdown-item">
+                             {{$cour->course_name}}
+                        </a>
+                            @endforeach
                             
-                        </div>
+                               
+                              </div>
+                              @endforeach
+                               
 
-                          <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                              <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                              College of Computer Studies 
-                            </a>
-                            <div class="dropdown-menu">
-                              <a href="./error-404.html" class="dropdown-item">
-                                Bachelor of Science in Information Systems
-                              </a>
-                             
-                            </div>
-                          </div>
+                           
+                              </div>
 
-                          <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                              <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                              College of Industrial Technology
-                            </a>
-                            <div class="dropdown-menu">
-                              <a href="./error-404.html" class="dropdown-item">
-                                Bachelor of Science in Industrial Technology
-                              </a>
-                             
-                            </div>
-                          </div>
-                          
-                          <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                              <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                              College of Business Management & Accountancy &nbsp;
-                            </a>
-                            <div class="dropdown-menu">
-                              <a href="./error-404.html" class="dropdown-item">
-                                Bachelor of Science in Hospitality Management
-                              </a>
-                            </div>
-                          </div>
-  
                         </div>
                       </div>
                     </div>
