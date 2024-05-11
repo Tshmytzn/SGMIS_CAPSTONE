@@ -27,13 +27,14 @@ Route::get('/Programs', function () { return view('Admin.programs'); })->name('P
 Route::get('/Evaluation', function () { return view('Admin.evaluation'); })->name('Evaluation');
 
 
-// jpubas route
-Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
+
 
 //Rheyan Route
 Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
 Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEvent');
 
+// jpubas route post
+Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');
 Route::post('Admin/SaveSection',[DeparmentData::class,'SaveSection'] )->name('SaveSection');
 // jpubas route get
