@@ -64,7 +64,7 @@
                     
                     <div class="dropdown-menu-column">
                       @php
-                      $sections = App\Models\Section::all();
+                      $sections = App\Models\Section::where('course_id',$courseId)->get();
                   @endphp
                         <div class="dropend">
                             <a class="dropdown-item dropdown-toggle" href="{{route('Accounts')}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
