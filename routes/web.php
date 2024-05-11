@@ -26,7 +26,7 @@ Route::get('/Settings', [SessionDetect::class, 'Settings'])->name('Settings');
 Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
 Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
 Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
-
+Route::get('/Eventdetails', function () { return view('Admin.eventdetails'); })->name('EventDetails');
 
 
 
