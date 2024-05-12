@@ -36,29 +36,28 @@ function getDays(date) {
     dateStr2 = date.value;
   }
 
-  // Check if either date is empty
   if (!dateStr1 || !dateStr2) {
     console.error('Both dates must be selected.');
-    return; // Exit the function if either date is empty
+    return; 
   }
 
-  const dateArr1 = dateStr1.split('-'); // Assuming input date format is "YYYY-MM-DD"
+  const dateArr1 = dateStr1.split('-');
   const dateArr2 = dateStr2.split('-');
 
-  const date1 = new Date(dateArr1[0], dateArr1[1] - 1, dateArr1[2]); // Month is 0-indexed
+  const date1 = new Date(dateArr1[0], dateArr1[1] - 1, dateArr1[2]); 
   const date2 = new Date(dateArr2[0], dateArr2[1] - 1, dateArr2[2]);
 
-  // Check if either date is invalid
+
   if (isNaN(date1) || isNaN(date2)) {
     console.error('Invalid date format.');
-    return; // Exit the function if either date is invalid
+    return; 
   }
 
   const differenceMs = Math.abs(date1 - date2);
 
   const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
 
-  // Check if the duration input expects a string value
+
   document.getElementById('duration').value = differenceDays.toString() + ' Days Event';
 }
 
@@ -174,7 +173,8 @@ function LoadEvents(route, imageRoute, deleteEvent) {
     type: "GET",
     dataType: "json",
     success: function (response) {
-      const eventList = document.getElementById('eventList');
+      if(response.event.length > 0){
+        const eventList = document.getElementById('eventList');
       let html = '';
       eventList.innerHTML = '';
       response.event.forEach(ev => {
@@ -231,6 +231,7 @@ function LoadEvents(route, imageRoute, deleteEvent) {
         }
       }, 600);
 
+      }
     },
     error: function (xhr) {
       console.error(xhr.responseText);
@@ -248,6 +249,10 @@ function AddEventsOnList(route, image, deleteEvent) {
       url: route,
       dataType: "json",
       success: res => {
+        const empty = document.getElementById('empty');
+        if(empty){
+          empty.remove();
+        }
         const ev = res.event;
         eventList.innerHTML += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
         <div class="card card-sm">

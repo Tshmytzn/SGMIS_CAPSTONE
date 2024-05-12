@@ -51,3 +51,10 @@ Route::get('/admin/GetCourseData', [DeparmentData::class,"GetCourseData"])->name
 Route::get('/admin/GetSectionData', [DeparmentData::class,"GetSectionData"])->name('GetSectionData');
 
 
+
+//fallback Route to display error if user entered invalid route
+Route::fallback(function () {
+    return view('error');
+});
+
+
