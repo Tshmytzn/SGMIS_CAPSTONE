@@ -167,8 +167,6 @@ function clearFormInputs(formId) {
     function reloadElementById(elementId) {
     var element = document.getElementById(elementId);
     if (element) {
-        // Perform AJAX request to reload the content of the element
-        // For example, you can use jQuery's load() method
         $(element).load(window.location.href + ' #' + elementId);
     }
 }
