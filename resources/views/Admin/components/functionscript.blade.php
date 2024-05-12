@@ -87,7 +87,6 @@ function clearFormInputs(formId) {
     function GetStudentData(id){
          if (typeof id === 'undefined') {
            const courseId = document.getElementById('AutoCourse').value;
-           console.log(courseId);
             $('#GetStudentTable').DataTable({
             destroy: true,
             ajax: {
@@ -165,6 +164,14 @@ function clearFormInputs(formId) {
         document.getElementById('EditDeptId').value = id;
         document.getElementById('EditDeptName').value = name;
     }
+    function reloadElementById(elementId) {
+    var element = document.getElementById(elementId);
+    if (element) {
+        // Perform AJAX request to reload the content of the element
+        // For example, you can use jQuery's load() method
+        $(element).load(window.location.href + ' #' + elementId);
+    }
+}
 
     function EditDeptInfo() {
         var formData = $("form#editdeptform").serialize();
@@ -182,7 +189,10 @@ function clearFormInputs(formId) {
                             GetSectionData();
                             clearFormInputs('editdeptform');
                             closeModal();
-                         
+                            reloadElementById('addcourseform');
+                            reloadElementById('editcourseform');
+                            reloadElementById('addsectionform');
+                            reloadElementById('editsectionform');
                         });
                 } else if (response.status == 'exist') {
                     alertify
@@ -249,6 +259,10 @@ function clearFormInputs(formId) {
                             GetSectionData();
                             clearFormInputs('editcourseform');
                             closeModal();
+                            reloadElementById('addcourseform');
+                            reloadElementById('editcourseform');
+                            reloadElementById('addsectionform');
+                            reloadElementById('editsectionform');
                               
                         });
                 } else if (response.status == 'exist') {
@@ -356,6 +370,10 @@ function EditSectionInfo(){
                             GetSectionData();
                             clearFormInputs('editsectionform');
                             closeModal();
+                            reloadElementById('addcourseform');
+                            reloadElementById('editcourseform');
+                            reloadElementById('addsectionform');
+                            reloadElementById('editsectionform');
                           
                         });
                 } else if (response.status == 'exist') {
@@ -392,6 +410,10 @@ function EditSectionInfo(){
                             GetSectionData();
                             clearFormInputs('adddepartmentform');
                             closeModal();
+                            reloadElementById('addcourseform');
+                            reloadElementById('editcourseform');
+                            reloadElementById('addsectionform');
+                            reloadElementById('editsectionform');
                            
                         });
                 } else if (response.status == 'exist') {
@@ -428,6 +450,10 @@ function EditSectionInfo(){
                             GetSectionData();
                             clearFormInputs('addcourseform');
                             closeModal();
+                            reloadElementById('addcourseform');
+                            reloadElementById('editcourseform');
+                            reloadElementById('addsectionform');
+                            reloadElementById('editsectionform');
                         
                         });
                 } else if (response.status == 'exist') {
@@ -483,6 +509,10 @@ function EditSectionInfo(){
                             GetSectionData();
                             clearFormInputs('addsectionform');
                             closeModal();
+                            reloadElementById('addcourseform');
+                            reloadElementById('editcourseform');
+                            reloadElementById('addsectionform');
+                            reloadElementById('editsectionform');
                              
                         });
                 } else if (response.status == 'exist') {

@@ -241,7 +241,7 @@
                 <div class="row g-2">
                   <div class="col-12">
                     <label for="firstname" class="form-label">Department</label>
-                    <select id="inputState" class="form-select" name="selectedDept">
+                    <select class="form-select" name="selectedDept" id="selectedDept">
                       @php
                         $dept = App\Models\Department::all();
                       @endphp

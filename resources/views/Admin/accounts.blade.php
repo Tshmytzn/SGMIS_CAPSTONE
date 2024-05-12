@@ -196,7 +196,7 @@
                   <hr class="my-4 ">
                 <div class="row g-2">
                   <div class="col-6">
-                    <input type="text" name="AddStudentSectId" id="AddStudentSectId">
+                    <input type="hidden" name="AddStudentSectId" id="AddStudentSectId">
                     <label for="firstname" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
                   </div>
