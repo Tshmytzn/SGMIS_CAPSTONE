@@ -67,7 +67,7 @@
                       $sections = App\Models\Section::where('course_id',$courseId)->get();
                   @endphp
                         <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="{{route('Accounts')}}" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                            <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                               <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
                               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
                               First Year
@@ -75,14 +75,14 @@
                             <div class="dropdown-menu">
                          @foreach ($sections as $section)
                              @if ($section->year_level == 'First Year')
-                             <a href="#" class="dropdown-item">{{$section->sect_name}}</a>
-                             @endif
+                             <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
+                            @endif
                          @endforeach
                             </div>
                           </div>
 
                         <div class="dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                            <a class="dropdown-item dropdown-toggle"  data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                               <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
                               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
                               Second Year
@@ -90,14 +90,14 @@
                             <div class="dropdown-menu">
                               @foreach ($sections as $section)
                               @if ($section->year_level == 'Second Year')
-                              <a href="#" class="dropdown-item">{{$section->sect_name}}</a>
-                              @endif
+                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
+                            @endif
                           @endforeach
                               </div>
                           </div>
 
                       <div class="dropend">
-                        <a class="dropdown-item dropdown-toggle" href="#sidebar-authentication" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                        <a class="dropdown-item dropdown-toggle"  data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
                             Third Year
                         </a>
@@ -105,7 +105,7 @@
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
                              @if ($section->year_level == 'Third Year')
-                             <a href="#" class="dropdown-item">{{$section->sect_name}}</a>
+                             <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
                           </div>
@@ -113,7 +113,7 @@
                     </div>
 
                       <div class="dropend">
-                        <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                        <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                           <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
                           Fourth Year
@@ -121,14 +121,14 @@
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
                              @if ($section->year_level == 'Fourth Year')
-                             <a href="#" class="dropdown-item">{{$section->sect_name}}</a>
+                             <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
                           </div>
                       </div>
 
                       <div class="dropend">
-                        <a class="dropdown-item dropdown-toggle" href="#sidebar-error" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+                        <a class="dropdown-item dropdown-toggle"  data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                           <!-- Download SVG icon from http://tabler-icons.io/i/file-minus -->
                           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
                           Fifth Year
@@ -136,7 +136,7 @@
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
                              @if ($section->year_level == 'Fifth Year')
-                             <a href="#" class="dropdown-item">{{$section->sect_name}}</a>
+                             <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
                           </div>
@@ -147,18 +147,19 @@
                 </div>
               </li>
             </div>
+            <input type="hidden" name="selectSectId" id="selectSectId">
             <div class="col-auto text-end">
-              <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#createstudentacc"> Create Student Account</button>
+              <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#createstudentacc" onclick="AddStudentModal()"> Create Student Account</button>
             </div>
        
           </div>
           
         </div>
         {{-- Dropdown Year Level and Create Account --}}
-
+              <input type="hidden" name="AutoCourse" id="AutoCourse" value="{{ $courseId}}">
               <div class="card-body gy-5">
               <div id="table-default" class="table-responsive">
-                <table class="table">
+                <table class="table" id="GetStudentTable">
                   <thead>
                     <tr>
                       <th><button class="table-sort" data-sort="sort-name">Student ID</button></th>
@@ -169,27 +170,7 @@
                     </tr>
                   </thead>
                   <tbody class="table-tbody">
-                    <tr>
-                      <td class="sort-name">20273463</td>
-                      <td class="sort-city">Marianne</td>
-                      <td class="sort-type">Reyn</td>
-                      <td class="sort-score">Madrona</td>
-                      <td class="sort-date" data-date="1628071164">A</td>
-                    </tr>
-                    <tr>
-                      <td class="sort-name">20275643</td>
-                      <td class="sort-city">Ghiza</td>
-                      <td class="sort-type">Ann</td>
-                      <td class="sort-score">Dojoles</td>
-                      <td class="sort-date" data-date="1628071164">B</td>
-                    </tr>
-                    <tr>
-                      <td class="sort-name">20279874</td>
-                      <td class="sort-city">Perlyn</td>
-                      <td class="sort-type">Marie</td>
-                      <td class="sort-score">Buenafe</td>
-                      <td class="sort-date" data-date="1628071164">C</td>
-                    </tr>
+                  
                   </tbody>
                 </table>
               </div>
@@ -210,27 +191,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                
-                <form class="row g-3">
+                <form class="row g-3" method="POST" id="SaveStudentForm">@csrf
+                  <h5 class="modal-title" id="ModalTitle"></h5>
+                  <hr class="my-4 ">
                 <div class="row g-2">
                   <div class="col-6">
+                    <input type="text" name="AddStudentSectId" id="AddStudentSectId">
                     <label for="firstname" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstname" placeholder="First Name">
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
                   </div>
                   <div class="col-6">
                     <label for="middlename" class="form-label">Middle Name</label>
-                    <input type="text" class="form-control" id="middlename" placeholder="Middle Name">
+                    <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Middle Name">
                   </div>
                 </div>
-
                 <div class="row g-2">
                 <div class="col-6">
                   <label for="lastname" class="form-label">Last Name</label>
-                  <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                  <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
                 </div>
                 <div class="col-6">
                   <label for="lastname" class="form-label">Ext</label>
-                  <select id="inputState" class="form-select">
+                  <select id="inputState" class="form-select" name="ext">
                     <option selected> None </option>
                     <option>I (First)</option>
                     <option>II (Second)</option>
@@ -248,13 +230,13 @@
                     <option>Senior</option>                                   
                   </select>                </div>
                 </div>
-                <hr class="my-4 ">
+                <hr class="my-4">
                 <div class="row g-2">
-                  <div class="col-md-4">
+                  <div class="col-md-12">
                     <label for="studentid" class="form-label">Student ID</label>
-                    <input type="number" class="form-control" id="studentid" placeholder="Student ID">
+                    <input type="number" class="form-control" id="studentid" name="studentid" placeholder="Student ID">
                   </div>
-                  <div class="col-md-4">
+                  {{-- <div class="col-md-4">
                     <label for="inputState" class="form-label">Year Level</label>
                     <select id="inputState" class="form-select">
                       <option selected> Year Level</option>
@@ -274,13 +256,13 @@
                       <option>C</option>
                       <option>D</option>
                     </select>
-                  </div>
+                  </div> --}}
                 </div>
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" onclick="SaveStudent()">Save</button>
               </div>
             </div>
           </div>
@@ -295,6 +277,7 @@
     </div>
 
 @include('Admin.components.scripts')
+@include('Admin.components.functionscript')
 
   </body>
 </html>

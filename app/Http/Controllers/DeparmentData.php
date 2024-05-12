@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Course;
 use App\Models\Section;
+use App\Models\StudentAccounts;
+use Illuminate\Support\Facades\Hash;
 class DeparmentData extends Controller
 {
     public function SaveDepartment(Request $request)
@@ -56,7 +58,7 @@ class DeparmentData extends Controller
        if ($request->selectdepartment== ''||$request->selectcourse=='' || $request->section=='') {
            return response()->json(['status' => 'empty']);
        } else {
-           $check = Section::where('sect_name', $request->section)->where('course_id', $request->selectcourse)->first();
+           $check = Section::where('sect_name', $request->section)->where('course_id', $request->selectcourse)->where('year_level', $request->selectyear)->first();
            if ($check) {
                return response()->json(['status' => 'exist']);
            } else {
@@ -132,5 +134,41 @@ $check = Section::join('course', 'section.course_id', '=', 'course.course_id')
     ]);
      return response()->json(['status' => 'success']);
     }
+   }
+   public function SaveStudent(Request $request){
+    $check = StudentAccounts::where('school_id', $request->studentid)->first();  
+    if($check){
+        return response()->json(['status' => 'exist']);
+    }else if($request->studentid == ''|| $request->firstname == ''|| $request->middlename == ''|| $request->lastname== ''){
+        return response()->json(['status' => 'empty']);
+    }else{
+        $pass = Hash::make($request->firstname.'123');
+        $data = new StudentAccounts;
+        $data->school_id = $request->studentid;
+        $data->sect_id = $request->AddStudentSectId;
+        $data->student_firstname = $request->firstname;
+        $data->student_middlename = $request->middlename;
+        $data->student_lastname = $request->lastname;
+        $data->student_ext = $request->ext;
+        $data->student_pass = $pass;
+        $data->save();
+        return response()->json(['status' => 'success']);
+    }
+   }
+   public function GetStudentData(Request $request){
+    if($request->sect_id){
+        $students = StudentAccounts::join('section','student_accounts.sect_id','=','section.sect_id')
+        ->select('student_accounts.*','section.sect_name','section.year_level')
+        ->where('student_accounts.sect_id',$request->sect_id)
+        ->get();
+    }else{
+        $students = StudentAccounts::join('section','student_accounts.sect_id','=','section.sect_id')
+    ->select('student_accounts.*','section.sect_name','section.year_level')
+    ->where('section.course_id',$request->course_id)
+    ->get();
+    }
+    
+
+    return response()->json(['data' => $students]);
    }
 }

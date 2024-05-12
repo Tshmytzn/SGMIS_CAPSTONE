@@ -4,8 +4,142 @@
         GetDepartmentData();
         GetCourseData();
         GetSectionData();
+        GetStudentData()
     });
-
+    function selectSect(id, name, year) {
+    document.getElementById('selectSectId').value = id + ',' + name + ',' + year;
+    GetStudentData(id);
+}
+function closeModal() {
+  var modalElements = document.getElementsByClassName('modal');
+  for (var i = 0; i < modalElements.length; i++) {
+    if (modalElements[i].classList.contains('show')) {
+      var closeButton = modalElements[i].querySelector('[data-bs-dismiss="modal"]');
+      if (closeButton) {
+        closeButton.click();
+      }
+    }
+  }
+}
+function clearFormInputs(formId) {
+    var form = document.getElementById(formId);
+    var inputs = form.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+        // Check if the input type is not 'hidden' and its name is not '_token'
+        if (inputs[i].type !== 'hidden' && inputs[i].name !== '_token') {
+            inputs[i].value = '';
+        }
+    }
+    var textareas = form.getElementsByTagName('textarea');
+    for (var i = 0; i < textareas.length; i++) {
+        textareas[i].value = '';
+    }
+ 
+}
+    function AddStudentModal(id){
+        const sectId = document.getElementById('selectSectId').value
+        const sectIdArray = sectId.split(',');
+        if(sectId !== ''){
+            document.getElementById('ModalTitle').textContent=sectIdArray[2]+' '+sectIdArray[1];
+            document.getElementById('AddStudentSectId').value=sectIdArray[0];
+        }else{
+            alertify
+  .alert("Warning","Please Select Year And Section First!", function(){
+    alertify.message('OK');
+    closeModal();
+   
+  });
+        }
+    }
+    function SaveStudent(){
+        var formData = $("form#SaveStudentForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('SaveStudent') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    alertify
+                        .alert("Message", "Student Successfully Save", function() {
+                            alertify.message('OK');
+                            clearFormInputs('SaveStudentForm');
+                            GetStudentData();
+                            closeModal();
+   
+                        });
+                } else if (response.status == 'exist') {
+                    alertify
+                        .alert("Alert", "Student Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    alertify
+                        .alert("Warning", "Enter Student Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    function GetStudentData(id){
+         if (typeof id === 'undefined') {
+           const courseId = document.getElementById('AutoCourse').value;
+           console.log(courseId);
+            $('#GetStudentTable').DataTable({
+            destroy: true,
+            ajax: {
+                url: '{{ route('GetStudentData') }}?course_id='+courseId,
+                type: 'GET'
+            },
+            columns: [
+                {
+                    data: 'school_id'
+                },
+                {
+                    data: 'student_firstname'
+                },
+                {
+                    data: 'student_middlename'
+                },
+                {
+                    data: 'student_lastname'
+                },
+                {
+                    data: 'year_level'
+                },
+            ]
+        });
+    } else {
+        $('#GetStudentTable').DataTable({
+            destroy: true,
+            ajax: {
+                url: '{{ route('GetStudentData') }}?sect_id='+id,
+                type: 'GET'
+            },
+            columns: [
+                {
+                    data: 'school_id'
+                },
+                {
+                    data: 'student_firstname'
+                },
+                {
+                    data: 'student_middlename'
+                },
+                {
+                    data: 'student_lastname'
+                },
+                {
+                    data: 'year_level'
+                },
+            ]
+        });
+    }
+       
+    }
     function GetDepartmentData() {
         $('#GetDepTable').DataTable({
             destroy: true,
@@ -46,6 +180,8 @@
                             alertify.message('OK');
                             GetCourseData();
                             GetSectionData();
+                            clearFormInputs('editdeptform');
+                            closeModal();
                          
                         });
                 } else if (response.status == 'exist') {
@@ -111,6 +247,8 @@
                             alertify.message('OK');
                             GetCourseData();
                             GetSectionData();
+                            clearFormInputs('editcourseform');
+                            closeModal();
                               
                         });
                 } else if (response.status == 'exist') {
@@ -160,26 +298,28 @@
     }
 
     function editsectiondata(secid, courseid, deptid, year, sectname) {
-        document.getElementById('editsectionid').value = secid;
-        document.getElementById('editsectiondept').value = deptid;
-        $.ajax({
-            type: "GET",
-            url: "{{ route('GetDeptData') }}?dept_id=" + deptid,
-            success: function(response) {
-                $('#selectcourse').empty();
-                response.data.forEach(function(course) {
-                    $('#editsectioncourse').append('<option value="' + course.course_id + '">' +
-                        course
-                        .course_name + '</option>');
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-        document.getElementById('editsectionyear').value = year;
-        document.getElementById('editsectionname').value = sectname;
-    }
+    document.getElementById('editsectionid').value = secid;
+    document.getElementById('editsectiondept').value = deptid;
+ 
+    $.ajax({
+        type: "GET",
+        url: "{{ route('GetDeptData') }}?dept_id=" + deptid,
+        success: function(response) {
+            $('#editsectioncourse').empty();
+            response.data.forEach(function(course) {
+                $('#editsectioncourse').append('<option value="' + course.course_id + '">' +
+                    course.course_name + '</option>');
+            });
+            $('#editsectioncourse').val(courseid);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+    document.getElementById('editsectionyear').value = year;
+    document.getElementById('editsectionname').value = sectname;
+}
+
 
     function GetDeptData2() {
         const dept = document.getElementById('editsectiondept').value;
@@ -214,6 +354,8 @@ function EditSectionInfo(){
                             alertify.message('OK');
                             GetCourseData();
                             GetSectionData();
+                            clearFormInputs('editsectionform');
+                            closeModal();
                           
                         });
                 } else if (response.status == 'exist') {
@@ -248,6 +390,8 @@ function EditSectionInfo(){
                             alertify.message('OK');
                             GetCourseData();
                             GetSectionData();
+                            clearFormInputs('adddepartmentform');
+                            closeModal();
                            
                         });
                 } else if (response.status == 'exist') {
@@ -282,6 +426,8 @@ function EditSectionInfo(){
                             alertify.message('OK');
                             GetCourseData();
                             GetSectionData();
+                            clearFormInputs('addcourseform');
+                            closeModal();
                         
                         });
                 } else if (response.status == 'exist') {
@@ -335,6 +481,8 @@ function EditSectionInfo(){
                             alertify.message('OK');
                             GetCourseData();
                             GetSectionData();
+                            clearFormInputs('addsectionform');
+                            closeModal();
                              
                         });
                 } else if (response.status == 'exist') {

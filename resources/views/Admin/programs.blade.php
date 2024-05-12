@@ -77,7 +77,7 @@
                                       <th>Action</th>
                                   </tr>
                               </thead>
-                              <tbody>
+                              <tbody class="table-tbody">
                                 
                               </tbody>
                             
@@ -110,7 +110,7 @@
                                       <th>Action</th>
                                   </tr>
                               </thead>
-                              <tbody>
+                              <tbody class="table-tbody">
                                 
                               </tbody>
                             
@@ -146,7 +146,7 @@
                                     <th>Actions</th>
                                   </tr>
                               </thead>
-                              <tbody>
+                              <tbody class="table-tbody">
                                 
                               </tbody>
                             
