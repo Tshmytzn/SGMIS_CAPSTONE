@@ -171,4 +171,35 @@ $check = Section::join('course', 'section.course_id', '=', 'course.course_id')
 
     return response()->json(['data' => $students]);
    }
+   public function EditStudent(Request $request){
+    $check = StudentAccounts::where('school_id',!$request->editstudentschoolid)->first();  
+    if($check){
+        return response()->json(['status' => 'exist']);
+    }else if($request->editstudentschoolid == ''|| $request->editfirstname == ''|| $request->editmiddlename == ''|| $request->editlastname== ''){
+        return response()->json(['status' => 'empty']);
+    }else{
+         $update = StudentAccounts::where('student_id', $request->EditStudentID)->first();
+         if($request->editstudentpass){
+        $update->update([
+        'school_id' => $request->editstudentschoolid,
+        'student_firstname' => $request->editfirstname,
+        'student_middlename' => $request->editmiddlename,
+        'student_lastname' => $request->editlastname,
+        'student_ext' => $request->editext,
+        'student_pass' => Hash::make($request->editstudentpass),
+         ]);
+        return response()->json(['status' => 'success']);
+         }
+         else{
+        $update->update([
+        'school_id' => $request->editstudentschoolid,
+        'student_firstname' => $request->editfirstname,
+        'student_middlename' => $request->editmiddlename,
+        'student_lastname' => $request->editlastname,
+        'student_ext' => $request->editext,
+         ]);
+        return response()->json(['status' => 'success']);
+         }
+    }
+   }
 }

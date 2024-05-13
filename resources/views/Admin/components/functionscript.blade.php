@@ -86,6 +86,7 @@ function clearFormInputs(formId) {
     }
     function GetStudentData(id){
          if (typeof id === 'undefined') {
+            document.getElementById('yearTitle').textContent='All Year Level';
            const courseId = document.getElementById('AutoCourse').value;
             $('#GetStudentTable').DataTable({
             destroy: true,
@@ -107,17 +108,24 @@ function clearFormInputs(formId) {
                     data: 'student_lastname'
                 },
                 {
-                    data: 'year_level'
+                     data: null, 
+                    render: function(data, type, row) {
+                        return row.year_level+' - '+row.sect_name;
+                    
+                      }
                 },
                 {
                     data: null, 
                     render: function(data, type, row) {
-                        return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc")">Edit</button>';
+                        return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc" onclick="editStudentinfo(`'+row.student_id+'`,`'+row.school_id+'`,`'+row.student_firstname+'`,`'+row.student_middlename+'`,`'+row.student_lastname+'`,`'+row.student_ext+'`,`'+row.year_level+'`,`'+row.sect_name+'`)">Edit</button>';
                     }
                 },
             ]
         });
     } else {
+         const sectId = document.getElementById('selectSectId').value
+        const sectIdArray = sectId.split(',');
+         document.getElementById('yearTitle').textContent=sectIdArray[2]+' '+'-'+' ' + sectIdArray[1];
         $('#GetStudentTable').DataTable({
             destroy: true,
             ajax: {
@@ -138,19 +146,65 @@ function clearFormInputs(formId) {
                     data: 'student_lastname'
                 },
                 {
-                    data: 'year_level'
+                     data: null, 
+                    render: function(data, type, row) {
+                        return row.year_level+' - '+row.sect_name;
+                    
+                      }
                 },
                 {
                     data: null, 
                     render: function(data, type, row) {
-                        return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc")">Edit</button>';
-                    }
+                      return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc" onclick="editStudentinfo(`'+row.student_id+'`,`'+row.school_id+'`,`'+row.student_firstname+'`,`'+row.student_middlename+'`,`'+row.student_lastname+'`,`'+row.student_ext+'`,`'+row.year_level+'`,`'+row.sect_name+'`)">Edit</button>';
+                     }
                 },
                 
             ]
         });
     }
-       
+    }
+    function editStudentinfo(id,sch_id,sf,sm,sl,se,yl,sc_n){
+        console.log(sc_n);
+        document.getElementById('EditStudentID').value=id;
+        document.getElementById('editfirstname').value=sf;
+         document.getElementById('editmiddlename').value=sm;
+          document.getElementById('editlastname').value=sl;
+           document.getElementById('editext').value=se;
+            document.getElementById('editstudentschoolid').value=sch_id;
+            document.getElementById('EditModalTitle').textContent=yl+' - '+sc_n;
+    }
+    function EditStudent(){
+        var formData = $("form#EditStudentForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('EditStudent')}}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    alertify
+                        .alert("Message", "Student Successfully Edited", function() {
+                            alertify.message('OK');
+                            clearFormInputs('EditStudentForm');
+                            GetStudentData();
+                            closeModal();
+   
+                        });
+                } else if (response.status == 'exist') {
+                    alertify
+                        .alert("Alert", "Student Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    alertify
+                        .alert("Warning", "Enter Student Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
     }
     function GetDepartmentData() {
         $('#GetDepTable').DataTable({

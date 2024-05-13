@@ -180,6 +180,10 @@
                 <form class="row g-3" id="adddepartmentform" method="POST">@csrf
                 <div class="row g-2">
                   <div class="col-12">
+                    <label for="firstname" class="form-label">Department Image</label>
+                    <input type="file" class="form-control" name="departmentimage" id="departmentimage" placeholder="Department Name">
+                  </div>
+                  <div class="col-12">
                     <label for="firstname" class="form-label">Department Name</label>
                     <input type="text" class="form-control" name="department" id="department" placeholder="Department Name">
                   </div>

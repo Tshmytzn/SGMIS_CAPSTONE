@@ -16,6 +16,7 @@ use App\Http\Controllers\SessionDetect;
 |
 */
 
+// tisha's routes
 Route::get('/', [SessionDetect::class, 'Dashboard'])->name('AdminDashboard');
 Route::get('/Accounts', [SessionDetect::class, 'Accounts'])->name('Accounts');
 Route::get('/Events', [SessionDetect::class, 'Events'])->name('Events');
@@ -43,6 +44,7 @@ Route::post('/admin/EditDeptInfo', [DeparmentData::class,"EditDeptInfo"])->name(
 Route::post('/admin/EditCourseInfo', [DeparmentData::class,"EditCourseInfo"])->name('EditCourseInfo');
 Route::post('/admin/EditSectionInfo', [DeparmentData::class,"EditSectionInfo"])->name('EditSectionInfo');
 Route::post('/admin/SaveStudent', [DeparmentData::class,"SaveStudent"])->name('SaveStudent');
+Route::post('/admin/EditStudent', [DeparmentData::class,"EditStudent"])->name('EditStudent');
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
 Route::get('/admin/GetDepartmentData', [DeparmentData::class,"GetDepartmentData"])->name('GetDepartmentData');

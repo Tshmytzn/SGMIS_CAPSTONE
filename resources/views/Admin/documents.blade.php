@@ -33,73 +33,21 @@
           </div>
         </div>
         
-        
- <!-- Page body -->
- <div class="page-body">
-  <div class="container-xl">
-    <div class="row row-cols-4 g-3">
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg')}})"></div>
-        </a>
-      </div>
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/brainstorming-session-with-creative-designers.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/photos/brainstorming-session-with-creative-designers.jpg')}})"></div>
-        </a>
-      </div>
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/finances-us-dollars-and-bitcoins-currency-money.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/photos/finances-us-dollars-and-bitcoins-currency-money.jpg')}})"></div>
-        </a>
-      </div>
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/group-of-people-brainstorming-and-taking-notes-2.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/photos/group-of-people-brainstorming-and-taking-notes-2.jpg')}})"></div>
-        </a>
-      </div>
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/brainstorming-session-with-creative-designers.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/photos/brainstorming-session-with-creative-designers.jpg')}})"></div>
-        </a>
-      </div>
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/blue-sofa-with-pillows-in-a-designer-living-room-interior.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/photos/blue-sofa-with-pillows-in-a-designer-living-room-interior.jpg')}})"></div>
-        </a>
-      </div>
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{('./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg')}})"></div>
-        </a>
-      </div>
-      <div class="col">
-        <a data-fslightbox="gallery" href="{{asset('./static/photos/brainstorming-session-with-creative-designers.jpg')}}">
-          <!-- Photo -->
-          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/photos/brainstorming-session-with-creative-designers.jpg')}})"></div>
-        </a>
-      </div>
-      
-    </div>
-  </div>
-</div>
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="row row-deck row-cards">
+              
+
+            </div>
+          </div>
+        </div>
 
 @include('Admin.components.footer')
 
       </div>
     </div>
     
-    <script src="{{asset('./dist/libs/fslightbox/index.js?1684106062')}}" defer></script>
-    <script src="{{asset('./dist/js/tabler.min.js?1684106062')}}" defer></script>
-    <script src="{{asset('./dist/js/demo.min.js?1684106062')}}" defer></script>
-    <script src="{{asset('./dist/libs/fslightbox/index.js?1684106062')}}" defer></script>
     
 @include('Admin.components.scripts')
 
