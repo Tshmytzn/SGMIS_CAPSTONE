@@ -109,6 +109,12 @@ function clearFormInputs(formId) {
                 {
                     data: 'year_level'
                 },
+                {
+                    data: null, 
+                    render: function(data, type, row) {
+                        return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc")">Edit</button>';
+                    }
+                },
             ]
         });
     } else {
@@ -134,6 +140,13 @@ function clearFormInputs(formId) {
                 {
                     data: 'year_level'
                 },
+                {
+                    data: null, 
+                    render: function(data, type, row) {
+                        return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc")">Edit</button>';
+                    }
+                },
+                
             ]
         });
     }
