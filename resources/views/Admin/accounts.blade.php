@@ -60,7 +60,7 @@
               @php
                   $course = App\Models\Course::where('course_id', $courseId)->first();
               @endphp
-              <h3>{{$course->course_name}}</h3>
+              <h3 id="yearTitle"></h3>
             {{-- input year level here --}}
             </div>
           </div>
@@ -183,7 +183,8 @@
                       <th><button class="table-sort" data-sort="sort-city">First Name</button></th>
                       <th><button class="table-sort" data-sort="sort-type">Middle Name</button></th>
                       <th><button class="table-sort" data-sort="sort-score">Last Name</button></th>
-                      <th><button class="table-sort" data-sort="sort-date">Section</button></th>
+                      <th><button class="table-sort" data-sort="sort-date">Year/Section</button></th>
+                      <th><button class="table-sort" data-sort="sort-date">Action</button></th>
                     </tr>
                   </thead>
                   <tbody class="table-tbody">
@@ -291,16 +292,16 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Create Account</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
                         <form class="row g-3" method="POST" id="EditStudentForm">@csrf
-                          <h5 class="modal-title" id="ModalTitle"></h5>
+                          <h5 class="modal-title" id="EditModalTitle"></h5>
                           <hr class="my-2 ">
                         <div class="row g-2">
                           <div class="col-6">
-                            <input type="hidden" name="AddStudentSectId" id="AddStudentSectId">
+                            <input type="hidden" name="EditStudentID" id="EditStudentID">
                             <label for="firstname" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="editfirstname" name="editfirstname" placeholder="First Name">
                           </div>
@@ -316,7 +317,7 @@
                         </div>
                         <div class="col-6">
                           <label for="lastname" class="form-label">Ext</label>
-                          <select id="inputState" class="form-select" name="editext">
+                          <select id="editext" class="form-select" name="editext">
                             <option selected> None </option>
                             <option>I (First)</option>
                             <option>II (Second)</option>
@@ -336,9 +337,13 @@
                         </div>
                         <hr class="my-4 mb-2">
                         <div class="row g-2">
-                          <div class="col-md-12">
+                          <div class="col-md-6">
                             <label for="studentid" class="form-label">Student ID</label>
-                            <input type="number" class="form-control" id="editstudentid" name="editstudentid" placeholder="Student ID">
+                            <input type="number" class="form-control" id="editstudentschoolid" name="editstudentschoolid" placeholder="Student ID">
+                          </div>
+                           <div class="col-md-6">
+                            <label for="" class="form-label">Student Password</label>
+                            <input type="password" class="form-control" id="editstudentpass" name="editstudentpass" placeholder="Change Password">
                           </div>
                         </div>
                         </form>
