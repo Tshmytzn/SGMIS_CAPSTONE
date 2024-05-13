@@ -193,7 +193,7 @@
               <div class="modal-body">
                 <form class="row g-3" method="POST" id="SaveStudentForm">@csrf
                   <h5 class="modal-title" id="ModalTitle"></h5>
-                  <hr class="my-4 ">
+                  <hr class="my-2 mt-2">
                 <div class="row g-2">
                   <div class="col-6">
                     <input type="hidden" name="AddStudentSectId" id="AddStudentSectId">
@@ -230,7 +230,7 @@
                     <option>Senior</option>                                   
                   </select>                </div>
                 </div>
-                <hr class="my-4">
+                <hr class="my-4 mb-2">
                 <div class="row g-2">
                   <div class="col-md-12">
                     <label for="studentid" class="form-label">Student ID</label>
@@ -268,6 +268,72 @@
           </div>
         </div>
         {{-- Create Account --}}
+
+                {{-- edit Account --}}
+                <div class="modal modal-blur fade" id="editstudentacc" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header text-white" style="background-color: #3E8A34;">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="row g-3" method="POST" id="EditStudentForm">@csrf
+                          <h5 class="modal-title" id="ModalTitle"></h5>
+                          <hr class="my-2 ">
+                        <div class="row g-2">
+                          <div class="col-6">
+                            <input type="hidden" name="AddStudentSectId" id="AddStudentSectId">
+                            <label for="firstname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editfirstname" name="editfirstname" placeholder="First Name">
+                          </div>
+                          <div class="col-6">
+                            <label for="middlename" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="editmiddlename" name="editmiddlename" placeholder="Middle Name">
+                          </div>
+                        </div>
+                        <div class="row g-2">
+                        <div class="col-6">
+                          <label for="lastname" class="form-label">Last Name</label>
+                          <input type="text" class="form-control" id="editlastname" name="editlastname" placeholder="Last Name">
+                        </div>
+                        <div class="col-6">
+                          <label for="lastname" class="form-label">Ext</label>
+                          <select id="inputState" class="form-select" name="editext">
+                            <option selected> None </option>
+                            <option>I (First)</option>
+                            <option>II (Second)</option>
+                            <option>III (Third)</option>
+                            <option>IV (Fourth)</option>
+                            <option>V (Fifth)</option>
+                            <option>VI (Sixth)</option>
+                            <option>VII (Seventh)</option>
+                            <option>VIII (Eighth)</option>
+                            <option>IX (Ninth)</option>
+                            <option>X (Tenth)</option>
+                            <option>XI (Eleventh)</option>
+                            <option>XII (Twelfth)</option>
+                            <option>Junior</option>
+                            <option>Senior</option>                                   
+                          </select>                </div>
+                        </div>
+                        <hr class="my-4 mb-2">
+                        <div class="row g-2">
+                          <div class="col-md-12">
+                            <label for="studentid" class="form-label">Student ID</label>
+                            <input type="number" class="form-control" id="editstudentid" name="editstudentid" placeholder="Student ID">
+                          </div>
+                        </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="EditStudent()">Save</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{-- edit Account --}}
 
         {{-- MODALS --}}
 
