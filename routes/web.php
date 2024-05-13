@@ -16,6 +16,7 @@ use App\Http\Controllers\SessionDetect;
 |
 */
 
+// tisha's routes
 Route::get('/', [SessionDetect::class, 'Dashboard'])->name('AdminDashboard');
 Route::get('/Accounts', [SessionDetect::class, 'Accounts'])->name('Accounts');
 Route::get('/Events', [SessionDetect::class, 'Events'])->name('Events');
@@ -26,6 +27,7 @@ Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLo
 Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
 Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
 Route::get('/Event/details', function () { return view('Admin.eventdetails'); })->name('EventDetails');
+Route::get('/Profile', function () { return view('Admin.profile'); })->name('Profile');
 
 
 //Rheyan Route
