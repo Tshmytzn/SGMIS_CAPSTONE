@@ -103,8 +103,7 @@
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <a href="{{route('Profile')}}" class="dropdown-item">Profile</a>
-                  <a href="{{route('Settings')}}" class="dropdown-item">Settings</a>
+                  <a href="{{route('Settings')}}" class="dropdown-item">Account Settings</a>
                   <form method="POST" action="{{ route('AdminLogout') }}">
                     @csrf
                     <button type="submit" class="dropdown-item">Logout</button>

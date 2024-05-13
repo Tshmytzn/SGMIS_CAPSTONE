@@ -352,11 +352,14 @@
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
-<script>
+  <script>
   function limitFiles(event) {
       var files = event.target.files;
       if (files.length > 4) {
-          alert("You can only upload up to 4 files.");
+        
+        alertify.alert("You can only upload up to 4 files.", function(){
+          alertify.message('OK');
+        });
           event.target.value = '';
       }
   }
