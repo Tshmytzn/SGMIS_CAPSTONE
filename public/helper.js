@@ -62,7 +62,7 @@ function getDays(date) {
 }
 
 
-function VerifyFormEvent(route, events, images, deleteEvent) {
+function VerifyFormEvent(route, events, images, deleteEvent, eventDetails) {
   const evname = document.getElementById('ev_name');
   const dept = document.getElementById('dept');
   const ev_pic = document.getElementById('ev_pic');
@@ -134,11 +134,11 @@ function VerifyFormEvent(route, events, images, deleteEvent) {
   }
 
   if (validity === 6) {
-    SaveEvent(route, events, images, deleteEvent);
+    SaveEvent(route, events, images, deleteEvent, eventDetails);
   }
 }
 
-function SaveEvent(route, events, images, deleteEvent) {
+function SaveEvent(route, events, images, deleteEvent, eventDetails) {
   document.getElementById('mainLoader').style.display = 'flex';
   const formData = new FormData($('#add_event')[0]);
 
@@ -154,7 +154,7 @@ function SaveEvent(route, events, images, deleteEvent) {
       if (res.status === 'success') {
         
         const queryRoute = events + "?ev_id=" + res.ev_id;
-        AddEventsOnList(queryRoute, images, deleteEvent);
+        AddEventsOnList(queryRoute, images, deleteEvent, eventDetails);
         alertify.success('Event Created').dismissOthers();
       } else {
         alertify.error('Invalid Image type: Please provide an actual image').dismissOthers();
@@ -167,20 +167,21 @@ function SaveEvent(route, events, images, deleteEvent) {
 }
 
 
-function LoadEvents(route, imageRoute, deleteEvent) {
+function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
   $.ajax({
     url: route,
     type: "GET",
     dataType: "json",
     success: function (response) {
+      const eventList = document.getElementById('eventList');
       if(response.event.length > 0){
-        const eventList = document.getElementById('eventList');
+
       let html = '';
       eventList.innerHTML = '';
       response.event.forEach(ev => {
         html += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4 loadingEvents">
         <div class="card card-sm">
-          <a href="#" class="d-block"><img src="${imageRoute}/${ev.event_pic}" class="card-img-top"></a>
+          <a onclick="openEvent()" href="${eventDetails}?event_id=${ev.event_id}" class="d-block"><img src="${imageRoute}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
             <div class="d-flex align-items-center">
               <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
@@ -189,7 +190,7 @@ function LoadEvents(route, imageRoute, deleteEvent) {
                 <div class="text-muted">3 days ago</div>
               </div>
               <div class="ms-auto">
-                <a href="#" title="View" class="text-muted">
+                <a onclick="openEvent()" href="${eventDetails}?event_id=${ev.event_id}" title="View" class="text-muted">
                   <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
                    
@@ -224,13 +225,29 @@ function LoadEvents(route, imageRoute, deleteEvent) {
           e.style.display = '';
           setTimeout(() => {
             e.style.transform = "scale(1)";
-          }, 50);
+          }, 25);
           index++; 
         } else {
           clearInterval(intervalId); 
         }
-      }, 600);
+      }, 300);
 
+      }else{
+        eventList.innerHTML = `<div class="empty" id="empty">
+        <div class="empty-img"><img src="./static/illustrations/undraw_quitting_time_dm8t.svg" height="128" alt="">
+        </div>
+        <p class="empty-title">No events found</p>
+        <p class="empty-subtitle text-muted">
+          Try adding event by clicking the add button below
+        </p>
+        <div class="empty-action">
+          <button data-bs-toggle="modal" data-bs-target="#modal-report" class="btn btn-primary">
+          
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+            Add Event
+          </button>
+        </div>
+    </div>`;
       }
     },
     error: function (xhr) {
@@ -238,8 +255,14 @@ function LoadEvents(route, imageRoute, deleteEvent) {
     }
   });
 }
-
-function AddEventsOnList(route, image, deleteEvent) {
+function openEvent(){
+ const eventList = document.getElementById('eventList');
+ eventList.style.animation = "fading 0.4s";
+ setTimeout(()=>{
+  eventList.style.display = "none";
+ },400);
+}
+function AddEventsOnList(route, image, deleteEvent, eventDetails) {
   const btn = document.getElementById('close-button');
   btn.click();
   const eventList = document.getElementById('eventList');
@@ -256,7 +279,7 @@ function AddEventsOnList(route, image, deleteEvent) {
         const ev = res.event;
         eventList.innerHTML += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4">
         <div class="card card-sm">
-          <a href="#" class="d-block"><img src="${image}/${ev.event_pic}" class="card-img-top"></a>
+          <a href="${eventDetails}?event_id=${ev.event_id}" class="d-block"><img src="${image}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
             <div class="d-flex align-items-center">
               <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
@@ -265,7 +288,7 @@ function AddEventsOnList(route, image, deleteEvent) {
                 <div class="text-muted">3 days ago</div>
               </div>
               <div class="ms-auto">
-                <a href="#" class="text-muted">
+                <a href="${eventDetails}?event_id=${ev.event_id}" class="text-muted">
                   <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
                 
@@ -337,5 +360,26 @@ function RemoveEvent(ev_id) {
   event.style.transform = "scale(0.01)";
   setTimeout(() => {
     event.style.display = 'none';
+
+    const loadingEvents = document.querySelectorAll('.loadingEvents');
+    if(loadingEvents.length === 0){
+      document.getElementById('eventList').innerHTML = `<div class="empty" id="empty">
+      <div class="empty-img"><img src="./static/illustrations/undraw_quitting_time_dm8t.svg" height="128" alt="">
+      </div>
+      <p class="empty-title">No events found</p>
+      <p class="empty-subtitle text-muted">
+        Try adding event by clicking the add button below
+      </p>
+      <div class="empty-action">
+        <button data-bs-toggle="modal" data-bs-target="#modal-report" class="btn btn-primary">
+        
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+          Add Event
+        </button>
+      </div>
+  </div>`;
+    }
   }, 600);
+
+
 }

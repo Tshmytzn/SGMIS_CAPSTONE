@@ -52,22 +52,21 @@
               <input type="hidden" name="event_id" id="event_id">
             </form>
             <div class="row row-cards" id="eventList">
-              <div class="empty" id="empty">
-                <div class="empty-img"><img src="{{asset('./static/illustrations/undraw_quitting_time_dm8t.svg')}}" height="128" alt="">
+               
+              <div class="page page-center" id="loading-events">
+                <div class="container container-slim py-4">
+                  <div class="text-center">
+                    <div class="mb-3">
+                      <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logoicon.png" height="36" alt=""></a>
+                    </div>
+                    <div class="text-muted mb-3">Loading Events</div>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar progress-bar-indeterminate"></div>
+                    </div>
+                  </div>
                 </div>
-                <p class="empty-title">No events found</p>
-                <p class="empty-subtitle text-muted">
-                  Try adding event by clicking the add button below
-                </p>
-                <div class="empty-action">
-                  <button data-bs-toggle="modal" data-bs-target="#modal-report" class="btn btn-primary">
-                  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                    Add Event
-                  </button>
-                </div>
-            </div>
-           
+              </div>
+
           </div>
         </div>
        </div>
@@ -109,10 +108,7 @@
               </select>
          
         </div>
-        <div class="mb-3">
-            <label class="form-label">Duration</label>
-            <input type="text" class="form-control" disabled id="duration" placeholder="Event duration">
-        </div>
+       
         <div class="mb-2">
           <label class="form-label">Event Photo   <span style="display: none;" id="ev_pic_e" class="text-danger ">(No Selected Photo! Please provide)</span></label>
           <input type="file" id="ev_pic" class="form-control" accept="image/*" name="ev_pic" placeholder="Choose Event Cover Photo">
@@ -134,6 +130,10 @@
 
                 </div>
               </div>
+              <div class="mb-3">
+                <label class="form-label">Duration</label>
+                <input type="text" class="form-control" disabled id="duration" placeholder="Event duration">
+            </div>
               <div class="col-lg-12">
                 <div>
                   <label class="form-label">Additional information(Description)   <span style="display: none" id="ev_description_e" class="text-danger ">(Please provide a description)</span></label>
@@ -144,7 +144,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" id="close-button" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}', '{{ route('deleteEvent') }}')" class="btn btn-primary">Save</button>
+            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}', '{{ route('deleteEvent') }}', '{{ route('EventDetails') }}')" class="btn btn-primary">Save</button>
           </div>
         </form>
         </div>
@@ -154,7 +154,7 @@
 @include('Admin.components.scripts')
 <script>
   window.onload = function(){
-    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}");
+    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}");
   }
 </script>
   </body>
