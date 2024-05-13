@@ -45,7 +45,7 @@ function clearFormInputs(formId) {
         }else{
             alertify
   .alert("Warning","Please Select Year And Section First!", function(){
-    alertify.message('OK');
+   
     closeModal();
    
   });
