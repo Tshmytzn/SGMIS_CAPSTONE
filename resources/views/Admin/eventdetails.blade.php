@@ -98,11 +98,14 @@
                       <div class="datagrid-title">Venue</div>
                       <div class="datagrid-content">CHMSU FIELD</div>
                     </div>
-                    <div class="datagrid-item">
-                      <div class="datagrid-title">Facilitator</div>
-                      <div class="datagrid-content">
-                        SSG SECRETARY
-                      </div>
+                    <div class="mb-3">
+                      <div class="form-label">Select Facilitator</div>
+                      <select type="text" class="form-select" id="select-states" value="" multiple>
+                        <option value="AL">SSG SEC</option>
+                        <option value="AK">SSG TREAS</option>
+                        <option value="AZ" selected>PSITS PRES</option>
+                      </select>
+                    </div>
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">Description</div>
