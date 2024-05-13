@@ -89,7 +89,7 @@
                       <div class="datagrid-title">Creator</div>
                       <div class="datagrid-content">
                         <div class="d-flex align-items-center">
-                          <span class="avatar avatar-xs me-2 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                          <span class="avatar avatar-xs me-2 rounded" style="background-image: url({{asset('./static/icon.jpg')}})"></span>
                             SSG PRES
                         </div>
                       </div>
@@ -117,8 +117,7 @@
                 <div class="row row-cols-4 g-3 mx-3">
                 <div class="col mb-3">
                   <a data-fslightbox="gallery" href="./static/photos/workplace-with-laptop-on-table-at-home.jpg">
-                    <!-- Photo -->
-                    <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url(./static/photos/workplace-with-laptop-on-table-at-home.jpg)"></div>
+                    <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/icon.jpg')}})"></div>
                   </a>
                 </div>
               </div>
@@ -135,7 +134,7 @@
                 <div class="col-sm-6 col-lg-4">
                   <div class="card card-sm">
                     <div class="custom-dropdown dropup">
-                    <a href="#" class="d-block"><img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top"></a>
+                    <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
@@ -168,7 +167,7 @@
           <div class="col-sm-6 col-lg-4">
             <div class="card card-sm">
               <div class="custom-dropdown dropup">
-              <a href="#" class="d-block"><img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top"></a>
+              <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
               <div class="card-body">
                   <div class="d-flex align-items-center">
                       <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
@@ -200,7 +199,7 @@
     <div class="col-sm-6 col-lg-4">
       <div class="card card-sm">
         <div class="custom-dropdown dropup">
-        <a href="#" class="d-block"><img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top"></a>
+        <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
         <div class="card-body">
             <div class="d-flex align-items-center">
                 <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">

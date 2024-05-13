@@ -40,8 +40,9 @@
       {{-- Dropdown Year Level and Create Account --}}
         <div class="row">
      
-          <div class="row justify-content-between mt-2 align-items-end">
-            <div class="mx-3 mt-3">
+            <div class="row justify-content-between mt-1">
+
+            <div class="col-auto mx-3 mt-3">
               @php
               $courseId = request()->query('course_id');
           @endphp
@@ -50,6 +51,22 @@
               @endphp
               <h3>{{$course->course_name}}</h3>
             </div>
+
+            <div class="col-auto text-end mx-1 mt-3">
+              {{-- input year level here --}}
+              @php
+              $courseId = request()->query('course_id');
+          @endphp
+              @php
+                  $course = App\Models\Course::where('course_id', $courseId)->first();
+              @endphp
+              <h3>{{$course->course_name}}</h3>
+            {{-- input year level here --}}
+            </div>
+          </div>
+
+          <div class="row justify-content-between mt-1 align-items-end">
+
             <div class="col-auto mx-3">
               <li class="nav-item dropdown" style="list-style-type: none;">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" style="background-color: #DF7026; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.300rem;">
@@ -157,7 +174,7 @@
         </div>
         {{-- Dropdown Year Level and Create Account --}}
               <input type="hidden" name="AutoCourse" id="AutoCourse" value="{{ $courseId}}">
-              <div class="card-body gy-5">
+              <div class="card-body gy-5" style="margin-top: -1%">
               <div id="table-default" class="table-responsive">
                 <table class="table" id="GetStudentTable">
                   <thead>
