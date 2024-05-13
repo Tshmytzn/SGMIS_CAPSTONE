@@ -95,6 +95,7 @@
             
             </div>
             <div class="mb-3">
+           
               <div class="form-label">Department   <span style="display: none" id="dept_e" class="text-danger ">(Please Select a department....)</span></div>
               <select id="dept" name="dept" class="form-select" >
                 @php
@@ -152,10 +153,13 @@
     </div>
     
 @include('Admin.components.scripts')
+
+
 <script>
   window.onload = function(){
     LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}");
   }
+
 </script>
   </body>
 </html>
