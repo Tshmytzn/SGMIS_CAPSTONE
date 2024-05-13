@@ -112,15 +112,52 @@
                     </div>
                   </div>
                 </div>
-                <hr style="margin-top: -0.5%">
-                <h3 class="mx-4" style="margin-top: -1%;"> Event Programme</h3>
-                <div class="row row-cols-4 g-3 mx-3">
-                <div class="col mb-3">
-                  <a data-fslightbox="gallery" href="./static/photos/workplace-with-laptop-on-table-at-home.jpg">
-                    <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/icon.jpg')}})"></div>
-                  </a>
+                <hr style="margin-top: -1%">
+                <div class="row justify-content-between" style="margin-top: -1%">
+
+                <div class="col-auto">
+                <h3 class="mx-4"> Event Programme</h3>                
                 </div>
-              </div>
+
+                <div class="col-auto text-end mx-4 mb-2" style="margin-top: -1%">
+                  <input class="btn btn-primary mt-2" type="button" id="downloadAllBtn" value="Download All" />
+                </div>
+
+                </div>
+                  {{-- event program download --}}
+                  <div class="row row-cols-4 g-3 mx-3">
+                    <div class="col mb-3" style="position: relative;">
+                      <a class="image-link" data-fslightbox="gallery" href="{{asset('./static/icon.jpg')}}">
+                        <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/icon.jpg')}})"></div>
+                      </a>
+                      <button class="downloadBtn" type="button" value="{{asset('./static/icon.jpg')}}" style="position: absolute; bottom: 2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
+                        <i>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <path d="M7 11l5 5l5 -5" />
+                            <path d="M12 4l0 12" />
+                          </svg>
+                        </i>
+                      </button>
+                    </div>
+                    <div class="col mb-3" style="position: relative;">
+                      <a class="image-link" data-fslightbox="gallery" href="{{asset('./static/sgmis.png')}}">
+                        <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/sgmis.png')}})"></div>
+                      </a>
+                      <button class="downloadBtn" type="button" value="{{asset('./static/sgmis.png')}}" style="position: absolute; bottom: 2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
+                        <i>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <path d="M7 11l5 5l5 -5" />
+                            <path d="M12 4l0 12" />
+                          </svg>
+                        </i>
+                      </button>
+                    </div>
+                  </div>
+
 
               </div>
 
@@ -314,6 +351,7 @@
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
 <script>
   function limitFiles(event) {
       var files = event.target.files;
@@ -322,6 +360,32 @@
           event.target.value = '';
       }
   }
+  </script>
+
+  <script>
+    function downloadImage(imageUrl) {
+      var imageFileName = imageUrl.split('/').pop(); // Extracting the filename from the URL
+      var element = document.createElement('a');
+      element.setAttribute('href', imageUrl);
+      element.setAttribute('download', imageFileName);
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+
+    document.querySelectorAll(".downloadBtn").forEach(function(btn) {
+      btn.addEventListener("click", function () {
+        var imageUrl = this.value;
+        downloadImage(imageUrl);
+      }, false);
+    });
+
+    document.getElementById("downloadAllBtn").addEventListener("click", function () {
+      document.querySelectorAll(".image-link").forEach(function(link) {
+        var imageUrl = link.getAttribute("href");
+        downloadImage(imageUrl);
+      });
+    }, false);
   </script>
 
   </body>
