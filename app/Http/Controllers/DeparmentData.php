@@ -13,18 +13,31 @@ class DeparmentData extends Controller
 {
     public function SaveDepartment(Request $request)
     {
-        if ($request->department == '') {
+        if ($request->deptname == '') {
             return response()->json(['status' => 'empty']);
         } else {
-            $check = Department::where('dept_name', $request->department)->first();
+            $check = Department::where('dept_name', $request->deptname)->first();
             if ($check) {
                 return response()->json(['status' => 'exist']);
             } else {
+
+                 $file = $request->file('image');
+
+        if ($file->getSize() > 10485760) {
+            return response()->json([ 'exceed']);
+        }else   if (!in_array($file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg'])) {
+            return response()->json(['invalid_type']);
+        }
+        else{
+                $imageName = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('dept_image'), $imageName);
                 $data = new Department;
-                $data->dept_name = $request->department;
+                $data->dept_name = $request->deptname;
+                $data->dept_image = $request->imageName;
                 $data->save();
                 return response()->json(['status' => 'success']);
-            }
+           }   
+        }
         }
     }
 

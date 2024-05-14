@@ -460,11 +460,24 @@ function EditSectionInfo(){
 }
 
     function SaveDepartment() {
-        var formData = $("form#adddepartmentform").serialize();
+        const deptname = document.getElementById('department').value;
+       const pic = document.getElementById('departmentimage');
+                if (pic.files.length == 0) {
+                    alertify
+                        .alert("Warning", "Department Image Required", function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    var formData = new FormData();
+                    formData.append('deptname', deptname);
+                    formData.append('image', $('#departmentimage')[0].files[0]);
+                    formData.append('_token', '{{ csrf_token() }}');
         $.ajax({
             type: "POST",
             url: "{{ route('SaveDepartment') }}",
-            data: formData,
+             data: formData,
+                        contentType: false,
+                        processData: false,
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
@@ -496,7 +509,7 @@ function EditSectionInfo(){
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
             }
-        });
+        });}
     }
 
     function SaveCourse() {

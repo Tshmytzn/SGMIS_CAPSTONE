@@ -177,7 +177,7 @@
               </div>
               <div class="modal-body">
                 
-                <form class="row g-3" id="adddepartmentform" method="POST">@csrf
+                <form class="row g-3" id="adddepartmentform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
                     <label for="firstname" class="form-label">Department Image</label>
