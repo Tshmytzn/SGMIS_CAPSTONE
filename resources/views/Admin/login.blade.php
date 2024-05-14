@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="form-footer">
-                      <button type="button" onclick="AdminLogin('{{route('adminLogin')}}', '{{route('AdminDashboard')}}')" class="btn btn-primary w-100">Sign in</button>
+                      <button id="loginButton" type="button" onclick="AdminLogin('{{route('adminLogin')}}', '{{route('AdminDashboard')}}')" class="btn btn-primary w-100">Sign in</button>
                     </div>
                   </form>
                 </div>
@@ -58,6 +58,15 @@
       </div>
     </div>
 
+    <script>
+         function EnterLogin(event) {
+            if (event.key === 'Enter' || event.keyCode === 13) {
+               document.getElementById('loginButton').click();
+            }
+        }
+
+        document.addEventListener('keydown', EnterLogin);
+    </script>
     @include('Admin.components.scripts')
 
   </body>

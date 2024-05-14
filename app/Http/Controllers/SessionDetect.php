@@ -63,4 +63,16 @@ class SessionDetect extends Controller
             return view('Admin.login');
         }
     }
+
+    public function EventDetails(Request $req){
+        if(Session::has('admin_id')){
+            if (!$req->has('event_id') || empty($req->event_id)) {
+                return view('error');
+            }else{
+                return view('Admin.eventdetails');
+            }
+        }else{
+            return view('Admin.login');
+        }
+    }
 }

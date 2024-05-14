@@ -26,16 +26,19 @@ Route::get('/Settings', [SessionDetect::class, 'Settings'])->name('Settings');
 Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
 Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
 Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
-Route::get('/Event/details', function () { return view('Admin.eventdetails'); })->name('EventDetails');
+Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 
 
-//Rheyan Route
+//Rheyan Post Route
 Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
 Route::post('Admin/logout',[Login::class,'AdminLogout'] )->name('AdminLogout');
-Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
-Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
 Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEvent');
 Route::post('Admin/Event/Delete',[SchoolEvent::class,'DeleteEvent'] )->name('deleteEvent');
+//Rheyan Get Route
+Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
+Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
+
+
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');

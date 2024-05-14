@@ -62,4 +62,8 @@ class SchoolEvent extends Controller
             return response()->json(['status'=>'fail']);
         }
     }
+
+    public function EventDetailsLoad(Request $req){
+        
+    }
 }

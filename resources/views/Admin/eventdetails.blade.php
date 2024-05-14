@@ -393,6 +393,9 @@
       });
     }, false);
 
+    window.onload = () => {
+      EventDetailsLoad();
+    }
     
   </script>
 
