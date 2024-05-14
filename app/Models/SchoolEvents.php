@@ -12,11 +12,13 @@ class SchoolEvents extends Model
     protected $table = 'school_event';
     protected $primaryKey = 'event_id';
     protected $fillable = [
-      'dept_id',
       'event_name',
       'event_description',
       'event_start',
       'event_end',
+      'event_status',
+      'event_venue',
+      'event_programme',
       'event_pic',
       'admin_id',
     ];

@@ -75,15 +75,15 @@
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">Event duration</div>
-                      <div class="datagrid-content">3 days</div>
+                      <div class="datagrid-content" id="event_duration"></div>
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">START DATE & TIME</div>
-                      <div class="datagrid-content">May 5, 2024 3pm</div>
+                      <div class="datagrid-content" id="event_start"></div>
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">END DATE & TIME</div>
-                      <div class="datagrid-content">May 8, 2024 3pm</div>
+                      <div class="datagrid-content" id="event_end"></div>
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">Creator</div>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">Venue</div>
-                      <div class="datagrid-content">CHMSU FIELD</div>
+                      <div class="datagrid-content" id="event_venue"></div>
                     </div>
                     <div class="mb-3">
                       <div class="form-label">Select Facilitator</div>
