@@ -30,10 +30,10 @@ class DeparmentData extends Controller
         }
         else{
                 $imageName = time() . '.' . $request->image->extension();
-                $request->image->move(public_path('dept_image'), $imageName);
+                $request->image->move(public_path('dept_image/'), $imageName);
                 $data = new Department;
                 $data->dept_name = $request->deptname;
-                $data->dept_image = $request->imageName;
+                $data->dept_image = $imageName;
                 $data->save();
                 return response()->json(['status' => 'success']);
            }   
@@ -91,15 +91,28 @@ class DeparmentData extends Controller
     return response()->json(['data' =>  $check]);
    } 
    public function EditDeptInfo(Request $request){
-    if($request->EditDeptName == ''){
+    if($request->deptname == ''){
           return response()->json(['status' => 'empty']);
     }else{
-          $check = Department::where('dept_id', $request->EditDeptId)->first();
+        $file = $request->file('image');
+
+        if ($file->getSize() > 10485760) {
+            return response()->json([ 'exceed']);
+        }else   if (!in_array($file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg'])) {
+            return response()->json(['invalid_type']);
+        }
+        else{
+        $check = Department::where('dept_id', $request->deptid)->first();
+        $imageName = $check->dept_image . '.' . $request->image->extension();
+        $request->image->move(public_path('dept_image/'), $imageName);
+       
     $check->update([
-        'dept_name'=>$request->EditDeptName,
+        'dept_name'=>$request->deptname,
+        'dept_image'=>$imageName,
     ]);
      return response()->json(['status' => 'success']);
     }
+}
    }
    public function GetCourseData( ){
 
