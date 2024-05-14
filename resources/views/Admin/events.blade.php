@@ -95,21 +95,10 @@
             
             </div>
             <div class="mb-3">
-           
-              <div class="form-label">Department   <span style="display: none" id="dept_e" class="text-danger ">(Please Select a department....)</span></div>
-              <select id="dept" name="dept" class="form-select" >
-                @php
-                    $dept = App\Models\Department::where('dept_status', 0)->get();
-                @endphp
-                <option value="none" selected disabled>-----Select Department-----</option>
-               @foreach ($dept as $d)
-               <option value="{{$d->dept_id}}">{{$d->dept_name}}</option>
-               @endforeach
-        
-              </select>
-         
-        </div>
-       
+              <label class="form-label">Event Venue   <span style="display: none" id="ev_venue_e" class="text-danger ">(Don't Leave this field empty)</span></label>
+              <input type="text" class="form-control" id="ev_venue" name="ev_venue" placeholder="Event Venue">
+            
+            </div>
         <div class="mb-2">
           <label class="form-label">Event Photo   <span style="display: none;" id="ev_pic_e" class="text-danger ">(No Selected Photo! Please provide)</span></label>
           <input type="file" id="ev_pic" class="form-control" accept="image/*" name="ev_pic" placeholder="Choose Event Cover Photo">

@@ -142,7 +142,7 @@
                                   <tr>
                                     <th>Department</th>
                                     <th>Course</th>
-                                    <th>Sections</th>
+                                    <th>Year & Section</th>
                                     <th>Actions</th>
                                   </tr>
                               </thead>

@@ -62,17 +62,18 @@ function getDays(date) {
 }
 
 
+
 function VerifyFormEvent(route, events, images, deleteEvent, eventDetails) {
   const evname = document.getElementById('ev_name');
-  const dept = document.getElementById('dept');
   const ev_pic = document.getElementById('ev_pic');
   const ev_start = document.getElementById('ev_start');
   const ev_end = document.getElementById('ev_end');
+  const ev_venue = document.getElementById('ev_venue');
   const ev_description = document.getElementById('ev_description');
 
   const ev_name_e = document.getElementById('ev_name_e');
-  const dept_e = document.getElementById('dept_e');
   const ev_pic_e = document.getElementById('ev_pic_e');
+  const ev_venue_e = document.getElementById('ev_venue_e');
   const ev_start_e = document.getElementById('ev_start_e');
   const ev_end_e = document.getElementById('ev_end_e');
   const ev_description_e = document.getElementById('ev_description_e');
@@ -88,14 +89,17 @@ function VerifyFormEvent(route, events, images, deleteEvent, eventDetails) {
     validity++;
   }
 
-  if (dept.value === 'none') {
-    dept_e.style.display = '';
-    dept.classList.add("border", "border-danger");
+
+  if (ev_venue.value === "") {
+    ev_venue_e.style.display = '';
+    ev_venue.classList.add("border", "border-danger");
   } else {
-    dept.classList.remove("border", "border-danger");
-    dept_e.style.display = 'none';
+    ev_venue.classList.remove("border", "border-danger");
+    ev_venue_e.style.display = 'none';
     validity++;
   }
+
+
 
   if (ev_pic.files.length === 0) {
     ev_pic_e.style.display = '';
@@ -187,7 +191,7 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
               <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
               <div>
                 <div>${ev.event_name}</div>
-                <div class="text-muted">3 days ago</div>
+                <div class="text-muted">${ev.event_status === 0 ? 'Unpublished Event' : 'Published Event'}</div>
               </div>
               <div class="ms-auto">
                 <a title="Edit ${ev.event_name}" onclick="openEvent()" href="${eventDetails}?event_id=${ev.event_id}" title="View" class="text-muted">
@@ -199,7 +203,7 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
               </svg>
                    
                 </a>
-                <button title="Delete ${ev.event_name}" onclick="DeleteEvent('${deleteEvent}', '${ev.event_id}')" class="ms-3 text-muted border-0 bg-body">
+                <button title="Delete ${ev.event_name}" onclick="DeleteEvent('${deleteEvent}', '${ev.event_id}')" class="ms-3 text-muted  border-0 bg-body">
                   <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -289,7 +293,7 @@ function AddEventsOnList(route, image, deleteEvent, eventDetails) {
               <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
               <div>
                 <div>${ev.event_name}</div>
-                <div class="text-muted">3 days ago</div>
+                <div class="text-muted">${ev.event_status === 0 ? 'Unpublished Event' : 'Published Event'}</div>
               </div>
               <div class="ms-auto">
                 <a title="Edit ${ev.event_name}" href="${eventDetails}?event_id=${ev.event_id}" class="text-muted">
@@ -398,11 +402,39 @@ function EventDetailsLoad(Route){
     success: ev => {
       const data = ev.event;
       TextDisplayAnimate('event_name', data.event_name);
+      TextDisplayAnimate('event_duration', DayDuration(data.event_start, data.event_end));
+      TextDisplayAnimate('event_start', data.event_start);
+      TextDisplayAnimate('event_end', data.event_end);
+      TextDisplayAnimate('event_venue', data.event_venue);
     },
     error: xhr => {
       console.log(xhr.responseText);
     }
   });
+}
+
+
+function DayDuration(startDate, endDate) {
+  if (!startDate || !endDate) {
+    console.error('Both start date and end date must be provided.');
+    return;
+  }
+
+  const dateArr1 = startDate.split('-');
+  const dateArr2 = endDate.split('-');
+
+  const date1 = new Date(dateArr1[0], dateArr1[1] - 1, dateArr1[2]);
+  const date2 = new Date(dateArr2[0], dateArr2[1] - 1, dateArr2[2]);
+
+  if (isNaN(date1) || isNaN(date2)) {
+    console.error('Invalid date format.');
+    return;
+  }
+
+  const differenceMs = Math.abs(date1 - date2);
+  const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+
+  return differenceDays + ' Days Event';
 }
 
 function TextDisplayAnimate(elementId, text) {

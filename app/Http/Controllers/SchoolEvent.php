@@ -17,11 +17,11 @@ class SchoolEvent extends Controller
        
       
         $event = new SchoolEvents;
-        $event->dept_id = $req->dept;
         $event->event_name  = $req->ev_name;
         $event->event_description = $req->ev_description;
         $event->event_start = $req->ev_start;
         $event->event_end = $req->ev_end;
+        $event->event_venue = $req->ev_venue;
         $event->event_pic = 'none';
         $event->admin_id = session('admin_id');
         $event->save();
