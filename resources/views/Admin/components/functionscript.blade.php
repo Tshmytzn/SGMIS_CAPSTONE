@@ -362,7 +362,10 @@ function clearFormInputs(formId) {
                     data: 'course_name'
                 },
                 {
-                    data: 'sect_name'
+                    data: null,
+                    render: function(data, type, row) {
+                       return row.year_level + ' - ' + row.sect_name;
+                    }
                 },
                 {
                     data: null,
