@@ -71,7 +71,7 @@
                   <div class="datagrid">
                     <div class="datagrid-item">
                       <div class="datagrid-title">NAME</div>
-                      <div class="datagrid-content">University Week</div>
+                      <div id="event_name" class="datagrid-content"></div>
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">Event duration</div>
@@ -394,7 +394,7 @@
     }, false);
 
     window.onload = () => {
-      EventDetailsLoad();
+      EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}");
     }
     
   </script>

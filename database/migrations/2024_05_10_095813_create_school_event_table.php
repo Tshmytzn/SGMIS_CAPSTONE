@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('school_event', function (Blueprint $table) {
             $table->id('event_id');
-            $table->unsignedBigInteger('dept_id'); 
-            $table->foreign('dept_id')->references('dept_id')->on('department');
             $table->string('event_name', 150);
             $table->string('event_description');
             $table->string('event_start', 20);

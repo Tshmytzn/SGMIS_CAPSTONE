@@ -69,7 +69,7 @@ class SessionDetect extends Controller
             if (!$req->has('event_id') || empty($req->event_id)) {
                 return view('error');
             }else{
-                return view('Admin.eventdetails');
+                return view('Admin.eventdetails', ['event_id'=>$req->event_id]);
             }
         }else{
             return view('Admin.login');

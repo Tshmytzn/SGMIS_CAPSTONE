@@ -390,15 +390,33 @@ function RemoveEvent(ev_id) {
 }
 
 function EventDetailsLoad(Route){
+
   $.ajax({
     type:"GET",
     dataType: "json",
     url: Route,
     success: ev => {
-
+      const data = ev.event;
+      TextDisplayAnimate('event_name', data.event_name);
     },
     error: xhr => {
       console.log(xhr.responseText);
     }
   });
+}
+
+function TextDisplayAnimate(elementId, text) {
+  const element = document.getElementById(elementId);
+  let index = 0;
+  element.textContent = ''; 
+
+  function addLetter() {
+      if (index < text.length) {
+          element.textContent += text.charAt(index);
+          index++;
+          setTimeout(addLetter, 100);
+      }
+  }
+
+  addLetter();
 }

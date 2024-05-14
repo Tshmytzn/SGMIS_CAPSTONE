@@ -64,6 +64,8 @@ class SchoolEvent extends Controller
     }
 
     public function EventDetailsLoad(Request $req){
-        
+        $ev_id = $req->event_id;
+        $event = SchoolEvents::where('event_id', $ev_id)->first();
+        return response()->json(['event'=>$event]);
     }
 }
