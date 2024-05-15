@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SchoolEvents;
-
+use App\Models\Admin;
 class SchoolEvent extends Controller
 {
     public function SaveEvent(Request $req){
@@ -14,8 +14,7 @@ class SchoolEvent extends Controller
         if(!in_array($pic->getClientOriginalExtension(), ['jpeg', 'jpg', 'png', 'gif'])){
             return response()->json(['status'=>'invalid_img']);
         }
-       
-      
+             
         $event = new SchoolEvents;
         $event->event_name  = $req->ev_name;
         $event->event_description = $req->ev_description;
@@ -66,6 +65,8 @@ class SchoolEvent extends Controller
     public function EventDetailsLoad(Request $req){
         $ev_id = $req->event_id;
         $event = SchoolEvents::where('event_id', $ev_id)->first();
-        return response()->json(['event'=>$event]);
+        $admin = Admin::where('admin_id', $event->admin_id)->first();
+
+        return response()->json(['event'=>$event, 'admin'=>$admin]);
     }
 }

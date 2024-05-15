@@ -401,11 +401,14 @@ function EventDetailsLoad(Route){
     url: Route,
     success: ev => {
       const data = ev.event;
+      const admin = ev.admin;
+      console.log(admin);
       TextDisplayAnimate('event_name', data.event_name);
       TextDisplayAnimate('event_duration', DayDuration(data.event_start, data.event_end));
       TextDisplayAnimate('event_start', data.event_start);
       TextDisplayAnimate('event_end', data.event_end);
       TextDisplayAnimate('event_venue', data.event_venue);
+      TextDisplayAnimate('admin_name', admin.admin_name);
     },
     error: xhr => {
       console.log(xhr.responseText);

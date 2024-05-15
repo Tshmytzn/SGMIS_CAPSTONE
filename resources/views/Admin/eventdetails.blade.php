@@ -88,9 +88,9 @@
                     <div class="datagrid-item">
                       <div class="datagrid-title">Creator</div>
                       <div class="datagrid-content">
-                        <div class="d-flex align-items-center">
-                          <span class="avatar avatar-xs me-2 rounded" style="background-image: url({{asset('./static/icon.jpg')}})"></span>
-                            SSG PRES
+                        <div id="admin_name" class="d-flex align-items-center">
+                          <span  class="avatar avatar-xs me-2 rounded" style="background-image: url({{asset('./static/icon.jpg')}})"></span>
+                           <span ></span>
                         </div>
                       </div>
                     </div>
