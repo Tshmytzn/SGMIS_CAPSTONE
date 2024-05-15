@@ -220,16 +220,17 @@ function clearFormInputs(formId) {
                     data: null,
                     render: function(data, type, row) {
                         return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editdepartment" onclick="editDeptData(`' +
-                            row.dept_id + '`,`' + row.dept_name + '`)">Edit</button>';
+                            row.dept_id + '`,`' + row.dept_name + '`,`' + row.dept_image +'`)">Edit</button>';
                     }
                 }
             ]
         });
     }
 
-    function editDeptData(id, name) {
+    function editDeptData(id,name,image) {
         document.getElementById('EditDeptId').value = id;
         document.getElementById('EditDeptName').value = name;
+         document.getElementById('deptImage').src = '{{ asset('dept_image/') }}/' + image;
     }
     function reloadElementById(elementId) {
     var element = document.getElementById(elementId);
@@ -239,11 +240,26 @@ function clearFormInputs(formId) {
 }
 
     function EditDeptInfo() {
-        var formData = $("form#editdeptform").serialize();
+       const deptid = document.getElementById('EditDeptId').value;
+       const deptname = document.getElementById('EditDeptName').value;
+       const pic = document.getElementById('avatar-upload');
+                if (pic.files.length == 0) {
+                    alertify
+                        .alert("Warning", "Department Image Required", function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    var formData = new FormData();
+                    formData.append('deptid', deptid);
+                    formData.append('deptname', deptname);
+                    formData.append('image', $('#avatar-upload')[0].files[0]);
+                    formData.append('_token', '{{ csrf_token() }}');
         $.ajax({
             type: "POST",
             url: "{{ route('EditDeptInfo') }}",
             data: formData,
+            contentType: false,
+            processData: false,
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
@@ -275,6 +291,7 @@ function clearFormInputs(formId) {
                 console.error(xhr.responseText);
             }
         });
+    }
     }
 
     function GetCourseData() {
@@ -463,11 +480,24 @@ function EditSectionInfo(){
 }
 
     function SaveDepartment() {
-        var formData = $("form#adddepartmentform").serialize();
+        const deptname = document.getElementById('department').value;
+       const pic = document.getElementById('departmentimage');
+                if (pic.files.length == 0) {
+                    alertify
+                        .alert("Warning", "Department Image Required", function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    var formData = new FormData();
+                    formData.append('deptname', deptname);
+                    formData.append('image', $('#departmentimage')[0].files[0]);
+                    formData.append('_token', '{{ csrf_token() }}');
         $.ajax({
             type: "POST",
             url: "{{ route('SaveDepartment') }}",
-            data: formData,
+             data: formData,
+                        contentType: false,
+                        processData: false,
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
@@ -499,7 +529,7 @@ function EditSectionInfo(){
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
             }
-        });
+        });}
     }
 
     function SaveCourse() {
