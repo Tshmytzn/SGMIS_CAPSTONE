@@ -1,3 +1,38 @@
+      {{-- modal --}}
+      <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body mt-2" >
+                  <div class="row g-0 text-center">
+                    <div class="col-12">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-12">
+                            <span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg); width: 200px; height: 200px;"></span>
+                          </div>
+                        </div>
+                        <div class="row g-2 mt-2 mb-3">
+                          <div class="col-12">
+                            <div class="form-label mb-0" style="font-size: 20px;">Marianne Reyn Madrona</div>
+                            <hr class="my-2 mt-0 mb-1 ms-5" style="width: 263px;">
+                            <div class="form-label" style="font-size: 14px;">SSG President</div>
+                          </div>
+                        </div>
+                        <div>
+                          <button class="btn btn-danger" data-bs-dismiss="modal">Logout</button>
+                          <button class="btn btn-success" style="margin-left: 10px;">Go to Settings</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ {{-- modal --}}
+
+      
       <!-- Navbar -->
       <div class="sticky-top">
         <header class="navbar navbar-expand-md sticky-top d-print-none" >
@@ -97,7 +132,7 @@
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <a href="{{route('Profile')}}" class="dropdown-item">Profile</a>
+                  <a href="" data-bs-toggle="modal" data-bs-target="#profile" class="dropdown-item">Profile</a>
                   <a href="{{route('Settings')}}" class="dropdown-item">Account Settings</a>
                   <form method="POST" action="{{ route('AdminLogout') }}">
                     @csrf
