@@ -494,7 +494,7 @@ function AssVal(eid, data) {
 }
 
 
-function VerifyAddEventActivity(route, deleteRoute) {
+function VerifyAddEventActivity(route, deleteRoute, actDetails) {
   const act_name = document.getElementById('act_name');
   const act_fac = document.getElementById('act_fac');
   const act_venue = document.getElementById('act_venue');
@@ -554,13 +554,13 @@ function VerifyAddEventActivity(route, deleteRoute) {
 
   if (validity === 6) {
     
-    AddEventActivity(route, deleteRoute);
+    AddEventActivity(route, deleteRoute, actDetails);
     act_name.value = '';
     act_fac.value = '';
-    act_venue = '';
-    act_date = '';
-    act_time = '';
-    act_description = '';
+    act_venue.value = '';
+    act_date.value = '';
+    act_time.value = '';
+    act_description.value = '';
   }
 
 }
@@ -582,10 +582,9 @@ function FormValid(input, err) {
   err.style.display = 'none';
 }
 
-function AddEventActivity(route, deleteRoute) {
+function AddEventActivity(route, deleteRoute, actDetails) {
   document.getElementById('mainLoader').style.display = 'flex';
   var formData = $('form#addActForm').serialize();
-
   $.ajax({
     type: 'POST',
     url: route,
@@ -612,7 +611,7 @@ function AddEventActivity(route, deleteRoute) {
         ${res.data.eact_facilitator}
         </td>
         <td class="text-muted" >
-        ${res.data.eact_date} & ${res.data.eact_time}
+        ${res.data.eact_date} & ${convertToAmPm(res.data.eact_time)}
         </td>
         <td class="d-flex gap-1">
           <button  class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
@@ -620,7 +619,7 @@ function AddEventActivity(route, deleteRoute) {
           <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
           <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
         </svg></button>
-          <button  class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+          <button data-bs-toggle="modal" data-bs-target="#editAct" onclick="EditActEvent('${res.data.eact_id}', '${actDetails}')" class="border-0 bg-body text-success" title="Edit Activity"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
           <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
@@ -643,7 +642,7 @@ function AddEventActivity(route, deleteRoute) {
   });
 }
 
-function LoadEventActivities(route, deleteRoute) {
+function LoadEventActivities(route, deleteRoute, actDetails) {
   const act_list = document.getElementById('act_list');
   $.ajax({
     type: "GET",
@@ -664,7 +663,7 @@ function LoadEventActivities(route, deleteRoute) {
          ${data.eact_facilitator}
          </td>
          <td class="text-muted" >
-         ${data.eact_date} & ${data.eact_time}
+         ${data.eact_date} & ${convertToAmPm(data.eact_time)}
          </td>
          <td class="d-flex gap-1">
            <button  class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
@@ -672,7 +671,7 @@ function LoadEventActivities(route, deleteRoute) {
            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
          </svg></button>
-           <button  class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+           <button data-bs-toggle="modal" data-bs-target="#editAct" onclick="EditActEvent('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
@@ -744,11 +743,128 @@ function DeleteActEvent(ids, route) {
     function () { console.log('cancel') });
   
 }
+function convertToAmPm(time) {
+ 
+  var timeArray = time.split(':');
+  var hours = parseInt(timeArray[0]);
+  var minutes = parseInt(timeArray[1]);
 
-function EditActEvent() {
+ 
+  if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
+   
+      var ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; 
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      var formattedTime = hours + ':' + minutes + ' ' + ampm;
+      return formattedTime;
+  } else {
 
+      return 'Invalid time format';
+  }
 }
 
-function ViewActEvent() {
+function EditActEvent(ids, route) {
+   $.ajax({
+     type:"GET",
+     dataType: 'json',
+     url: route + "?act_id=" + ids,
+     success: res=>{
+       const actTitle = document.getElementById('editActTitle');
+       actTitle.textContent = res.act.eact_name;
+       AssVal('act_name_edit', res.act.eact_name);
+       AssVal('act_fac_edit', res.act.eact_facilitator);
+       AssVal('act_venue_edit', res.act.eact_venue);
+       AssVal('act_date_edit', res.act.eact_date);
+       AssVal('act_time_edit', res.act.eact_time);
+       AssVal('act_description_edit', res.act.eact_description);
+     },error: xhr => {
+      console.log(xhr.responseText);
+     }
+   });
+}
 
+function VerifyEditEventActivity(){
+  const act_name = document.getElementById('act_name_edit');
+  const act_fac = document.getElementById('act_fac_edit');
+  const act_venue = document.getElementById('act_venue_edit');
+  const act_date = document.getElementById('act_date_edit');
+  const act_time = document.getElementById('act_time_edit');
+  const act_description = document.getElementById('act_description_edit');
+
+  const act_name_e = document.getElementById('act_name_e_edit');
+  const act_fac_e = document.getElementById('act_fac_e_edit');
+  const act_venue_e = document.getElementById('act_venue_e_edit');
+  const act_date_e = document.getElementById('act_date_e_edit');
+  const act_time_e = document.getElementById('act_time_e_edit');
+  const act_description_e = document.getElementById('act_description_e_edit');
+
+  let validity = 0;
+  if (CheckForm(act_name)) {
+    FormError(act_name, act_name_e);
+  } else {
+    FormValid(act_name, act_name_e);
+    validity++;
+  }
+
+  if (CheckForm(act_fac)) {
+    FormError(act_fac, act_fac_e);
+  } else {
+    FormValid(act_fac, act_fac_e);
+    validity++;
+  }
+
+  if (CheckForm(act_venue)) {
+    FormError(act_venue, act_venue_e);
+  } else {
+    FormValid(act_venue, act_venue_e);
+    validity++;
+  }
+
+  if (CheckForm(act_date)) {
+    FormError(act_date, act_date_e);
+  } else {
+    FormValid(act_date, act_date_e);
+    validity++;
+  }
+
+  if (CheckForm(act_time)) {
+    FormError(act_time, act_time_e);
+  } else {
+    FormValid(act_time, act_time_e);
+    validity++;
+  }
+
+  if (CheckForm(act_description)) {
+    FormError(act_description, act_description_e);
+  } else {
+    FormValid(act_description, act_description_e);
+    validity++;
+  }
+
+  if (validity === 6) {
+    
+    UpdateEventActivity(route);
+
+  }
+}
+//Finalize Update Event BAckend
+function UpdateEventActivity(route){
+  $.ajax({
+    type:"POST",
+    data: 'json',
+    url: route ,
+    success: res=>{
+      const actTitle = document.getElementById('editActTitle');
+      actTitle.textContent = res.act.eact_name;
+      AssVal('act_name_edit', res.act.eact_name);
+      AssVal('act_fac_edit', res.act.eact_facilitator);
+      AssVal('act_venue_edit', res.act.eact_venue);
+      AssVal('act_date_edit', res.act.eact_date);
+      AssVal('act_time_edit', res.act.eact_time);
+      AssVal('act_description_edit', res.act.eact_description);
+    },error: xhr => {
+     console.log(xhr.responseText);
+    }
+  });
 }

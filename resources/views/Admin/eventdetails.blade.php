@@ -394,6 +394,7 @@
         </div>
       </div>
     </div>
+
     <div class="modal modal-blur fade" id="addActivity" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -451,10 +452,78 @@
             <button type="button" id="close-button-act" class="btn btn-link link-secondary" data-bs-dismiss="modal">
               Cancel
             </button>
-            <button type="button" onclick="VerifyAddEventActivity('{{ route('addEventActivity') }}', '{{ route('deleteEventActivities') }}')" class="btn btn-primary ms-auto">
+            <button type="button" onclick="VerifyAddEventActivity('{{ route('addEventActivity') }}', '{{ route('deleteEventActivities') }}', '{{ route('getActDetails') }}')" class="btn btn-primary ms-auto">
             
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
               Create new activity
+            </button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="editAct" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Activity <span id="editActTitle"></span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="editActForm" method="POST">
+            @csrf
+            <input type="hidden" name="event_id" id="event_id_act_edit">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Activity Name <span id="act_name_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+              <input type="text" class="form-control" id="act_name_edit" name="act_name" placeholder="Activity Name">
+            </div>
+       
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Facilitator Name <span id="act_fac_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_fac_edit" name="act_fac" placeholder="Facilitator Name">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Activity Venue <span id="act_venue_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_venue_edit" name="act_venue" placeholder="Activity Venue">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Date <span id="act_date_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="date" id="act_date_edit" name="act_date"class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Time <span id="act_time_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="time" id="act_time_edit" name="act_time" class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div>
+                  <label class="form-label">Activity Description <span id="act_description_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <textarea class="form-control" id="act_description_edit" name="act_description" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="close-button-act_edit" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" onclick="VerifyEditEventActivity()" class="btn btn-primary ms-auto">
+            
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+              Update Activity
             </button>
           </div>
         </form>
@@ -531,7 +600,7 @@
 
     window.onload = () => {
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
-      LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}");
+      LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
     }
     
   </script>

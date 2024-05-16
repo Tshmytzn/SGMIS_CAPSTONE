@@ -102,14 +102,14 @@ class SchoolEvent extends Controller
     }
 
     public function AddEventActivity(Request $req){
-        $time = convertToAmPm($req->act_time);
+    
         $act = new EventActivities;
         $act->event_id = $req->event_id;
         $act->eact_name = $req->act_name;
         $act->eact_facilitator = $req->act_fac;
         $act->eact_venue = $req->act_venue;
         $act->eact_date = $req->act_date;
-        $act->eact_time = $time;
+        $act->eact_time = $req->act_time;
         $act->eact_description= $req->act_description;
         $act->save();
 
@@ -128,5 +128,10 @@ class SchoolEvent extends Controller
         $act->delete();
 
         return response()->json(['status'=>'success']);
+    }
+
+    public function GetActDetails(Request $req){
+        $act = EventActivities::where('eact_id', $req->act_id)->first();
+        return response()->json(['act'=>$act]);
     }
 }
