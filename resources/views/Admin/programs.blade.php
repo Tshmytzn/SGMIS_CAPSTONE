@@ -3,8 +3,15 @@
 <html lang="en">
   
 @include('Admin.components.header' , ['title' => 'Programs'])
+{{-- @include('Admin.components.programsloader') --}}
 
-  <body >
+  <body>
+
+    {{-- <div class="loader-container">
+      <div class="loader"></div>
+  </div> --}}
+  
+    
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
