@@ -19,10 +19,17 @@
                             <div class="form-label" style="font-size: 14px;">SSG President</div>
                           </div>
                         </div>
-                        <div>
-                          <button class="btn btn-danger" data-bs-dismiss="modal">Logout</button>
-                          <button class="btn btn-success" style="margin-left: 10px;">Go to Settings</button>
-                        </div>
+                        <div class="row">
+                          <div class="col text-start">
+                            <button onclick="window.location.href='{{ route('Settings') }}'" class="btn btn-success btn-block" style="width: 120px" data-bs-dismiss="modal">Edit Profile</button>
+                          </div>
+                          <div class="col text-end ">
+                            <form method="POST" action="{{ route('AdminLogout') }}">
+                              @csrf
+                              <button type="submit" class="btn btn-danger btn-block ms" style="width: 120px" data-bs-dismiss="modal">Logout</button>
+                          </form>
+                          </div>
+                      </div>
                       </div>
                     </div>
                   </div>
