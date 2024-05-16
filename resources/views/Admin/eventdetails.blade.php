@@ -68,7 +68,7 @@
             </div>    
  
                 <div class="card-body">
-                  <div class="datagrid mb-2">
+                  <div class="datagrid">
                     <div class="datagrid-item">
                       <div class="datagrid-title">NAME</div>
                       <div id="event_name" class="datagrid-content"></div>
@@ -88,9 +88,9 @@
                     <div class="datagrid-item">
                       <div class="datagrid-title">Creator</div>
                       <div class="datagrid-content">
-                        <div id="admin_name" class="d-flex align-items-center">
+                        <div  class="d-flex align-items-center">
                           <span  class="avatar avatar-xs me-2 rounded" style="background-image: url({{asset('./static/icon.jpg')}})"></span>
-                           <span ></span>
+                           <span id="admin_name"></span>
                         </div>
                       </div>
                     </div>
@@ -106,6 +106,7 @@
                         <option value="AZ" selected>PSITS PRES</option>
                       </select>
                     </div>
+                    </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">Description</div>
                       <div class="datagrid-content">
@@ -113,7 +114,7 @@
                       </div>
                     </div>
                   </div>
-
+                </div>
                 <hr style="margin-top: -1%">
                 <div class="row justify-content-between" style="margin-top: -1%">
 
@@ -160,7 +161,6 @@
                     </div>
                   </div>
 
-                </div>
 
               </div>
 
@@ -197,9 +197,75 @@
                                     67
                                 </a>
                             </div>
-                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          {{-- DEPARTMENT #2 --}}          
+          <div class="col-sm-6 col-lg-4">
+            <div class="card card-sm">
+              <div class="custom-dropdown dropup">
+              <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
+              <div class="card-body">
+                  <div class="d-flex align-items-center">
+                      <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
+                          College of Engineering
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <li><a class="dropdown-item" href="#">Bachelor of Science in Civil Engineering</a></li>
+
+                      </ul>
+                      <div class="ms-auto">
+                          <a href="#" class="text-muted">
+                              <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                              467
+                          </a>
+                          <a href="#" class="ms-3 text-muted">
+                              <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                              67
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    {{-- DEPARTMENT #3 --}}
+    <div class="col-sm-6 col-lg-4">
+      <div class="card card-sm">
+        <div class="custom-dropdown dropup">
+        <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
+                    College of Education
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Bachelor of Physical Education</a></li>
+                    <li><a class="dropdown-item" href="#">Bachelor of Early Childhood Education </a></li>
+                    <li><a class="dropdown-item" href="#">Bachelor of Elementary Education</a></li>
+
+                </ul>
+                <div class="ms-auto">
+                    <a href="#" class="text-muted">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                        467
+                    </a>
+                    <a href="#" class="ms-3 text-muted">
+                        <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                        67
+                    </a>
                           </div>
-                      </div> 
+                            </div>
+                        </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -208,7 +274,6 @@
         </div>
        </div>
      </div>
-    </div>
     </div>
 
     {{-- MODALS --}}
