@@ -95,8 +95,8 @@
             
             </div>
             <div class="mb-3">
-              <label class="form-label">Event Venue   <span style="display: none" id="ev_venue_e" class="text-danger ">(Don't Leave this field empty)</span></label>
-              <input type="text" class="form-control" id="ev_venue" name="ev_venue" placeholder="Event Venue">
+              <label class="form-label">Event Facilitator   <span style="display: none" id="ev_facilitator_e" class="text-danger ">(Don't Leave this field empty)</span></label>
+              <input type="text" class="form-control" id="ev_facilitator" name="ev_facilitator" placeholder="Event Facilitator">
             
             </div>
         <div class="mb-2">
@@ -134,7 +134,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" id="close-button" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}', '{{ route('deleteEvent') }}', '{{ route('EventDetails') }}')" class="btn btn-primary">Save</button>
+            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}', '{{ route('deleteEvent') }}', '{{ route('EventDetails') }}', 'add')" class="btn btn-primary">Save</button>
           </div>
         </form>
         </div>

@@ -63,17 +63,17 @@ function getDays(date) {
 
 
 
-function VerifyFormEvent(route, events, images, deleteEvent, eventDetails) {
+function VerifyFormEvent(route, events, images, deleteEvent, eventDetails, meth) {
   const evname = document.getElementById('ev_name');
   const ev_pic = document.getElementById('ev_pic');
   const ev_start = document.getElementById('ev_start');
   const ev_end = document.getElementById('ev_end');
-  const ev_venue = document.getElementById('ev_venue');
+  const ev_facilitator = document.getElementById('ev_facilitator');
   const ev_description = document.getElementById('ev_description');
 
   const ev_name_e = document.getElementById('ev_name_e');
   const ev_pic_e = document.getElementById('ev_pic_e');
-  const ev_venue_e = document.getElementById('ev_venue_e');
+  const ev_facilitator_e = document.getElementById('ev_facilitator_e');
   const ev_start_e = document.getElementById('ev_start_e');
   const ev_end_e = document.getElementById('ev_end_e');
   const ev_description_e = document.getElementById('ev_description_e');
@@ -90,18 +90,18 @@ function VerifyFormEvent(route, events, images, deleteEvent, eventDetails) {
   }
 
 
-  if (ev_venue.value === "") {
-    ev_venue_e.style.display = '';
-    ev_venue.classList.add("border", "border-danger");
+  if (ev_facilitator.value === "") {
+    ev_facilitator_e.style.display = '';
+    ev_facilitator.classList.add("border", "border-danger");
   } else {
-    ev_venue.classList.remove("border", "border-danger");
-    ev_venue_e.style.display = 'none';
+    ev_facilitator.classList.remove("border", "border-danger");
+    ev_facilitator_e.style.display = 'none';
     validity++;
   }
 
 
 
-  if (ev_pic.files.length === 0) {
+  if (ev_pic.files.length === 0 && meth === 'add') {
     ev_pic_e.style.display = '';
     ev_pic.classList.add("border", "border-danger");
   } else {
@@ -138,10 +138,33 @@ function VerifyFormEvent(route, events, images, deleteEvent, eventDetails) {
   }
 
   if (validity === 6) {
-    SaveEvent(route, events, images, deleteEvent, eventDetails);
+    if(meth === 'add'){
+      SaveEvent(route, events, images, deleteEvent, eventDetails);
+    }else{
+      UpdateEvent(route, events ,images)
+    }
   }
 }
 
+function UpdateEvent(route, load, image){
+  document.getElementById('mainLoader').style.display = 'flex';
+  const formData = new FormData($('#update_event')[0]);
+
+  $.ajax({
+     type:'POST',
+     url:route,
+     data: formData,
+     contentType: false,
+     processData: false,
+     success: res => {
+      document.getElementById('mainLoader').style.display = 'none';
+      document.getElementById('close-button').click();
+      EventDetailsLoad(load, image)
+     }, error: xhr => {
+      console.log(xhr.responseText);
+     }
+  });
+}
 function SaveEvent(route, events, images, deleteEvent, eventDetails) {
   document.getElementById('mainLoader').style.display = 'flex';
   const formData = new FormData($('#add_event')[0]);
@@ -393,7 +416,7 @@ function RemoveEvent(ev_id) {
   }, 600);
 }
 
-function EventDetailsLoad(Route){
+function EventDetailsLoad(Route, eventImage){
 
   $.ajax({
     type:"GET",
@@ -402,13 +425,22 @@ function EventDetailsLoad(Route){
     success: ev => {
       const data = ev.event;
       const admin = ev.admin;
-      console.log(admin);
       TextDisplayAnimate('event_name', data.event_name);
       TextDisplayAnimate('event_duration', DayDuration(data.event_start, data.event_end));
       TextDisplayAnimate('event_start', data.event_start);
       TextDisplayAnimate('event_end', data.event_end);
-      TextDisplayAnimate('event_venue', data.event_venue);
+      TextDisplayAnimate('event_facilitator', data.event_facilitator);
       TextDisplayAnimate('admin_name', admin.admin_name);
+      TextDisplayAnimate('event_description', data.event_description);
+      TextDisplayAnimate('event_created', data.created_at.substring(0,10));
+      AssVal('ev_name', data.event_name);
+      AssVal('ev_facilitator', data.event_facilitator);
+      document.getElementById('event_image').src = eventImage + "/" + data.event_pic;
+      AssVal('ev_start', data.event_start);
+      AssVal('ev_end', data.event_end);
+      AssVal('duration', DayDuration(data.event_start, data.event_end));
+      AssVal('ev_description', data.event_description);
+      AssVal('event_id', data.event_id);
     },
     error: xhr => {
       console.log(xhr.responseText);
@@ -454,4 +486,8 @@ function TextDisplayAnimate(elementId, text) {
   }
 
   addLetter();
+}
+
+function AssVal(eid, data){
+  document.getElementById(eid).value = data;
 }
