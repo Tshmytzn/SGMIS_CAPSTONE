@@ -36,6 +36,7 @@ Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
 Route::post('Admin/logout',[Login::class,'AdminLogout'] )->name('AdminLogout');
 Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEvent');
 Route::post('Admin/Event/Delete',[SchoolEvent::class,'DeleteEvent'] )->name('deleteEvent');
+Route::post('Admin/Event/Update',[SchoolEvent::class,'UpdateEventDetails'] )->name('updateEventDetails');
 //Rheyan Get Route
 Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
 Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');

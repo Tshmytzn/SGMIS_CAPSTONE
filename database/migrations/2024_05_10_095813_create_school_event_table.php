@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('event_start', 20);
             $table->string('event_end', 20);
             $table->string('event_pic', 150);
-            $table->string('event_venue', 150);
+            $table->string('event_facilitator', 150);
             $table->string('event_programme', 700)->nullable();
             $table->integer('event_status')->default(0);
             $table->unsignedBigInteger('admin_id'); 

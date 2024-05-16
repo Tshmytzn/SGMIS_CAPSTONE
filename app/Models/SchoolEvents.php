@@ -17,7 +17,7 @@ class SchoolEvents extends Model
       'event_start',
       'event_end',
       'event_status',
-      'event_venue',
+      'event_facilitator',
       'event_programme',
       'event_pic',
       'admin_id',

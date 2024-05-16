@@ -20,7 +20,7 @@ class SchoolEvent extends Controller
         $event->event_description = $req->ev_description;
         $event->event_start = $req->ev_start;
         $event->event_end = $req->ev_end;
-        $event->event_venue = $req->ev_venue;
+        $event->event_facilitator = $req->ev_facilitator;
         $event->event_pic = 'none';
         $event->admin_id = session('admin_id');
         $event->save();
@@ -68,5 +68,35 @@ class SchoolEvent extends Controller
         $admin = Admin::where('admin_id', $event->admin_id)->first();
 
         return response()->json(['event'=>$event, 'admin'=>$admin]);
+    }
+
+    public function UpdateEventDetails(Request $req){
+        $event = SchoolEvents::where('event_id', $req->event_id)->first();
+
+        $pic = $req->file('ev_pic');
+
+        if($pic) {
+            if(!in_array($pic->getClientOriginalExtension(), ['jpeg', 'jpg', 'png', 'gif'])){
+                return response()->json(['status'=>'invalid_img']);
+            }else{
+                $event->update([
+                    'event_name'=> $req->ev_name,
+                    'event_description'=>$req->ev_description,
+                    'event_facilitator'=> $req->ev_facilitator,
+                    'event_start'=> $req->ev_start,
+                    'event_end'=>$req->ev_end,
+                    'event_pic'=> "Event". $req->event_id .".".$pic->getClientOriginalExtension(),
+                  ]);
+
+                  $pic->move(public_path('event_images/'),  "Event". $req->event_id . ".". $pic->getClientOriginalExtension());
+            }
+        } 
+         $event->update([
+           'event_name'=> $req->ev_name,
+           'event_description'=>$req->ev_description,
+           'event_facilitator'=> $req->ev_facilitator,
+           'event_start'=> $req->ev_start,
+           'event_end'=>$req->ev_end,
+         ]);
     }
 }
