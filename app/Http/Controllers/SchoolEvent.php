@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SchoolEvents;
+use App\Models\EventActivities;
 use App\Models\Admin;
 class SchoolEvent extends Controller
 {
@@ -98,5 +99,27 @@ class SchoolEvent extends Controller
            'event_start'=> $req->ev_start,
            'event_end'=>$req->ev_end,
          ]);
+    }
+
+    public function AddEventActivity(Request $req){
+        $time = convertToAmPm($req->act_time);
+        $act = new EventActivities;
+        $act->event_id = $req->event_id;
+        $act->eact_name = $req->act_name;
+        $act->eact_facilitator = $req->act_fac;
+        $act->eact_venue = $req->act_venue;
+        $act->eact_date = $req->act_date;
+        $act->eact_time = $time;
+        $act->eact_description= $req->act_description;
+        $act->save();
+
+        $fetch = EventActivities::where('eact_id', $act->eact_id)->first();
+
+        return response()->json(['status'=>'success', 'data'=>$fetch]);
+    }
+
+    public function GetAllEventActivities(Request $req){
+        $act = EventActivities::where('event_id', $req->event_id)->get();
+        return response()->json(['act'=>$act]);
     }
 }

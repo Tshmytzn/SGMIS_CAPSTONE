@@ -441,6 +441,7 @@ function EventDetailsLoad(Route, eventImage){
       AssVal('duration', DayDuration(data.event_start, data.event_end));
       AssVal('ev_description', data.event_description);
       AssVal('event_id', data.event_id);
+      AssVal('event_id_act', data.event_id);
     },
     error: xhr => {
       console.log(xhr.responseText);
@@ -490,4 +491,221 @@ function TextDisplayAnimate(elementId, text) {
 
 function AssVal(eid, data){
   document.getElementById(eid).value = data;
+}
+
+
+function VerifyAddEventActivity(route){
+  const act_name = document.getElementById('act_name');
+  const act_fac = document.getElementById('act_fac');
+  const act_venue = document.getElementById('act_venue');
+  const act_date = document.getElementById('act_date');
+  const act_time = document.getElementById('act_time');
+  const act_description = document.getElementById('act_description');
+
+  const act_name_e = document.getElementById('act_name_e');
+  const act_fac_e = document.getElementById('act_fac_e');
+  const act_venue_e = document.getElementById('act_venue_e');
+  const act_date_e = document.getElementById('act_date_e');
+  const act_time_e = document.getElementById('act_time_e');
+  const act_description_e = document.getElementById('act_description_e');
+
+  let validity = 0;
+  if(CheckForm(act_name)){
+    FormError(act_name, act_name_e);
+  }else{
+    FormValid(act_name, act_name_e);
+    validity++;
+  }
+
+  if(CheckForm(act_fac)){
+    FormError(act_fac, act_fac_e);
+  }else{
+    FormValid(act_fac, act_fac_e);
+    validity++;
+  }
+
+  if(CheckForm(act_venue)){
+    FormError(act_venue, act_venue_e);
+  }else{
+    FormValid(act_venue, act_venue_e);
+    validity++;
+  }
+
+  if(CheckForm(act_date)){
+    FormError(act_date, act_date_e);
+  }else{
+    FormValid(act_date, act_date_e);
+    validity++;
+  }
+
+  if(CheckForm(act_time)){
+    FormError(act_time, act_time_e);
+  }else{
+    FormValid(act_time, act_time_e);
+    validity++;
+  }
+
+  if(CheckForm(act_description)){
+    FormError(act_description, act_description_e);
+  }else{
+    FormValid(act_description, act_description_e);
+    validity++;
+  }
+
+  if(validity === 6){
+    act_name.value = '';
+    act_fac.value = '';
+    act_venue = '';
+    act_date = '';
+    act_time = '';
+    act_description = '';
+    AddEventActivity(route);
+  }
+
+}
+
+function CheckForm(input){
+   if(input.value === ''){
+    return true;
+   }else{
+    return false;
+   }
+}
+
+function FormError(input, err){
+  input.classList.add("border", "border-danger");
+  err.style.display = '';
+}
+function FormValid(input, err){
+  input.classList.remove("border", "border-danger");
+  err.style.display = 'none';
+}
+
+function AddEventActivity(route){
+  document.getElementById('mainLoader').style.display = 'flex';
+  var formData = $('form#addActForm').serialize();
+
+  $.ajax({
+     type:'POST',
+     url: route,
+     data: formData,
+     success: res=>{
+       if(res.status=== 'success'){
+        document.getElementById('close-button-act').click();
+        alertify.set('notifier', 'position', 'top-center');
+        document.getElementById('mainLoader').style.display = 'none';
+        alertify.success('Event Created').dismissOthers();
+        document.getElementById('act_list').innerHTML += `<tr>
+        <td > ${res.data.eact_name}</td>
+        <td class="text-muted" >
+          ${res.data.eact_description.length < 15 ? res.data.eact_description : res.data.eact_description.substring(0,15) + '....'}
+        </td>
+        <td class="text-muted" > ${res.data.eact_venue}</td>
+        <td class="text-muted" >
+        ${res.data.eact_facilitator}
+        </td>
+        <td class="text-muted" >
+        ${res.data.eact_date} & ${res.data.eact_time}
+        </td>
+        <td class="d-flex gap-1">
+          <button  class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+          <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+        </svg></button>
+          <button  class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+          <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+          <path d="M16 5l3 3" />
+        </svg></button>
+          <button  class="border-0 bg-body text-danger" title="Delete Activity" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M4 7l16 0" />
+          <path d="M10 11l0 6" />
+          <path d="M14 11l0 6" />
+          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+        </svg></button>
+        </td>
+      </tr>`;
+       }
+     },error: xhr => {
+      console.log(xhr.responseText);
+     }
+  });
+}
+
+function LoadEventActivities(route){
+  const act_list = document.getElementById('act_list');
+  $.ajax({
+  type:"GET",
+  dataType: 'json',
+  url: route,
+  success: res => {
+    document.getElementById('loading-act').style.display = 'none';
+    if(res.act.length !== 0){
+
+      res.act.forEach(data => {
+         act_list.innerHTML +=`<tr>
+         <td > ${data.eact_name}</td>
+         <td class="text-muted" >
+           ${data.eact_description.length < 15 ? data.eact_description : data.eact_description.substring(0,15) + '....'}
+         </td>
+         <td class="text-muted" > ${data.eact_venue}</td>
+         <td class="text-muted" >
+         ${data.eact_facilitator}
+         </td>
+         <td class="text-muted" >
+         ${data.eact_date} & ${data.eact_time}
+         </td>
+         <td class="d-flex gap-1">
+           <button  class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+           <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+           <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+         </svg></button>
+           <button  class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+           <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+           <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+           <path d="M16 5l3 3" />
+         </svg></button>
+           <button onclick="DeleteActEvent('${data.eact_id}')" class="border-0 bg-body text-danger" title="Delete Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+           <path d="M4 7l16 0" />
+           <path d="M10 11l0 6" />
+           <path d="M14 11l0 6" />
+           <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+           <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+         </svg></button>
+         </td>
+       </tr>`;
+      });
+
+    }else{
+      act_list.innerHTML = `<tr>
+      <td colspan="6"  class="text-center text-muted">No Activity Found for this Event <button data-bs-toggle="modal" data-bs-target="#addActivity" style="text-decoration: underline !important" class="border-0 bg-body text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M12 5l0 14" />
+        <path d="M5 12l14 0" />
+      </svg>Add</button></td>
+    </tr>`;
+    }
+  }, error: xhr => {
+    console.log(xhr.responseText);
+  }
+})
+}
+
+function DeleteActEvent(ids){
+   document.getElementById('delete_act_d')
+}
+
+function EditActEvent(){
+
+}
+
+function ViewActEvent(){
+
 }

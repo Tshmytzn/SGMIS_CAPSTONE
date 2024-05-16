@@ -59,9 +59,11 @@
                           <div style="margin-left: -20px;">
                             <h3>More Information</h3>
                           </div>
-                          <div style="border: none; background: none; margin-right:1%; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editEventDetails">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
-                          </div>
+                         
+                            <div title="Edit Event" style="border: none; background: none; margin-right:1%; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editEventDetails">
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                            </div>
+                      
                       </div>
                   </div>
               </div>    
@@ -115,7 +117,38 @@
                   </div>
                 </div>
               
-
+                <div class="table-responsive mt-4">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <h1>Activity List</h1>
+                    <button  data-bs-toggle="modal" data-bs-target="#addActivity" class="btn btn-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 5l0 14" />
+                      <path d="M5 12l14 0" />
+                    </svg>Add Activities</button>
+                  </div>
+                  <table class="table table-vcenter card-table">
+                    <thead>
+                      <tr>
+                        <th>Activity Name</th>
+                        <th>Description</th>
+                        <th>Venue</th>
+                        <th>Facilitator</th>
+                        <th>Date & Time</th>
+                        <th class="w-1">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="act_list">
+                      <tr id="loading-act">
+                      <td colspan="6" class="text-center">
+                        <div class="text-muted mb-3">Loading Activities</div>
+                        <div class="progress progress-sm ">
+                          <div class="progress-bar progress-bar-indeterminate"></div>
+                        </div>
+                      </td>
+                      </tr>            
+                    </tbody>
+                  </table>
+                </div>
                 <div class="col-auto w-100 mt-4 d-flex justify-content-between align-items-center">
                 <h3> Event Programme</h3>      
                  <div class="d-flex gap-4">
@@ -361,10 +394,81 @@
         </div>
       </div>
     </div>
-
-        
+    <div class="modal modal-blur fade" id="addActivity" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">New Activity</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="addActForm" method="POST">
+            @csrf
+            <input type="hidden" name="event_id" id="event_id_act">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Activity Name <span id="act_name_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+              <input type="text" class="form-control" id="act_name" name="act_name" placeholder="Activity Name">
+            </div>
+       
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Facilitator Name <span id="act_fac_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_fac" name="act_fac" placeholder="Facilitator Name">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Activity Venue <span id="act_venue_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_venue" name="act_venue" placeholder="Activity Venue">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Date <span id="act_date_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="date" id="act_date" name="act_date"class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Time <span id="act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="time" id="act_time" name="act_time" class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div>
+                  <label class="form-label">Activity Description <span id="act_description_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <textarea class="form-control" id="act_description" name="act_description" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="close-button-act" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" onclick="VerifyAddEventActivity('{{ route('addEventActivity') }}')" class="btn btn-primary ms-auto">
+            
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+              Create new activity
+            </button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
     {{-- MODALS --}}
 
+
+    {{-- Delete Activity Form --}}
+    <form method="POST" id="deleteActEvent">
+      @csrf
+      <input type="hidden" name="act_id" id="delete_act_id">
+    </form>
 @include('Admin.components.footer')
 
       </div>
@@ -427,6 +531,7 @@
 
     window.onload = () => {
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
+      LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}");
     }
     
   </script>
