@@ -38,6 +38,7 @@ Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEve
 Route::post('Admin/Event/Delete',[SchoolEvent::class,'DeleteEvent'] )->name('deleteEvent');
 Route::post('Admin/Event/Update',[SchoolEvent::class,'UpdateEventDetails'] )->name('updateEventDetails');
 Route::post('Admin/Event/AddActivity',[SchoolEvent::class,'AddEventActivity'] )->name('addEventActivity');
+Route::post('Admin/Event/DeleteActivity',[SchoolEvent::class,'DeleteEventActivities'] )->name('deleteEventActivities');
 //Rheyan Get Route
 Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
 Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');

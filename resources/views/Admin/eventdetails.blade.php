@@ -451,7 +451,7 @@
             <button type="button" id="close-button-act" class="btn btn-link link-secondary" data-bs-dismiss="modal">
               Cancel
             </button>
-            <button type="button" onclick="VerifyAddEventActivity('{{ route('addEventActivity') }}')" class="btn btn-primary ms-auto">
+            <button type="button" onclick="VerifyAddEventActivity('{{ route('addEventActivity') }}', '{{ route('deleteEventActivities') }}')" class="btn btn-primary ms-auto">
             
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
               Create new activity
@@ -531,7 +531,7 @@
 
     window.onload = () => {
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
-      LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}");
+      LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}");
     }
     
   </script>

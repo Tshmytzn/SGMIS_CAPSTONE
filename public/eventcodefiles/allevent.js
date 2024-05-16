@@ -38,19 +38,19 @@ function getDays(date) {
 
   if (!dateStr1 || !dateStr2) {
     console.error('Both dates must be selected.');
-    return; 
+    return;
   }
 
   const dateArr1 = dateStr1.split('-');
   const dateArr2 = dateStr2.split('-');
 
-  const date1 = new Date(dateArr1[0], dateArr1[1] - 1, dateArr1[2]); 
+  const date1 = new Date(dateArr1[0], dateArr1[1] - 1, dateArr1[2]);
   const date2 = new Date(dateArr2[0], dateArr2[1] - 1, dateArr2[2]);
 
 
   if (isNaN(date1) || isNaN(date2)) {
     console.error('Invalid date format.');
-    return; 
+    return;
   }
 
   const differenceMs = Math.abs(date1 - date2);
@@ -138,31 +138,31 @@ function VerifyFormEvent(route, events, images, deleteEvent, eventDetails, meth)
   }
 
   if (validity === 6) {
-    if(meth === 'add'){
+    if (meth === 'add') {
       SaveEvent(route, events, images, deleteEvent, eventDetails);
-    }else{
-      UpdateEvent(route, events ,images)
+    } else {
+      UpdateEvent(route, events, images)
     }
   }
 }
 
-function UpdateEvent(route, load, image){
+function UpdateEvent(route, load, image) {
   document.getElementById('mainLoader').style.display = 'flex';
   const formData = new FormData($('#update_event')[0]);
 
   $.ajax({
-     type:'POST',
-     url:route,
-     data: formData,
-     contentType: false,
-     processData: false,
-     success: res => {
+    type: 'POST',
+    url: route,
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: res => {
       document.getElementById('mainLoader').style.display = 'none';
       document.getElementById('close-button').click();
       EventDetailsLoad(load, image)
-     }, error: xhr => {
+    }, error: xhr => {
       console.log(xhr.responseText);
-     }
+    }
   });
 }
 function SaveEvent(route, events, images, deleteEvent, eventDetails) {
@@ -179,7 +179,7 @@ function SaveEvent(route, events, images, deleteEvent, eventDetails) {
       document.getElementById('mainLoader').style.display = 'none';
       alertify.set('notifier', 'position', 'top-center');
       if (res.status === 'success') {
-        
+
         const queryRoute = events + "?ev_id=" + res.ev_id;
         AddEventsOnList(queryRoute, images, deleteEvent, eventDetails);
         alertify.success('Event Created').dismissOthers();
@@ -201,12 +201,12 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
     dataType: "json",
     success: function (response) {
       const eventList = document.getElementById('eventList');
-      if(response.event.length > 0){
+      if (response.event.length > 0) {
 
-      let html = '';
-      eventList.innerHTML = '';
-      response.event.forEach(ev => {
-        html += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4 loadingEvents">
+        let html = '';
+        eventList.innerHTML = '';
+        response.event.forEach(ev => {
+          html += `<div title="${ev.event_name}" style="transform: scale(0.01); display:none; transition:transform 0.6s" id="dataEvents${ev.event_id}" class="col-sm-6 col-lg-4 loadingEvents">
         <div class="card card-sm">
           <a onclick="openEvent()" href="${eventDetails}?event_id=${ev.event_id}" class="d-block"><img src="${imageRoute}/${ev.event_pic}" class="card-img-top"></a>
           <div class="card-body">
@@ -243,27 +243,27 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
           </div>
         </div>
       </div>`;
-      });
-      eventList.innerHTML = html;
+        });
+        eventList.innerHTML = html;
 
-      const loadingEvents = document.querySelectorAll('.loadingEvents');
-      let index = 0; 
+        const loadingEvents = document.querySelectorAll('.loadingEvents');
+        let index = 0;
 
-      const intervalId = setInterval(() => {
-        const e = loadingEvents[index]; 
+        const intervalId = setInterval(() => {
+          const e = loadingEvents[index];
 
-        if (index < loadingEvents.length) {
-          e.style.display = '';
-          setTimeout(() => {
-            e.style.transform = "scale(1)";
-          }, 25);
-          index++; 
-        } else {
-          clearInterval(intervalId); 
-        }
-      }, 300);
+          if (index < loadingEvents.length) {
+            e.style.display = '';
+            setTimeout(() => {
+              e.style.transform = "scale(1)";
+            }, 25);
+            index++;
+          } else {
+            clearInterval(intervalId);
+          }
+        }, 300);
 
-      }else{
+      } else {
         eventList.innerHTML = `<div class="empty" id="empty">
         <div class="empty-img"><img src="./static/illustrations/undraw_quitting_time_dm8t.svg" height="128" alt="">
         </div>
@@ -286,12 +286,12 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
     }
   });
 }
-function openEvent(){
- const eventList = document.getElementById('eventList');
- eventList.style.animation = "fading 0.4s";
- setTimeout(()=>{
-  eventList.style.display = "none";
- },400);
+function openEvent() {
+  const eventList = document.getElementById('eventList');
+  eventList.style.animation = "fading 0.4s";
+  setTimeout(() => {
+    eventList.style.display = "none";
+  }, 400);
 }
 function AddEventsOnList(route, image, deleteEvent, eventDetails) {
   const btn = document.getElementById('close-button');
@@ -304,7 +304,7 @@ function AddEventsOnList(route, image, deleteEvent, eventDetails) {
       dataType: "json",
       success: res => {
         const empty = document.getElementById('empty');
-        if(empty){
+        if (empty) {
           empty.remove();
         }
         const ev = res.event;
@@ -396,7 +396,7 @@ function RemoveEvent(ev_id) {
     event.style.display = 'none';
 
     const loadingEvents = document.querySelectorAll('.loadingEvents');
-    if(loadingEvents.length === 0){
+    if (loadingEvents.length === 0) {
       document.getElementById('eventList').innerHTML = `<div class="empty" id="empty">
       <div class="empty-img"><img src="./static/illustrations/undraw_quitting_time_dm8t.svg" height="128" alt="">
       </div>
@@ -416,10 +416,10 @@ function RemoveEvent(ev_id) {
   }, 600);
 }
 
-function EventDetailsLoad(Route, eventImage){
+function EventDetailsLoad(Route, eventImage) {
 
   $.ajax({
-    type:"GET",
+    type: "GET",
     dataType: "json",
     url: Route,
     success: ev => {
@@ -432,7 +432,7 @@ function EventDetailsLoad(Route, eventImage){
       TextDisplayAnimate('event_facilitator', data.event_facilitator);
       TextDisplayAnimate('admin_name', admin.admin_name);
       TextDisplayAnimate('event_description', data.event_description);
-      TextDisplayAnimate('event_created', data.created_at.substring(0,10));
+      TextDisplayAnimate('event_created', data.created_at.substring(0, 10));
       AssVal('ev_name', data.event_name);
       AssVal('ev_facilitator', data.event_facilitator);
       document.getElementById('event_image').src = eventImage + "/" + data.event_pic;
@@ -476,25 +476,25 @@ function DayDuration(startDate, endDate) {
 function TextDisplayAnimate(elementId, text) {
   const element = document.getElementById(elementId);
   let index = 0;
-  element.textContent = ''; 
+  element.textContent = '';
 
   function addLetter() {
-      if (index < text.length) {
-          element.textContent += text.charAt(index);
-          index++;
-          setTimeout(addLetter, 100);
-      }
+    if (index < text.length) {
+      element.textContent += text.charAt(index);
+      index++;
+      setTimeout(addLetter, 100);
+    }
   }
 
   addLetter();
 }
 
-function AssVal(eid, data){
+function AssVal(eid, data) {
   document.getElementById(eid).value = data;
 }
 
 
-function VerifyAddEventActivity(route){
+function VerifyAddEventActivity(route, deleteRoute) {
   const act_name = document.getElementById('act_name');
   const act_fac = document.getElementById('act_fac');
   const act_venue = document.getElementById('act_venue');
@@ -510,95 +510,102 @@ function VerifyAddEventActivity(route){
   const act_description_e = document.getElementById('act_description_e');
 
   let validity = 0;
-  if(CheckForm(act_name)){
+  if (CheckForm(act_name)) {
     FormError(act_name, act_name_e);
-  }else{
+  } else {
     FormValid(act_name, act_name_e);
     validity++;
   }
 
-  if(CheckForm(act_fac)){
+  if (CheckForm(act_fac)) {
     FormError(act_fac, act_fac_e);
-  }else{
+  } else {
     FormValid(act_fac, act_fac_e);
     validity++;
   }
 
-  if(CheckForm(act_venue)){
+  if (CheckForm(act_venue)) {
     FormError(act_venue, act_venue_e);
-  }else{
+  } else {
     FormValid(act_venue, act_venue_e);
     validity++;
   }
 
-  if(CheckForm(act_date)){
+  if (CheckForm(act_date)) {
     FormError(act_date, act_date_e);
-  }else{
+  } else {
     FormValid(act_date, act_date_e);
     validity++;
   }
 
-  if(CheckForm(act_time)){
+  if (CheckForm(act_time)) {
     FormError(act_time, act_time_e);
-  }else{
+  } else {
     FormValid(act_time, act_time_e);
     validity++;
   }
 
-  if(CheckForm(act_description)){
+  if (CheckForm(act_description)) {
     FormError(act_description, act_description_e);
-  }else{
+  } else {
     FormValid(act_description, act_description_e);
     validity++;
   }
 
-  if(validity === 6){
+  if (validity === 6) {
+    
+    AddEventActivity(route, deleteRoute);
     act_name.value = '';
     act_fac.value = '';
     act_venue = '';
     act_date = '';
     act_time = '';
     act_description = '';
-    AddEventActivity(route);
   }
 
 }
 
-function CheckForm(input){
-   if(input.value === ''){
+function CheckForm(input) {
+  if (input.value === '') {
     return true;
-   }else{
+  } else {
     return false;
-   }
+  }
 }
 
-function FormError(input, err){
+function FormError(input, err) {
   input.classList.add("border", "border-danger");
   err.style.display = '';
 }
-function FormValid(input, err){
+function FormValid(input, err) {
   input.classList.remove("border", "border-danger");
   err.style.display = 'none';
 }
 
-function AddEventActivity(route){
+function AddEventActivity(route, deleteRoute) {
   document.getElementById('mainLoader').style.display = 'flex';
   var formData = $('form#addActForm').serialize();
 
   $.ajax({
-     type:'POST',
-     url: route,
-     data: formData,
-     success: res=>{
-       if(res.status=== 'success'){
+    type: 'POST',
+    url: route,
+    data: formData,
+    success: res => {
+      if (res.status === 'success') {
         document.getElementById('close-button-act').click();
         alertify.set('notifier', 'position', 'top-center');
         document.getElementById('mainLoader').style.display = 'none';
-        alertify.success('Event Created').dismissOthers();
-        document.getElementById('act_list').innerHTML += `<tr>
+        alertify.success('Activity Created').dismissOthers();
+        if(document.getElementById('loading-act')){
+          document.getElementById('loading-act').remove();
+        }
+        if(document.getElementById('empty_act')){
+          document.getElementById('empty_act').remove();
+        }
+        document.getElementById('act_list').innerHTML += `<tr id="act_tr${res.data.eact_id}" class="act_tr">
         <td > ${res.data.eact_name}</td>
         <td class="text-muted" >
-          ${res.data.eact_description.length < 15 ? res.data.eact_description : res.data.eact_description.substring(0,15) + '....'}
+          ${res.data.eact_description.length < 15 ? res.data.eact_description : res.data.eact_description.substring(0, 15) + '....'}
         </td>
         <td class="text-muted" > ${res.data.eact_venue}</td>
         <td class="text-muted" >
@@ -619,7 +626,7 @@ function AddEventActivity(route){
           <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
           <path d="M16 5l3 3" />
         </svg></button>
-          <button  class="border-0 bg-body text-danger" title="Delete Activity" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+          <button onclick="DeleteActEvent('${res.data.eact_id}', '${deleteRoute}')" class="border-0 bg-body text-danger" title="Delete Activity" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M4 7l16 0" />
           <path d="M10 11l0 6" />
@@ -629,28 +636,28 @@ function AddEventActivity(route){
         </svg></button>
         </td>
       </tr>`;
-       }
-     },error: xhr => {
+      }
+    }, error: xhr => {
       console.log(xhr.responseText);
-     }
+    }
   });
 }
 
-function LoadEventActivities(route){
+function LoadEventActivities(route, deleteRoute) {
   const act_list = document.getElementById('act_list');
   $.ajax({
-  type:"GET",
-  dataType: 'json',
-  url: route,
-  success: res => {
-    document.getElementById('loading-act').style.display = 'none';
-    if(res.act.length !== 0){
+    type: "GET",
+    dataType: 'json',
+    url: route,
+    success: res => {
+      document.getElementById('loading-act').style.display = 'none';
+      if (res.act.length !== 0) {
 
-      res.act.forEach(data => {
-         act_list.innerHTML +=`<tr>
+        res.act.forEach(data => {
+          act_list.innerHTML += `<tr id="act_tr${data.eact_id}" class="act_tr">
          <td > ${data.eact_name}</td>
          <td class="text-muted" >
-           ${data.eact_description.length < 15 ? data.eact_description : data.eact_description.substring(0,15) + '....'}
+           ${data.eact_description.length < 15 ? data.eact_description : data.eact_description.substring(0, 15) + '....'}
          </td>
          <td class="text-muted" > ${data.eact_venue}</td>
          <td class="text-muted" >
@@ -671,7 +678,7 @@ function LoadEventActivities(route){
            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
            <path d="M16 5l3 3" />
          </svg></button>
-           <button onclick="DeleteActEvent('${data.eact_id}')" class="border-0 bg-body text-danger" title="Delete Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+           <button onclick="DeleteActEvent('${data.eact_id}', '${deleteRoute}')" class="border-0 bg-body text-danger" title="Delete Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
            <path d="M4 7l16 0" />
            <path d="M10 11l0 6" />
@@ -681,31 +688,67 @@ function LoadEventActivities(route){
          </svg></button>
          </td>
        </tr>`;
-      });
+        });
 
-    }else{
-      act_list.innerHTML = `<tr>
+      } else {
+        act_list.innerHTML = `<tr id="empty_act">
       <td colspan="6"  class="text-center text-muted">No Activity Found for this Event <button data-bs-toggle="modal" data-bs-target="#addActivity" style="text-decoration: underline !important" class="border-0 bg-body text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M12 5l0 14" />
         <path d="M5 12l14 0" />
       </svg>Add</button></td>
     </tr>`;
+      }
+    }, error: xhr => {
+      console.log(xhr.responseText);
     }
-  }, error: xhr => {
-    console.log(xhr.responseText);
-  }
-})
+  })
 }
 
-function DeleteActEvent(ids){
-   document.getElementById('delete_act_d')
+function DeleteActEvent(ids, route) {
+  alertify.confirm('Delete Activity', 'Are you sure you want to delete this activity?',
+    function () {
+      document.getElementById('mainLoader').style.display = 'flex';
+    document.getElementById('delete_act_id').value = ids;
+  
+    var formData = $('form#deleteActEvent').serialize();
+  
+    $.ajax({
+      type: "POST",
+      url: route,
+      data: formData,
+      success: res => {
+        if (res.status === 'success') {
+          alertify.set('notifier', 'position', 'top-center');
+          document.getElementById('mainLoader').style.display = 'none';
+          alertify.success('Activity Deleted').dismissOthers();
+
+          const nameId = "act_tr"+ids;
+          document.getElementById(nameId).remove();
+          
+          const act_tr = document.querySelectorAll('.act_tr');
+          if(act_tr.length === 0){
+            document.getElementById('act_list').innerHTML = `<tr id="empty_act">
+            <td colspan="6"  class="text-center text-muted">No Activity Found for this Event <button data-bs-toggle="modal" data-bs-target="#addActivity" style="text-decoration: underline !important" class="border-0 bg-body text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 5l0 14" />
+              <path d="M5 12l14 0" />
+            </svg>Add</button></td>
+          </tr>`;
+          }
+        }
+      }, error: xhr => {
+        console.log(xhr.responseText);
+      }
+    });},
+    function () { console.log('cancel') });
+  
 }
 
-function EditActEvent(){
+function EditActEvent() {
 
 }
 
-function ViewActEvent(){
+function ViewActEvent() {
 
 }

@@ -122,4 +122,11 @@ class SchoolEvent extends Controller
         $act = EventActivities::where('event_id', $req->event_id)->get();
         return response()->json(['act'=>$act]);
     }
+
+    public function DeleteEventActivities(Request $req){
+        $act = EventActivities::where('eact_id', $req->act_id)->first();
+        $act->delete();
+
+        return response()->json(['status'=>'success']);
+    }
 }
