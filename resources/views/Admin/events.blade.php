@@ -126,7 +126,7 @@
             </div>
               <div class="col-lg-12">
                 <div>
-                  <label class="form-label">Additional information(Description)   <span style="display: none" id="ev_description_e" class="text-danger ">(Please provide a description)</span></label>
+                  <label class="form-label">Event Description   <span style="display: none" id="ev_description_e" class="text-danger ">(Please provide a description)</span></label>
                   <textarea id="ev_description" name="ev_description" class="form-control" rows="2"></textarea>
                 </div>
               </div>
