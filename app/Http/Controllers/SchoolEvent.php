@@ -134,4 +134,58 @@ class SchoolEvent extends Controller
         $act = EventActivities::where('eact_id', $req->act_id)->first();
         return response()->json(['act'=>$act]);
     }
+
+    public function UpdateEventActivities(Request $req){
+        $act = EventActivities::where('eact_id', $req->act_id)->first();
+        $act->update([
+          'eact_name'=>$req->act_name,
+          'eact_facilitator'=>$req->act_fac,
+          'eact_venue'=>$req->act_venue,
+          'eact_date'=>$req->act_date,
+          'eact_time'=>$req->act_time,
+          'eact_description'=>$req->act_description,
+        ]);
+
+        return response()->json(['status'=>'success', 'data'=>$req->act_id]);
+    }
+    
+  
+
+    public function UploadProgrammeImages(Request $req){
+        // Check if programmeImages exists and is an array
+        if (!$req->hasFile('programmeImages') || !is_array($req->file('programmeImages'))) {
+            return response()->json(['status' => 'invalid', 'message' => 'No files uploaded or incorrect input name']);
+        }
+    
+        $validExtensions = ['jpg', 'jpeg', 'png'];
+        $programme = '';
+        $count = 1;
+    
+        // Validate each file
+        foreach($req->file('programmeImages') as $image){
+            if(!in_array($image->getClientOriginalExtension(), $validExtensions)){
+                return response()->json(['status' => 'invalid', 'message' => 'One or more files have an invalid extension']);
+            }
+        }
+    
+        // Process each file
+        foreach($req->file('programmeImages') as $image){
+            $newName = "Event".$req->event_id."Prog".$count.".".$image->getClientOriginalExtension();
+            $image->move(public_path('programme_images/'), $newName);
+            $programme .= $newName . ", ";
+            $count++;
+        }
+    
+        // Remove trailing comma and space
+        $programme = rtrim($programme, ', ');
+    
+        // Update the event record
+        $event = SchoolEvents::where('event_id', $req->event_id)->first();
+        $event->update([
+            'event_programme' => $programme
+        ]);
+    
+        return response()->json(['status' => 'success']);
+    }
+    
 }

@@ -3,12 +3,7 @@
 <html lang="en">
   
 @include('Admin.components.header', ['title' => 'Event Details'])
-<link href="./dist/libs/dropzone/dist/dropzone.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler-flags.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler-payments.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler-vendors.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/demo.min.css?1684106062" rel="stylesheet"/>
+<link href="{{asset('./dist/libs/dropzone/dist/dropzone.css?1684106062')}}" rel="stylesheet"/>
 <style>
   .custom-dropdown:hover .dropdown-menu {
     display: block;
@@ -152,7 +147,7 @@
                 <div class="col-auto w-100 mt-4 d-flex justify-content-between align-items-center">
                 <h3> Event Programme</h3>      
                  <div class="d-flex gap-4">
-                  <button class="btn btn-primary " type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-upload">
+                  <button data-bs-toggle="modal" data-bs-target="#uploadProgrammeModal" class="btn btn-primary " type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-upload">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
                     <path d="M7 9l5 -5l5 5" />
@@ -472,7 +467,7 @@
           </div>
           <form id="editActForm" method="POST">
             @csrf
-            <input type="hidden" name="event_id" id="event_id_act_edit">
+            <input type="hidden" name="act_id" id="act_id_edit">
           <div class="modal-body">
             <div class="mb-3">
               <label class="form-label">Activity Name <span id="act_name_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
@@ -520,13 +515,88 @@
             <button type="button" id="close-button-act_edit" class="btn btn-link link-secondary" data-bs-dismiss="modal">
               Cancel
             </button>
-            <button type="button" onclick="VerifyEditEventActivity()" class="btn btn-primary ms-auto">
+            <button type="button" onclick="VerifyEditEventActivity('{{route('updateEventActivities')}}', '{{route('getActDetails')}}', '{{route('deleteEventActivities')}}')" class="btn btn-primary ms-auto">
             
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
               Update Activity
             </button>
           </div>
         </form>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal modal-blur fade" id="viewAct" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Activity</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <div class="datagrid">
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Activity Name</div>
+                    <div class="datagrid-content" id="act_name_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Facilitator</div>
+                    <div class="datagrid-content" id="act_fac_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Venue</div>
+                    <div class="datagrid-content" id="act_venue_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Date & Time</div>
+                    <div class="datagrid-content" id="act_date_time_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Description</div>
+                    <div class="datagrid-content" id="act_description_view">
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal modal-blur fade" id="uploadProgrammeModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Multiple File Upload</h3>
+                <form class="dropzone" id="dropzone-multiple" enctype="multipart/form-data" action="./" autocomplete="off" novalidate>
+                  @csrf
+                  <div class="fallback">
+                    <input name="file" type="programmeImages[]"  multiple accept="image/*" />
+                  </div
+                  <input name="event_id" id="event_id_programme" type="hidden" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+            <button type="button" onclick="UploadProgrammeImages('{{route('uploadProgrammeImages')}}')" class="btn btn-primary" data-bs-dismiss="modal">Upload Files</button>
+          </div>
         </div>
       </div>
     </div>
@@ -546,7 +616,7 @@
 @include('Admin.components.scripts')
 <!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-
+<script src="{{asset('./dist/libs/dropzone/dist/dropzone-min.js?1684106062')}}" defer></script>
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
@@ -601,9 +671,15 @@
     window.onload = () => {
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
+      new Dropzone("#dropzone-multiple");
     }
-    
+     
   </script>
-
+    <script>
+      // @formatter:off
+      document.addEventListener("DOMContentLoaded", function() {
+        new Dropzone("#dropzone-multiple")
+      })
+    </script>
   </body>
 </html>

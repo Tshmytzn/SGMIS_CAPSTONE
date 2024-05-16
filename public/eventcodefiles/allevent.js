@@ -442,6 +442,7 @@ function EventDetailsLoad(Route, eventImage) {
       AssVal('ev_description', data.event_description);
       AssVal('event_id', data.event_id);
       AssVal('event_id_act', data.event_id);
+      AssVal('event_id_programme', data.event_id);
     },
     error: xhr => {
       console.log(xhr.responseText);
@@ -614,7 +615,7 @@ function AddEventActivity(route, deleteRoute, actDetails) {
         ${res.data.eact_date} & ${convertToAmPm(res.data.eact_time)}
         </td>
         <td class="d-flex gap-1">
-          <button  class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+          <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${res.data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
           <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
@@ -666,7 +667,7 @@ function LoadEventActivities(route, deleteRoute, actDetails) {
          ${data.eact_date} & ${convertToAmPm(data.eact_time)}
          </td>
          <td class="d-flex gap-1">
-           <button  class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+           <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
@@ -778,13 +779,14 @@ function EditActEvent(ids, route) {
        AssVal('act_date_edit', res.act.eact_date);
        AssVal('act_time_edit', res.act.eact_time);
        AssVal('act_description_edit', res.act.eact_description);
+       AssVal('act_id_edit', res.act.eact_id);
      },error: xhr => {
       console.log(xhr.responseText);
      }
    });
 }
 
-function VerifyEditEventActivity(){
+function VerifyEditEventActivity(route, getDetails, deleteAct){
   const act_name = document.getElementById('act_name_edit');
   const act_fac = document.getElementById('act_fac_edit');
   const act_venue = document.getElementById('act_venue_edit');
@@ -844,27 +846,110 @@ function VerifyEditEventActivity(){
 
   if (validity === 6) {
     
-    UpdateEventActivity(route);
+    UpdateEventActivity(route, getDetails, deleteAct);
 
   }
 }
 //Finalize Update Event BAckend
-function UpdateEventActivity(route){
+function UpdateEventActivity(route, getDetails, deleteAct){
+  document.getElementById('mainLoader').style.display = 'flex';
+  var formData = $('form#editActForm').serialize();
   $.ajax({
     type:"POST",
-    data: 'json',
+    data: formData,
     url: route ,
     success: res=>{
-      const actTitle = document.getElementById('editActTitle');
-      actTitle.textContent = res.act.eact_name;
-      AssVal('act_name_edit', res.act.eact_name);
-      AssVal('act_fac_edit', res.act.eact_facilitator);
-      AssVal('act_venue_edit', res.act.eact_venue);
-      AssVal('act_date_edit', res.act.eact_date);
-      AssVal('act_time_edit', res.act.eact_time);
-      AssVal('act_description_edit', res.act.eact_description);
+     
+     if(res.status === 'success'){
+      $.ajax({
+        type:"GET",
+        dataType: 'json',
+        url: getDetails + "?act_id=" + res.data,
+        success: response=>{
+          document.getElementById('close-button-act_edit').click();
+          document.getElementById('mainLoader').style.display = 'none';
+          const trName = 'act_tr' + res.data;
+          document.getElementById(trName).remove();
+
+          document.getElementById('act_list').innerHTML += `<tr id="act_tr${res.data}" class="act_tr">
+          <td > ${response.act.eact_name}</td>
+          <td class="text-muted" >
+            ${response.act.eact_description.length < 15 ? response.act.eact_description : response.act.eact_description.substring(0, 15) + '....'}
+          </td>
+          <td class="text-muted" > ${response.act.eact_venue}</td>
+          <td class="text-muted">
+          ${response.act.eact_facilitator}
+          </td>
+          <td class="text-muted" >
+          ${response.act.eact_date} & ${convertToAmPm(response.act.eact_time)}
+          </td>
+          <td class="d-flex gap-1">
+            <button data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${response.act.eact_id}', '${getDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+          </svg></button>
+            <button data-bs-toggle="modal" data-bs-target="#editAct" onclick="EditActEvent('${response.act.eact_id}', '${getDetails}')" class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+            <path d="M16 5l3 3" />
+          </svg></button>
+            <button onclick="DeleteActEvent('${response.act.eact_id}', '${deleteAct}')" class="border-0 bg-body text-danger" title="Delete Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 7l16 0" />
+            <path d="M10 11l0 6" />
+            <path d="M14 11l0 6" />
+            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+          </svg></button>
+          </td>
+        </tr>`
+        },error: xhr => {
+         console.log(xhr.responseText);
+        }
+      });
+     }
     },error: xhr => {
      console.log(xhr.responseText);
+    }
+  });
+}
+
+function AssText(ids, data){
+  document.getElementById(ids).textContent = data;
+}
+function ViewActivity(ids, route){
+  $.ajax({
+    type: "GET",
+    url: route + "?act_id=" + ids,
+    dataType: "json",
+    success: res => {
+      AssText('act_name_view', res.act.eact_name);
+      AssText('act_fac_view', res.act.eact_facilitator);
+      AssText('act_venue_view', res.act.eact_venue);
+      AssText('act_date_time_view', res.act.eact_date + " & " + res.act.eact_time);
+      AssText('act_description_view', res.act.eact_description);
+    },error: xhr => {
+      console.log(xhr.responseText);
+    }
+  });
+}
+
+function UploadProgrammeImages(route){
+  document.getElementById('mainLoader').style.display = 'flex';
+  var formData = new FormData($('#dropzone-multiple')[0]);
+  $.ajax({
+    type:"POST",
+    url: route,
+    data: formData,
+    processData: false,
+    contentType:false,
+    success: res =>{
+      console.log(res);
+      document.getElementById('mainLoader').style.display = 'none';
+    },error: xhr => {
+      console.log(xhr.responseText);
     }
   });
 }
