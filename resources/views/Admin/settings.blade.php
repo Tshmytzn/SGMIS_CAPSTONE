@@ -192,15 +192,8 @@
                           </div>
 
                           <div class="row g-2">
-                            <div class="col-6">
-                                <label for="admintype" class="form-label">Admin Type</label>
-                                <select class="form-select" id="admintype" name="admintype">
-                                    <option>Select User Type</option>
-                                    <option value="Master Admin">Super Admin</option>
-                                    <option value="Basic Admin">Administrator</option>
-                                </select>
-                            </div>
-                            <div class="col-6 align-self-end">
+                          
+                            <div class="col-12 align-self-end">
                               <label for="avatar-upload" class="btn btn-outline-green col-12">
                                 Upload Profile
                                     <input type="file" id="avatar-upload" style="display: none;">
@@ -248,15 +241,7 @@
                                   </div>
         
                                   <div class="row g-2">
-                                    <div class="col-6">
-                                        <label for="admintype" class="form-label">Admin Type</label>
-                                        <select class="form-select" id="editadmintype" name="editadmintype">
-                                            <option>Select User Type</option>
-                                            <option value="Master Admin">Super Admin</option>
-                                            <option value="Basic Admin">Administrator</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 align-self-end">
+                                    <div class="col-12 align-self-end">
                                       <label for="avatar-upload" class="btn btn-outline-green col-12">
                                         Update Profile
                                             <input type="file" id="avatar-upload" style="display: none;">
