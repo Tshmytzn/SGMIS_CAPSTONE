@@ -23,10 +23,10 @@
                     <h4 class="subheader">settings</h4>
                     <ul class="nav nav-pills flex-column">
                       <li class="nav-item">
-                        <a class="nav-link active" id="my-account-tab" data-bs-toggle="pill" href="#my-account">My Account</a>
+                        <a class="nav-link active" id="my-account-tab" data-bs-toggle="pill" href="#my-account"><h3>My Account</h3></a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="administrators-tab" data-bs-toggle="pill" href="#administrators">Administrators</a>
+                        <a class="nav-link" id="administrators-tab" data-bs-toggle="pill" href="#administrators"><h3>Administrators</h3></a>
                       </li>
                     </ul>
                   </div>
