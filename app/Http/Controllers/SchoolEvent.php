@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\SchoolEvents;
 use App\Models\EventActivities;
 use App\Models\Admin;
+use App\Models\Department;
+use App\Models\EventDepartment;
+use App\Models\Course;
+
 class SchoolEvent extends Controller
 {
     public function SaveEvent(Request $req){
@@ -148,44 +152,69 @@ class SchoolEvent extends Controller
 
         return response()->json(['status'=>'success', 'data'=>$req->act_id]);
     }
-    
-  
 
-    public function UploadProgrammeImages(Request $req){
-        // Check if programmeImages exists and is an array
-        if (!$req->hasFile('programmeImages') || !is_array($req->file('programmeImages'))) {
-            return response()->json(['status' => 'invalid', 'message' => 'No files uploaded or incorrect input name']);
-        }
+    // public function UploadProgrammeImages(Request $req) {
+    //     if (!$req->hasFile('programmeImages')) {
+    //         return response()->json(['status' => 'invalid', 'message' => 'No files uploaded']);
+    //     }
     
-        $validExtensions = ['jpg', 'jpeg', 'png'];
-        $programme = '';
-        $count = 1;
+    //     $validExtensions = ['jpg', 'jpeg', 'png'];
+    //     $programme = '';
+    //     $count = 1;
     
-        // Validate each file
-        foreach($req->file('programmeImages') as $image){
-            if(!in_array($image->getClientOriginalExtension(), $validExtensions)){
-                return response()->json(['status' => 'invalid', 'message' => 'One or more files have an invalid extension']);
-            }
-        }
+    //     foreach ($req->file('programmeImages') as $image) {
+    //         if (!in_array($image->getClientOriginalExtension(), $validExtensions)) {
+    //             return response()->json(['status' => 'invalid', 'message' => 'One or more files have an invalid extension']);
+    //         }
+    //     }
     
-        // Process each file
-        foreach($req->file('programmeImages') as $image){
-            $newName = "Event".$req->event_id."Prog".$count.".".$image->getClientOriginalExtension();
-            $image->move(public_path('programme_images/'), $newName);
-            $programme .= $newName . ", ";
-            $count++;
-        }
+    //     foreach ($req->file('programmeImages') as $image) {
+    //         $newName = "Event" . $req->event_id . "Prog" . $count . "." . $image->getClientOriginalExtension();
+    //         $image->move(public_path('programme_images/'), $newName);
+    //         $programme .= $newName . ", ";
+    //         $count++;
+    //     }
     
-        // Remove trailing comma and space
-        $programme = rtrim($programme, ', ');
+    //     $programme = rtrim($programme, ', ');
     
-        // Update the event record
-        $event = SchoolEvents::where('event_id', $req->event_id)->first();
-        $event->update([
-            'event_programme' => $programme
-        ]);
+    //     $event = SchoolEvents::where('event_id', $req->event_id)->first();
+    //     $event->update([
+    //         'event_programme' => $programme
+    //     ]);
     
-        return response()->json(['status' => 'success']);
+    //     return response()->json(['status' => 'success']);
+    // }
+    
+    public function AddDeptEvent(Request $req){
+       $dept = new EventDepartment();
+       $dept->event_id = $req->event_id;
+       $dept->dept_id =$req->dept_id;
+       $dept->status = 0;
+       $dept->save();
+
+       $department = Department::where('dept_id', $req->dept_id)->first();
+       $course = Course::where('dept_id', $req->dept_id)->get();
+
+       return response()->json(['status'=>'success', 'dept'=>$department, 'course'=>$course]);
+    }
+    public function RemoveDeptEvent(Request $req){
+        $dept = EventDepartment::where('event_id', $req->event_id)->where('dept_id', $req->dept_id)->first();
+        $dept->delete();
+
+        return response()->json(['status'=>'success']);
     }
     
+    public function GetDeptEvent(Request $req){
+       $dept = EventDepartment::where('event_id', $req->event_id)->get();
+       return response()->json(['dept'=>$dept]);
+    }
+
+    public function GetDepartment(Request $req){
+        $dept = Department::where('dept_id', $req->dept_id)->first();
+        return response()->json(['dept'=>$dept]);
+     }
+     public function GetCourse(Request $req){
+        $course = Course::where('dept_id', $req->dept_id)->get();
+        return response()->json(['course'=>$course]);
+     }
 }

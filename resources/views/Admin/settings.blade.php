@@ -50,17 +50,24 @@
                             </div>
                             </div>
                             <h3 class="card-title mt-4">Student Profile</h3>
+                            @php
+                              $adminAcc = App\Models\Admin::where('admin_type','Super Admin')->first();
+                            @endphp
+                            <form action="" method="POST" id="EditAdminInfoForm">
+                              @csrf
+                           
                             <div class="row g-3">
                               <div class="col-md">
                                 <div class="form-label">Student Name</div>
-                                <input type="text" class="form-control" value="SSG PRESS">
+                                
+                                <input type="text" class="form-control" name="adminname" id="adminname" value="{{$adminAcc->admin_name}}">
                               </div>
                               <div class="col-md">
                                 <div class="form-label">Student ID</div>
-                                <input type="text" class="form-control" value="20201422">
+                                <input type="text" class="form-control" name="adminschoolid" id="adminschoolid" value="{{$adminAcc->admin_school_id}}">
                               </div>
-        
                             </div>
+                             </form>
                             <h3 class="card-title mt-4">Password</h3>
                             <p class="card-subtitle">You can set a permanent password.</p>
                             <div>
@@ -71,12 +78,9 @@
         
                           <div class="card-footer bg-transparent mt-3">
                             <div class="btn-list justify-content-end">
-                              <a href="#" class="btn">
-                                Cancel
-                              </a>
-                              <a href="#" class="btn btn-primary">
+                              <button class="btn btn-primary" onclick="EditAdminInfo()">
                                 Submit
-                              </a>
+                              </button>
                             </div>
                           </div>
                         </div>                      
@@ -327,6 +331,41 @@
     </div>
 
     @include('Admin.components.scripts')
+    <script>
+
+      function EditAdminInfo(){
+         var formData = $("form#EditAdminInfoForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('EditAdminInfo') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    // clearFormInputs('EditAdminInfoForm');
+                    // reloadElementById('EditAdminInfoForm');
+                    alertify
+                        .alert("Message", "Course Successfully Updeted", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'exist') {
+                    alertify
+                        .alert("Alert", "Course Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    alertify
+                        .alert("Warning", "Enter Course Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+      }
+
+    </script>
 
   </body>
 </html>

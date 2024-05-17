@@ -1,3 +1,78 @@
+// @formatter:off
+document.addEventListener("DOMContentLoaded", function() {
+  let dropzone = new Dropzone("#dropzone-multiple", {
+    paramName: "programmeImages", // The name that will be used to transfer the file
+    maxFilesize: 10, // MB
+    acceptedFiles: "image/*",
+    autoProcessQueue: false,
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+    },
+    init: function() {
+        let myDropzone = this;
+
+        // Disable autoProcessQueue to manually handle the file upload
+        document.getElementById("upload-button").addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (myDropzone.getQueuedFiles().length > 0) {
+                myDropzone.processQueue();
+            } else {
+                alert("No files to upload!");
+            }
+        });
+
+        // Append additional data
+        this.on("sending", function(file, xhr, formData) {
+            let eventId = document.getElementById('event_id_programme').value;
+            formData.append("event_id", eventId); // Append the event_id to the formData
+        });
+
+        // Handle the response
+        this.on("successmultiple", function(files, response) {
+            console.log("Successfully uploaded:", response);
+            document.getElementById('mainLoader').style.display = 'none';
+        });
+
+        this.on("errormultiple", function(files, response) {
+            console.error("Error uploading:", response);
+            document.getElementById('mainLoader').style.display = 'none';
+        });
+    }
+});
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  var el;
+  window.TomSelect && (new TomSelect(el = document.getElementById('select-tags'), {
+    copyClassesToDropdown: false,
+    dropdownParent: 'body',
+    controlInput: '<input>',
+    placeholder: 'Select Department',
+    render:{
+      item: function(data,escape) {
+        if( data.customProperties ){
+          return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+        }
+        return '<div>' + escape(data.text) + '</div>';
+      },
+      option: function(data,escape){
+        if( data.customProperties ){
+          return '<div><span class="dropdown-item-indicator">' + data.customProperties + '</span>' + escape(data.text) + '</div>';
+        }
+        return '<div>' + escape(data.text) + '</div>';
+      },
+    },
+    onItemAdd: function(value) {
+        AddDept(value)
+    },
+    onItemRemove: function(value) {
+       RemoveDept()
+    }
+  }));
+});
+
 function AdminLogin(route, dashboard) {
   document.getElementById("mainLoader").style.display = "flex";
   const formData = $("form#admin_login").serialize();
@@ -443,6 +518,7 @@ function EventDetailsLoad(Route, eventImage) {
       AssVal('event_id', data.event_id);
       AssVal('event_id_act', data.event_id);
       AssVal('event_id_programme', data.event_id);
+      AssVal('dept_event_id', data.event_id);
     },
     error: xhr => {
       console.log(xhr.responseText);
@@ -949,6 +1025,132 @@ function UploadProgrammeImages(route){
       console.log(res);
       document.getElementById('mainLoader').style.display = 'none';
     },error: xhr => {
+      console.log(xhr.responseText);
+    }
+  });
+}
+function LoadDeptEvent(route, getDept, getCourse, image){
+  $.ajax({
+    type:"GET",
+    url: route,
+    dataType: 'json',
+    success: res=> {
+      const deptList = document.getElementById('event_department_list');
+      res.dept.forEach(dept => {
+        let dept_name = '';
+        $.ajax({
+          type:"GET",
+          url: getDept + "?dept_id=" + dept.dept_id,
+          dataType: 'json',
+          success: resp=> {
+            deptList.innerHTML += `  <div class="col-sm-6 col-lg-4 mt-4">
+            <div class="card card-sm">
+              <div class="custom-dropdown dropup">
+              <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
+              <div class="card-body">
+                  <div class="d-flex align-items-center">
+                      <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
+                        ${resp.dept.dept_name}
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                     
+                      </ul>
+                      <div class="ms-auto">
+                          <a href="#" class="text-muted">
+                              <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                        
+                          </a>
+                          <a href="#" class="ms-3 text-muted">
+                              <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                            
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>`;
+          }, error: xhr => {
+            console.log(xhr.responseText);
+          }
+        });
+      
+        
+      })
+    }, error: xhr => {
+      console.log(xhr.responseText);
+    }
+  });
+}
+function AddDept(values){
+document.getElementById('mainLoader').style.display = 'flex';
+AssVal('selected_dept', values);
+var formData = $('form#deptForm').serialize();
+  $.ajax({
+    type:"POST",
+    url: document.getElementById('addDeptRoute').value,
+    data: formData,
+    success: res=>{
+      const deptList = document.getElementById('event_department_list');
+      if(res.status === 'success'){
+
+        document.getElementById('mainLoader').style.display = 'none';
+        let course = '';
+        res.course.forEach(c=>{
+          course += `<li><a class="dropdown-item" href="#">${c.course_name}</a></li>`;
+        });
+         deptList.innerHTML += `     <div class="col-sm-6 col-lg-4 mt-4">
+         <div class="card card-sm">
+           <div class="custom-dropdown dropup">
+           <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
+           <div class="card-body">
+               <div class="d-flex align-items-center">
+                   <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
+                     ${res.dept.dept_name}
+                   </button>
+                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      ${course}
+                   </ul>
+                   <div class="ms-auto">
+                       <a href="#" class="text-muted">
+                           <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
+                           <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                     
+                       </a>
+                       <a href="#" class="ms-3 text-muted">
+                           <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                           <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                         
+                       </a>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+ </div>
+`;
+      }
+    }, error: xhr => {
+      console.log(xhr.responseText);
+    }
+  });
+}
+function RemoveDept(value){
+  document.getElementById('mainLoader').style.display = 'flex';
+  AssVal('selected_dept', value);
+  var formData = $('form#deptForm').serialize();
+  $.ajax({
+    type:"POST",
+    url: document.getElementById('removeDeptRoute').value,
+    data: formData,
+    success: res=>{
+      const deptList = document.getElementById('event_department_list');
+     if(res.status === 'success'){
+        
+      }
+    }, error: xhr => {
       console.log(xhr.responseText);
     }
   });

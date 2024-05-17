@@ -103,8 +103,8 @@ class DeparmentData extends Controller
         }
         else{
         $check = Department::where('dept_id', $request->deptid)->first();
-        $imageName = $check->dept_image . '.' . $request->image->extension();
-        $request->image->move(public_path('dept_image/'), $imageName);
+        $imageName = $check->dept_image . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('dept_image/'), $imageName);
        
     $check->update([
         'dept_name'=>$request->deptname,
