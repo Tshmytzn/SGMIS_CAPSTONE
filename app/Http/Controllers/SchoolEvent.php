@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SchoolEvents;
-
+use App\Models\EventActivities;
+use App\Models\Admin;
 class SchoolEvent extends Controller
 {
     public function SaveEvent(Request $req){
@@ -14,14 +15,13 @@ class SchoolEvent extends Controller
         if(!in_array($pic->getClientOriginalExtension(), ['jpeg', 'jpg', 'png', 'gif'])){
             return response()->json(['status'=>'invalid_img']);
         }
-       
-      
+             
         $event = new SchoolEvents;
         $event->event_name  = $req->ev_name;
         $event->event_description = $req->ev_description;
         $event->event_start = $req->ev_start;
         $event->event_end = $req->ev_end;
-        $event->event_venue = $req->ev_venue;
+        $event->event_facilitator = $req->ev_facilitator;
         $event->event_pic = 'none';
         $event->admin_id = session('admin_id');
         $event->save();
@@ -66,6 +66,126 @@ class SchoolEvent extends Controller
     public function EventDetailsLoad(Request $req){
         $ev_id = $req->event_id;
         $event = SchoolEvents::where('event_id', $ev_id)->first();
-        return response()->json(['event'=>$event]);
+        $admin = Admin::where('admin_id', $event->admin_id)->first();
+
+        return response()->json(['event'=>$event, 'admin'=>$admin]);
     }
+
+    public function UpdateEventDetails(Request $req){
+        $event = SchoolEvents::where('event_id', $req->event_id)->first();
+
+        $pic = $req->file('ev_pic');
+
+        if($pic) {
+            if(!in_array($pic->getClientOriginalExtension(), ['jpeg', 'jpg', 'png', 'gif'])){
+                return response()->json(['status'=>'invalid_img']);
+            }else{
+                $event->update([
+                    'event_name'=> $req->ev_name,
+                    'event_description'=>$req->ev_description,
+                    'event_facilitator'=> $req->ev_facilitator,
+                    'event_start'=> $req->ev_start,
+                    'event_end'=>$req->ev_end,
+                    'event_pic'=> "Event". $req->event_id .".".$pic->getClientOriginalExtension(),
+                  ]);
+
+                  $pic->move(public_path('event_images/'),  "Event". $req->event_id . ".". $pic->getClientOriginalExtension());
+            }
+        } 
+         $event->update([
+           'event_name'=> $req->ev_name,
+           'event_description'=>$req->ev_description,
+           'event_facilitator'=> $req->ev_facilitator,
+           'event_start'=> $req->ev_start,
+           'event_end'=>$req->ev_end,
+         ]);
+    }
+
+    public function AddEventActivity(Request $req){
+    
+        $act = new EventActivities;
+        $act->event_id = $req->event_id;
+        $act->eact_name = $req->act_name;
+        $act->eact_facilitator = $req->act_fac;
+        $act->eact_venue = $req->act_venue;
+        $act->eact_date = $req->act_date;
+        $act->eact_time = $req->act_time;
+        $act->eact_description= $req->act_description;
+        $act->save();
+
+        $fetch = EventActivities::where('eact_id', $act->eact_id)->first();
+
+        return response()->json(['status'=>'success', 'data'=>$fetch]);
+    }
+
+    public function GetAllEventActivities(Request $req){
+        $act = EventActivities::where('event_id', $req->event_id)->get();
+        return response()->json(['act'=>$act]);
+    }
+
+    public function DeleteEventActivities(Request $req){
+        $act = EventActivities::where('eact_id', $req->act_id)->first();
+        $act->delete();
+
+        return response()->json(['status'=>'success']);
+    }
+
+    public function GetActDetails(Request $req){
+        $act = EventActivities::where('eact_id', $req->act_id)->first();
+        return response()->json(['act'=>$act]);
+    }
+
+    public function UpdateEventActivities(Request $req){
+        $act = EventActivities::where('eact_id', $req->act_id)->first();
+        $act->update([
+          'eact_name'=>$req->act_name,
+          'eact_facilitator'=>$req->act_fac,
+          'eact_venue'=>$req->act_venue,
+          'eact_date'=>$req->act_date,
+          'eact_time'=>$req->act_time,
+          'eact_description'=>$req->act_description,
+        ]);
+
+        return response()->json(['status'=>'success', 'data'=>$req->act_id]);
+    }
+    
+  
+
+    public function UploadProgrammeImages(Request $req){
+        // Check if programmeImages exists and is an array
+        if (!$req->hasFile('programmeImages') || !is_array($req->file('programmeImages'))) {
+            return response()->json(['status' => 'invalid', 'message' => 'No files uploaded or incorrect input name']);
+        }
+    
+        $validExtensions = ['jpg', 'jpeg', 'png'];
+        $programme = '';
+        $count = 1;
+    
+        // Validate each file
+        foreach($req->file('programmeImages') as $image){
+            if(!in_array($image->getClientOriginalExtension(), $validExtensions)){
+                return response()->json(['status' => 'invalid', 'message' => 'One or more files have an invalid extension']);
+            }
+        }
+    
+        // Process each file
+        foreach($req->file('programmeImages') as $image){
+            $newName = "Event".$req->event_id."Prog".$count.".".$image->getClientOriginalExtension();
+            $image->move(public_path('programme_images/'), $newName);
+            $programme .= $newName . ", ";
+            $count++;
+        }
+    
+        // Remove trailing comma and space
+        $programme = rtrim($programme, ', ');
+    
+        // Update the event record
+        $event = SchoolEvents::where('event_id', $req->event_id)->first();
+        $event->update([
+            'event_programme' => $programme
+        ]);
+    
+        return response()->json(['status' => 'success']);
+    }
+    
 }

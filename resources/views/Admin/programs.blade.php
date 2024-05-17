@@ -3,8 +3,20 @@
 <html lang="en">
   
 @include('Admin.components.header' , ['title' => 'Programs'])
+<<<<<<< HEAD
 @include('Admin.components.adminstyle')
   <body >
+=======
+{{-- @include('Admin.components.programsloader') --}}
+
+  <body>
+
+    {{-- <div class="loader-container">
+      <div class="loader"></div>
+  </div> --}}
+  
+    
+>>>>>>> 27edfd05584ba1d6f57101624001fd81b6646007
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
@@ -378,7 +390,6 @@
                 </div>
                 {{-- Add Section Modal --}}
 
-                
                 {{-- EDIT Section Modal --}}
                 <div class="modal modal-blur fade" id="editsection" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog">

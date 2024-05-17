@@ -1,3 +1,45 @@
+      {{-- modal --}}
+      <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body mt-2" >
+                  <div class="row g-0 text-center">
+                    <div class="col-12">
+                      <div class="card-body">
+                        <div class="row align-items-center">
+                          <div class="col-12">
+                            <span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg); width: 200px; height: 200px;"></span>
+                          </div>
+                        </div>
+                        <div class="row g-2 mt-2 mb-3">
+                          <div class="col-12">
+                            <div class="form-label mb-0" style="font-size: 20px;">Marianne Reyn Madrona</div>
+                            <hr class="my-2 mt-0 mb-1 ms-5" style="width: 263px;">
+                            <div class="form-label" style="font-size: 14px;">SSG President</div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col text-start">
+                            <button onclick="window.location.href='{{ route('Settings') }}'" class="btn btn-success btn-block" style="width: 120px" data-bs-dismiss="modal">Edit Profile</button>
+                          </div>
+                          <div class="col text-end ">
+                            <form method="POST" action="{{ route('AdminLogout') }}">
+                              @csrf
+                              <button type="submit" class="btn btn-danger btn-block ms" style="width: 120px" data-bs-dismiss="modal">Logout</button>
+                          </form>
+                          </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ {{-- modal --}}
+
+      
       <!-- Navbar -->
       <div class="sticky-top">
         <header class="navbar navbar-expand-md sticky-top d-print-none" >
@@ -97,7 +139,7 @@
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <a href="#" class="dropdown-item">Profile</a>
+                  <a href="" data-bs-toggle="modal" data-bs-target="#profile" class="dropdown-item">Profile</a>
                   <a href="{{route('Settings')}}" class="dropdown-item">Account Settings</a>
                   <form method="POST" action="{{ route('AdminLogout') }}">
                     @csrf
@@ -144,7 +186,7 @@
                               @foreach ($department as $dept)
                               <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline me-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14l6 0" /></svg>
-                               {{$dept->dept_name}}
+                               {{$dept->dept_name}} &nbsp;
                               </a>
 
                               <div class="dropdown-menu">
@@ -203,16 +245,7 @@
                     </a>
                   </li>
                 </ul>
-                <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-                  <form action="./" method="get" autocomplete="off" novalidate>
-                    <div class="input-icon">
-                      <span class="input-icon-addon">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-                      </span>
-                      <input type="text" value="" class="form-control" placeholder="Search…" aria-label="Search in website">
-                    </div>
-                  </form>
-                </div>
+
               </div>
             </div>
           </div>

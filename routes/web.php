@@ -27,6 +27,8 @@ Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLo
 Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
 Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
+Route::get('/Profile', function () { return view('Admin.Profile'); })->name('Profile');
+
 
 
 //Rheyan Post Route
@@ -34,11 +36,17 @@ Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
 Route::post('Admin/logout',[Login::class,'AdminLogout'] )->name('AdminLogout');
 Route::post('Admin/Event/Save',[SchoolEvent::class,'SaveEvent'] )->name('saveEvent');
 Route::post('Admin/Event/Delete',[SchoolEvent::class,'DeleteEvent'] )->name('deleteEvent');
+Route::post('Admin/Event/Update',[SchoolEvent::class,'UpdateEventDetails'] )->name('updateEventDetails');
+Route::post('Admin/Event/AddActivity',[SchoolEvent::class,'AddEventActivity'] )->name('addEventActivity');
+Route::post('Admin/Event/DeleteActivity',[SchoolEvent::class,'DeleteEventActivities'] )->name('deleteEventActivities');
+Route::post('Admin/Event/UpdateActivity',[SchoolEvent::class,'UpdateEventActivities'] )->name('updateEventActivities');
+Route::post('Admin/Event/UploadProgramme',[SchoolEvent::class,'UploadProgrammeImages'] )->name('uploadProgrammeImages');
 //Rheyan Get Route
 Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
 Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
 Route::get('Events/getEvent/eventdetails',[SchoolEvent::class,'EventDetailsLoad'] )->name('getEventDetails');
-
+Route::get('Events/getEvent/eventActivities',[SchoolEvent::class,'GetAllEventActivities'] )->name('getEventAct');
+Route::get('Events/getEvent/actDetails',[SchoolEvent::class,'GetActDetails'] )->name('getActDetails');
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');

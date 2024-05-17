@@ -3,12 +3,7 @@
 <html lang="en">
   
 @include('Admin.components.header', ['title' => 'Event Details'])
-<link href="./dist/libs/dropzone/dist/dropzone.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler-flags.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler-payments.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/tabler-vendors.min.css?1684106062" rel="stylesheet"/>
-<link href="./dist/css/demo.min.css?1684106062" rel="stylesheet"/>
+<link href="{{asset('./dist/libs/dropzone/dist/dropzone.css?1684106062')}}" rel="stylesheet"/>
 <style>
   .custom-dropdown:hover .dropdown-menu {
     display: block;
@@ -59,9 +54,11 @@
                           <div style="margin-left: -20px;">
                             <h3>More Information</h3>
                           </div>
-                          <div style="border: none; background: none; margin-right:1%" data-bs-toggle="modal" data-bs-target="#editeventdetails">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
-                          </div>
+                         
+                            <div title="Edit Event" style="border: none; background: none; margin-right:1%; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editEventDetails">
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                            </div>
+                      
                       </div>
                   </div>
               </div>    
@@ -88,45 +85,84 @@
                     <div class="datagrid-item">
                       <div class="datagrid-title">Creator</div>
                       <div class="datagrid-content">
-                        <div class="d-flex align-items-center">
-                          <span class="avatar avatar-xs me-2 rounded" style="background-image: url({{asset('./static/icon.jpg')}})"></span>
-                            SSG PRES
+                        <div  class="d-flex align-items-center">
+                          <span  class="avatar avatar-xs me-2 rounded" style="background-image: url({{asset('./static/icon.jpg')}})"></span>
+                           <span id="admin_name"></span>
                         </div>
                       </div>
                     </div>
                     <div class="datagrid-item">
-                      <div class="datagrid-title">Venue</div>
-                      <div class="datagrid-content" id="event_venue"></div>
+                      <div class="datagrid-title">Date Created</div>
+                      <div class="datagrid-content" id="event_created"></div>
                     </div>
-                    <div class="mb-3">
-                      <div class="form-label">Select Facilitator</div>
-                      <select type="text" class="form-select" id="select-states" value="" multiple>
-                        <option value="AL">SSG SEC</option>
-                        <option value="AK">SSG TREAS</option>
-                        <option value="AZ" selected>PSITS PRES</option>
-                      </select>
-                    </div>
+                    <div class="datagrid-item">
+                      <div class="datagrid-title">Facilitators</div>
+                      <div class="datagrid-content" id="event_facilitator"></div>
                     </div>
                     <div class="datagrid-item">
                       <div class="datagrid-title">Description</div>
-                      <div class="datagrid-content">
-                        University week University week University weeks
+                      <div id="event_description" class="datagrid-content">
+                        
                       </div>
                     </div>
+
+                    
+                    </div>
+                
                   </div>
                 </div>
-                <hr style="margin-top: -1%">
-                <div class="row justify-content-between" style="margin-top: -1%">
-
-                <div class="col-auto">
-                <h3 class="mx-4"> Event Programme</h3>                
+              
+                <div class="table-responsive mt-4">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <h1>Activity List</h1>
+                    <button  data-bs-toggle="modal" data-bs-target="#addActivity" class="btn btn-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 5l0 14" />
+                      <path d="M5 12l14 0" />
+                    </svg>Add Activities</button>
+                  </div>
+                  <table class="table table-vcenter card-table">
+                    <thead>
+                      <tr>
+                        <th>Activity Name</th>
+                        <th>Description</th>
+                        <th>Venue</th>
+                        <th>Facilitator</th>
+                        <th>Date & Time</th>
+                        <th class="w-1">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="act_list">
+                      <tr id="loading-act">
+                      <td colspan="6" class="text-center">
+                        <div class="text-muted mb-3">Loading Activities</div>
+                        <div class="progress progress-sm ">
+                          <div class="progress-bar progress-bar-indeterminate"></div>
+                        </div>
+                      </td>
+                      </tr>            
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-auto w-100 mt-4 d-flex justify-content-between align-items-center">
+                <h3> Event Programme</h3>      
+                 <div class="d-flex gap-4">
+                  <button data-bs-toggle="modal" data-bs-target="#uploadProgrammeModal" class="btn btn-primary " type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-upload">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                    <path d="M7 9l5 -5l5 5" />
+                    <path d="M12 4l0 12" />
+                  </svg> Upload Event Programme </button>       
+                  <button class="btn btn-primary " type="button" id="downloadAllBtn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                    <path d="M7 11l5 5l5 -5" />
+                    <path d="M12 4l0 12" />
+                  </svg>  Download All </button>       
+                 </div>
                 </div>
 
-                <div class="col-auto text-end mx-4 mb-2" style="margin-top: -1%">
-                  <input class="btn btn-primary mt-2" type="button" id="downloadAllBtn" value="Download All" />
-                </div>
-
-                </div>
+           
                   {{-- event program download --}}
                   <div class="row row-cols-4 g-3 mx-3">
                     <div class="col mb-3" style="position: relative;">
@@ -279,29 +315,43 @@
     {{-- MODALS --}}
 
     {{-- edit event details --}}
-       <div class="modal modal-blur fade" id="editeventdetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal modal-blur fade" id="editEventDetails" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header text-white" style="background-color: #3E8A34;">
-            <h5 class="modal-title">Edit Event</h5>
+            <h5 class="modal-title">New Event</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <form id="edit_event" method="POST" enctype="multipart/form-data">
+          <form id="update_event" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="event_id" id="event_id">
           <div class="modal-body">
             
             <div class="mb-3">
               <label class="form-label">Event Name   <span style="display: none" id="ev_name_e" class="text-danger ">(Don't Leave this field empty)</span></label>
               <input type="text" class="form-control" id="ev_name" name="ev_name" placeholder="Event name">
+            
             </div>
             <div class="mb-3">
-              <label class="form-label">Facilitator<span style="display: none" id="ev_name_e" class="text-danger ">(Don't Leave this field empty)</span></label>
-              <input type="text" class="form-control" id="ev_name" name="ev_name" placeholder="Event name">
+              <label class="form-label">Event Facilitator   <span style="display: none" id="ev_facilitator_e" class="text-danger ">(Don't Leave this field empty)</span></label>
+              <input type="text" class="form-control" id="ev_facilitator" name="ev_facilitator" placeholder="Event Facilitator">
+            
             </div>
-            <div class="mb-0">
-              <div class="form-label">Programme</div>
-              <input type="file" class="form-control" id="ev_name" name="ev_name" placeholder="Event name" accept="image/*" multiple onchange="limitFiles(event)">
-            </div>
+            <div class="mb-2">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Selected Event Photo</h3>
+                </div>
+                <div class="card-body p-0 d-flex justify-content-center">
+                  <img id="event_image" alt="event image" height="200">
+                </div>
+              </div>
+          </div>
+
+        <div class="mb-2">
+          <label class="form-label">Event Photo   <span style="display: none;" id="ev_pic_e" class="text-danger ">(No Selected Photo! Please provide)</span></label>
+          <input type="file" id="ev_pic" class="form-control" accept="image/*" name="ev_pic" placeholder="Choose Event Cover Photo">
+      </div>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -320,29 +370,244 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label class="form-label">Venue<span style="display: none" id="ev_name_e" class="text-danger ">(Don't Leave this field empty)</span></label>
-                <input type="text" class="form-control" id="ev_name" name="ev_name" placeholder="Event name">
-              </div>
+                <label class="form-label">Duration</label>
+                <input type="text" class="form-control" disabled id="duration" placeholder="Event duration">
+            </div>
               <div class="col-lg-12">
                 <div>
-                  <label class="form-label">Description <span style="display: none" id="ev_description_e" class="text-danger ">(Please provide a description)</span></label>
+                  <label class="form-label">Additional information(Description)   <span style="display: none" id="ev_description_e" class="text-danger ">(Please provide a description)</span></label>
                   <textarea id="ev_description" name="ev_description" class="form-control" rows="2"></textarea>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}')" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" id="close-button" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" onclick="VerifyFormEvent('{{route('updateEventDetails')}}', '{{route('getEventDetails')}}?event_id={{$event_id}}', '{{ asset('event_images/') }}', '{{ route('deleteEvent') }}', '{{ route('EventDetails') }}', 'update')" class="btn btn-primary">Save</button>
           </div>
         </form>
         </div>
       </div>
     </div>
 
-        
+    <div class="modal modal-blur fade" id="addActivity" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">New Activity</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="addActForm" method="POST">
+            @csrf
+            <input type="hidden" name="event_id" id="event_id_act">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Activity Name <span id="act_name_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+              <input type="text" class="form-control" id="act_name" name="act_name" placeholder="Activity Name">
+            </div>
+       
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Facilitator Name <span id="act_fac_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_fac" name="act_fac" placeholder="Facilitator Name">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Activity Venue <span id="act_venue_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_venue" name="act_venue" placeholder="Activity Venue">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Date <span id="act_date_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="date" id="act_date" name="act_date"class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Time <span id="act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="time" id="act_time" name="act_time" class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div>
+                  <label class="form-label">Activity Description <span id="act_description_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <textarea class="form-control" id="act_description" name="act_description" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="close-button-act" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" onclick="VerifyAddEventActivity('{{ route('addEventActivity') }}', '{{ route('deleteEventActivities') }}', '{{ route('getActDetails') }}')" class="btn btn-primary ms-auto">
+            
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+              Create new activity
+            </button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="editAct" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Activity <span id="editActTitle"></span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="editActForm" method="POST">
+            @csrf
+            <input type="hidden" name="act_id" id="act_id_edit">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Activity Name <span id="act_name_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+              <input type="text" class="form-control" id="act_name_edit" name="act_name" placeholder="Activity Name">
+            </div>
+       
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Facilitator Name <span id="act_fac_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_fac_edit" name="act_fac" placeholder="Facilitator Name">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-1">
+                  <label class="form-label">Activity Venue <span id="act_venue_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="text" class="form-control" id="act_venue_edit" name="act_venue" placeholder="Activity Venue">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Date <span id="act_date_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="date" id="act_date_edit" name="act_date"class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">Time <span id="act_time_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="time" id="act_time_edit" name="act_time" class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div>
+                  <label class="form-label">Activity Description <span id="act_description_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <textarea class="form-control" id="act_description_edit" name="act_description" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="close-button-act_edit" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" onclick="VerifyEditEventActivity('{{route('updateEventActivities')}}', '{{route('getActDetails')}}', '{{route('deleteEventActivities')}}')" class="btn btn-primary ms-auto">
+            
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+              Update Activity
+            </button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal modal-blur fade" id="viewAct" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Activity</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <div class="datagrid">
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Activity Name</div>
+                    <div class="datagrid-content" id="act_name_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Facilitator</div>
+                    <div class="datagrid-content" id="act_fac_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Venue</div>
+                    <div class="datagrid-content" id="act_venue_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Date & Time</div>
+                    <div class="datagrid-content" id="act_date_time_view"></div>
+                  </div>
+                  <div class="datagrid-item">
+                    <div class="datagrid-title">Description</div>
+                    <div class="datagrid-content" id="act_description_view">
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal modal-blur fade" id="uploadProgrammeModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Multiple File Upload</h3>
+                <form class="dropzone" id="dropzone-multiple" enctype="multipart/form-data" action="./" autocomplete="off" novalidate>
+                  @csrf
+                  <div class="fallback">
+                    <input name="file" type="programmeImages[]"  multiple accept="image/*" />
+                  </div
+                  <input name="event_id" id="event_id_programme" type="hidden" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+            <button type="button" onclick="UploadProgrammeImages('{{route('uploadProgrammeImages')}}')" class="btn btn-primary" data-bs-dismiss="modal">Upload Files</button>
+          </div>
+        </div>
+      </div>
+    </div>
     {{-- MODALS --}}
 
+
+    {{-- Delete Activity Form --}}
+    <form method="POST" id="deleteActEvent">
+      @csrf
+      <input type="hidden" name="act_id" id="delete_act_id">
+    </form>
 @include('Admin.components.footer')
 
       </div>
@@ -351,7 +616,7 @@
 @include('Admin.components.scripts')
 <!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-
+<script src="{{asset('./dist/libs/dropzone/dist/dropzone-min.js?1684106062')}}" defer></script>
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
@@ -366,9 +631,19 @@
           event.target.value = '';
       }
   }
-  </script>
+  document.getElementById('ev_pic').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const image = document.getElementById('event_image');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            image.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    } 
+});
 
-  <script>
     function downloadImage(imageUrl) {
       var imageFileName = imageUrl.split('/').pop(); // Extracting the filename from the URL
       var element = document.createElement('a');
@@ -394,10 +669,17 @@
     }, false);
 
     window.onload = () => {
-      EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}");
+      EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
+      LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
+      new Dropzone("#dropzone-multiple");
     }
-    
+     
   </script>
-
+    <script>
+      // @formatter:off
+      document.addEventListener("DOMContentLoaded", function() {
+        new Dropzone("#dropzone-multiple")
+      })
+    </script>
   </body>
 </html>
