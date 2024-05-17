@@ -5,6 +5,7 @@ use App\Http\Controllers\DeparmentData;
 use App\Http\Controllers\SchoolEvent;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\SessionDetect;
+use App\Http\Controllers\AdminData;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +57,7 @@ Route::post('/admin/EditCourseInfo', [DeparmentData::class,"EditCourseInfo"])->n
 Route::post('/admin/EditSectionInfo', [DeparmentData::class,"EditSectionInfo"])->name('EditSectionInfo');
 Route::post('/admin/SaveStudent', [DeparmentData::class,"SaveStudent"])->name('SaveStudent');
 Route::post('/admin/EditStudent', [DeparmentData::class,"EditStudent"])->name('EditStudent');
+Route::post('/admin/EditAdminInfo', [AdminData::class,"EditAdminInfo"])->name('EditAdminInfo');
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
 Route::get('/admin/GetDepartmentData', [DeparmentData::class,"GetDepartmentData"])->name('GetDepartmentData');
