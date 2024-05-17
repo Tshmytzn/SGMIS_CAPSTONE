@@ -548,6 +548,7 @@
     {{-- Other Forms --}}
 <input type="hidden" value="{{ route('AddDeptEvent') }}" id="addDeptRoute">
 <input type="hidden" value="{{ route('RemoveDeptEvent') }}" id="removeDeptRoute">
+<input type="hidden" value="{{ asset('dept_image/') }}" id="imageRouteDept">
 <form id="deptForm" method="POST">@csrf <input type="hidden" name="event_id" id="dept_event_id"> <input type="hidden" name="dept_id" id="selected_dept"></form>
 @include('Admin.components.footer')
 
@@ -612,7 +613,7 @@
     window.onload = () => {
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
-      LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}")
+      LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}")
     }
      
   </script>

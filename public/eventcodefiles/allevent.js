@@ -1037,34 +1037,41 @@ function LoadDeptEvent(route, getDept, getCourse, image){
     success: res=> {
       const deptList = document.getElementById('event_department_list');
       res.dept.forEach(dept => {
-        let dept_name = '';
         $.ajax({
           type:"GET",
           url: getDept + "?dept_id=" + dept.dept_id,
           dataType: 'json',
           success: resp=> {
-            deptList.innerHTML += `  <div class="col-sm-6 col-lg-4 mt-4">
+              
+            $.ajax({
+              type:"GET",
+              url: getCourse + "?dept_id=" + dept.dept_id,
+              dataType: 'json',
+              success: response=> {
+                let course = '';
+                response.course.forEach(c=>{
+                  course += `<li><a class="dropdown-item" href="#">${c.course_name}</a></li>`;
+                })
+                deptList.innerHTML += `<div class="col-sm-6 col-lg-4 mt-4">
             <div class="card card-sm">
               <div class="custom-dropdown dropup">
-              <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
+              <a href="#" class="d-block"><img src="${image}/${resp.dept.dept_image}" class="card-img-top"></a>
               <div class="card-body">
                   <div class="d-flex align-items-center">
                       <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
                         ${resp.dept.dept_name}
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                     
+                        ${course}
                       </ul>
                       <div class="ms-auto">
-                          <a href="#" class="text-muted">
-                              <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                        
-                          </a>
                           <a href="#" class="ms-3 text-muted">
-                              <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                            
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-xbox-x">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
+                          <path d="M9 8l6 8" />
+                          <path d="M15 8l-6 8" />
+                        </svg>
                           </a>
                       </div>
                   </div>
@@ -1072,6 +1079,11 @@ function LoadDeptEvent(route, getDept, getCourse, image){
           </div>
       </div>
     </div>`;
+              }, error: xhr => {
+                console.log(xhr.responseText);
+              }
+            });
+
           }, error: xhr => {
             console.log(xhr.responseText);
           }
@@ -1101,10 +1113,10 @@ var formData = $('form#deptForm').serialize();
         res.course.forEach(c=>{
           course += `<li><a class="dropdown-item" href="#">${c.course_name}</a></li>`;
         });
-         deptList.innerHTML += `     <div class="col-sm-6 col-lg-4 mt-4">
+         deptList.innerHTML += `<div class="col-sm-6 col-lg-4 mt-4">
          <div class="card card-sm">
            <div class="custom-dropdown dropup">
-           <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
+           <a href="#" class="d-block"><img src="${document.getElementById('imageRouteDept').value}/${res.dept.dept_image}" class="card-img-top"></a>
            <div class="card-body">
                <div class="d-flex align-items-center">
                    <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
