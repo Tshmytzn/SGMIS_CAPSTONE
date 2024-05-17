@@ -42,10 +42,11 @@
                               <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg)"></span>
                               </div>
                               <div class="col-auto">
-                                <label for="avatar-upload" class="btn">
-                                    Change avatar
-                                    <input type="file" id="avatar-upload" style="display: none;">
-                                </label>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#uploadpic" class="btn">
+                                  Change avatar
+                              </button>
+                              <input type="file" id="avatar-upload" style="display: none;">
+                              
                             </div>
                             </div>
                             <h3 class="card-title mt-4">Student Profile</h3>
@@ -195,8 +196,8 @@
                                 <label for="admintype" class="form-label">Admin Type</label>
                                 <select class="form-select" id="admintype" name="admintype">
                                     <option>Select User Type</option>
-                                    <option value="Master Admin">Master Admin</option>
-                                    <option value="Basic Admin">Basic Admin</option>
+                                    <option value="Master Admin">Super Admin</option>
+                                    <option value="Basic Admin">Administrator</option>
                                 </select>
                             </div>
                             <div class="col-6 align-self-end">
@@ -251,8 +252,8 @@
                                         <label for="admintype" class="form-label">Admin Type</label>
                                         <select class="form-select" id="editadmintype" name="editadmintype">
                                             <option>Select User Type</option>
-                                            <option value="Master Admin">Master Admin</option>
-                                            <option value="Basic Admin">Basic Admin</option>
+                                            <option value="Master Admin">Super Admin</option>
+                                            <option value="Basic Admin">Administrator</option>
                                         </select>
                                     </div>
                                     <div class="col-6 align-self-end">
@@ -305,6 +306,32 @@
                           </div>
                         </div>
                         {{-- demote modal --}}
+
+                      {{-- upload profile pic --}}
+                        <div class="modal modal-blur fade" id="uploadpic" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-body">
+                                <div class="modal-title">Upload Profile Picture</div>
+                                <img src="" alt="">
+                                <input type="file" class="form-control">
+                              </div>
+                              <div class="modal-footer">
+                                <div class="w-100">
+                                  <div class="row">
+                                    <div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">
+                                        Cancel
+                                      </a></div>
+                                    <div class="col"><a href="#" class="btn btn-success w-100" data-bs-dismiss="modal">
+                                        Save Changes
+                                      </a></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {{-- upload profile pic --}} 
 
         {{-- Modal --}}
 

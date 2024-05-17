@@ -135,30 +135,39 @@
                 <div class="container">
                     <div class="row g-2">
                         <div class="col-md-4">
+                            <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 1">
                         </div>
                         <div class="col-md-4">
+                          <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 2">
                         </div>
                         <div class="col-md-4">
+                            <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 3">
                         </div>
                         <div class="col-md-4">
+                           <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 4">
                         </div>
                         <div class="col-md-4">
+                          <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 5">
                         </div>
                         <div class="col-md-4">
+                          <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 6">
                         </div>
                         <div class="col-md-4">
+                          <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 7">
                         </div>
                         <div class="col-md-4">
+                          <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 8">
                         </div>
                         <div class="col-md-4">
+                          <label for=""> File name</label>
                             <img src="{{asset('./static/avatars/002m.jpg')}}" class="img-thumbnail" alt="Image 9">
                         </div>
                     </div>
