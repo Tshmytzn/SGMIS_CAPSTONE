@@ -3,7 +3,7 @@
 <html lang="en">
   
 @include('Admin.components.header' , ['title' => 'Programs'])
-
+@include('Admin.components.adminstyle')
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
