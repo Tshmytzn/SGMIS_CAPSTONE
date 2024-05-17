@@ -65,4 +65,59 @@ class AdminData extends Controller
     }
     }
     } 
+
+    public function AddAdministrator(Request $request){
+        $check = Admin::where('admin_name',$request->administratorname)->where('admin_username',$request->administratoruser)->first(); 
+        if($request->administratorname==''||$request->administratoruser==''||$request->administratorpass==''){
+            return response()->json(['status' => 'empty']);
+        }else if($check){
+            return response()->json(['status' => 'exist']);
+        }else{
+        $add = new Admin;
+        $add->admin_name = $request->administratorname;
+        $add->admin_username = $request->administratoruser;
+        $add->admin_password = Hash::make($request->administratorpass);
+        $add->admin_type = 'Administrator';
+        $add->admin_pic = 'default.jpg';
+        $add->save();
+        return response()->json(['status' => 'success']);
+        }
+
+        
+    }
+    public function GetAdministratorData(){
+        $check = Admin::where('admin_type','Administrator')->get();
+
+        return response()->json(['data' => $check]);
+    }
+
+    public function GetAdministratorDataToEdit(Request $request){
+        $check = Admin::where('admin_id',$request->id)->first();
+
+        return response()->json(['data' => $check]);
+    }
+    public function EditAdministratorInfo(Request $request){
+
+        if( $request->aditadministratorname == '' || $request->aditadministratoruser == ''){
+          
+            return response()->json(['status' => 'empty']);   
+        }else if($request->aditadministratorpass){
+            $check = Admin::where('admin_id',$request->administratorId)->first();
+            $check->update([
+                'admin_name'=>$request->aditadministratorname,
+                'admin_username'=>$request->aditadministratoruser,
+                'admin_password'=>Hash::make($request->aditadministratorpass),
+                ]);
+            return response()->json(['status' => 'success']);   
+        }else{
+        $check = Admin::where('admin_id',$request->administratorId)->first();
+        $check->update([
+            'admin_name'=>$request->aditadministratorname,
+            'admin_username'=>$request->aditadministratoruser,
+           
+            ]);
+        return response()->json(['status' => 'success']);
+        }
+
+    }
 }

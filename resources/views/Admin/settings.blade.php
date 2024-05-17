@@ -3,6 +3,7 @@
 <html lang="en">
   
 @include('Admin.components.header', ['title' => 'Settings'])
+@include('Admin.components.adminstyle')
 
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
@@ -84,6 +85,7 @@
                           </div>
                         </div>                      
                       </div>
+                      {{-- administrator --}}
                       <div class="tab-pane fade" id="administrators">
                       <div class="d-flex align-items-center justify-content-end mb-3">
 
@@ -97,30 +99,43 @@
 
                     </div>
                         
-                        <div class="row g-5">
-                        <div class="col-md-6 col-lg-4">
-                          <div class="card">
-                            <div class="card-body p-4 text-center">
-                              <span class="avatar avatar-xl mb-3 rounded" style="background-image: url({{asset('./static/avatars/002m.jpg')}})"></span>
-                              <h3 class="m-0 mb-1"><a href="#">Ghiza Ann Dojoles</a></h3>
-                              <div class="text-muted">SSG Secretary</div>
-                              <div class="mt-3">
-                                <span class="badge bg-green-lt">Administrator</span>
+                        <div class="row g-5" id="adminCard">
+
+                          {{-- <div id="administrators-card" class="col-md-6 col-lg-4 admincardeffects">
+                            <div class="card">
+                              <div class="card-body p-4 text-center">
+                                <span class="avatar avatar-xl mb-3 rounded" style="background-image: url({{asset('./static/avatars/002m.jpg')}})"><img src="" alt=""> </span>
+                                <h3 class="m-0 mb-1"><a href="#">Ghiza Ann Dojoles</a></h3>
+                                <div class="text-muted">SSG Secretary</div>
+                                <div class="mt-3">
+                                  <span class="badge bg-green-lt">Administrator</span>
+                                </div>
+                              </div>
+                              <div class="d-flex">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#editadmin" class="card-btn">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
+                                    <path d="M16 5l3 3"/>
+                                  </svg>                                
+                                  &nbsp; Edit
+                                </a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#demotemodal" class="card-btn">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down-to-arc">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 3v12"/>
+                                    <path d="M16 11l-4 4l-4 -4"/>
+                                    <path d="M3 12a9 9 0 0 0 18 0"/>
+                                  </svg>
+                                  &nbsp; Demote
+                                </a>
                               </div>
                             </div>
-                            <div class="d-flex">
-                              <a href="#" data-bs-toggle="modal" data-bs-target="#editadmin" class="card-btn">
-                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>                                
-                                &nbsp; Edit
-                              </a>
-                               <a href="#" data-bs-toggle="modal" data-bs-target="#demotemodal" class="card-btn">
-                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down-to-arc"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3v12" /><path d="M16 11l-4 4l-4 -4" /><path d="M3 12a9 9 0 0 0 18 0" /></svg>
-                                 &nbsp; Demote</a>
-                            </div>
-                          </div>
-                        </div>
-
+                          </div> --}}
+                          
                       </div>
+                      
                         
                         
                       </div>
@@ -183,31 +198,21 @@
                       </div>
                       <div class="modal-body">
                         
-                        <form class="row g-3" id="addnewadmin" method="POST">
+                        <form class="row g-3" id="addnewadministratorform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
                             <label for="adminname" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="adminname" id="editsectadminnameionid">         
+                            <input type="text" class="form-control" name="administratorname" id="administratorname">         
                           </div>
                           <div class="col-6">
                             <label for="adminuser" class="form-label">Username</label>
-                              <input type="text" class="form-control" name="adminuser" id="adminuser">         
+                              <input type="text" class="form-control" name="administratoruser" id="administratoruser">         
                           </div>
                           <div class="col-6">
                             <label for="adminpass" class="form-label">Password</label>
-                              <input type="password" class="form-control" name="adminpass" id="adminpass">         
+                              <input type="password" class="form-control" name="administratorpass" id="administratorpass">         
                           </div>
 
-                          <div class="row g-2">
-                          
-                            <div class="col-12 align-self-end">
-                              <label for="avatar-upload" class="btn btn-outline-green col-12">
-                                Upload Profile
-                                    <input type="file" id="avatar-upload" style="display: none;">
-                                </label>
-                            </div>
-                        </div>
-                        
                         </div>
 
                         </form>
@@ -215,7 +220,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="()">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="AddAdministrator()">Save</button>
                       </div>
                     </div>
                   </div>
@@ -232,30 +237,21 @@
                               </div>
                               <div class="modal-body">
                                 
-                                <form class="row g-3" id="aditadmin" method="POST">
+                                <form class="row g-3" id="aditadministratorform" method="POST">@csrf
                                 <div class="row g-2">
                                   <div class="col-12">
+                                    <input type="hidden" name="administratorId" id="administratorId">
                                     <label for="adminname" class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="aditadminname" id="aditadminname">         
+                                    <input type="text" class="form-control" name="aditadministratorname" id="aditadministratorname">         
                                   </div>
                                   <div class="col-6">
                                     <label for="adminuser" class="form-label">Username</label>
-                                      <input type="text" class="form-control" name="aditadminuser" id="aditadminuser">         
+                                      <input type="text" class="form-control" name="aditadministratoruser" id="aditadministratoruser">         
                                   </div>
                                   <div class="col-6">
                                     <label for="adminpass" class="form-label">Password</label>
-                                      <input type="password" class="form-control" name="editadminpass" id="editadminpass">         
+                                      <input type="password" class="form-control" name="aditadministratorpass" id="aditadministratorpass">         
                                   </div>
-        
-                                  <div class="row g-2">
-                                    <div class="col-12 align-self-end">
-                                      <label for="avatar-upload" class="btn btn-outline-green col-12">
-                                        Update Profile
-                                            <input type="file" id="avatar-upload" style="display: none;">
-                                        </label>
-                                    </div>
-                                </div>
-                                
                                 </div>
         
                                 </form>
@@ -263,7 +259,7 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" onclick="()">Save</button>
+                                <button type="button" class="btn btn-primary" onclick="EditAdministratorInfo()">Save</button>
                               </div>
                             </div>
                           </div>
@@ -328,8 +324,7 @@
                         {{-- upload profile pic --}} 
 
         {{-- Modal --}}
-
-
+       
         @include('Admin.components.footer')
 
       </div>
