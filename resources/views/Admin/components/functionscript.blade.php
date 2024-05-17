@@ -646,7 +646,124 @@ function EditSectionInfo(){
         });
     }
 </script>
-
 <script>
+ function EditAdminInfo(){
+         var formData = $("form#EditAdminInfoForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('EditAdminInfo') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    clearFormInputs('EditAdminInfoForm');
+                    reloadElementById('EditAdminInfoForm');
+                    alertify
+                        .alert("Message", "Admin Info Successfully Updated", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'exist') {
+                    alertify
+                        .alert("Alert", "Admin Info Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    alertify
+                        .alert("Warning", "Enter Admin Info First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+      }
 
+       function ChangeAdminPic(){
+         var formData = $("form#editadminpicform").serialize();
+          const pic = document.getElementById('editadminpic');
+                if (pic.files.length == 0) {
+                    alertify
+                        .alert("Warning", "Department Image Required", function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    var formData = new FormData();
+                    formData.append('image', $('#editadminpic')[0].files[0]);
+                    formData.append('_token', '{{ csrf_token() }}');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('ChangeAdminPic') }}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status == 'success') {
+                    clearFormInputs('EditAdminInfoForm');
+                    reloadElementById('EditAdminInfoForm');
+                     reloadElementById('adminpicture');
+                    alertify
+                        .alert("Message", "Admin Image Successfully Updated", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'exist') {
+                    alertify
+                        .alert("Alert", "Admin Image Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    alertify
+                        .alert("Warning", "Enter Admin Image First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+      }
+    }
+    function ChangeAdminPass(){
+
+       var formData = $("form#UpdateAdminPassForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('ChangeAdminPass') }}",
+            data: formData,
+            success: function(response) {
+               console.log(response.status);
+                if (response.status == 'success') {
+                    clearFormInputs('EditAdminInfoForm');
+                    reloadElementById('EditAdminInfoForm');
+                    alertify
+                        .alert("Message", "Admin Password Successfully Updated", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == '!match') {
+                    alertify
+                        .alert("Alert", "New Entered Password Did Not Match!", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    alertify
+                        .alert("Warning", "Enter Admin Password First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+                else if (response.status == 'old!match') {
+                 
+                    alertify
+                        .alert("Warning", "Old Admin Password Did Not Match!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+
+    }
 </script>

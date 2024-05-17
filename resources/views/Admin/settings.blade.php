@@ -37,22 +37,21 @@
                       <div class="tab-pane fade show active" id="my-account">
                         <h2 class="mb-4">My Account </h2>
                         <div class="col d-flex flex-column">
+                            @php
+                              $adminAcc = App\Models\Admin::where('admin_type','Super Admin')->first();
+                            @endphp
                             <h3 class="card-title">Profile Details</h3>
                             <div class="row align-items-center">
-                              <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                              <div class="col-auto"><span class="avatar avatar-xl"><img src="dept_image/{{$adminAcc->admin_pic}}" alt="" id="adminpicture"></span>
                               </div>
                               <div class="col-auto">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#uploadpic" class="btn">
                                   Change avatar
                               </button>
-                              <input type="file" id="avatar-upload" style="display: none;">
-                              
                             </div>
                             </div>
                             <h3 class="card-title mt-4">Student Profile</h3>
-                            @php
-                              $adminAcc = App\Models\Admin::where('admin_type','Super Admin')->first();
-                            @endphp
+                          
                             <form action="" method="POST" id="EditAdminInfoForm">
                               @csrf
                            
@@ -144,26 +143,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
+                <form action="" method="POST" id="UpdateAdminPassForm">
+                  @csrf
+               
                 <div class="mb-3">
                   <label class="form-label">Old Password</label>
-                  <input type="Password" class="form-control" name="example-text-input" placeholder="Your report name">
+                  <input type="Password" class="form-control" name="oldpass" id="oldpass" placeholder="Enter Old Password">
                 </div>
                 <div class="mb-3">
                 <label class="form-label">New Password</label>
-                <input type="Password" class="form-control" name="example-text-input" placeholder="Your report name">
+                <input type="Password" class="form-control" name="newpass" id="newpass" placeholder="Enter New Password">
             </div>
             <div class="mb-3">
                 <label class="form-label">Repeat Password</label>
-                <input type="Password" class="form-control" name="example-text-input" placeholder="Your report name">
+                <input type="Password" class="form-control" name="repass" id="repass" placeholder="Re-enter New Password">
             </div>
+             </form>
               </div>
               <div class="modal-footer">
                 <a href="#" class="btn btn-danger" data-bs-dismiss="modal">
                   Cancel
                 </a>
-                <a href="#" class="btn btn-primary" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="ChangeAdminPass()">
                   Update 
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -301,9 +304,10 @@
                           <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                             <div class="modal-content">
                               <div class="modal-body">
+                                <form action="" id="editadminpicform" method="POST">@csrf 
                                 <div class="modal-title">Upload Profile Picture</div>
                                 <img src="" alt="">
-                                <input type="file" class="form-control">
+                                <input type="file" class="form-control" name="editadminpic" id="editadminpic">
                               </div>
                               <div class="modal-footer">
                                 <div class="w-100">
@@ -311,10 +315,11 @@
                                     <div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">
                                         Cancel
                                       </a></div>
-                                    <div class="col"><a href="#" class="btn btn-success w-100" data-bs-dismiss="modal">
+                                    <div class="col"><button type="button" class="btn btn-success w-100" data-bs-dismiss="modal" onclick="ChangeAdminPic()">
                                         Save Changes
-                                      </a></div>
+                                      </button></div>
                                   </div>
+                                  </form>
                                 </div>
                               </div>
                             </div>
@@ -331,41 +336,7 @@
     </div>
 
     @include('Admin.components.scripts')
-    <script>
-
-      function EditAdminInfo(){
-         var formData = $("form#EditAdminInfoForm").serialize();
-        $.ajax({
-            type: "POST",
-            url: "{{ route('EditAdminInfo') }}",
-            data: formData,
-            success: function(response) {
-                if (response.status == 'success') {
-                    // clearFormInputs('EditAdminInfoForm');
-                    // reloadElementById('EditAdminInfoForm');
-                    alertify
-                        .alert("Message", "Course Successfully Updeted", function() {
-                            alertify.message('OK');
-                        });
-                } else if (response.status == 'exist') {
-                    alertify
-                        .alert("Alert", "Course Already Exist", function() {
-                            alertify.message('OK');
-                        });
-                } else if (response.status == 'empty') {
-                    alertify
-                        .alert("Warning", "Enter Course Name First!", function() {
-                            alertify.message('OK');
-                        });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-      }
-
-    </script>
-
+    @include('Admin.components.functionscript')
+   
   </body>
 </html>
