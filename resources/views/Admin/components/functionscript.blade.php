@@ -60,7 +60,7 @@ function clearFormInputs(formId) {
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
-                        .alert("Message", "Student Successfully Save", function() {
+                        .alert("Message", "Student Successfully Saved", function() {
                             alertify.message('OK');
                             clearFormInputs('SaveStudentForm');
                             GetStudentData();
