@@ -201,109 +201,30 @@
               </div>
 
               <div class="card mt-2">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                   <h3 class="card-title">Participating Departments</h3>
+                  <select type="text"  class="form-select w-50" placeholder="Select tags" id="select-tags" value="" multiple>
+                   @php
+                       $dept = App\Models\Department::all();
+                   @endphp
+                   @foreach ($dept as $d)
+                   <option value="{{ $d->dept_id }}">{{ $d->dept_name }}</option>
+                   @endforeach
+                  </select> 
+
+                  <button class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 5l0 14" />
+                      <path d="M5 12l14 0" />
+                    </svg> Save Changes
+                  </button>
                 </div>
-              <div class="row row-cards ">
+              <div class="row row-cards " id="event_department_list">
 
-              {{-- DEPARTMENT #1 --}}
-                <div class="col-sm-6 col-lg-4">
-                  <div class="card card-sm">
-                    <div class="custom-dropdown dropup">
-                    <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
-                              College of Arts and Sciences
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#">Bachelor of Arts in Social Science</a></li>
-                                <li><a class="dropdown-item" href="#">Bachelor of Science in Psychology</a></li>
-
-                            </ul>
-                            <div class="ms-auto">
-                                <a href="#" class="text-muted">
-                                    <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                                    467
-                                </a>
-                                <a href="#" class="ms-3 text-muted">
-                                    <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                                    67
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-
-          {{-- DEPARTMENT #2 --}}          
-          <div class="col-sm-6 col-lg-4">
-            <div class="card card-sm">
-              <div class="custom-dropdown dropup">
-              <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
-              <div class="card-body">
-                  <div class="d-flex align-items-center">
-                      <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
-                          College of Engineering
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <li><a class="dropdown-item" href="#">Bachelor of Science in Civil Engineering</a></li>
-
-                      </ul>
-                      <div class="ms-auto">
-                          <a href="#" class="text-muted">
-                              <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                              467
-                          </a>
-                          <a href="#" class="ms-3 text-muted">
-                              <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                              67
-                          </a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div>
-
-    {{-- DEPARTMENT #3 --}}
-    <div class="col-sm-6 col-lg-4">
-      <div class="card card-sm">
-        <div class="custom-dropdown dropup">
-        <a href="#" class="d-block"><img src="{{asset('./static/icon.jpg')}}" class="card-img-top"></a>
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <button class="" type="button" id="dropdownMenuButton" aria-expanded="false" style="border: none; background:none;">
-                    College of Education
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Bachelor of Physical Education</a></li>
-                    <li><a class="dropdown-item" href="#">Bachelor of Early Childhood Education </a></li>
-                    <li><a class="dropdown-item" href="#">Bachelor of Elementary Education</a></li>
-
-                </ul>
-                <div class="ms-auto">
-                    <a href="#" class="text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                        467
-                    </a>
-                    <a href="#" class="ms-3 text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                        67
-                    </a>
-                          </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
+           
+          
+         
               </div>
             </div>
           </div>
@@ -576,18 +497,18 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">Add Programme Images</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="card">
               <div class="card-body">
-                <h3 class="card-title">Multiple File Upload</h3>
-                <form class="dropzone" id="dropzone-multiple" enctype="multipart/form-data" action="./" autocomplete="off" novalidate>
+                <h3 class="card-title">You can add multiple Images</h3>
+                <form class="dropzone" id="dropzone-multiple" enctype="multipart/form-data" action="{{route('uploadProgrammeImages')}}" autocomplete="off" novalidate>
                   @csrf
                   <div class="fallback">
-                    <input name="file" type="programmeImages[]"  multiple accept="image/*" />
-                  </div
+                    <input name="programmeImages[]" type="file"  multiple accept="image/*" />
+                  </div>
                   <input name="event_id" id="event_id_programme" type="hidden" />
                 </form>
               </div>
@@ -595,7 +516,22 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-            <button type="button" onclick="UploadProgrammeImages('{{route('uploadProgrammeImages')}}')" class="btn btn-primary" data-bs-dismiss="modal">Upload Files</button>
+            <button type="button" id="upload-button" class="btn btn-primary" >Upload Files</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="addDeptModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="modal-title">Add Participation Department</div>
+           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes, delete all my data</button>
           </div>
         </div>
       </div>
@@ -608,6 +544,11 @@
       @csrf
       <input type="hidden" name="act_id" id="delete_act_id">
     </form>
+
+    {{-- Other Forms --}}
+<input type="hidden" value="{{ route('AddDeptEvent') }}" id="addDeptRoute">
+<input type="hidden" value="{{ route('RemoveDeptEvent') }}" id="removeDeptRoute">
+<form id="deptForm" method="POST">@csrf <input type="hidden" name="event_id" id="dept_event_id"> <input type="hidden" name="dept_id" id="selected_dept"></form>
 @include('Admin.components.footer')
 
       </div>
@@ -619,7 +560,7 @@
 <script src="{{asset('./dist/libs/dropzone/dist/dropzone-min.js?1684106062')}}" defer></script>
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-
+<script src="{{ asset('./dist/libs/tom-select/dist/js/tom-select.base.min.js?1684106062') }}" defer></script>
   <script>
   function limitFiles(event) {
       var files = event.target.files;
@@ -671,15 +612,13 @@
     window.onload = () => {
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
-      new Dropzone("#dropzone-multiple");
+      LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}")
     }
      
   </script>
     <script>
-      // @formatter:off
-      document.addEventListener("DOMContentLoaded", function() {
-        new Dropzone("#dropzone-multiple")
-      })
+      
+
     </script>
   </body>
 </html>
