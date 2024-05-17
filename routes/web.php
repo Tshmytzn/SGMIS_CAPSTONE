@@ -29,6 +29,7 @@ Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
 Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 Route::get('/Profile', function () { return view('Admin.Profile'); })->name('Profile');
+Route::get('/Budgeting', function () { return view('Admin.budgeting'); })->name('Budgeting');
 
 
 
