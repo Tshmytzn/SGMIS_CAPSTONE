@@ -450,7 +450,7 @@ function EditSectionInfo(){
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
-                        .alert("Message", "Course Successfully Updeted", function() {
+                        .alert("Message", "Course Successfully Updated", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();

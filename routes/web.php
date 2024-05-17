@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminData;
 |
 */
 
+// ADMIN
 // tisha's routes
 Route::get('/', [SessionDetect::class, 'Dashboard'])->name('AdminDashboard');
 Route::get('/Accounts', [SessionDetect::class, 'Accounts'])->name('Accounts');
@@ -30,8 +31,6 @@ Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluatio
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 Route::get('/Profile', function () { return view('Admin.Profile'); })->name('Profile');
 Route::get('/Budgeting', function () { return view('Admin.budgeting'); })->name('Budgeting');
-
-
 
 //Rheyan Post Route
 Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
@@ -80,3 +79,7 @@ Route::fallback(function () {
 });
 
 
+// STUDENT
+// tisha's routes
+Route::get('/Userlogin', function () { return view('Student.login'); })->name('Userlogin');
+Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
