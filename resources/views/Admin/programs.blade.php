@@ -3,6 +3,10 @@
 <html lang="en">
   
 @include('Admin.components.header' , ['title' => 'Programs'])
+
+@include('Admin.components.adminstyle')
+  <body >
+
 {{-- @include('Admin.components.programsloader') --}}
 
   <body>
@@ -12,6 +16,7 @@
   </div> --}}
   
     
+
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">

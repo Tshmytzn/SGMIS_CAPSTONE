@@ -56,15 +56,91 @@
               
               <div class="col-md-6 col-lg-3">
                 <div class="card">
-                  <!-- Photo -->
-                  <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url(./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg)"></div>
+                  <div class="ribbon bg-green">ONGOING</div>
+                  <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url({{asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg')}})"></div>
                   <div class="card-body">
-                    <h3 class="card-title">Card with top image</h3>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deleniti fugit incidunt, iste, itaque minima
-                      neque pariatur perferendis sed suscipit velit vitae voluptatem.</p>
+                    <h3 class="card-title">University Week Evaluation Form</h3>
+                    <p class="text-muted">Provide your feedback on CHMSU University Week events and activities. Your input will help us improve future events.
+                    </p>
                   </div>
+                    <div class="d-flex">
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#editeval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>                                
+                        &nbsp; Edit
+                      </a>
+                       <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" /><path d="M15 19l2 2l4 -4" /></svg>                         
+                        &nbsp; View</a>
+                    </div>
                 </div>
               </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="card">
+                  <div class="ribbon bg-red">EVENT ENDED</div>
+                  <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url({{asset('./static/cultural.jpg')}})"></div>
+                  <div class="card-body">
+                    <h3 class="card-title">Cultural Festival Evaluation Form
+                    </h3>
+                    <p class="text-muted">Provide your thoughts on the Cultural Festival, focusing on performances, exhibits, and event coordination.
+                    </p>
+                  </div>
+                    <div class="d-flex">
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#editeval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>                                
+                        &nbsp; Edit
+                      </a>
+                       <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" /><path d="M15 19l2 2l4 -4" /></svg>                         
+                        &nbsp; View</a>
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="card">
+                  <div class="ribbon bg-red">EVENT ENDED</div>
+                  <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url({{asset('./static/sports.png')}})"></div>
+                  <div class="card-body">
+                    <h3 class="card-title">Sports Day Evaluation Form
+                    </h3>
+                    <p class="text-muted">Evaluate Sports Day by commenting on the activities, event management, and enjoyment level.
+                    </p>
+                  </div>
+                    <div class="d-flex">
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#editeval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>                                
+                        &nbsp; Edit
+                      </a>
+                       <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" /><path d="M15 19l2 2l4 -4" /></svg>                         
+                        &nbsp; View</a>
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="card">
+                  <div class="ribbon bg-red">EVENT ENDED</div>
+                  <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url({{asset('./static/carfest.jpg')}})"></div>
+                  <div class="card-body">
+                    <h3 class="card-title">Car Show Evaluation Form</h3>
+                    <p class="text-muted">Share your feedback on the Car Show, including the variety and quality of vehicles, event organization, and overall experience. 
+                    </p>
+                  </div>
+                    <div class="d-flex">
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#editeval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>                                
+                        &nbsp; Edit
+                      </a>
+                       <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval" class="card-btn">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" /><path d="M15 19l2 2l4 -4" /></svg>                         
+                        &nbsp; View</a>
+                    </div>
+                </div>
+              </div>
+
+              
 
             </div>
           </div>
@@ -127,6 +203,58 @@
   </div>
 </div>
 {{-- Create Evaluation modal --}}
+
+{{-- View Evaluation Modal --}}
+<div class="modal modal-blur fade" id="vieweval" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background-color: #3E8A34;">
+        <h5 class="modal-title" id="staticBackdropLabel">View Evaluation Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" id="createeval" method="POST" enctype="multipart/form-data">@csrf
+          <div class="row g-2">
+              <div class="col-12">
+                  <label for="firstname" class="form-label">Associated Event</label>
+                  <select name="" class="form-select" id="">
+                      <option selected>Select Event</option>
+                      <option value="">event #1</option>
+                      <option value="">event #1</option>
+                      <option value="">event #1</option>
+                  </select>
+              </div>
+              <div class="col-12">
+                  <label for="evalname" class="form-label">Evaluation Name</label>
+                  <input type="text" class="form-control" name="viewevalname" id="viewevalname" placeholder="Evaluation Name">
+              </div>
+              <div class="col-12">
+                  <label for="evaldesc" class="form-label">Evaluation Description</label>
+                  <textarea class="form-control" name="viewevaldesc" id="viewevaldesc" placeholder="Add Short Description here..." cols="10" rows="2"></textarea>
+              </div>
+              <hr class="my-4 mt-3 mb-2">
+              <div class="col-11">
+                  <label for="evalname" class="form-label">Evaluation Questions</label>
+              </div>
+              <input type="text" class="form-control" name="viewevalname" id="viewevalname" placeholder="Question #1">
+              <input type="text" class="form-control" name="viewevalname" id="viewevalname" placeholder="Question #2">
+              <input type="text" class="form-control" name="viewevalname" id="viewevalname" placeholder="Question #3">
+              <input type="text" class="form-control" name="viewevalname" id="viewevalname" placeholder="Question #4">
+              <input type="text" class="form-control" name="viewevalname" id="viewevalname" placeholder="Question #5">
+
+              
+          </div>
+      </form>      
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+{{-- View Evaluation modal --}}
         {{-- Modal --}}
 
 

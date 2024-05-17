@@ -60,7 +60,7 @@ function clearFormInputs(formId) {
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
-                        .alert("Message", "Student Successfully Save", function() {
+                        .alert("Message", "Student Successfully Saved", function() {
                             alertify.message('OK');
                             clearFormInputs('SaveStudentForm');
                             GetStudentData();
@@ -480,9 +480,11 @@ function EditSectionInfo(){
 }
 
     function SaveDepartment() {
+        document.getElementById('adminloader').style.display='grid';
         const deptname = document.getElementById('department').value;
        const pic = document.getElementById('departmentimage');
                 if (pic.files.length == 0) {
+                     document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Department Image Required", function() {
                             alertify.message('OK');
@@ -500,6 +502,7 @@ function EditSectionInfo(){
                         processData: false,
             success: function(response) {
                 if (response.status == 'success') {
+                      document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Message", "New Department Successfully Added", function() {
                              GetDepartmentData();
@@ -515,11 +518,13 @@ function EditSectionInfo(){
                            
                         });
                 } else if (response.status == 'exist') {
+                      document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Alert", "Department Already Exist", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'empty') {
+                      document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Enter Department Name First!", function() {
                             alertify.message('OK');
@@ -630,4 +635,8 @@ function EditSectionInfo(){
             }
         });
     }
+</script>
+
+<script>
+
 </script>
