@@ -208,21 +208,36 @@
                        $dept = App\Models\Department::all();
                    @endphp
                    @foreach ($dept as $d)
-                   <option value="{{ $d->dept_id }}">{{ $d->dept_name }}</option>
+                   @php
+                       $eventDept = App\Models\EventDepartment::where('dept_id', $d->dept_id)->first();
+                   @endphp
+                   <option {{ $eventDept ? 'selected' : '' }} value="{{ $d->dept_id }}">{{ $d->dept_name }}</option>
                    @endforeach
                   </select> 
 
-                  <button class="btn btn-primary">
+                  {{-- <button class="btn btn-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M12 5l0 14" />
                       <path d="M5 12l14 0" />
                     </svg> Save Changes
-                  </button>
+                  </button> --}}
                 </div>
               <div class="row row-cards " id="event_department_list">
 
-           
+                <div class="page page-center mt-4" id="loading-dept">
+                  <div class="container container-slim py-4">
+                    <div class="text-center">
+                      <div class="mb-3">
+                        <a href="." class="navbar-brand navbar-brand-autodark"><img src="{{ asset('./static/logoicon.png') }}" height="50" alt=""></a>
+                      </div>
+                      <div class="text-muted mb-3">Loading Departments</div>
+                      <div class="progress progress-sm">
+                        <div class="progress-bar progress-bar-indeterminate"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
           
          
               </div>
@@ -548,6 +563,8 @@
     {{-- Other Forms --}}
 <input type="hidden" value="{{ route('AddDeptEvent') }}" id="addDeptRoute">
 <input type="hidden" value="{{ route('RemoveDeptEvent') }}" id="removeDeptRoute">
+<input type="hidden" value="{{ asset('dept_image/') }}" id="imageRouteDept">
+<input type="hidden" value="{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}" id="emptyImage">
 <form id="deptForm" method="POST">@csrf <input type="hidden" name="event_id" id="dept_event_id"> <input type="hidden" name="dept_id" id="selected_dept"></form>
 @include('Admin.components.footer')
 
@@ -612,7 +629,7 @@
     window.onload = () => {
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
-      LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}")
+      LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}")
     }
      
   </script>

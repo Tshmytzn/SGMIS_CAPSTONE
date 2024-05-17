@@ -200,8 +200,9 @@ class SchoolEvent extends Controller
     public function RemoveDeptEvent(Request $req){
         $dept = EventDepartment::where('event_id', $req->event_id)->where('dept_id', $req->dept_id)->first();
         $dept->delete();
-
-        return response()->json(['status'=>'success']);
+         
+        $event = EventDepartment::where('event_id', $req->event_id)->get()->count();
+        return response()->json(['status'=>'success', 'dept'=>$event]);
     }
     
     public function GetDeptEvent(Request $req){
