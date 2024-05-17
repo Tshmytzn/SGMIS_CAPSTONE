@@ -97,7 +97,7 @@
                         <div class="col-md-6 col-lg-4">
                           <div class="card">
                             <div class="card-body p-4 text-center">
-                              <span class="avatar avatar-xl mb-3 rounded" style="background-image: url(./static/avatars/002m.jpg)"></span>
+                              <span class="avatar avatar-xl mb-3 rounded" style="background-image: url({{asset('./static/avatars/002m.jpg')}})"></span>
                               <h3 class="m-0 mb-1"><a href="#">Ghiza Ann Dojoles</a></h3>
                               <div class="text-muted">SSG Secretary</div>
                               <div class="mt-3">
