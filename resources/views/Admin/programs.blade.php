@@ -3,10 +3,10 @@
 <html lang="en">
   
 @include('Admin.components.header' , ['title' => 'Programs'])
-<<<<<<< HEAD
+
 @include('Admin.components.adminstyle')
   <body >
-=======
+
 {{-- @include('Admin.components.programsloader') --}}
 
   <body>
@@ -16,7 +16,7 @@
   </div> --}}
   
     
->>>>>>> 27edfd05584ba1d6f57101624001fd81b6646007
+
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
