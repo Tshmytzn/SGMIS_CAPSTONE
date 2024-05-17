@@ -262,6 +262,8 @@ function clearFormInputs(formId) {
             processData: false,
             success: function(response) {
                 if (response.status == 'success') {
+                    clearFormInputs('editdeptform');
+
                     alertify
                         .alert("Message", "Department Successfully Updated", function() {
                              GetDepartmentData();
@@ -538,6 +540,7 @@ function EditSectionInfo(){
     }
 
     function SaveCourse() {
+        document.getElementById('adminloader').style.display='grid';
         var formData = $("form#addcourseform").serialize();
         $.ajax({
             type: "POST",
@@ -545,6 +548,7 @@ function EditSectionInfo(){
             data: formData,
             success: function(response) {
                 if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Message", "New Course Successfully Added", function() {
                             GetDepartmentData();
@@ -560,11 +564,13 @@ function EditSectionInfo(){
                         
                         });
                 } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Alert", "Course Already Exist", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Enter Course Name First!", function() {
                             alertify.message('OK');
@@ -597,6 +603,7 @@ function EditSectionInfo(){
     }
 
     function SaveSection() {
+        document.getElementById('adminloader').style.display='grid';
         var formData = $("form#addsectionform").serialize();
         $.ajax({
             type: "POST",
@@ -604,6 +611,7 @@ function EditSectionInfo(){
             data: formData,
             success: function(response) {
                 if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Message", "New Section Successfully Added", function() {
                          GetDepartmentData();
@@ -619,11 +627,13 @@ function EditSectionInfo(){
                              
                         });
                 } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Alert", "Section Already Exist", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Enter Section Name First!", function() {
                             alertify.message('OK');
