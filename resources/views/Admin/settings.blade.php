@@ -142,7 +142,7 @@
                         
                         
                       </div>
-                                            {{-- administrator --}}
+            {{-- administrator --}}
                       <div class="tab-pane fade" id="administrators">
                       <div class="d-flex align-items-center justify-content-end mb-3">
 
@@ -192,7 +192,7 @@
                           </div> --}} 
                       </div>
                       </div>
-                      {{-- student administrator --}}
+      {{-- student administrator --}}
                       <div class="tab-pane fade" id="studentadmins">
                         <div class="d-flex align-items-center justify-content-end mb-3">
                           <div class="input-icon">
@@ -490,6 +490,49 @@
           </div>
         </div>
         {{-- Add Student Modal --}}
+
+        {{-- Edit Admin Student Modal --}}
+                <div class="modal modal-blur fade" id="editstudentadmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header text-white" style="background-color: #3E8A34;">
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Student Admin</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="row g-3" id="editnewstudentadmin" method="POST">@csrf
+        
+                        <div class="row g-2">
+                          <div class="col-12">
+                            <input type="hidden" name="editstudentadminid" id="editstudentadminid">
+                            <label for="editadminname" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="editstudentadminname" id="editstudentadminname" readonly>         
+                          </div>
+                          <div class="col-6">
+                            <label for="editadminuser" class="form-label">School ID No.</label>
+                              <input type="number" class="form-control" name="editstudentadminschoolid" id="editstudentadminschoolid" readonly>         
+                          </div>
+                          <div class="col-6">
+                            <label for="editadminuser" class="form-label">USG Position</label>
+                              <select name="editstudentposition" class="form-select" id="editstudentposition">
+                                <option value="USG PRESIDENT">USG PRESIDENT</option>
+                                <option value="USG SECRETARY">USG SECRETARY</option>
+                              </select>         
+                          </div>
+        
+                        </div>
+        
+                        </form>
+        
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="EditStudentAdmin()">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{-- Edit Student Modal --}}
 
                                 {{-- demote modal --}}
                                 <div class="modal modal-blur fade" id="studentdemote" tabindex="-1" role="dialog" aria-hidden="true">
