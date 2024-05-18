@@ -39,7 +39,7 @@
                         <h2 class="mb-4">My Account </h2>
                         <div class="col d-flex flex-column">
                             @php
-                              $adminAcc = App\Models\Admin::where('admin_type','Super Admin')->first();
+                              $adminAcc = App\Models\Admin::where('admin_id',session('admin_id'))->first();
                             @endphp
                             <h3 class="card-title">Profile Details</h3>
                             <div class="row align-items-center">

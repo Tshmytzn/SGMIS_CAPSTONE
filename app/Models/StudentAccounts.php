@@ -19,5 +19,7 @@ class StudentAccounts extends Model
        'student_ext',
        'student_pass',
        'student_pic',
+       'student_type',
+       'student_position',
     ];
 }
