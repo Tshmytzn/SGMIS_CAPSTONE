@@ -463,11 +463,11 @@
                 <div class="row g-2">
                   <div class="col-12">
                     <label for="adminname" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" name="administratorname" id="administratorname">         
+                    <input type="text" class="form-control" name="administratorname" id="administratorname" readonly>         
                   </div>
                   <div class="col-6">
-                    <label for="adminuser" class="form-label">SCHOOL ID No.</label>
-                      <input type="number" class="form-control" name="administratoruser" id="administratoruser">         
+                    <label for="adminuser" class="form-label">School ID No.</label>
+                      <input type="number" class="form-control" name="administratoruser" id="administratoruser" readonly>         
                   </div>
                   <div class="col-6">
                     <label for="adminuser" class="form-label">USG Position</label>
