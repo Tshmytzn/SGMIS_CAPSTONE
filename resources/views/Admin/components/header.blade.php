@@ -6,7 +6,7 @@
 
     <!-- Favicon -->
     <link href="{{ asset('./static/logoicon.png') }}" rel="icon">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('./dist/css/tabler.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('./dist/css/tabler-flags.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('./dist/css/tabler-payments.min.css?1684106062') }}" rel="stylesheet" />

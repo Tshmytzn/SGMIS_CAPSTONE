@@ -1,48 +1,8 @@
 // @formatter:off
-document.addEventListener("DOMContentLoaded", function() {
-  let dropzone = new Dropzone("#dropzone-multiple", {
-    paramName: "programmeImages", // The name that will be used to transfer the file
-    maxFilesize: 10, // MB
-    acceptedFiles: "image/*",
-    autoProcessQueue: false,
-    headers: {
-        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-    },
-    init: function() {
-        let myDropzone = this;
 
-        // Disable autoProcessQueue to manually handle the file upload
-        document.getElementById("upload-button").addEventListener("click", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (myDropzone.getQueuedFiles().length > 0) {
-                myDropzone.processQueue();
-            } else {
-                alert("No files to upload!");
-            }
-        });
-
-        // Append additional data
-        this.on("sending", function(file, xhr, formData) {
-            let eventId = document.getElementById('event_id_programme').value;
-            formData.append("event_id", eventId); // Append the event_id to the formData
-        });
-
-        // Handle the response
-        this.on("successmultiple", function(files, response) {
-            console.log("Successfully uploaded:", response);
-            document.getElementById('mainLoader').style.display = 'none';
-        });
-
-        this.on("errormultiple", function(files, response) {
-            console.error("Error uploading:", response);
-            document.getElementById('mainLoader').style.display = 'none';
-        });
-    }
-});
-});
-
+function SaveProgrammeFiles(images) {
+  console.log(images)
+}
 document.addEventListener("DOMContentLoaded", function () {
   var el;
   window.TomSelect && (new TomSelect(el = document.getElementById('select-tags'), {
@@ -517,7 +477,6 @@ function EventDetailsLoad(Route, eventImage) {
       AssVal('ev_description', data.event_description);
       AssVal('event_id', data.event_id);
       AssVal('event_id_act', data.event_id);
-      AssVal('event_id_programme', data.event_id);
       AssVal('dept_event_id', data.event_id);
     },
     error: xhr => {
@@ -1176,4 +1135,25 @@ function RemoveDept(value){
       console.log(xhr.responseText);
     }
   });
+}
+
+function SaveImages(route){
+  var formData = new FormData($('#dropzone-default')[0]);
+  console.log(formData);
+  $.ajax({
+   type:'POST',
+   url: route,
+   data: formData,
+   contentType: false,
+   processData: false,
+   success: res=> {
+     console.log(res);
+   }, error: xhr=>{
+    console.log(xhr.responseText);
+   }
+  });
+}
+
+function LoadProgrammeList(route){
+//code for loeading programme
 }

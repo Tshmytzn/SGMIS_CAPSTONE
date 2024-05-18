@@ -154,35 +154,16 @@ class SchoolEvent extends Controller
     }
 
     public function UploadProgrammeImages(Request $req) {
-        if (!$req->hasFile('programmeImages')) {
-            return response()->json(['status' => 'invalid', 'message' => 'No files uploaded']);
-        }
-    
-        $validExtensions = ['jpg', 'jpeg', 'png'];
-        $programme = '';
-        $count = 1;
-    
-        foreach ($req->file('programmeImages') as $image) {
-            if (!in_array($image->getClientOriginalExtension(), $validExtensions)) {
-                return response()->json(['status' => 'invalid', 'message' => 'One or more files have an invalid extension']);
-            }
-        }
-    
-        foreach ($req->file('programmeImages') as $image) {
-            $newName = "Event" . $req->event_id . "Prog" . $count . "." . $image->getClientOriginalExtension();
-            $image->move(public_path('programme_images/'), $newName);
-            $programme .= $newName . ", ";
-            $count++;
-        }
-    
-        $programme = rtrim($programme, ', ');
-    
-        $event = SchoolEvents::where('event_id', $req->event_id)->first();
-        $event->update([
-            'event_programme' => $programme
-        ]);
-    
-        return response()->json(['status' => 'success']);
+      $images= $req->file('programmeImages');
+      $name =  $req->event_id . "-" .RandId(15). ".". $images->getClientOriginalExtension();
+      $images->move(public_path('programme_images/'),$name);
+      $event = SchoolEvents::where('event_id', $req->event_id)->first();
+      $current = $event->event_programme;
+      $current .= $name . ",";
+      $event->update([
+         'event_programme'=> $current,
+      ]);
+       return response()->json(['status' => 'success']);
     }
     
     public function AddDeptEvent(Request $req){
@@ -217,5 +198,10 @@ class SchoolEvent extends Controller
      public function GetCourse(Request $req){
         $course = Course::where('dept_id', $req->dept_id)->get();
         return response()->json(['course'=>$course]);
+     }
+
+     public function GetProgrammeList(Request $req){
+        $event = SchoolEvents::where('event_id', $req->event_id)->first();
+        return response()->json(['programme'=>$event->event_programme]);
      }
 }

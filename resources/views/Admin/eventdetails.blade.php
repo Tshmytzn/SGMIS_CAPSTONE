@@ -1,7 +1,7 @@
 <!doctype html>
 
 <html lang="en">
-  
+
 @include('Admin.components.header', ['title' => 'Event Details'])
 <link href="{{asset('./dist/libs/dropzone/dist/dropzone.css?1684106062')}}" rel="stylesheet"/>
 <style>
@@ -164,7 +164,7 @@
 
            
                   {{-- event program download --}}
-                  <div class="row row-cols-4 g-3 mx-3">
+                  <div class="row row-cols-4 g-3 mx-3" id="programme_list">
                     <div class="col mb-3" style="position: relative;">
                       <a class="image-link" data-fslightbox="gallery" href="{{asset('./static/icon.jpg')}}">
                         <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/icon.jpg')}})"></div>
@@ -519,19 +519,19 @@
             <div class="card">
               <div class="card-body">
                 <h3 class="card-title">You can add multiple Images</h3>
-                <form class="dropzone" id="dropzone-multiple" enctype="multipart/form-data" action="{{route('uploadProgrammeImages')}}" autocomplete="off" novalidate>
+                <form class="dropzone" method="POST" id="dropzone-default" enctype="multipart/form-data" action="{{ route('uploadProgrammeImages') }}" autocomplete="off" novalidate>
                   @csrf
                   <div class="fallback">
-                    <input name="programmeImages[]" type="file"  multiple accept="image/*" />
+                    <input name="programmeImages" type="file"  />
                   </div>
-                  <input name="event_id" id="event_id_programme" type="hidden" />
+                  <input type="hidden" name="event_id" value="{{ $event_id }}">
                 </form>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="upload-button" class="btn btn-primary" >Upload Files</button>
+            <button type="button" id="upload-button"  class="btn btn-primary" >Upload Files</button>
           </div>
         </div>
       </div>
@@ -566,6 +566,7 @@
 <input type="hidden" value="{{ asset('dept_image/') }}" id="imageRouteDept">
 <input type="hidden" value="{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}" id="emptyImage">
 <form id="deptForm" method="POST">@csrf <input type="hidden" name="event_id" id="dept_event_id"> <input type="hidden" name="dept_id" id="selected_dept"></form>
+
 @include('Admin.components.footer')
 
       </div>
@@ -630,12 +631,41 @@
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
       LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}")
+      LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}")
+      var myDropzone = new Dropzone("#dropzone-default", {
+            paramName: "programmeImages", // The name that will be used to transfer the file
+            maxFilesize: 10, // MB
+            acceptedFiles: "image/*",
+            autoProcessQueue: true, 
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            init: function() {
+                var submitButton = document.querySelector("#submit-all");
+                var myDropzone = this;
+
+                submitButton.addEventListener("click", function() {
+                    myDropzone.processQueue(); // Manually process the queue
+                });
+
+                this.on("success", function(file, response) {
+                    console.log(response);
+                });
+
+                this.on("error", function(file, response) {
+                    console.log(response);
+                });
+
+                // Optionally handle the sending event manually
+                this.on("sending", function(file, xhr, formData) {
+                    // Append additional data if needed
+                    formData.append("event_id", document.querySelector("#event_id_programme").value);
+                });
+            }
+        });
     }
      
   </script>
-    <script>
-      
-
-    </script>
+  
   </body>
 </html>

@@ -53,6 +53,7 @@ Route::get('Events/getEvent/actDetails',[SchoolEvent::class,'GetActDetails'] )->
 Route::get('Events/getEvent/getDept',[SchoolEvent::class,'GetDeptEvent'] )->name('GetDeptEvent');
 Route::get('Events/getEvent/getDepartment',[SchoolEvent::class,'GetDepartment'] )->name('getDepartment');
 Route::get('Events/getEvent/getCourse',[SchoolEvent::class,'GetCourse'] )->name('getCourse');
+Route::get('Events/getEvent/getProgramme',[SchoolEvent::class,'GetProgrammeList'] )->name('getProgramme');
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');
