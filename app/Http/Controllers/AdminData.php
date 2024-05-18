@@ -77,7 +77,7 @@ class AdminData extends Controller
         $add->admin_name = $request->administratorname;
         $add->admin_username = $request->administratoruser;
         $add->admin_password = Hash::make($request->administratorpass);
-        $add->admin_type = 'Administrator';
+        $add->admin_type = 'Super Admin';
         $add->admin_pic = 'default.jpg';
         $add->save();
         return response()->json(['status' => 'success']);
@@ -86,7 +86,7 @@ class AdminData extends Controller
         
     }
     public function GetAdministratorData(){
-        $check = Admin::where('admin_type','Administrator')->get();
+        $check = Admin::All();
 
         return response()->json(['data' => $check]);
     }
