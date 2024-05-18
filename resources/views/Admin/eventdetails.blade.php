@@ -165,36 +165,8 @@
            
                   {{-- event program download --}}
                   <div class="row row-cols-4 g-3 mx-3" id="programme_list">
-                    <div class="col mb-3" style="position: relative;">
-                      <a class="image-link" data-fslightbox="gallery" href="{{asset('./static/icon.jpg')}}">
-                        <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/icon.jpg')}})"></div>
-                      </a>
-                      <button class="downloadBtn" type="button" value="{{asset('./static/icon.jpg')}}" style="position: absolute; bottom: 2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
-                        <i>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                            <path d="M7 11l5 5l5 -5" />
-                            <path d="M12 4l0 12" />
-                          </svg>
-                        </i>
-                      </button>
-                    </div>
-                    <div class="col mb-3" style="position: relative;">
-                      <a class="image-link" data-fslightbox="gallery" href="{{asset('./static/sgmis.png')}}">
-                        <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url({{asset('./static/sgmis.png')}})"></div>
-                      </a>
-                      <button class="downloadBtn" type="button" value="{{asset('./static/sgmis.png')}}" style="position: absolute; bottom: 2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
-                        <i>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
-                            <path d="M7 11l5 5l5 -5" />
-                            <path d="M12 4l0 12" />
-                          </svg>
-                        </i>
-                      </button>
-                    </div>
+                    
+                   
                   </div>
 
 
@@ -215,13 +187,6 @@
                    @endforeach
                   </select> 
 
-                  {{-- <button class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M12 5l0 14" />
-                      <path d="M5 12l14 0" />
-                    </svg> Save Changes
-                  </button> --}}
                 </div>
               <div class="row row-cards " id="event_department_list">
 
@@ -551,6 +516,7 @@
 <input type="hidden" value="{{ route('AddDeptEvent') }}" id="addDeptRoute">
 <input type="hidden" value="{{ route('RemoveDeptEvent') }}" id="removeDeptRoute">
 <input type="hidden" value="{{ asset('dept_image/') }}" id="imageRouteDept">
+<input type="hidden" value="{{ asset('programme_images/') }}" id="imageProgramme">
 <input type="hidden" value="{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}" id="emptyImage">
 <form id="deptForm" method="POST">@csrf <input type="hidden" name="event_id" id="dept_event_id"> <input type="hidden" name="dept_id" id="selected_dept"></form>
 
@@ -618,7 +584,7 @@
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
       LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}")
-      LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}")
+      LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}","{{asset('programme_images')}}")
     
     }
      

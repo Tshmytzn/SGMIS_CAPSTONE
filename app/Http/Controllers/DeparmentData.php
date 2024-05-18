@@ -93,28 +93,36 @@ class DeparmentData extends Controller
    public function EditDeptInfo(Request $request){
     if($request->deptname == ''){
           return response()->json(['status' => 'empty']);
-    }else{
-        $file = $request->file('image');
-
-        if ($file->getSize() > 10485760) {
-            return response()->json([ 'exceed']);
-        }else   if (!in_array($file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg'])) {
-            return response()->json(['invalid_type']);
-        }
-        else{
+    } 
+    else{
         $check = Department::where('dept_id', $request->deptid)->first();
-        $spiltimage = explode('.',$check->dept_image)[0];
-        $imageName =  $spiltimage. '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('dept_image/'), $imageName);
+    
        
     $check->update([
         'dept_name'=>$request->deptname,
-        'dept_image'=>$imageName,
     ]);
      return response()->json(['status' => 'success']);
     }
 }
-   }
+public function EditDeptPicInfo(Request $request){
+    $file = $request->file('image');
+    if ($file->getSize() > 10485760) {
+        return response()->json([ 'exceed']);
+    }else   if (!in_array($file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg'])) {
+        return response()->json(['invalid_type']);
+    }
+    $check = Department::where('dept_id', $request->deptid)->first();
+    $spiltimage = explode('.',$check->dept_image)[0];
+    $imageName =  $spiltimage. '.' . $file->getClientOriginalExtension();
+    $file->move(public_path('dept_image/'), $imageName);
+
+    $check->update([
+        'dept_image'=>$imageName,
+    ]);
+     return response()->json(['status' => 'success']);
+    
+}
+   
    public function GetCourseData( ){
 
     $check = Course::join('department','course.dept_id','=','department.dept_id')->select('course.*','department.dept_name')->get();

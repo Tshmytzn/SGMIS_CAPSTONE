@@ -227,9 +227,8 @@
                   <div class="col-12">
                     <label for="" class="form-label">Department Image</label>
                     <img src="" alt="" id="deptImage" width="50%">
-                     <label for="avatar-upload" class="btn">
+                     <label for="" class="btn" data-bs-toggle="modal" data-bs-target="#editdepartmentpic" onclick="editdeptpic()">
                             Change Image
-                            <input type="file" id="avatar-upload" style="display: none;">
                         </label>
                   </div>
                   <div class="col-12">
@@ -245,6 +244,36 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" onclick="EditDeptInfo()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal modal-blur fade" id="editdepartmentpic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header text-white" style="background-color: #3E8A34;">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Department Picture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                
+                <form class="row g-3" id="editdeptpicform" method="POST" enctype="multipart/form-data">@csrf
+                <div class="row g-2">
+                  <div class="col-12">
+                    <label for="" class="form-label">Department Image</label>
+                    <input type="hidden" name="deptpicid" id="deptpicid">
+                     <label for="avatar-upload" class="btn">
+                            Change Image
+                            <input type="file" id="avatar-upload" style="display: none;">
+                        </label>
+                  </div>
+                </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="EditDeptPicInfo()">Save</button>
               </div>
             </div>
           </div>
