@@ -450,7 +450,7 @@ function EditSectionInfo(){
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
-                        .alert("Message", "Course Successfully Updeted", function() {
+                        .alert("Message", "Course Successfully Updated", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();
@@ -647,7 +647,34 @@ function EditSectionInfo(){
     }
 </script>
 <script>
+    document.getElementById('administrators-tab').addEventListener('click', function() {
+        const cards = document.querySelectorAll('.admincardeffects');
+        if (cards.length > 0) {
+            cards.forEach(card => {
+                card.classList.remove('animate__animated', 'animate__zoomIn'); // Reset animation
+                void card.offsetWidth; // Trigger reflow to restart the animation
+                card.classList.add('animate__animated', 'animate__zoomIn'); // Add animation classes
+            });
+        } else {
+            console.error('No elements found with the class admincardeffects');
+        }
+    });
+    function runCardAnimation() {
+        const cards = document.querySelectorAll('.admincardeffects');
+        if (cards.length > 0) {
+            cards.forEach(card => {
+                card.classList.remove('animate__animated', 'animate__zoomIn'); // Reset animation
+                void card.offsetWidth; // Trigger reflow to restart the animation
+                card.classList.add('animate__animated', 'animate__zoomIn'); // Add animation classes
+            });
+        } else {
+            console.error('No elements found with the class admincardeffects');
+        }
+    }
+</script>
+<script>
  function EditAdminInfo(){
+        document.getElementById('adminloader').style.display='grid';
          var formData = $("form#EditAdminInfoForm").serialize();
         $.ajax({
             type: "POST",
@@ -657,16 +684,19 @@ function EditSectionInfo(){
                 if (response.status == 'success') {
                     clearFormInputs('EditAdminInfoForm');
                     reloadElementById('EditAdminInfoForm');
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Message", "Admin Info Successfully Updated", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Alert", "Admin Info Already Exist", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Enter Admin Info First!", function() {
                             alertify.message('OK');
@@ -680,9 +710,11 @@ function EditSectionInfo(){
       }
 
        function ChangeAdminPic(){
+        document.getElementById('adminloader').style.display='grid';
          var formData = $("form#editadminpicform").serialize();
           const pic = document.getElementById('editadminpic');
                 if (pic.files.length == 0) {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Department Image Required", function() {
                             alertify.message('OK');
@@ -700,19 +732,26 @@ function EditSectionInfo(){
             processData: false,
             success: function(response) {
                 if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
                     clearFormInputs('EditAdminInfoForm');
                     reloadElementById('EditAdminInfoForm');
-                     reloadElementById('adminpicture');
+                    const imgElement = document.getElementById('adminpicture');
+                    const currentSrc = imgElement.src;
+            
+                    const newSrc = currentSrc.split('?')[0] + '?' + new Date().getTime();
+                    imgElement.src = newSrc;
                     alertify
                         .alert("Message", "Admin Image Successfully Updated", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Alert", "Admin Image Already Exist", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Enter Admin Image First!", function() {
                             alertify.message('OK');
@@ -726,7 +765,7 @@ function EditSectionInfo(){
       }
     }
     function ChangeAdminPass(){
-
+        document.getElementById('adminloader').style.display='grid';
        var formData = $("form#UpdateAdminPassForm").serialize();
         $.ajax({
             type: "POST",
@@ -735,6 +774,7 @@ function EditSectionInfo(){
             success: function(response) {
                console.log(response.status);
                 if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
                     clearFormInputs('EditAdminInfoForm');
                     reloadElementById('EditAdminInfoForm');
                     alertify
@@ -742,17 +782,20 @@ function EditSectionInfo(){
                             alertify.message('OK');
                         });
                 } else if (response.status == '!match') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Alert", "New Entered Password Did Not Match!", function() {
                             alertify.message('OK');
                         });
                 } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
                     alertify
                         .alert("Warning", "Enter Admin Password First!", function() {
                             alertify.message('OK');
                         });
                 }
                 else if (response.status == 'old!match') {
+                    document.getElementById('adminloader').style.display='none';
                  
                     alertify
                         .alert("Warning", "Old Admin Password Did Not Match!", function() {
@@ -766,4 +809,155 @@ function EditSectionInfo(){
         });
 
     }
+
+function AddAdministrator(){
+    document.getElementById('adminloader').style.display='grid';
+        var formData = $("form#addnewadministratorform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('AddAdministrator') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Message", "New Administrator Successfully Added", function() {
+                           
+                            alertify.message('OK');
+                            clearFormInputs('addnewadministratorform');
+                            closeModal();
+                            GetAdministratorData();
+                            // reloadElementById('editsectionform');
+                        
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Warning", "Enter Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+}
+$(document).ready(function() {
+    GetAdministratorData();
+});
+function GetAdministratorData(){
+    $.ajax({
+                    type: "GET",
+                    url: "{{ route('GetAdministratorData') }}",
+                    success: function(response) {
+                       
+                        document.getElementById("adminCard").innerHTML = "";
+                        response.data.forEach(function(Data) {
+                           
+    var div = document.createElement("div");
+    div.setAttribute("id", "administrators-card");
+    div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
+  
+    div.innerHTML = `
+        <div class="card">
+            <div class="card-body p-4 text-center">
+                <span class="avatar avatar-xl mb-3 rounded" ><img src="dept_image/${Data.admin_pic}" alt="">  </span>
+                <h3 class="m-0 mb-1">${Data.admin_name}</h3>
+                <div class="text-muted"></div>
+                <div class="mt-3">
+                    <span class="badge bg-green-lt">${Data.admin_type}</span>
+                </div>
+            </div>
+            <div class="d-flex">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editadmin" class="card-btn" onclick="EditAdministrator('${Data.admin_id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
+                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
+                        <path d="M16 5l3 3"/>
+                    </svg>                                
+                    &nbsp; Edit
+                </a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#demotemodal" class="card-btn" onclick="DemoteAdministrator('${Data.admin_id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down-to-arc">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 3v12"/>
+                        <path d="M16 11l-4 4l-4 -4"/>
+                        <path d="M3 12a9 9 0 0 0 18 0"/>
+                    </svg>
+                    &nbsp; Demote
+                </a>
+            </div>
+        </div>
+    `;
+    document.getElementById("adminCard").appendChild(div);
+    runCardAnimation();
+});
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+}
+function EditAdministrator(id){
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('GetAdministratorDataToEdit') }}?id="+id,
+                    success: function(response) {
+                       document.getElementById('aditadministratorname').value=response.data.admin_name;
+                       document.getElementById('aditadministratoruser').value=response.data.admin_username;
+                       document.getElementById('administratorId').value=response.data.admin_id;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+}
+function EditAdministratorInfo(){
+    document.getElementById('adminloader').style.display='grid';
+        var formData = $("form#aditadministratorform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('EditAdministratorInfo') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Message", "Administrator Successfully Updated", function() {
+                           
+                            alertify.message('OK');
+                            clearFormInputs('aditadministratorform');
+                            closeModal();
+                            GetAdministratorData();
+                            // reloadElementById('editsectionform');
+                        
+                        });
+                } else if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Warning", "Enter Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+}
 </script>

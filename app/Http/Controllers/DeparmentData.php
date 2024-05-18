@@ -178,6 +178,7 @@ $check = Section::join('course', 'section.course_id', '=', 'course.course_id')
         $data->student_lastname = $request->lastname;
         $data->student_ext = $request->ext;
         $data->student_pass = $pass;
+        $data->student_type = 'Student';
         $data->save();
         return response()->json(['status' => 'success']);
     }
