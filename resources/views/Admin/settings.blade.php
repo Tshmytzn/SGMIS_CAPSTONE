@@ -500,7 +500,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <form class="row g-3" id="editnewstudentadmin" method="POST">@csrf
+                        <form class="row g-3" id="editnewstudentadminform" method="POST">@csrf
         
                         <div class="row g-2">
                           <div class="col-12">
@@ -527,7 +527,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="EditStudentAdmin()">Save Changes</button>
+                        <button type="button" class="btn btn-primary" onclick="EditStudentAdminInfo()">Save Changes</button>
                       </div>
                     </div>
                   </div>

@@ -1077,7 +1077,7 @@ function GetAllStudentAdminData(){
                 </div>
             </div>
             <div class="d-flex">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#editstudentadmin" class="card-btn" onclick="EditAdministrator('${Data.student_id}')">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editstudentadmin" class="card-btn" onclick="editstudentadmin('${Data.student_id}','${Data.student_firstname}','${Data.student_lastname}','${Data.school_id}','${Data.student_position}')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
@@ -1107,5 +1107,11 @@ function GetAllStudentAdminData(){
                         console.error(xhr.responseText);
                     }
                 });
+}
+function editstudentadmin(id,name,last,school,position){
+    document.getElementById('editstudentadminid').value=id;
+    document.getElementById('editstudentadminname').value=name+' '+last;
+    document.getElementById('editstudentadminschoolid').value=school;
+    document.getElementById('editstudentposition').value=position;
 }
 </script>
