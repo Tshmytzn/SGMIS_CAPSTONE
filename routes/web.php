@@ -93,3 +93,4 @@ Route::fallback(function () {
 // tisha's routes
 Route::get('/Userlogin', function () { return view('Student.login'); })->name('Userlogin');
 Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
+Route::get('StudentDashboard', function () { return view('Student.index'); })->name('StudentDashboard');
