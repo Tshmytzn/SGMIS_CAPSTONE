@@ -153,37 +153,37 @@ class SchoolEvent extends Controller
         return response()->json(['status'=>'success', 'data'=>$req->act_id]);
     }
 
-    // public function UploadProgrammeImages(Request $req) {
-    //     if (!$req->hasFile('programmeImages')) {
-    //         return response()->json(['status' => 'invalid', 'message' => 'No files uploaded']);
-    //     }
+    public function UploadProgrammeImages(Request $req) {
+        if (!$req->hasFile('programmeImages')) {
+            return response()->json(['status' => 'invalid', 'message' => 'No files uploaded']);
+        }
     
-    //     $validExtensions = ['jpg', 'jpeg', 'png'];
-    //     $programme = '';
-    //     $count = 1;
+        $validExtensions = ['jpg', 'jpeg', 'png'];
+        $programme = '';
+        $count = 1;
     
-    //     foreach ($req->file('programmeImages') as $image) {
-    //         if (!in_array($image->getClientOriginalExtension(), $validExtensions)) {
-    //             return response()->json(['status' => 'invalid', 'message' => 'One or more files have an invalid extension']);
-    //         }
-    //     }
+        foreach ($req->file('programmeImages') as $image) {
+            if (!in_array($image->getClientOriginalExtension(), $validExtensions)) {
+                return response()->json(['status' => 'invalid', 'message' => 'One or more files have an invalid extension']);
+            }
+        }
     
-    //     foreach ($req->file('programmeImages') as $image) {
-    //         $newName = "Event" . $req->event_id . "Prog" . $count . "." . $image->getClientOriginalExtension();
-    //         $image->move(public_path('programme_images/'), $newName);
-    //         $programme .= $newName . ", ";
-    //         $count++;
-    //     }
+        foreach ($req->file('programmeImages') as $image) {
+            $newName = "Event" . $req->event_id . "Prog" . $count . "." . $image->getClientOriginalExtension();
+            $image->move(public_path('programme_images/'), $newName);
+            $programme .= $newName . ", ";
+            $count++;
+        }
     
-    //     $programme = rtrim($programme, ', ');
+        $programme = rtrim($programme, ', ');
     
-    //     $event = SchoolEvents::where('event_id', $req->event_id)->first();
-    //     $event->update([
-    //         'event_programme' => $programme
-    //     ]);
+        $event = SchoolEvents::where('event_id', $req->event_id)->first();
+        $event->update([
+            'event_programme' => $programme
+        ]);
     
-    //     return response()->json(['status' => 'success']);
-    // }
+        return response()->json(['status' => 'success']);
+    }
     
     public function AddDeptEvent(Request $req){
        $dept = new EventDepartment();
