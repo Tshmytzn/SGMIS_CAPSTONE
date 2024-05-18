@@ -851,6 +851,7 @@ function AddAdministrator(){
 }
 $(document).ready(function() {
     GetAdministratorData();
+    GetAllStudentAdminData();
 });
 function GetAdministratorData(){
     $.ajax({
@@ -959,5 +960,152 @@ function EditAdministratorInfo(){
                 console.error(xhr.responseText);
             }
         });
+}
+
+function GetAllStudentData(){
+  $('#SelectStundentTable').DataTable({
+            // scrollY: '150px',
+            pageLength: 2,
+            scrollCollapse: true,
+            // paging: false,
+            destroy: true,
+            ajax: {
+                url: '{{ route('GetAllStudentData') }}',
+                type: 'GET'
+            },
+            columns: [
+                {
+                     data: null,
+                    render: function(data, type, row) {
+                       return row.student_firstname+' '+row.student_lastname;
+                    }
+                },
+                {
+                    data: 'school_id'
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        const fullname = row.student_firstname+' '+row.student_lastname;
+                        return '<button class="btn btn-warning btn-sm" onclick="SelectStudent(`'+row.student_id+'`,`'+fullname+'`,`'+row.school_id+'`)">Select</button>';
+                    }
+                },
+            ],
+    //         columnDefs: [
+    //     {
+    //         title: 'Full Name',
+    //         targets: 0
+    //     },
+    //     {
+    //         title: 'SCHOOL ID No.',
+    //         targets: 1
+    //     },
+    //     {
+    //         title: 'Actions',
+    //         targets: 2
+    //     },
+    // ]
+        });   
+}
+function SelectStudent(id,name,school){
+document.getElementById('studentadminname').value=name;
+document.getElementById('studentadminschoolid').value=school;
+document.getElementById('studentadminid').value=id;
+}
+function SetStudentAdmin(){
+      document.getElementById('adminloader').style.display='grid';
+        var formData = $("form#addnewstudentadmin").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('SetStudentAdmin') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                     closeModal();
+                    GetAllStudentAdminData();
+                    alertify
+                        .alert("Message", "New Administrator Successfully Added", function() {
+                           
+                            alertify.message('OK');
+                            clearFormInputs('addnewstudentadmin');
+                           
+                           
+                            // reloadElementById('editsectionform');
+                        
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Warning", "Select Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+}
+function GetAllStudentAdminData(){
+    $.ajax({
+                    type: "GET",
+                    url: "{{ route('GetAllStudentAdminData') }}",
+                    success: function(response) {
+                       
+                        document.getElementById("adminCard2").innerHTML = "";
+                        response.data.forEach(function(Data) {
+                           
+    var div = document.createElement("div");
+    div.setAttribute("id", "administrators-card2");
+    div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
+  
+    div.innerHTML = `
+        <div class="card">
+            <div class="card-body p-4 text-center">
+                <span class="avatar avatar-xl mb-3 rounded" ><img src="dept_image/${Data.student_pic}" alt="">  </span>
+                <h3 class="m-0 mb-1">${Data.student_firstname+' '+Data.student_lastname}</h3>
+                <div class="text-muted">${Data.student_position}</div>
+                <div class="mt-3">
+                    <span class="badge bg-green-lt">${Data.student_type}</span>
+                </div>
+            </div>
+            <div class="d-flex">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editstudentadmin" class="card-btn" onclick="EditAdministrator('${Data.student_id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
+                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
+                        <path d="M16 5l3 3"/>
+                    </svg>                                
+                    &nbsp; Edit
+                </a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#studentdemote" class="card-btn" onclick="DemoteAdministrator('${Data.student_id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down-to-arc">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 3v12"/>
+                        <path d="M16 11l-4 4l-4 -4"/>
+                        <path d="M3 12a9 9 0 0 0 18 0"/>
+                    </svg>
+                    &nbsp; Demote
+                </a>
+            </div>
+        </div>
+    `;
+    document.getElementById("adminCard2").appendChild(div);
+    runCardAnimation();
+});
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
 }
 </script>

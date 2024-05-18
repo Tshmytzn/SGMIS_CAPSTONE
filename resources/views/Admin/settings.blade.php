@@ -201,11 +201,11 @@
                                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                               </span>
                           </div> &nbsp; &nbsp;
-                          <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#addstudentadmin">Add New Student Admin</button>
+                          <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#addstudentadmin" onclick="GetAllStudentData()">Add New Student Admin</button>
                       </div>
 
-                        <div class="row g-5" id="adminCard">
-                          <div id="administrators-card" class="col-md-6 col-lg-4 admincardeffects">
+                        <div class="row g-5" id="adminCard2">
+                          {{-- <div id="administrators-card" class="col-md-6 col-lg-4 admincardeffects">
                             <div class="card">
                               <div class="card-body p-4 text-center">
                                 <span class="avatar avatar-xl mb-3 rounded" style="background-image: url({{asset('./static/avatars/002m.jpg')}})"><img src="" alt=""> </span>
@@ -236,7 +236,7 @@
                                 </a>
                               </div>
                             </div>
-                          </div>
+                          </div> --}}
 
                         </div>
                       </div>
@@ -424,7 +424,7 @@
                         </div>
                         {{-- upload profile pic --}} 
 
-        {{-- Add Student Modal --}}
+        {{-- Add Admin Student Modal --}}
         <div class="modal modal-blur fade" id="addstudentadmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -435,24 +435,23 @@
               <div class="modal-body">
 
                 <div class="table-responsive">
-                  <table class="table table-bordered table-hover">
+                  <table class="table table-bordered table-hover" id="SelectStundentTable">
                     <thead>
                       <tr>
                         <th>Full Name</th>
                         <th>SCHOOL ID No.</th>
-                        <th>USG Position</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      {{-- <tr>
                         <td>Sample name</td>
                         <td>34545469</td>
                         <td>USG PRESIDENT</td>
                         <td>
                           <button class="btn btn-warning btn-sm">Select</button>
                         </td>
-                      </tr>
+                      </tr> --}}
                     </tbody>
                   </table>
                 </div>
@@ -462,18 +461,19 @@
 
                 <div class="row g-2">
                   <div class="col-12">
+                    <input type="hidden" name="studentadminid" id="studentadminid">
                     <label for="adminname" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" name="administratorname" id="administratorname" readonly>         
+                    <input type="text" class="form-control" name="studentadminname" id="studentadminname" readonly>         
                   </div>
                   <div class="col-6">
                     <label for="adminuser" class="form-label">School ID No.</label>
-                      <input type="number" class="form-control" name="administratoruser" id="administratoruser" readonly>         
+                      <input type="number" class="form-control" name="studentadminschoolid" id="studentadminschoolid" readonly>         
                   </div>
                   <div class="col-6">
                     <label for="adminuser" class="form-label">USG Position</label>
-                      <select name="" class="form-select" id="">
-                        <option value=""> USG PRESIDENT </option>
-                        <option value=""> USG SECRETARY </option>
+                      <select name="studentposition" class="form-select" id="studentposition">
+                        <option value="USG PRESIDENT">USG PRESIDENT</option>
+                        <option value="USG SECRETARY">USG SECRETARY</option>
                       </select>         
                   </div>
 
@@ -484,7 +484,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="()">Add as Admin</button>
+                <button type="button" class="btn btn-primary" onclick="SetStudentAdmin()">Add as Admin</button>
               </div>
             </div>
           </div>

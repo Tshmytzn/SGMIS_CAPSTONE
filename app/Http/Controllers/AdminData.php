@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\StudentAccounts;
 use Illuminate\Support\Facades\Hash;
 
 class AdminData extends Controller
@@ -119,5 +120,26 @@ class AdminData extends Controller
         return response()->json(['status' => 'success']);
         }
 
+    }
+    public function GetAllStudentData(){
+        $data = StudentAccounts::All();
+        return response()->json(['data' => $data]);
+    }
+     public function GetAllStudentAdminData(){
+        $data = StudentAccounts::where('student_type','Administrator')->get();
+        return response()->json(['data' => $data]);
+    }
+    public function SetStudentAdmin(Request $request){
+        if($request->studentadminid == ''){
+             return response()->json(['status' => 'empty']);
+        }else{
+        $data = StudentAccounts::where('student_id',$request->studentadminid)->first();
+        $data->update([
+            'student_position'=>$request->studentposition,
+            'student_type'=>'Administrator',
+            ]);
+        return response()->json(['status' => 'success']);
+        }
+       
     }
 }
