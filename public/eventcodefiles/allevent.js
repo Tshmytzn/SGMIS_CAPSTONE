@@ -44,8 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
       var myDropzone = this;
         this.on("success", function(file, response) {
-          DisplayProgramm(response.event_id);
-            console.log(response);
+          DisplayProgramm(response.img);
         });
 
         this.on("error", function(file, response) {
@@ -1023,7 +1022,7 @@ function LoadDeptEvent(route, getDept, getCourse, image, empty){
         deptList.innerHTML = `<div class="empty" id="empty">
         <div class="empty-img"><img src="${empty}" height="128" alt="">
         </div>
-        <p class="empty-title">No events found</p>
+        <p class="empty-title">No Department found</p>
         <p class="empty-subtitle text-muted">
           No Department is Currently Added in this Event
         </p>
@@ -1178,6 +1177,49 @@ function SaveImages(route){
   });
 }
 
-function LoadProgrammeList(route){
-//code for loeading programme
+function DisplayProgramm(img){
+  const list = document.getElementById('programme_list');
+  const imgRoute = document.getElementById('imageProgramme').value;
+  list.innerHTML += `<div class="col mb-3" style="position: relative;">
+  <a class="image-link" data-fslightbox="gallery" href="${imgRoute}/${img}">
+    <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url('${imgRoute}/${img}')"></div>
+  </a>
+  <button class="downloadBtn" type="button" value="${imgRoute}/${img}" style="position: absolute; bottom: 2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+  <path d="M7 11l5 5l5 -5" />
+  <path d="M12 4l0 12" />
+</svg>
+  </button>
+</div>`;
+}
+
+function LoadProgrammeList(route, imgRoute){
+  $.ajax({
+    type:'GET',
+    url: route,
+    dataType: 'json',
+    success: res=> {
+      const list = document.getElementById('programme_list');
+      const programme = res.programme.split(',');
+      programme.forEach(data=>{
+        list.innerHTML += `<div class="col mb-3" style="position: relative;">
+        <a class="image-link" data-fslightbox="gallery" href="${imgRoute}/${data}">
+          <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url('${imgRoute}/${data}')"></div>
+        </a>
+        <button class="downloadBtn bg-white rounde-circle" type="button" value="${imgRoute}/${data}" style="position: absolute; bottom: 2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+        <path d="M7 11l5 5l5 -5" />
+        <path d="M12 4l0 12" />
+      </svg>
+        </button>
+      </div>`;
+      })
+    }, error: xhr=>{
+     console.log(xhr.responseText);
+    }
+   });
 }
