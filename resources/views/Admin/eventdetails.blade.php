@@ -537,20 +537,7 @@
       </div>
     </div>
 
-    <div class="modal modal-blur fade" id="addDeptModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="modal-title">Add Participation Department</div>
-           
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes, delete all my data</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
     {{-- MODALS --}}
 
 
@@ -632,37 +619,7 @@
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
       LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}")
       LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}")
-      var myDropzone = new Dropzone("#dropzone-default", {
-            paramName: "programmeImages", // The name that will be used to transfer the file
-            maxFilesize: 10, // MB
-            acceptedFiles: "image/*",
-            autoProcessQueue: true, 
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            init: function() {
-                var submitButton = document.querySelector("#submit-all");
-                var myDropzone = this;
-
-                submitButton.addEventListener("click", function() {
-                    myDropzone.processQueue(); // Manually process the queue
-                });
-
-                this.on("success", function(file, response) {
-                    console.log(response);
-                });
-
-                this.on("error", function(file, response) {
-                    console.log(response);
-                });
-
-                // Optionally handle the sending event manually
-                this.on("sending", function(file, xhr, formData) {
-                    // Append additional data if needed
-                    formData.append("event_id", document.querySelector("#event_id_programme").value);
-                });
-            }
-        });
+    
     }
      
   </script>

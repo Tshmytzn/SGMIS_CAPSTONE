@@ -163,7 +163,7 @@ class SchoolEvent extends Controller
       $event->update([
          'event_programme'=> $current,
       ]);
-       return response()->json(['status' => 'success']);
+       return response()->json(['status' => 'success', 'event_id'=>$req->event_id]);
     }
     
     public function AddDeptEvent(Request $req){

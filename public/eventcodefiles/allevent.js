@@ -31,6 +31,30 @@ document.addEventListener("DOMContentLoaded", function () {
        RemoveDept(value)
     }
   }));
+  
+  var myDropzone = new Dropzone("#dropzone-default", {
+    paramName: "programmeImages", // The name that will be used to transfer the file
+    maxFilesize: 10, // MB
+    acceptedFiles: "image/*",
+    autoProcessQueue: true, 
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    init: function() {
+    
+      var myDropzone = this;
+        this.on("success", function(file, response) {
+          DisplayProgramm(response.event_id);
+            console.log(response);
+        });
+
+        this.on("error", function(file, response) {
+            console.log(response);
+        });
+
+        
+    }
+});
 });
 
 function AdminLogin(route, dashboard) {
