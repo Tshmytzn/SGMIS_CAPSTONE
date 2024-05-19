@@ -1,8 +1,12 @@
-// @formatter:off
 
-function SaveProgrammeFiles(images) {
-  console.log(images)
-}
+/*
+All Codes for Events And Login Function
+Author: Rheyan 
+Date: May, 19, 2024
+Patch (V1): Codes still Uncommented (Too Many codes to comment medyo waste of time)
+*/
+
+
 document.addEventListener("DOMContentLoaded", function () {
   var el;
   window.TomSelect && (new TomSelect(el = document.getElementById('select-tags'), {
