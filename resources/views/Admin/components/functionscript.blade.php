@@ -973,6 +973,51 @@ function GetAdministratorData(){
                     }
                 });
 }
+function DemoteAdministrator(id){
+document.getElementById('demoteadminid').value=id;
+}
+function DemoteAdmin(){
+    document.getElementById('adminloader').style.display='grid';
+        var formData = $("form#demoteadminform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('DemoteAdmin') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                    closeModal();
+                    GetAdministratorData();
+                    alertify
+                        .alert("Message", "Admin Successfully Demoted", function() {
+                           
+                            alertify.message('OK');
+                            clearFormInputs('demoteadminform');
+                           
+                           
+                            // reloadElementById('editsectionform');
+                        
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Warning", "Select Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+}
+
 function EditAdministrator(id){
                 $.ajax({
                     type: "GET",
@@ -1123,7 +1168,7 @@ function GetAllStudentAdminData(){
                     type: "GET",
                     url: "{{ route('GetAllStudentAdminData') }}",
                     success: function(response) {
-                       
+                      
                         document.getElementById("adminCard2").innerHTML = "";
                         response.data.forEach(function(Data) {
                            
@@ -1134,7 +1179,7 @@ function GetAllStudentAdminData(){
     div.innerHTML = `
         <div class="card">
             <div class="card-body p-4 text-center">
-                <span class="avatar avatar-xl mb-3 rounded" ><img src="dept_image/${Data.student_pic}" alt="">  </span>
+                <span class="avatar avatar-xl mb-3 rounded" ><img src="student_images/${Data.student_pic}" alt="picture">  </span>
                 <h3 class="m-0 mb-1">${Data.student_firstname+' '+Data.student_lastname}</h3>
                 <div class="text-muted">${Data.student_position}</div>
                 <div class="mt-3">
@@ -1151,7 +1196,7 @@ function GetAllStudentAdminData(){
                     </svg>                                
                     &nbsp; Edit
                 </a>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#studentdemote" class="card-btn" onclick="DemoteAdministrator('${Data.student_id}')">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#studentdemote" class="card-btn" onclick="DemoteStudent('${Data.student_id}')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down-to-arc">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M12 3v12"/>
@@ -1173,10 +1218,97 @@ function GetAllStudentAdminData(){
                     }
                 });
 }
+function DemoteStudent(id){
+document.getElementById('demotestudentid').value=id;
+}
+function DemoteStudentAdmin(){
+    document.getElementById('adminloader').style.display='grid';
+        var formData = $("form#demotestudentadminform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('DemoteStudentAdmin') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                    closeModal();
+                    GetAllStudentAdminData();
+                    alertify
+                        .alert("Message", " Student Administrator Successfully Updated", function() {
+                           
+                            alertify.message('OK');
+                            clearFormInputs('demotestudentadminform');
+                           
+                           
+                            // reloadElementById('editsectionform');
+                        
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Warning", "Select Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+}
+
 function editstudentadmin(id,name,last,school,position){
     document.getElementById('editstudentadminid').value=id;
     document.getElementById('editstudentadminname').value=name+' '+last;
     document.getElementById('editstudentadminschoolid').value=school;
     document.getElementById('editstudentposition').value=position;
+}
+
+function EditStudentAdminPosition(){
+    document.getElementById('adminloader').style.display='grid';
+        var formData = $("form#editnewstudentadminform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('EditStudentAdminPosition') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                    closeModal();
+                    GetAllStudentAdminData();
+                    alertify
+                        .alert("Message", " Administrator Successfully Updated", function() {
+                           
+                            alertify.message('OK');
+                            clearFormInputs('editnewstudentadminform');
+                           
+                           
+                            // reloadElementById('editsectionform');
+                        
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Warning", "Select Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
 }
 </script>

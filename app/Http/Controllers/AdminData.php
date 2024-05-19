@@ -87,7 +87,7 @@ class AdminData extends Controller
         
     }
     public function GetAdministratorData(){
-        $check = Admin::All();
+        $check = Admin::where('admin_type','Super Admin')->get();
 
         return response()->json(['data' => $check]);
     }
@@ -141,5 +141,28 @@ class AdminData extends Controller
         return response()->json(['status' => 'success']);
         }
        
+    }
+    public function EditStudentAdminPosition(Request $request){
+        
+        $data = StudentAccounts::where('student_id',$request->editstudentadminid)->first();
+        $data->update([
+            'student_position'=>$request->editstudentposition,
+            ]);
+        return response()->json(['status' => 'success']);
+    }
+    public function DemoteAdmin(Request $request){
+        $data = Admin::where('admin_id',$request->demoteadminid)->first();
+        $data->update([
+            'admin_type'=>'Demoted',
+        ]);
+            return response()->json(['status' => 'success']);
+    }
+    public function DemoteStudentAdmin(Request $request){
+        $data = StudentAccounts::where('student_id',$request->demotestudentid)->first();
+        $data->update([
+            'student_type'=>'Student',
+            'student_position'=>null,
+        ]);
+            return response()->json(['status' => 'success']);
     }
 }

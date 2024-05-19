@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('school_id', 20);
             $table->unsignedBigInteger('sect_id'); 
             $table->foreign('sect_id')->references('sect_id')->on('section');
-            $table->string('student_firstname', 100);
-            $table->string('student_middlename',100);
-            $table->string('student_lastname',100);
-            $table->string('student_ext',100);
-            $table->string('student_pass',50);
+            $table->string('student_firstname', 100)->nullable();
+            $table->string('student_middlename',100)->nullable();
+            $table->string('student_lastname',100)->nullable();
+            $table->string('student_ext',100)->nullable();
+            $table->string('student_pass',60);
             $table->string('student_type',50)->nullable();
             $table->string('student_pic',150)->nullable();
             $table->string('student_position',50)->nullable();

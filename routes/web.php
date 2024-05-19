@@ -71,6 +71,9 @@ Route::post('/admin/AddAdministrator', [AdminData::class,"AddAdministrator"])->n
 Route::post('/admin/EditAdministratorInfo', [AdminData::class,"EditAdministratorInfo"])->name('EditAdministratorInfo');
 Route::post('/admin/SetStudentAdmin', [AdminData::class,"SetStudentAdmin"])->name('SetStudentAdmin');
 Route::post('Admin/EditDeptPicInfo',[DeparmentData::class,'EditDeptPicInfo'] )->name('EditDeptPicInfo');
+Route::post('Admin/EditStudentAdminPosition',[AdminData::class,'EditStudentAdminPosition'] )->name('EditStudentAdminPosition');
+Route::post('Admin/DemoteAdmin',[AdminData::class,'DemoteAdmin'] )->name('DemoteAdmin');
+Route::post('Admin/DemoteStudentAdmin',[AdminData::class,'DemoteStudentAdmin'] )->name('DemoteStudentAdmin');
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
 Route::get('/admin/GetDepartmentData', [DeparmentData::class,"GetDepartmentData"])->name('GetDepartmentData');
