@@ -14,5 +14,6 @@ class Evaluation extends Model
         'eval_name',
         'event_id',
         'eval_scale',
+        'eval_description',
     ];
 }
