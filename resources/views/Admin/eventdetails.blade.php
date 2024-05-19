@@ -164,9 +164,22 @@
 
            
                   {{-- event program download --}}
-                  <div class="row row-cols-4 g-3 mx-3" id="programme_list">
+                  <div class="row row-cols-4 g-3 mx-3 mt-4" id="programme_list">
                     
-                   
+                    <div class="page page-center w-100  mt-4" id="loading-programme">
+                      <div class="container container-slim py-4">
+                        <div class="text-center">
+                          <div class="mb-3">
+                            <a href="." class="navbar-brand navbar-brand-autodark"><img src="{{ asset('./static/logoicon.png') }}" height="50" alt=""></a>
+                          </div>
+                          <div class="text-muted mb-3">Loading Programme</div>
+                          <div class="progress progress-sm">
+                            <div class="progress-bar progress-bar-indeterminate"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
 
 
@@ -188,7 +201,7 @@
                   </select> 
 
                 </div>
-              <div class="row row-cards " id="event_department_list">
+              <div class="row row-cards" id="event_department_list">
 
                 <div class="page page-center mt-4" id="loading-dept">
                   <div class="container container-slim py-4">
@@ -496,7 +509,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="upload-button"  class="btn btn-primary" >Upload Files</button>
           </div>
         </div>
       </div>
@@ -516,10 +528,16 @@
 <input type="hidden" value="{{ route('AddDeptEvent') }}" id="addDeptRoute">
 <input type="hidden" value="{{ route('RemoveDeptEvent') }}" id="removeDeptRoute">
 <input type="hidden" value="{{ asset('dept_image/') }}" id="imageRouteDept">
+<input type="hidden" value="{{ $event_id }}" id="event_id_delete_programme">
+<input type="hidden" value="{{ route('removeProgramme') }}" id="removeRouteProgramme">
 <input type="hidden" value="{{ asset('programme_images/') }}" id="imageProgramme">
+<input type="hidden" value="{{asset('static/illustrations/undraw_joyride_hnno.svg')}}" id="empty_programme_empty_asset">
 <input type="hidden" value="{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}" id="emptyImage">
 <form id="deptForm" method="POST">@csrf <input type="hidden" name="event_id" id="dept_event_id"> <input type="hidden" name="dept_id" id="selected_dept"></form>
-
+<form id="removeProgrammeForm" method="POST">@csrf 
+  <input type="hidden" name="event_id" id="event_id_programme_delete">
+  <input type="hidden" name="programme_name" id="programme_name_programme_delete">
+  </form>
 @include('Admin.components.footer')
 
       </div>
@@ -584,7 +602,7 @@
       EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
       LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}")
-      LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}","{{asset('programme_images')}}")
+      LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}","{{asset('programme_images')}}", "{{asset('static/illustrations/undraw_joyride_hnno.svg')}}", "{{route('removeProgramme')}}")
     
     }
      

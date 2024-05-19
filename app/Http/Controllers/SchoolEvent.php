@@ -202,6 +202,29 @@ class SchoolEvent extends Controller
 
      public function GetProgrammeList(Request $req){
         $event = SchoolEvents::where('event_id', $req->event_id)->first();
-        return response()->json(['programme'=>$event->event_programme]);
+        return response()->json(['programme'=>$event->event_programme, 'event_id'=>$req->event_id]);
+     }
+
+     public function RemoveProgramme(Request $req){
+       $programme = SchoolEvents::where('event_id', $req->event_id)->first();
+       $list = explode(',', $programme->event_programme);
+       $newList = '';
+       foreach ($list as $prog){
+        if($prog !== ''){
+          if($prog !== $req->programme_name){
+            $newList .= $prog.',';
+          }
+        }
+       }  
+
+       $image = public_path('programme_images/'. $req->programme_name);
+       if(file_exists($image)){
+        unlink($image);
+        $programme->update([
+          'event_programme'=> $newList,
+        ]);
+       }
+
+       return response()->json(['status'=>'success', 'programme'=>$req->programme_name, 'list'=>$newList]);
      }
 }
