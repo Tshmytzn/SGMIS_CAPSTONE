@@ -430,6 +430,8 @@ function DeleteEvent(route, ev_id) {
         success: res => {
           if (res.status === 'success') {
             RemoveEvent(ev_id);
+            alertify.set('notifier','position', 'top-right');
+            alertify.warning('Event Successfully Deleted').dismissOthers(); 
           }
 
         }, error: xhr => {
@@ -651,9 +653,9 @@ function AddEventActivity(route, deleteRoute, actDetails) {
     success: res => {
       if (res.status === 'success') {
         document.getElementById('close-button-act').click();
-        alertify.set('notifier', 'position', 'top-center');
+        alertify.set('notifier', 'position', 'top-right');
         document.getElementById('mainLoader').style.display = 'none';
-        alertify.success('Activity Created').dismissOthers();
+        alertify.success('Activity Created');
         if(document.getElementById('loading-act')){
           document.getElementById('loading-act').remove();
         }
@@ -777,9 +779,9 @@ function DeleteActEvent(ids, route) {
       data: formData,
       success: res => {
         if (res.status === 'success') {
-          alertify.set('notifier', 'position', 'top-center');
+          alertify.set('notifier', 'position', 'top-right');
           document.getElementById('mainLoader').style.display = 'none';
-          alertify.success('Activity Deleted').dismissOthers();
+          alertify.warning('Activity Deleted');
 
           const nameId = "act_tr"+ids;
           document.getElementById(nameId).remove();
@@ -908,7 +910,7 @@ function VerifyEditEventActivity(route, getDetails, deleteAct){
 
   }
 }
-//Finalize Update Event BAckend
+
 function UpdateEventActivity(route, getDetails, deleteAct){
   document.getElementById('mainLoader').style.display = 'flex';
   var formData = $('form#editActForm').serialize();
@@ -994,23 +996,6 @@ function ViewActivity(ids, route){
   });
 }
 
-function UploadProgrammeImages(route){
-  document.getElementById('mainLoader').style.display = 'flex';
-  var formData = new FormData($('#dropzone-multiple')[0]);
-  $.ajax({
-    type:"POST",
-    url: route,
-    data: formData,
-    processData: false,
-    contentType:false,
-    success: res =>{
-      console.log(res);
-      document.getElementById('mainLoader').style.display = 'none';
-    },error: xhr => {
-      console.log(xhr.responseText);
-    }
-  });
-}
 function LoadDeptEvent(route, getDept, getCourse, image, empty){
   $.ajax({
     type:"GET",
@@ -1098,7 +1083,8 @@ var formData = $('form#deptForm').serialize();
         document.getElementById('empty_department').remove();
       }
       if(res.status === 'success'){
-
+        alertify.set('notifier','position', 'top-right');
+        alertify.success('Department Added Successfully'); 
         document.getElementById('mainLoader').style.display = 'none';
         let course = '';
         res.course.forEach(c=>{
@@ -1140,7 +1126,8 @@ function RemoveDept(value){
     success: res=>{
       const deptName = `dept_added_event${value}`;
       document.getElementById(deptName).remove();
-
+      alertify.set('notifier','position', 'top-right');
+      alertify.warning('Department was removed'); 
       const deptList = document.getElementById('event_department_list');
       if(res.dept === 0){
         deptList.innerHTML = `<div class="empty" id="empty_department">
@@ -1160,22 +1147,6 @@ function RemoveDept(value){
   });
 }
 
-function SaveImages(route){
-  var formData = new FormData($('#dropzone-default')[0]);
-  console.log(formData);
-  $.ajax({
-   type:'POST',
-   url: route,
-   data: formData,
-   contentType: false,
-   processData: false,
-   success: res=> {
-     console.log(res);
-   }, error: xhr=>{
-    console.log(xhr.responseText);
-   }
-  });
-}
 
 function DisplayProgramm(img){
   const list = document.getElementById('programme_list');
@@ -1183,6 +1154,8 @@ function DisplayProgramm(img){
   const removeRoute = document.getElementById('removeRouteProgramme').value;
   const event_id = document.getElementById('event_id_delete_programme').value;
   const empty = document.getElementById('empty_programme_empty_asset').value;
+  alertify.set('notifier','position', 'top-right');
+  alertify.success('Programme Image Added'); 
   if(document.getElementById('empty_programme')){
     document.getElementById('empty_programme').remove();
   }
@@ -1215,10 +1188,11 @@ function LoadProgrammeList(route, imgRoute, empty, removeRoute){
     dataType: 'json',
     success: res=> {
       const list = document.getElementById('programme_list');
-      const programme = res.programme.split(',');
       document.getElementById('loading-programme').remove();
-      if(programme.length > 1){
-        console.log(programme.length);
+      if( res.programme != null ){
+       if(res.programme != ''){
+        const programme = res.programme.split(',');
+     
         programme.forEach(data=>{
           if(data !== ''){
             list.innerHTML += `<div id="${data}" class="col mb-3" style="position: relative;">
@@ -1244,6 +1218,18 @@ function LoadProgrammeList(route, imgRoute, empty, removeRoute){
           }
        
         })
+       }else{
+        
+        list.innerHTML =  `<div class="empty w-100" id="empty_programme">
+        <div class="empty-img"><img src="${empty}" height="128" alt="">
+        </div>
+        <p class="empty-title">No Programme Images found</p>
+        <p class="empty-subtitle text-muted">
+          No Programme Images is Currently Added in this Event
+        </p>
+    
+    </div>`;
+       }
       }else{
       
         list.innerHTML =  `<div class="empty w-100" id="empty_programme">
@@ -1281,6 +1267,8 @@ function DeleteProgramme(route, empty){
       if(res.status === 'success'){
         document.getElementById(res.programme).remove();
         document.getElementById('mainLoader').style.display = 'none';
+        alertify.set('notifier','position', 'top-right');
+        alertify.warning('Programme Image was removed'); 
         if(res.list === ''){
           document.getElementById('programme_list').innerHTML = `<div class="empty w-100" id="empty_programme">
           <div class="empty-img"><img src="${empty}" height="128" alt="">
