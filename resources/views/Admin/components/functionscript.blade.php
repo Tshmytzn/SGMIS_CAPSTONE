@@ -232,6 +232,10 @@ function clearFormInputs(formId) {
         document.getElementById('EditDeptName').value = name;
          document.getElementById('deptImage').src = '{{ asset('dept_image/') }}/' + image;
     }
+    function editdeptpic(){
+        document.getElementById('deptpicid').value = document.getElementById('EditDeptId').value;
+    }
+
     function reloadElementById(elementId) {
     var element = document.getElementById(elementId);
     if (element) {
@@ -242,17 +246,17 @@ function clearFormInputs(formId) {
     function EditDeptInfo() {
        const deptid = document.getElementById('EditDeptId').value;
        const deptname = document.getElementById('EditDeptName').value;
-       const pic = document.getElementById('avatar-upload');
-                if (pic.files.length == 0) {
-                    alertify
-                        .alert("Warning", "Department Image Required", function() {
-                            alertify.message('OK');
-                        });
-                } else {
+    //    const pic = document.getElementById('avatar-upload');
+    //             if (pic.files.length == 0) {
+    //                 alertify
+    //                     .alert("Warning", "Department Image Required", function() {
+    //                         alertify.message('OK');
+    //                     });
+    //             } else {
                     var formData = new FormData();
                     formData.append('deptid', deptid);
                     formData.append('deptname', deptname);
-                    formData.append('image', $('#avatar-upload')[0].files[0]);
+                    // formData.append('image', $('#avatar-upload')[0].files[0]);
                     formData.append('_token', '{{ csrf_token() }}');
         $.ajax({
             type: "POST",
@@ -293,7 +297,68 @@ function clearFormInputs(formId) {
                 console.error(xhr.responseText);
             }
         });
+    // }
     }
+
+    function EditDeptPicInfo(){
+        const deptid = document.getElementById('deptpicid').value;
+       const pic = document.getElementById('avatar-upload');
+                if (pic.files.length == 0) {
+                    alertify
+                        .alert("Warning", "Department Image Required", function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    var formData = new FormData();
+                    formData.append('deptid', deptid);
+                    formData.append('image', $('#avatar-upload')[0].files[0]);
+                    formData.append('_token', '{{ csrf_token() }}');
+
+                    $.ajax({
+            type: "POST",
+            url: "{{ route('EditDeptPicInfo') }}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.status == 'success') {
+                    const imgElement = document.getElementById('deptImage');
+                            const currentSrc = imgElement.src;
+                            const newSrc = currentSrc.split('?')[0] + '?' + new Date().getTime();
+                            imgElement.src = newSrc;
+                            clearFormInputs('editdeptform');
+                            GetCourseData();
+                            GetSectionData();
+                            clearFormInputs('editdeptform');
+                            closeModal();
+                            reloadElementById('addcourseform');
+                            reloadElementById('editcourseform');
+                            reloadElementById('addsectionform');
+                            reloadElementById('editsectionform');
+                            
+                    alertify
+                        .alert("Message", "Department Successfully Updated", function() {
+                             GetDepartmentData();
+                            alertify.message('OK');
+                          
+                        });
+                } else if (response.status == 'exist') {
+                    alertify
+                        .alert("Alert", "Department Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    alertify
+                        .alert("Warning", "Enter Department Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+                }
     }
 
     function GetCourseData() {
