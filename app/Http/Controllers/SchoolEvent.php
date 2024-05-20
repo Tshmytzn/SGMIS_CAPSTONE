@@ -10,6 +10,8 @@ use App\Models\Admin;
 use App\Models\Department;
 use App\Models\EventDepartment;
 use App\Models\Course;
+use App\Models\EvalQuestion;
+use App\Models\Evaluation;
 
 class SchoolEvent extends Controller
 {
@@ -54,10 +56,31 @@ class SchoolEvent extends Controller
 
     public function DeleteEvent(Request $req){
         $event_id = $req->event_id;
+        $dept = EventDepartment::where('event_id', $event_id)->get();
+        foreach($dept as $d){
+            $d->delete();
+        }
+        $act = EventActivities::where('event_id', $event_id)->get();
+        foreach($act as $a){
+            $a->delete();
+        }
+        $eval = Evaluation::where('event_id', $event_id)->first();
+        $evalQ= EvalQuestion::where('eval_id', $eval->eval_id)->get();
+        foreach($evalQ as $q){
+            $q->delete();
+        }
+        $eval->delete();
 
         $event = SchoolEvents::where('event_id', $event_id)->first();
 
         $image= public_path('event_images/'. $event->event_pic);
+        $programme = explode(',', $event->event_programme);
+        foreach($programme as $prog){
+            $p_image = public_path('programme_images/'. $prog);
+            if(file_exists($p_image)){
+                unlink($p_image);
+            }
+        }
         if(file_exists($image)){
             unlink($image);
             $event->delete(); 

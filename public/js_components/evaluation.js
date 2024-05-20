@@ -99,7 +99,7 @@ function AddEvalForm(evalForm, eval_id, viewEval, images,deleteEval, empty){
                     </div>
                 </a>
                     <div class="d-flex">
-                        <a href="${viewEval}" 
+                        <a href="${viewEval}?eval_id=${eval_id}" 
                             class="card-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -220,4 +220,85 @@ function DeleteEvalForm(route, eval_id, empty){
      }
     , function(){ console.log('cancel') });
    
+}
+
+function SubmitQuestion(q_num, route){
+   const question = document.getElementById(`eval_form_question${q_num}`);
+   const scale = document.getElementById(`eval_form_scale${q_num}`);
+
+   const question_e = document.getElementById(`eval_form_question_e${q_num}`);
+   const scale_e = document.getElementById(`eval_form_scale_e${q_num}`);
+   
+   let validity = 0;
+
+   if(question.value === ''){
+    question_e.style.display = '';
+    question.classList.add('border', 'border-danger');
+   }else{
+    question_e.style.display = 'none';
+    question.classList.remove('border', 'border-danger');
+    validity++;
+   }
+
+   if(scale.value == 0){
+    scale_e.style.display = '';
+    scale.classList.add('border', 'border-danger');
+   }else{
+    scale_e.style.display = 'none';
+    scale.classList.remove('border', 'border-danger');
+    validity++;
+   }
+
+   if(validity === 2){
+    document.getElementById('eval_question').value = question.value;
+    document.getElementById('eval_scale').value = scale.value;
+    cpm   
+    SaveQuestion(route, question.value, scale.value, q_num);
+   }
+}
+
+function SaveQuestion(route, question, scale, q_num){
+  document.getElementById('mainLoader').style.display = 'flex';
+  var formData = $('form#formQuestions').serialize();
+  $.ajax({
+    type:"POST",
+    url:route,
+    data: formData,
+    success: res=>{
+      if(res.status === 'success'){
+        document.getElementById('mainLoader').style.display = 'none';
+        const content = document.getElementById(`question_content${q_num}`);
+        const scaleTD = document.getElementById(`question_scale${q_num}`);
+        const actions = document.getElementById(`question_action${q_num}`);
+
+        content.innerHTML= question;
+        scaleTD.innerHTML= EvalScaleConvert(scale);
+        actions.innerHTML= `<button class="btn btn-outline-primary me-2">Edit</button>
+        <button class="btn btn-outline-danger">Delete</button>`;
+      }
+    },error: xhr=>{
+      console.log(xhr.responseText)
+    }
+  });
+
+}
+
+function EvalScaleConvert(num){
+  switch(num){
+    case 1:
+      return 'Likert Scale(1-5) Strongly Disagree-Strongly Agree';
+      break;
+    case 2:
+      return 'Rating Scale(1-5) Poor-Excellent';
+      break;
+    case 3:
+      return 'Performance Scale(1-5) Needs Improvement-Excellent';
+      break;
+    case 4:
+      return 'Close Ended (Yes/No)';
+      break;
+    case 5:
+      return 'Open Ended (Describe)';
+      break
+  }
 }
