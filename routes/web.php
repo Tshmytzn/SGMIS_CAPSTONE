@@ -54,6 +54,7 @@ Route::post('Admin/Event/DeleteProgramme',[SchoolEvent::class,'RemoveProgramme']
 Route::post('Admin/Evaluation/CreateEvalForm',[EvaluationController::class,'CreateEvalForm'] )->name('createEvalForm');
 Route::post('Admin/Evaluation/DeleteEvalForm',[EvaluationController::class,'DeleteEvalForm'] )->name('deleteEvalForm');
 Route::post('Admin/Evaluation/EvalDetails/AddQuestion',[EvaluationController::class,'AddEvalQuestion'] )->name('addEvalQuestion');
+Route::post('Admin/Evaluation/EvalDetails/SwitchQuestionNum',[EvaluationController::class,'SwitchQuestionNum'] )->name('switchQuestionNum');
 //Rheyan Get Route
 Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
 Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
@@ -66,6 +67,7 @@ Route::get('Events/getEvent/getCourse',[SchoolEvent::class,'GetCourse'] )->name(
 Route::get('Events/getEvent/getProgramme',[SchoolEvent::class,'GetProgrammeList'] )->name('getProgramme');
 Route::get('Evaluation/getEvalDetails',[EvaluationController::class,'GetEvalForm'] )->name('getEvalForm');
 Route::get('Evaluation/getAllEval',[EvaluationController::class,'GetAllEvalForm'] )->name('getAllEvalForm');
+Route::get('Evaluation/getAllEvalQuestion',[EvaluationController::class,'GetAllEvalQuestion'] )->name('getAllEvalQuestion');
 
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
