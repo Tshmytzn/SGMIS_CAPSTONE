@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CompemdiumFile extends Model
+class CompendiumFile extends Model
 {
     use HasFactory;
-    protected $table = 'compendium_file';
+    protected $table = 'compendium_files';
     protected $primaryKey = 'com_file_id';
     protected $fillable = [
       'com_id',
