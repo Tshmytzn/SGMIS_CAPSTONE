@@ -74,7 +74,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="question_list">
 
                                     </tbody>
                                 </table>
@@ -98,10 +98,33 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
         <input type="hidden" name="eval_num" id="eval_num">
     </form>
 
+    <form method="POST" id="switchQuestion">
+        @csrf
+        <input type="hidden" name="eval_id" value="{{ $eval_id }}">
+        <input type="hidden" name="old_index" id="switch_old">
+        <input type="hidden" name="new_index" id="switch_new">
+    </form>
     @include('Admin.components.scripts')
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            var table = document.getElementById('questionTable').getElementsByTagName('tbody')[0];
+            new Sortable(table, {
+             animation: 150,
+             ghostClass: 'blue-background-class',
+             onEnd: function (evt) {
+                    var oldIndex = evt.oldIndex;
+                    var newIndex = evt.newIndex;
+                    
+                    document.getElementById('switch_old').value = oldIndex;
+                    document.getElementById('switch_new').value = newIndex;
+                    console.log('Row moved from index', oldIndex, 'to', newIndex);
+                    EvalQuestionSwitchNum("{{route('switchQuestionNum')}}");
+                }
+             });
+
+            LoadEvalQuestion("{{route('getAllEvalQuestion')}}?eval_id={{$eval_id}}");
+
             const addQuestionBtn = document.getElementById('addQuestionBtn');
             const questionTableBody = document.querySelector('#questionTable tbody');
             let questionCount = 1;
@@ -111,7 +134,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
                     <tr id="question_list${questionCount}">
                         <th scope="row">${questionCount}</th>
                        
-                        <td class="text-center" id="question_content${questionCount}">
+                        <td id="question_content${questionCount}">
                         <input type="text" id="eval_form_question${questionCount}" class="form-control question-input" name="evalname" placeholder="Question ${questionCount}">
                         <label  id="eval_form_question_e${questionCount}" style="display:none" class="text-sm text-danger" for="eval_form_question${questionCount}">(No Input in this field)</label>
                         </td>

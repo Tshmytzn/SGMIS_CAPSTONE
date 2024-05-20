@@ -4,9 +4,7 @@ Author: Rheyan
 Date: 2024, May, 19
 Status: In Progress
 */
-window.onload = function(){
-    LoadEvaluationForm(getAllEvalRoute, emptyPlaceholder, evalForm, viewEval, evalImage, deleteEval);
-}
+
 function DisplayAddForm(){
   document.getElementById('eval_name_div').style.display = '';
   document.getElementById('eval_description_div').style.display = '';
@@ -303,7 +301,50 @@ function EvalScaleConvert(num){
   }
 }
 
+function LoadEvalQuestion(route){
+  const list = document.getElementById('question_list');
+  $.ajax({
+    type:"GET",
+    url: route,
+    dataType: 'json',
+    success: res=>{
+      res.question.forEach(q=>{
+         list.innerHTML += `<tr id="question_list${q.eq_num}">
+         <th scope="row">${q.eq_num}</th>
+        
+         <td id="question_content${q.eq_num}">
+          ${q.eq_question}
+         </td>
+         <td id="question_scale${q.eq_num}">
+            ${EvalScaleConvert(q.eq_scale)}
+         </td>
+         <td id="question_action${q.eq_num}">
+         <button class="btn btn-outline-primary me-2">Edit</button>
+         <button class="btn btn-outline-danger">Delete</button>
+         </td>
+     
+     </tr>`
+      });
+    }, error: xhr =>{
+      console.log(xhr.responseText);
+    }
+  });
+}
 
+function EvalQuestionSwitchNum(route){
+  document.getElementById('mainLoader').style.display = 'flex';
+    $.ajax({
+     type: "POST",
+     url: route,
+     data: $('form#switchQuestion').serialize(),
+     success: res=>{
+        console.log(res);
+        document.getElementById('mainLoader').style.display = 'none';
+     }, error: xhr=>{
+      console.log(xhr.responseText);
+     }
+    })
+}
 /**
  * Todo: 
  * Load Questions,

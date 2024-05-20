@@ -162,6 +162,9 @@
         var viewEval = "{{ route('ViewEvaluations') }}";
         var evalImage = "{{ asset('event_images') }}";
         var deleteEval = "{{ route('deleteEvalForm') }}"
+       window.onload= ()=>{
+        LoadEvaluationForm(getAllEvalRoute, emptyPlaceholder, evalForm, viewEval, evalImage, deleteEval);
+       }
     </script>
     @include('Admin.components.scripts')
 
