@@ -12,6 +12,7 @@ class EvalQuestion extends Model
     protected $primaryKey = 'eq_id';
     protected $fillable = [
          'eval_id',
-         'question',
+         'eq_question',
+         'eq_scale'
     ];
 }

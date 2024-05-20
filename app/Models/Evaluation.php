@@ -13,7 +13,6 @@ class Evaluation extends Model
     protected $fillable = [
         'eval_name',
         'event_id',
-        'eval_scale',
         'eval_description',
     ];
 }
