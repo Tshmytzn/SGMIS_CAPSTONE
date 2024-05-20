@@ -64,17 +64,20 @@
                     <div class="row row-deck row-cards">
 
                         <div class="col-md-6 col-lg-3">
+                            <a href="{{ route('ViewEvaluations') }}" class="card-link">
                             <div class="card">
                                 <div class="ribbon bg-green">ONGOING</div>
-                                <div class="img-responsive img-responsive-21x9 card-img-top"
-                                    style="background-image: url({{ asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg') }})">
-                                </div>
-                                <div class="card-body">
+                                <div class="img-responsive img-responsive-21x9 card-img-top";
+                                href="{{ route('ViewEvaluations') }}";
+                                style="background-image: url({{ asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg') }})">
+                            </div>                            
+                                <div class="card-body" href="{{ route('ViewEvaluations') }}" >
                                     <h3 class="card-title">University Week Evaluation Form</h3>
                                     <p class="text-muted">Provide your feedback on CHMSU University Week events and
                                         activities. Your input will help us improve future events.
                                     </p>
                                 </div>
+                            </a>
                                 <div class="d-flex">
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#editeval"
                                         class="card-btn">
@@ -92,17 +95,8 @@
                                     </a>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval"
                                         class="card-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                            <path
-                                                d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" />
-                                            <path d="M15 19l2 2l4 -4" />
-                                        </svg>
-                                        &nbsp; View</a>
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                        &nbsp; Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -136,109 +130,11 @@
                                     </a>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval"
                                         class="card-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                            <path
-                                                d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" />
-                                            <path d="M15 19l2 2l4 -4" />
-                                        </svg>
-                                        &nbsp; View</a>
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                        &nbsp; Delete</a>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6 col-lg-3">
-                            <div class="card">
-                                <div class="ribbon bg-red">EVENT ENDED</div>
-                                <div class="img-responsive img-responsive-21x9 card-img-top"
-                                    style="background-image: url({{ asset('./static/sports.png') }})"></div>
-                                <div class="card-body">
-                                    <h3 class="card-title">Sports Day Evaluation Form
-                                    </h3>
-                                    <p class="text-muted">Evaluate Sports Day by commenting on the activities, event
-                                        management, and enjoyment level.
-                                    </p>
-                                </div>
-                                <div class="d-flex">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editeval"
-                                        class="card-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                            <path
-                                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                            <path d="M16 5l3 3" />
-                                        </svg>
-                                        &nbsp; Edit
-                                    </a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval"
-                                        class="card-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                            <path
-                                                d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" />
-                                            <path d="M15 19l2 2l4 -4" />
-                                        </svg>
-                                        &nbsp; View</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                            <div class="card">
-                                <div class="ribbon bg-red">EVENT ENDED</div>
-                                <div class="img-responsive img-responsive-21x9 card-img-top"
-                                    style="background-image: url({{ asset('./static/carfest.jpg') }})"></div>
-                                <div class="card-body">
-                                    <h3 class="card-title">Car Show Evaluation Form</h3>
-                                    <p class="text-muted">Share your feedback on the Car Show, including the variety
-                                        and quality of vehicles, event organization, and overall experience.
-                                    </p>
-                                </div>
-                                <div class="d-flex">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editeval"
-                                        class="card-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                            <path
-                                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                            <path d="M16 5l3 3" />
-                                        </svg>
-                                        &nbsp; Edit
-                                    </a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#vieweval"
-                                        class="card-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-eye-check">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                            <path
-                                                d="M11.102 17.957c-3.204 -.307 -5.904 -2.294 -8.102 -5.957c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6a19.5 19.5 0 0 1 -.663 1.032" />
-                                            <path d="M15 19l2 2l4 -4" />
-                                        </svg>
-                                        &nbsp; View</a>
-                                </div>
-                            </div>
-                        </div>
-
-
 
                     </div>
                 </div>
