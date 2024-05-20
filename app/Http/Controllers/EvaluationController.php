@@ -59,6 +59,7 @@ class EvaluationController extends Controller
        $question->eval_id = $req->eval_id;
        $question->eq_question = $req->eval_question;
        $question->eq_scale = $req->eval_scale;
+       $question->eq_num = $req->eval_num;
        $question->save();
 
        return response()->json(['status'=>'success']);

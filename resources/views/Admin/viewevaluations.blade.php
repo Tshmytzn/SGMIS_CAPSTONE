@@ -65,7 +65,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
                             <div class="card-body">
                                 <h5 class="card-title">Question List</h5>
 
-                                <table class="table table-hover table-success text-center" id="questionTable">
+                                <table class="table table-hover table-success" id="questionTable">
                                     <thead>
                                         <tr>
                                             <th scope="col">Question #</th>
@@ -95,6 +95,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
         <input type="hidden" name="eval_id" value="{{ $eval_id }}">
         <input type="hidden" name="eval_question" id="eval_question">
         <input type="hidden" name="eval_scale" id="eval_scale">
+        <input type="hidden" name="eval_num" id="eval_num">
     </form>
 
     @include('Admin.components.scripts')
@@ -110,7 +111,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
                     <tr id="question_list${questionCount}">
                         <th scope="row">${questionCount}</th>
                        
-                        <td id="question_content${questionCount}">
+                        <td class="text-center" id="question_content${questionCount}">
                         <input type="text" id="eval_form_question${questionCount}" class="form-control question-input" name="evalname" placeholder="Question ${questionCount}">
                         <label  id="eval_form_question_e${questionCount}" style="display:none" class="text-sm text-danger" for="eval_form_question${questionCount}">(No Input in this field)</label>
                         </td>

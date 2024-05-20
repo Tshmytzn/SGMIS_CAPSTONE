@@ -252,7 +252,7 @@ function SubmitQuestion(q_num, route){
    if(validity === 2){
     document.getElementById('eval_question').value = question.value;
     document.getElementById('eval_scale').value = scale.value;
-    cpm   
+    document.getElementById('eval_num').value = q_num;
     SaveQuestion(route, question.value, scale.value, q_num);
    }
 }
@@ -285,19 +285,19 @@ function SaveQuestion(route, question, scale, q_num){
 
 function EvalScaleConvert(num){
   switch(num){
-    case 1:
+    case "1":
       return 'Likert Scale(1-5) Strongly Disagree-Strongly Agree';
       break;
-    case 2:
+    case "2":
       return 'Rating Scale(1-5) Poor-Excellent';
       break;
-    case 3:
+    case "3":
       return 'Performance Scale(1-5) Needs Improvement-Excellent';
       break;
-    case 4:
+    case "4":
       return 'Close Ended (Yes/No)';
       break;
-    case 5:
+    case "5":
       return 'Open Ended (Describe)';
       break
   }
