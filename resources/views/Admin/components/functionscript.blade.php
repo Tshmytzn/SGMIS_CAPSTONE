@@ -1414,5 +1414,42 @@ function EditStudentAdminPosition(){
         });
    }
 
-   
+   Dropzone.options.dropzoneMultiple = {
+        paramName: "file", 
+        maxFilesize: 20, 
+        dictDefaultMessage: "Drag files here to upload",
+        autoProcessQueue: true, 
+
+        init: function() {
+            var myDropzone = this;
+
+            myDropzone.on("sending", function(file, xhr, formData) {
+                formData.append("com_id", document.getElementById("com_id").value);
+            });
+
+            myDropzone.on("success", function(file, response) {
+                console.log("File uploaded successfully:", response);
+              
+                if (response && response.status && response.status === 'success') {
+                    location.reload(); // Reload the page
+                } else {
+                    console.error("Invalid or missing response from server");
+                }
+                myDropzone.removeAllFiles(); 
+            });
+
+            myDropzone.on("error", function(file, errorMessage) {
+                console.error("Error uploading file:", errorMessage);
+            });
+
+            myDropzone.on("complete", function(file) {
+                myDropzone.removeFile(file);
+            });
+        }
+    };
+
+
+
+
+
 </script>

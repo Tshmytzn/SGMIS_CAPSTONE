@@ -42,25 +42,37 @@
               $com_id = request()->query('com_id');
           @endphp
              
-
-                <div class="col-lg-12" style="height: 100vh; display: flex; flex-direction: column;">
-                  <div class="card" style="flex: 1; display: flex; flex-direction: column;">
-                    <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
+             <div class="col-lg-12" style="height: 100vh; display: flex; flex-direction: column;">
+              <div class="card" style="flex: 1; display: flex; flex-direction: column;">
+                  <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
                       <h3 class="card-title">Multiple File Upload</h3>
-                      <form class="dropzone" id="dropzone-multiple" action="./" autocomplete="off" novalidate style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                         <input type="hidden" name="com_id" id="com_id" value="{{$com_id}}">
-                        <div class="fallback">
-                          <input name="file" type="file" multiple />
-                        </div>
+                      <form class="dropzone" id="dropzone-multiple" action="{{ route('UploadCompendiumFile') }}" autocomplete="off" novalidate style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                          @csrf
+                          <input type="hidden" name="com_id" id="com_id" value="{{ $com_id }}">
+                          <div class="fallback">
+                              <input name="file" type="file" multiple />
+                          </div>
                       </form>
-                    </div>
                   </div>
-                </div>
+              </div>
+          </div>
 
             </div>
           </div>
         </div>
-
+       @if (session('status'))
+       <script>
+        // Empty the content of #dropzone-multiple
+        $("#dropzone-multiple").empty();
+        
+        // Reload the page after a short delay (e.g., 500 milliseconds)
+        setTimeout(function() {
+            location.reload();
+        }, 500); // Adjust the delay as needed
+    </script>
+        @endif
+      
+    
 @include('Admin.components.footer')
 
       </div>
