@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id'); 
             $table->foreign('event_id')->references('event_id')->on('school_event');
             $table->string('eval_description');
+            $table->integer('eval_status')->default(0);
             $table->timestamps();
         });
     }

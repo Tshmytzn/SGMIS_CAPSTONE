@@ -6,6 +6,8 @@ use App\Http\Controllers\SchoolEvent;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\SessionDetect;
 use App\Http\Controllers\AdminData;
+use App\Http\Controllers\EvaluationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,7 @@ Route::post('Admin/Event/UploadProgramme',[SchoolEvent::class,'UploadProgrammeIm
 Route::post('Admin/Event/AddDept',[SchoolEvent::class,'AddDeptEvent'] )->name('AddDeptEvent');
 Route::post('Admin/Event/RemoveDept',[SchoolEvent::class,'RemoveDeptEvent'] )->name('RemoveDeptEvent');
 Route::post('Admin/Event/DeleteProgramme',[SchoolEvent::class,'RemoveProgramme'] )->name('removeProgramme');
+Route::post('Admin/Evaluation/CreateEvalForm',[EvaluationController::class,'CreateEvalForm'] )->name('createEvalForm');
 //Rheyan Get Route
 Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
 Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
@@ -57,6 +60,9 @@ Route::get('Events/getEvent/getDept',[SchoolEvent::class,'GetDeptEvent'] )->name
 Route::get('Events/getEvent/getDepartment',[SchoolEvent::class,'GetDepartment'] )->name('getDepartment');
 Route::get('Events/getEvent/getCourse',[SchoolEvent::class,'GetCourse'] )->name('getCourse');
 Route::get('Events/getEvent/getProgramme',[SchoolEvent::class,'GetProgrammeList'] )->name('getProgramme');
+Route::get('Evaluation/getEvalDetails',[EvaluationController::class,'GetEvalForm'] )->name('getEvalForm');
+Route::get('Evaluation/getAllEval',[EvaluationController::class,'GetAllEvalForm'] )->name('getAllEvalForm');
+
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');
