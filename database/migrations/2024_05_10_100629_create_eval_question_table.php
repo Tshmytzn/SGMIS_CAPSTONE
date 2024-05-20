@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id('eq_id');
             $table->unsignedBigInteger('eval_id'); 
             $table->foreign('eval_id')->references('eval_id')->on('evaluation');  
-            $table->string('question');
+            $table->string('eq_question');
+            $table->string('eq_scale');
             $table->timestamps();
         });
     }

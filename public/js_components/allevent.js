@@ -1037,7 +1037,7 @@ function LoadDeptEvent(route, getDept, getCourse, image, empty){
                   response.course.forEach(c=>{
                     course += `<li><a class="dropdown-item" href="#">${c.course_name}</a></li>`;
                   })
-                  deptList.innerHTML += `<div class="col-sm-6 col-lg-4 mt-4"  id="dept_added_event${dept.dept_id}">
+                  deptList.innerHTML += `<div class="col-sm-6 col-lg-4 mt-4 dept_event" style="display:none;"  id="dept_added_event${dept.dept_id}">
               <div class="card card-sm">
                 <div class="custom-dropdown dropup">
                 <a href="#" class="d-block"><img src="${image}/${resp.dept.dept_image}" class="card-img-top"></a>
@@ -1055,6 +1055,12 @@ function LoadDeptEvent(route, getDept, getCourse, image, empty){
             </div>
         </div>
       </div>`;
+
+      const deptAddedName = document.getElementById(`dept_added_event${dept.dept_id}`);
+      deptAddedName.style.display ='';
+      setTimeout(()=>{
+         deptAddedName.style.opacity = 1;
+      }, 50);
                 }, error: xhr => {
                   console.log(xhr.responseText);
                 }
