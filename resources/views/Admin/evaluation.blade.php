@@ -427,10 +427,15 @@
                 const questionInputs = form.querySelectorAll('.question-input');
                 const lastQuestionInput = questionInputs[questionInputs.length - 1];
                 const newQuestionInput = document.createElement('input');
+                const q_label = document.createElement('label');
+                q_label.setAttribute('for', 'eval_q' + questionInputs.length );
+                q_label.textContent = 'hgasdasd';
                 newQuestionInput.setAttribute('type', 'text');
                 newQuestionInput.setAttribute('class', 'form-control question-input');
                 newQuestionInput.setAttribute('name', 'evalname[]');
+                newQuestionInput.setAttribute('id', 'eval_q' + questionInputs.length );
                 newQuestionInput.setAttribute('placeholder', 'Question ' + (questionInputs.length + 1));
+                form.appendChild(q_label);
                 form.appendChild(newQuestionInput); 
                }
     </script>
