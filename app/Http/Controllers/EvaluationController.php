@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Evaluation;
 use App\Models\SchoolEvents;
+use App\Models\EvalQuestion;
 
 class EvaluationController extends Controller
 {
@@ -43,9 +44,23 @@ class EvaluationController extends Controller
     }
 
     public function DeleteEvalForm(Request $req){
+        $question = EvalQuestion::where('eval_id', $req->eval_id)->get();
+        foreach($question as $q){
+            $q->delete();
+        }
         $eval = Evaluation::where('eval_id', $req->eval_id)->first();
         $eval->delete();
         
         return response()->json(['status'=>'success']);
+    }
+
+    public function AddEvalQuestion(Request $req){
+       $question = new EvalQuestion;
+       $question->eval_id = $req->eval_id;
+       $question->eq_question = $req->eval_question;
+       $question->eq_scale = $req->eval_scale;
+       $question->save();
+
+       return response()->json(['status'=>'success']);
     }
 }

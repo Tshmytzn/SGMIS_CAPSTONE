@@ -13,6 +13,7 @@ class EvalQuestion extends Model
     protected $fillable = [
          'eval_id',
          'eq_question',
-         'eq_scale'
+         'eq_scale',
+         'eq_num',
     ];
 }

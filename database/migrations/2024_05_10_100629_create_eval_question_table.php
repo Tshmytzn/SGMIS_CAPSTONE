@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('eval_id')->references('eval_id')->on('evaluation');  
             $table->string('eq_question');
             $table->string('eq_scale');
+            $table->integer('eq_num');
             $table->timestamps();
         });
     }
