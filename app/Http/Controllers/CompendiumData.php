@@ -30,4 +30,10 @@ class CompendiumData extends Controller
         $data = Compendium::join('school_event','compendium.event_id','=','school_event.event_id')->select('compendium.*','school_event.event_name','school_event.event_description')->get();
         return response()->json(['data' => $data ]);
     }
+    public function UploadCompendiumFile(Request $request){
+        $data = new CompendiumFile;
+        $data ->com_id=$request->com_id;
+        $data ->file_name=$request->file;
+        $data->save();
+    }
 }

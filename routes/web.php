@@ -86,6 +86,8 @@ Route::post('Admin/EditStudentAdminPosition',[AdminData::class,'EditStudentAdmin
 Route::post('Admin/DemoteAdmin',[AdminData::class,'DemoteAdmin'] )->name('DemoteAdmin');
 Route::post('Admin/DemoteStudentAdmin',[AdminData::class,'DemoteStudentAdmin'] )->name('DemoteStudentAdmin');
 Route::post('Admin/AddCompendium',[CompendiumData::class,'AddCompendium'] )->name('AddCompendium');
+Route::post('Admin/UploadCompendiumFile', [CompendiumData::class,'UploadCompendiumFile'])->name('UploadCompendiumFile');
+
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
 Route::get('/admin/GetDepartmentData', [DeparmentData::class,"GetDepartmentData"])->name('GetDepartmentData');

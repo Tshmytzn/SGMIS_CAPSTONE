@@ -1327,7 +1327,9 @@ function EditStudentAdminPosition(){
                 if (response.status == 'success') {
                     document.getElementById('adminloader').style.display='none';
                     closeModal();
+                    GetAllCompendium();
                     // GetAllStudentAdminData();
+
                     alertify
                         .alert("Message", " Compendium Successfully Added", function() {
                            
@@ -1367,11 +1369,11 @@ function EditStudentAdminPosition(){
                 response.data.forEach(function(event) {
                     // Create a new div for each event card
                     var div = document.createElement("div");
-                    div.setAttribute("class", "col-md-3 col-sm-4");
+                    div.setAttribute("class", " col-md-3 col-sm-4 animate__animated animate__zoomIn");
 
                     // Set the inner HTML of the div to the card content
                     div.innerHTML = `
-                        <div class="card card-link card-link-pop folder">
+                        <div class="card card-link card-link-pop folder ">
                             <div class="ribbon ribbon-top bg-yellow">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-hand-click">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -1411,4 +1413,6 @@ function EditStudentAdminPosition(){
             }
         });
    }
+
+   
 </script>
