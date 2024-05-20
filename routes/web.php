@@ -35,6 +35,8 @@ Route::get('/Evaluation/ViewEvaluations', [SessionDetect::class, 'EvaluationDeta
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 Route::get('/Profile', [SessionDetect::class, 'AdminProfile'])->name('Profile');
 Route::get('/Budgeting', [SessionDetect::class, 'Budgeting'])->name('Budgeting');
+Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('Attendance');
+
 
 //Rheyan Post Route
 Route::post('Admin/login',[Login::class,'AdminLogin'] )->name('adminLogin');
