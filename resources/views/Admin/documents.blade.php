@@ -40,7 +40,7 @@
                   </div>
                   </div>
   
-                      <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#uploadcomp"> Upload Compendium</button>
+                      <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#uploadcomp"> Create Compendium</button>
       
               </div>
             </div>
@@ -57,11 +57,10 @@
               {{-- <div class="col-md-3 col-sm-4">
                 <div class="card card-link card-link-pop folder">
                   <div class="ribbon ribbon-top bg-yellow">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-hand-click"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" /><path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0v2.5" /><path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5" /><path d="M17 11.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7l-.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47" /><path d="M5 3l-1 -1" /><path d="M4 7h-1" /><path d="M14 3l1 -1" /><path d="M15 6h1" /></svg>                  
-                  </div>
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-pinned"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" /><path d="M12 16l0 5" /><path d="M8 4l8 0" /></svg>                  </div>
                   <div class="card-body">
-                    <h3 class="card-title">University Week</h3>
-                    <p class="text-muted">short desc short desc short desc short desc short desc short descshort desc short desc short desc short desc short</p>
+                    <h3 class="card-title">Compendium Name</h3>
+                    <p class="text-muted"> Event name and event details Event name and event details Event name and event details</p>
                   </div>
                   <!-- Card footer -->
                   <div class="card-footer">
@@ -83,7 +82,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Upload Compendium</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Create Compendium</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
