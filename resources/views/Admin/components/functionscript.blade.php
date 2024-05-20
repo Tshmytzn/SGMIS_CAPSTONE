@@ -1313,5 +1313,102 @@ function EditStudentAdminPosition(){
 }
 </script>
 <script>
-    
+    $(document).ready(function() {
+        GetAllCompendium();
+});
+    function AddCompendium(){
+          document.getElementById('adminloader').style.display='grid';
+        var formData = $("form#uploadcompform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('AddCompendium') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display='none';
+                    closeModal();
+                    // GetAllStudentAdminData();
+                    alertify
+                        .alert("Message", " Compendium Successfully Added", function() {
+                           
+                            alertify.message('OK');
+                            clearFormInputs('uploadcompform');
+                            // reloadElementById('editsectionform');
+                        
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Alert", "Compendium Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display='none';
+                    alertify
+                        .alert("Warning", "Insert Compendium Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+   function GetAllCompendium(){
+     $.ajax({
+            type: "GET",
+            url: "{{ route('GetAllCompendium') }}",
+            success: function(response) {
+                // Clear the existing content in the container
+                document.getElementById("eventsContainer").innerHTML = "";
+
+                // Iterate over the response data to create event cards
+                response.data.forEach(function(event) {
+                    // Create a new div for each event card
+                    var div = document.createElement("div");
+                    div.setAttribute("class", "col-md-3 col-sm-4");
+
+                    // Set the inner HTML of the div to the card content
+                    div.innerHTML = `
+                        <div class="card card-link card-link-pop folder">
+                            <div class="ribbon ribbon-top bg-yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-hand-click">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" />
+                                    <path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0v2.5" />
+                                    <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5" />
+                                    <path d="M17 11.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7l-.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47" />
+                                    <path d="M5 3l-1 -1" />
+                                    <path d="M4 7h-1" />
+                                    <path d="M14 3l1 -1" />
+                                    <path d="M15 6h1" />
+                                </svg>                  
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">${event.event_name}</h3>
+                                 <h4>${event.com_name}</h4>
+                                <p class="text-muted">${event.event_description}</p>
+                            </div>
+                            <!-- Card footer -->
+                            <div class="card-footer">
+                                <a href="{{route('ViewCompendium')}}?com_id=${event.com_id}" class="btn btn-primary mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+                                        <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z" />
+                                        <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+                                    </svg>
+                                    View Files
+                                </a>
+                            </div>
+                        </div>
+                    `;
+
+                    // Append the new event card to the container
+                    document.getElementById("eventsContainer").appendChild(div);
+                });
+            }
+        });
+   }
 </script>

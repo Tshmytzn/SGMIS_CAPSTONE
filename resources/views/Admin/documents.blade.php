@@ -3,6 +3,7 @@
 <html lang="en">
   
 @include('Admin.components.header', ['title' => 'Documents'])
+@include('Admin.components.adminstyle')
 
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
@@ -51,9 +52,9 @@
         <!-- Page body -->
         <div class="page-body">
           <div class="container-xl">
-            <div class="row row-deck row-cards">
+            <div class="row row-deck row-cards" id="eventsContainer">
               
-              <div class="col-md-3 col-sm-4">
+              {{-- <div class="col-md-3 col-sm-4">
                 <div class="card card-link card-link-pop folder">
                   <div class="ribbon ribbon-top bg-yellow">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-hand-click"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" /><path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0v2.5" /><path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5" /><path d="M17 11.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7l-.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47" /><path d="M5 3l-1 -1" /><path d="M4 7h-1" /><path d="M14 3l1 -1" /><path d="M15 6h1" /></svg>                  
@@ -69,7 +70,7 @@
                       View Files</a>
                   </div>
                 </div>
-              </div>
+              </div> --}}
               
 
             </div>
@@ -87,16 +88,22 @@
               </div>
               <div class="modal-body">
                 
-                <form class="row g-3" id="uploadcomp" method="POST" enctype="multipart/form-data">@csrf
+                <form class="row g-3" id="uploadcompform" method="POST" enctype="multipart/form-data">@csrf
                   <div class="row g-2">
 
                   <div class="col-12">
                     <label for="firstname" class="form-label">Event Name</label>
-                    <select name="" class="form-select" id="">
-                      <option selected>Select Event</option>
-                      <option value="">event #1</option>
-                      <option value="">event #1</option>
-                      <option value="">event #1</option>
+                    <select name="eventId" class="form-select" id="eventId">
+                       <option>Select Event</option>
+                     @php
+                          $currentDate = date('Y-m-d');
+                          $event = App\Models\SchoolEvents::where('event_start','>',$currentDate)->get();
+                      @endphp
+
+                      @foreach ($event as $eve)
+                         <option value="{{$eve->event_id}}">{{$eve->event_name}}</option>
+                      @endforeach
+                     
                     </select>
                   </div>
                 </div>
@@ -112,7 +119,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="()">Save</button>
+                <button type="button" class="btn btn-primary" onclick="AddCompendium()">Save</button>
               </div>
             </div>
           </div>
@@ -129,6 +136,7 @@
     
     
 @include('Admin.components.scripts')
+@include('Admin.components.functionscript')
 
   </body>
 </html>
