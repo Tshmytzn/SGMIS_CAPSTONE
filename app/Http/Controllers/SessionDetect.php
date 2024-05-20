@@ -75,4 +75,32 @@ class SessionDetect extends Controller
             return view('Admin.login');
         }
     }
+
+    public function EvaluationDetails(Request $req){
+        if(Session::has('admin_id')){
+            if (!$req->has('eval_id') || empty($req->eval_id)) {
+                return view('error');
+            }else{
+                return view('Admin.viewevaluations', ['event_id'=>$req->event_id]);
+            }
+        }else{
+            return view('Admin.login');
+        }
+    }
+
+    public function AdminProfile(Request $req){
+        if(Session::has('admin_id')){
+            return view('Admin.Profile', ['event_id'=>$req->event_id]); 
+        }else{
+            return view('Admin.login');
+        }
+    }
+
+    public function Budgeting(Request $req){
+        if(Session::has('admin_id')){
+            return view('Admin.budgeting', ['event_id'=>$req->event_id]); 
+        }else{
+            return view('Admin.login');
+        }
+    }
 }

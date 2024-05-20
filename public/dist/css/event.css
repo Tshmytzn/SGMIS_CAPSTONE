@@ -11,3 +11,9 @@
   transition: opacity 2s;
   opacity: 0;
 }
+
+.evalFormListed{
+    transition: margin-top 1s ease, opacity 1s ease;
+    margin-top: 100px;
+    opacity: 0;
+}
