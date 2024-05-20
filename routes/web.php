@@ -31,7 +31,7 @@ Route::get('/Settings', [SessionDetect::class, 'Settings'])->name('Settings');
 Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
 Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
 Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
-Route::get('/ViewEvaluations', function () { return view('Admin.viewevaluations'); })->name('ViewEvaluations');
+Route::get('/Evaluation/ViewEvaluations', function () { return view('Admin.viewevaluations'); })->name('ViewEvaluations');
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 Route::get('/Profile', function () { return view('Admin.Profile'); })->name('Profile');
 Route::get('/Budgeting', function () { return view('Admin.budgeting'); })->name('Budgeting');
@@ -50,6 +50,7 @@ Route::post('Admin/Event/AddDept',[SchoolEvent::class,'AddDeptEvent'] )->name('A
 Route::post('Admin/Event/RemoveDept',[SchoolEvent::class,'RemoveDeptEvent'] )->name('RemoveDeptEvent');
 Route::post('Admin/Event/DeleteProgramme',[SchoolEvent::class,'RemoveProgramme'] )->name('removeProgramme');
 Route::post('Admin/Evaluation/CreateEvalForm',[EvaluationController::class,'CreateEvalForm'] )->name('createEvalForm');
+Route::post('Admin/Evaluation/DeleteEvalForm',[EvaluationController::class,'DeleteEvalForm'] )->name('deleteEvalForm');
 //Rheyan Get Route
 Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
 Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');

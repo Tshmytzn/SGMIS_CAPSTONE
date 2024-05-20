@@ -457,7 +457,7 @@ function RemoveEvent(ev_id) {
 
   event.style.transform = "scale(0.01)";
   setTimeout(() => {
-    event.style.display = 'none';
+    event.remove();
 
     const loadingEvents = document.querySelectorAll('.loadingEvents');
     if (loadingEvents.length === 0) {

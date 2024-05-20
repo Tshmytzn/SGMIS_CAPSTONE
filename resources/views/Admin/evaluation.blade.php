@@ -10,7 +10,7 @@
     <div class="page">
 
         @include('Admin.components.nav', ['active' => 'Evaluation'])
-
+        @include('Admin.components.loading')
         <div class="page-wrapper">
 
             <!-- Page header -->
@@ -60,26 +60,11 @@
 
             <!-- Page body -->
             <div class="page-body">
-                <div class="container-xl" id="eval_list">
+                <div class="container-xl" >
+                    <div class="row row-deck row-cards" id="eval_list">
 
-                    {{-- <div class="empty" id="empty_eval">
-                        <div class="empty-img"><img src="./static/illustrations/reading.svg" height="128" alt="">
-                        </div>
-                        <p class="empty-title">No Evaluation Forms found</p>
-                        <p class="empty-subtitle text-muted">
-                          Try adding one to let students evaluate the event.
-                        </p>
-                        <div class="empty-action">
-                          <button  data-bs-toggle="modal" data-bs-target="#createevaluation" class="btn btn-primary">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                            Add Evaluation Form
-                          </button>
-                        </div>
-                      </div> --}}
-
-                    {{-- <div class="page page-center" id="loading-eval">
-                        <div class="container container-slim py-4">
+                    <div class="col-md-12 col-lg-12 col-sm-12 " id="loading-eval">
+                        <div class="container container-slim  d-flex justify-content-center flex-column">
                           <div class="text-center">
                             <div class="mb-3">
                               <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logoicon.png" height="36" alt=""></a>
@@ -90,8 +75,9 @@
                             </div>
                           </div>
                         </div>
-                      </div> --}}
+                      </div>
 
+                    </div>
                        
 
                     </div>
@@ -151,7 +137,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="closeEvalForm" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="VerifyCreateEvalForm('{{ route('createEvalForm') }}', '{{ route('getEvalForm') }}', '{{ route('ViewEvaluations') }}', '{{ asset('event_images') }}')">Save</button>
+                            <button type="button" class="btn btn-primary" onclick="VerifyCreateEvalForm('{{ route('createEvalForm') }}', '{{ route('getEvalForm') }}', '{{ route('ViewEvaluations') }}', '{{ asset('event_images') }}', '{{ route('deleteEvalForm') }}', '{{ asset('./static/illustrations/reading.svg') }}')">Save</button>
                         </div>
                     </div>
                 </div>
@@ -167,7 +153,16 @@
         </div>
     </div>
 
+    <form id="deleteEvalForm" >@csrf <input type="hidden" name="eval_id" id="delete_eval_id"></form>
 
+    <script>
+        var getAllEvalRoute = "{{ route('getAllEvalForm') }}";
+        var emptyPlaceholder = "{{ asset('./static/illustrations/reading.svg') }}";
+        var evalForm = "{{ route('getEvalForm') }}";
+        var viewEval = "{{ route('ViewEvaluations') }}";
+        var evalImage = "{{ asset('event_images') }}";
+        var deleteEval = "{{ route('deleteEvalForm') }}"
+    </script>
     @include('Admin.components.scripts')
 
 
