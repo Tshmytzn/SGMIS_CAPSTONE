@@ -184,24 +184,8 @@
                                             cols="10" rows="2"></textarea>
                                     </div>
                                     <hr class="my-4 mt-3 mb-2">
-                                    <div class="col-11">
-                                        <label for="evalname" class="form-label">Evaluation Questions</label>
-                                    </div>
-                                    <div class="col-1" id="addQuestion">
-                                        <span class="add-question-btn">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-pencil-plus">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-                                                <path d="M13.5 6.5l4 4" />
-                                                <path d="M16 19h6" />
-                                                <path d="M19 16v6" />
-                                            </svg>
-                                        </span>
-                                    </div>
-
+                                   
+                                 
                                 </div>
                             </form>
 
@@ -215,66 +199,7 @@
             </div>
             {{-- Create Evaluation modal --}}
 
-            {{-- View Evaluation Modal --}}
-            <div class="modal modal-blur fade" id="vieweval" data-bs-backdrop="static" data-bs-keyboard="false"
-                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header text-white" style="background-color: #3E8A34;">
-                            <h5 class="modal-title" id="staticBackdropLabel">View Evaluation Form</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="row g-3" id="createeval" method="POST" enctype="multipart/form-data">@csrf
-                                <div class="row g-2">
-                                    <div class="col-12">
-                                        <label for="firstname" class="form-label">Associated Event</label>
-                                        <select name="" class="form-select" id="">
-                                            <option selected>Select Event</option>
-                                            <option value="">event #1</option>
-                                            <option value="">event #1</option>
-                                            <option value="">event #1</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="evalname" class="form-label">Evaluation Name</label>
-                                        <input type="text" class="form-control" name="viewevalname"
-                                            id="viewevalname" placeholder="Evaluation Name">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="evaldesc" class="form-label">Evaluation Description</label>
-                                        <textarea class="form-control" name="viewevaldesc" id="viewevaldesc" placeholder="Add Short Description here..."
-                                            cols="10" rows="2"></textarea>
-                                    </div>
-                                    <hr class="my-4 mt-3 mb-2">
-                                    <div class="col-11">
-                                        <label for="evalname" class="form-label">Evaluation Questions</label>
-                                    </div>
-                                    <input type="text" class="form-control" name="viewevalname" id="viewevalname"
-                                        placeholder="Question #1">
-                                    <input type="text" class="form-control" name="viewevalname" id="viewevalname"
-                                        placeholder="Question #2">
-                                    <input type="text" class="form-control" name="viewevalname" id="viewevalname"
-                                        placeholder="Question #3">
-                                    <input type="text" class="form-control" name="viewevalname" id="viewevalname"
-                                        placeholder="Question #4">
-                                    <input type="text" class="form-control" name="viewevalname" id="viewevalname"
-                                        placeholder="Question #5">
-
-
-                                </div>
-                            </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="()">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- View Evaluation modal --}}
+         
             {{-- Modal --}}
 
 
@@ -285,58 +210,7 @@
 
 
     @include('Admin.components.scripts')
-    {{-- scripts --}}
-    <script>
-     var promptInstance;
-     const addQuestionBtn = document.querySelector('.add-question-btn');
-     const form = document.getElementById('createeval');
-           
-        document.addEventListener("DOMContentLoaded", function() {
-          
-            addQuestionBtn.addEventListener('click', function() {
-              promptInstance = alertify.prompt()
-                .setHeader('Select Scale for this Question')
-                .setContent(`
-                    <label for="select_scale">Scale Types</label>
-                    <select onchange="selectedScale(this)" id="select_scale" class="form-control">
-                        <option selected disabled>------Select One to proceed-------</option>
-                        <option value="1">Likert Scale(1-5) Strongly Disagree-Strongly Agree</option>   
-                        <option value="2">Rating Scale(1-5) Poor-Excellent</option>
-                        <option value="3">Performance Scale(1-5) Needs Improvement-Excellent</option>
-                        <option value="4">Close Ended (Yes/No)</option>  
-                        <option value="5">Open Ended (Describe)</option> 
-                    </select>
-                `)
-                .set('onok', function() {}) 
-                .set('oncancel', function() {}) 
-                .set('closable', false)
-                .show();
-             
-            });
-        });
-        function selectedScale(el){
-                  var selectedValue = el.value;
-                  console.log('Selected ID:', selectedValue);
-                  if (promptInstance) {
-                  promptInstance.close(); 
-                  }
-                const questionInputs = form.querySelectorAll('.question-input');
-                const lastQuestionInput = questionInputs[questionInputs.length - 1];
-                const newQuestionInput = document.createElement('input');
-                const q_label = document.createElement('label');
-                q_label.setAttribute('for', 'eval_q' + questionInputs.length );
-                q_label.textContent = 'hgasdasd';
-                newQuestionInput.setAttribute('type', 'text');
-                newQuestionInput.setAttribute('class', 'form-control question-input');
-                newQuestionInput.setAttribute('name', 'evalname[]');
-                newQuestionInput.setAttribute('id', 'eval_q' + questionInputs.length );
-                newQuestionInput.setAttribute('placeholder', 'Question ' + (questionInputs.length + 1));
-                form.appendChild(q_label);
-                form.appendChild(newQuestionInput); 
-               }
-    </script>
 
-    {{-- scripts --}}
 
 </body>
 
