@@ -38,19 +38,24 @@
         <div class="page-body">
           <div class="container-xl">
             <div class="row row-deck row-cards">
-              
-                <div class="col-lg-12" >
-                    <div class="card" >
-                      <div class="card-body">
-                        <h3 class="card-title">Multiple File Upload</h3>
-                        <form class="dropzone" id="dropzone-multiple" action="./" autocomplete="off" novalidate>
-                          <div class="fallback">
-                            <input name="file" type="file"  multiple  />
-                          </div>
-                        </form>
-                      </div>
+               @php
+              $com_id = request()->query('com_id');
+          @endphp
+             
+
+                <div class="col-lg-12" style="height: 100vh; display: flex; flex-direction: column;">
+                  <div class="card" style="flex: 1; display: flex; flex-direction: column;">
+                    <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
+                      <h3 class="card-title">Multiple File Upload</h3>
+                      <form class="dropzone" id="dropzone-multiple" action="./" autocomplete="off" novalidate style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                         <input type="hidden" name="com_id" id="com_id" value="{{$com_id}}">
+                        <div class="fallback">
+                          <input name="file" type="file" multiple />
+                        </div>
+                      </form>
                     </div>
                   </div>
+                </div>
 
             </div>
           </div>
@@ -61,27 +66,10 @@
       </div>
     </div>
     
-<script src="{{asset('./dist/libs/dropzone/dist/dropzone-min.js?1684106062')}}" defer></script>
+
 @include('Admin.components.scripts')
 
-<script>
-    // @formatter:off
-    document.addEventListener("DOMContentLoaded", function() {
-      new Dropzone("#dropzone-default")
-    })
-  </script>
-  <script>
-    // @formatter:off
-    document.addEventListener("DOMContentLoaded", function() {
-      new Dropzone("#dropzone-multiple")
-    })
-  </script>
-  <script>
-    // @formatter:off
-    document.addEventListener("DOMContentLoaded", function() {
-      new Dropzone("#dropzone-custom")
-    })
-  </script>
+
 
   </body>
 </html>
