@@ -2,7 +2,7 @@
 
 <html lang="en">
 
-@include('Student.components.head', ['title' => 'Dashboard'])
+@include('Student.components.head', ['title' => 'Events'])
 @include('Student.components.header')
 @include('Student.components.nav')
 
@@ -22,41 +22,36 @@
                     </div>
                 </div>
             </div>
+
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
 
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Event Name</h3>
-                                    <div class="card-actions">
-                                        <a href="#" class="btn btn-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-timeline">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M4 16l6 -7l5 5l5 -6" />
-                                                <path d="M15 14m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                                <path d="M10 9m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                                <path d="M4 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                                <path d="M20 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                            </svg> Time in
-                                        </a>
+                    <div class="row row-cards">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="card card-sm">
+                                <a href="{{ route('ViewDetails') }}" class="d-block">
+                                    <div class="position-relative">
+                                        <img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg"
+                                            class="card-img-top">
                                     </div>
-                                </div>
-                                <div class="card-body p-0">
-                                    <img src="{{ asset('./static/sgmis_si.png') }}" alt="event photo" class="">
-                                    <line x1="0" y1="0" x2="400" y2="200"></line>
-                                    <line x1="0" y1="200" x2="400" y2="0"></line>
-                                    </svg>
-                                </div>
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <span class="avatar me-3 rounded"
+                                                style="background-image: url(./static/avatars/000m.jpg)"></span>
+                                            <div class="me-4">
+                                                <div>Uweek Celebration</div>
+                                                <div class="text-muted">3 days ago</div>
+                                            </div> &nbsp;
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </div>
 
+
+                        </div>
                     </div>
+
 
                 </div>
             </div>
