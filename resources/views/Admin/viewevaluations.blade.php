@@ -67,7 +67,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
 
                                 <table class="table table-hover table-success" id="questionTable">
                                     <thead>
-                                        <tr>
+                                        <tr id="tr_head">
                                             <th scope="col">Question #</th>
                                             <th scope="col">Questions</th>
                                             <th scope="col">Response Scale</th>
@@ -118,7 +118,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
                     
                     document.getElementById('switch_old').value = oldIndex;
                     document.getElementById('switch_new').value = newIndex;
-                    console.log('Row moved from index', oldIndex, 'to', newIndex);
+   
                     EvalQuestionSwitchNum("{{route('switchQuestionNum')}}");
                 }
              });
@@ -132,7 +132,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
             addQuestionBtn.addEventListener('click', function() {
                 const newRow = `
                     <tr id="question_list${questionCount}">
-                        <th scope="row">${questionCount}</th>
+                        <td id="qnum${questionCount}" scope="row">${questionCount}</td>
                        
                         <td id="question_content${questionCount}">
                         <input type="text" id="eval_form_question${questionCount}" class="form-control question-input" name="evalname" placeholder="Question ${questionCount}">
