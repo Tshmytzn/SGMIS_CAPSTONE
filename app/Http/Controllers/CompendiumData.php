@@ -10,18 +10,12 @@ use App\Models\CompendiumFile;
 class CompendiumData extends Controller
 {
     public function AddCompendium(Request $request){
-        $check = Compendium::where('event_id',$request->eventId)->where('com_name',$request->compendiumname)->first();
-        $doublecheck = Compendium::where('event_id',$request->eventId)->first();
-
+        $check = Compendium::where('event_id',$request->eventId)->first();
         if($request->eventId ==''|| $request->compendiumname==''){
         return response()->json(['status' => 'empty']);
         }else if($check){
         return response()->json(['status' => 'exist']);
-        }
-        else if($doublecheck){
-        return response()->json(['status' => 'exist']);
-        }
-        else{
+        }else{
         $data = new Compendium;
         $data ->event_id=$request->eventId;
         $data ->com_name=$request->compendiumname;
@@ -49,5 +43,9 @@ class CompendiumData extends Controller
     
         return response()->json(['status' => 'success']);
     }
-    
+    public function GetCompendiumFiles(Request $request){
+
+      $get = CompendiumFile::where('com_id',$request->id)->get();
+      return response()->json(['data' => $get]);
+    }
 }

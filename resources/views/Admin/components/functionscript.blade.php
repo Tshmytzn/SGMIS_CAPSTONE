@@ -1357,7 +1357,8 @@
 <script>
     $(document).ready(function() {
         GetAllCompendium();
-    });
+        GetCompendiumFiles();
+});
 
     function AddCompendium() {
         document.getElementById('adminloader').style.display = 'grid';
@@ -1406,17 +1407,16 @@
             type: "GET",
             url: "{{ route('GetAllCompendium') }}",
             success: function(response) {
-                // Clear the existing content in the container
+               
                 document.getElementById("eventsContainer").innerHTML = "";
 
-                // Iterate over the response data to create event cards
+              
                 response.data.forEach(function(event) {
-                    // Create a new div for each event card
+                  
                     var div = document.createElement("div");
                     div.setAttribute("class",
                         " col-md-3 col-sm-4 animate__animated animate__zoomIn");
 
-                    // Set the inner HTML of the div to the card content
                     div.innerHTML = `
                         <div class="card card-link card-link-pop folder ">
                             <div class="ribbon ribbon-top bg-yellow">
@@ -1462,11 +1462,11 @@
                 formData.append("com_id", document.getElementById("com_id").value);
             });
 
-            this.on("success", function(file, response) {
+            myDropzone.on("success", function(file, response) {
                 console.log("File uploaded successfully:", response);
 
                 if (response && response.status && response.status === 'success') {
-                    location.reload(); // Reload the page
+                   GetCompendiumFiles();
                 } else {
                     console.error("Invalid or missing response from server");
                 }
@@ -1482,4 +1482,132 @@
             });
         }
     };
+
+function GetCompendiumFiles() {
+    const id = document.getElementById("com_id").value;
+
+    const encodedId = encodeURIComponent(id);
+
+    $.ajax({
+        type: "GET",
+        url: "{{ route('GetCompendiumFiles') }}?id=" + encodedId,
+        success: function(response) {
+            
+            if (response && Array.isArray(response.data)) {
+                const comfileElement = document.getElementById("comfile");
+                comfileElement.innerHTML = ""; 
+                response.data.forEach(function(Data) {
+
+                    const fileNameWithoutExt = Data.file_name.split('.').slice(1).join('.');
+
+                    var div = document.createElement("div");
+                    div.setAttribute("class", "col-md-3 col-lg-3 admincardeffects"); 
+                     div.setAttribute("data-bs-toggle", "modal");
+                    div.setAttribute("data-bs-target", "#viewFile");
+                   div.setAttribute("onclick", `viewfile('${Data.file_name}')`);
+                   div.innerHTML = `
+                        <div class="card">
+                            <div class="card-body p-4 text-center">
+                                <span class="avatar avatar-xl mb-3 style="background-color:white;"><img style="background-color:white;" class="fileIcon" src="" alt="picture"></span>
+                                <embed style="display:none;" class="embeddedFile" src="compendium_file/${Data.file_name}" width="300px" height="auto" />
+                                <h3 class="m-0 mb-1">${fileNameWithoutExt}</h3>
+                                <div class="text-muted"></div>
+                                <div class="mt-3">
+                                    <span class="badge bg-green-lt"></span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    comfileElement.appendChild(div);
+                    const embeddedFile = div.querySelector('.embeddedFile');
+                    const src = embeddedFile.getAttribute('src');
+                    const fileType = getFileType(src);
+                    const icon = fileTypeIcons[fileType] || 'default-icon.png';
+                    const fileIcon = div.querySelector('.fileIcon');
+                    fileIcon.src = 'compendium_file/icons/'+icon;
+                });
+                runCardAnimation();
+            } else {
+                console.error("Invalid or missing data in response");
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching compendium files:", error);
+        }
+    });
+}
+
+const fileTypeIcons = {
+    'pdf': 'pdf-icon.png',
+    'doc': 'doc-icon.png',
+    'docx': 'docx-icon.png',
+    'xls': 'xls-icon.png',
+    'xlsx': 'xlsx-icon.png',
+    'ppt': 'ppt-icon.png',
+    'pptx': 'ppt-icon.png',
+    'jpg': 'jpg-icon.png',
+    'jpeg': 'jpeg-icon.png',
+    'png': 'png-icon.png',
+    'gif': 'gif-icon.png',
+    'bmp': 'bmp-icon.png',
+    'tiff': 'tiff-icon.png',
+    'mp4': 'mp4-icon.png',
+    'mp3': 'mp3-icon.png',
+    'txt':'txt-icon.png',
+    'zip':'zip-icon.png',
+    'rar':'rar-icon.png',
+   
+};
+
+function getFileType(url) {
+    const parts = url.split('.');
+    return parts[parts.length - 1].toLowerCase();
+}
+function viewfile(file) {
+    const fileType = getFileType(file);
+    const modalBody = document.querySelector('#viewFile .modal-body');
+    modalBody.innerHTML = '';  // Clear previous content
+
+    if (fileType === 'pdf' || fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif' || fileType === 'bmp' || fileType === 'tiff') {
+        modalBody.innerHTML = `<embed class="displayfile" src="compendium_file/${file}" width="100%" height="400px" />`;
+    } else if (fileType === 'doc' || fileType === 'docx') {
+        fetch(`compendium_file/${file}`)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => mammoth.convertToHtml({ arrayBuffer: arrayBuffer }))
+            .then(result => {
+                modalBody.innerHTML = result.value;
+            })
+            .catch(handleError);
+    } else if (fileType === 'xls' || fileType === 'xlsx') {
+        fetch(`compendium_file/${file}`)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => {
+                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                const html = XLSX.utils.sheet_to_html(workbook.Sheets[workbook.SheetNames[0]]);
+                modalBody.innerHTML = html;
+            })
+            .catch(handleError);
+    } else if (fileType === 'ppt' || fileType === 'pptx') {
+        modalBody.innerHTML = `<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=http://your-server/compendium_file/${file}" style="width:100%; height:600px;" frameborder="0"></iframe>`;
+    } else if (fileType === 'mp4') {
+        modalBody.innerHTML = `<video width="100%" height="400px" controls><source src="compendium_file/${file}" type="video/mp4">Your browser does not support the video tag.</video>`;
+    } else if (fileType === 'mp3') {
+        modalBody.innerHTML = `<audio controls><source src="compendium_file/${file}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
+    } else if (fileType === 'zip' || fileType === 'rar') {
+        // Trigger file download
+        const link = document.createElement('a');
+        link.href = `compendium_file/${file}`;
+        link.download = file;
+        document.body.appendChild(link);
+        link.click();
+        modalBody.innerHTML = `<p>Zip/Rar file Downloaded</p>`;
+    } else {
+        modalBody.innerHTML = `<p>Unsupported file type</p>`;
+    }
+}
+
+function handleError(err) {
+    console.log(err);
+}
+
 </script>
