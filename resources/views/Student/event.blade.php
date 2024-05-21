@@ -30,7 +30,15 @@
                     <div class="row row-cards">
                         <div class="col-sm-6 col-lg-4">
                             <div class="card card-sm">
-                                <a href="#" class="d-block"><img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top"></a>
+                                <div class="position-relative"> <!-- Add position-relative class here -->
+                                    <a href="#" class="d-block">
+                                        <button class="btn btn-outline-success position-absolute top-0 start-0 me-4 col-12" style="opacity: 1; border:none">
+                                            View Event Compendium
+                                        </button>
+
+                                        <img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top">
+                                    </a>
+                                </div>
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
@@ -38,15 +46,10 @@
                                             <div>Uweek Celebration</div>
                                             <div class="text-muted">3 days ago</div>
                                         </div> &nbsp;
-                                        <div class="flex-grow-1">
-                                            <div class="ms-auto btn btn-outline-primary">
-                                                    Compendium
-                                                </a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
 

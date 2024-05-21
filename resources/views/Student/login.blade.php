@@ -2,7 +2,7 @@
 
 <html lang="en">
 
-@include('Student.components.head')
+@include('Student.components.head', ['title'=> 'Student Login'])
 
 
   <body >
@@ -21,7 +21,7 @@
                 <form action="./" method="get" autocomplete="off" novalidate>
                   <div class="mb-3">
                     <label class="form-label">Username</label>
-                    <input type="email" class="form-control" placeholder="your@email.com" autocomplete="off">
+                    <input type="email" class="form-control" placeholder="your username" autocomplete="off">
                   </div>
                   <div class="mb-2">
                     <label class="form-label">
