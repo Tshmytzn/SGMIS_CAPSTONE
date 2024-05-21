@@ -66,9 +66,9 @@
         $("#dropzone-multiple").empty();
         
         // Reload the page after a short delay (e.g., 500 milliseconds)
-        setTimeout(function() {
+        
             location.reload();
-        }, 500); // Adjust the delay as needed
+      
     </script>
         @endif
       
