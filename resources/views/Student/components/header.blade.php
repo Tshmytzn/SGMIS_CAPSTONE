@@ -36,12 +36,92 @@
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <a href="" class="dropdown-item">Profile</a>
+            <a href="" data-bs-toggle="modal" data-bs-target="#profile" class="dropdown-item">Profile</a>
             <a href="" class="dropdown-item">Settings</a>
-            <a href="" class="dropdown-item">Logout</a>
+            <a href="" data-bs-toggle="modal" data-bs-target="#logoutmodal" class="dropdown-item">Logout</a>
           </div>
         </div>
       </div>
     </div>
   </header>
 
+  {{-- logout modal --}}
+<div class="modal modal-blur fade" id="logoutmodal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-status bg-danger"></div>
+      <div class="modal-body text-center py-4">
+        <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+        <h3>Confirm Logout</h3>
+        <div class="text-muted">Are you sure you want to log out?</div>
+      </div>
+      <div class="modal-footer">
+        <div class="w-100">
+          <div class="row">
+            <div class="col">
+              <a href="#" class="btn w-100" data-bs-dismiss="modal">
+                Cancel
+              </a>
+            </div>
+            <div class="col">
+              <a href="#" class="btn btn-danger w-100" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+                Yes, Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{-- logout modal --}}
+
+ {{-- modal --}}
+ <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-body mt-2">
+              <div class="row g-0 text-center">
+                  <div class="col-12">
+                      <div class="card-body">
+                          <div class="row align-items-center">
+                              <div class="col-12">
+                                  <span class="avatar avatar-xl"><img
+                                          src="./static/logoicon.png" alt=""
+                                          id="adminpicture"></span>
+                              </div>
+                          </div>
+                          <div class="row g-2 mt-2 mb-3">
+                              <div class="col-12">
+                                  <div class="form-label mb-0" style="font-size: 20px;">
+                                    Ghiza Ann Dojoles</div>
+                                  <hr class="my-2 mt-0 mb-1 ms-5" style="width: 263px;">
+                                  <div class="form-label" style="font-size: 14px;"> BSIS 3C
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col text-start">
+                                  <button onclick="window.location.href='{{ route('EventDashboard') }}'"
+                                      class="btn btn-success btn-block" style="width: 120px"
+                                      data-bs-dismiss="modal">Edit Profile</button>
+                              </div>
+                              <div class="col text-end ">
+                                  <form method="POST" action="{{ route('AdminLogout') }}">
+                                      @csrf
+                                      <button type="submit" class="btn btn-danger btn-block ms"
+                                          style="width: 120px" data-bs-toggle="modal" data-bs-target="#logoutmodal">Logout</button>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{{-- modal --}}

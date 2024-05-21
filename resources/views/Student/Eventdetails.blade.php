@@ -9,7 +9,7 @@
   <body >
 
     <div class="page">
-      <div class="page-wrapper" style="margin-top: -3%">
+      <div class="page-wrapper">
         <!-- Page header -->
         <div class="page-header d-print-none">
           <div class="container-xl">
