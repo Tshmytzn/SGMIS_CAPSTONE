@@ -42,7 +42,7 @@
               </div>
 
 
-        <!-- Page body -->        
+        <!-- Page body -->
         <div class="page-body">
           <div class="container-xl">
               <div class="card">
@@ -51,19 +51,17 @@
                 <div class="container mx-3" style="margin-bottom: -1%;">
                   <div class="row">
                       <div class="col d-flex justify-content-between mt-2 ">
-                          <div style="margin-left: -20px;">
-                            <h3>More Information</h3>
-                          </div>
-                         
+                            <h3 style="margin-left: -3%">More Information</h3>
+
                             <div title="Edit Event" style="border: none; background: none; margin-right:1%; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editEventDetails">
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                             </div>
-                      
+
                       </div>
                   </div>
-              </div>    
-            </div>    
- 
+              </div>
+            </div>
+
                 <div class="card-body">
                   <div class="datagrid">
                     <div class="datagrid-item">
@@ -102,25 +100,27 @@
                     <div class="datagrid-item">
                       <div class="datagrid-title">Description</div>
                       <div id="event_description" class="datagrid-content">
-                        
+
                       </div>
                     </div>
 
-                    
+
                     </div>
-                
+
                   </div>
                 </div>
-              
+
+                <div class="card mt-2">
                 <div class="table-responsive mt-4">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <h1>Activity List</h1>
-                    <button  data-bs-toggle="modal" data-bs-target="#addActivity" class="btn btn-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="ms-4">Activity List</h1>
+                    <button  data-bs-toggle="modal" data-bs-target="#addActivity" class="btn btn-primary me-2"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M12 5l0 14" />
                       <path d="M5 12l14 0" />
                     </svg>Add Activities</button>
                   </div>
+                  <hr class="mt-0">
                   <table class="table table-vcenter card-table">
                     <thead>
                       <tr>
@@ -140,32 +140,35 @@
                           <div class="progress-bar progress-bar-indeterminate"></div>
                         </div>
                       </td>
-                      </tr>            
+                      </tr>
                     </tbody>
                   </table>
                 </div>
+            </div>
+
+            <div class="card mt-2">
                 <div class="col-auto w-100 mt-4 d-flex justify-content-between align-items-center">
-                <h3> Event Programme</h3>      
-                 <div class="d-flex gap-4">
+                <h3 class="ms-4"> Event Programme</h3>
+                 <div class="d-flex gap-3 me-2 mb-2">
                   <button data-bs-toggle="modal" data-bs-target="#uploadProgrammeModal" class="btn btn-primary " type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-upload">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
                     <path d="M7 9l5 -5l5 5" />
                     <path d="M12 4l0 12" />
-                  </svg> Upload Event Programme </button>       
+                  </svg> Upload Event Programme </button>
                   <button class="btn btn-primary " type="button" id="downloadAllBtn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
                     <path d="M7 11l5 5l5 -5" />
                     <path d="M12 4l0 12" />
-                  </svg>  Download All </button>       
+                  </svg>  Download All </button>
                  </div>
                 </div>
+                <hr class="mt-0">
 
-           
                   {{-- event program download --}}
                   <div class="row row-cols-4 g-3 mx-3 mt-4" id="programme_list">
-                    
+
                     <div class="page page-center w-100  mt-4" id="loading-programme">
                       <div class="container container-slim py-4">
                         <div class="text-center">
@@ -181,9 +184,9 @@
                     </div>
 
                   </div>
+                </div>
 
 
-              </div>
 
               <div class="card mt-2">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -198,7 +201,7 @@
                    @endphp
                    <option {{ $eventDept ? 'selected' : '' }} value="{{ $d->dept_id }}">{{ $d->dept_name }}</option>
                    @endforeach
-                  </select> 
+                  </select>
 
                 </div>
               <div class="row row-cards" id="event_department_list">
@@ -216,10 +219,12 @@
                     </div>
                   </div>
                 </div>
-          
-         
+
+
               </div>
             </div>
+        </div>
+
           </div>
         </div>
        </div>
@@ -240,16 +245,16 @@
             @csrf
             <input type="hidden" name="event_id" id="event_id">
           <div class="modal-body">
-            
+
             <div class="mb-3">
               <label class="form-label">Event Name   <span style="display: none" id="ev_name_e" class="text-danger ">(Don't Leave this field empty)</span></label>
               <input type="text" class="form-control" id="ev_name" name="ev_name" placeholder="Event name">
-            
+
             </div>
             <div class="mb-3">
               <label class="form-label">Event Facilitator   <span style="display: none" id="ev_facilitator_e" class="text-danger ">(Don't Leave this field empty)</span></label>
               <input type="text" class="form-control" id="ev_facilitator" name="ev_facilitator" placeholder="Event Facilitator">
-            
+
             </div>
             <div class="mb-2">
               <div class="card">
@@ -277,7 +282,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="mb-3">
-                  
+
                   <label class="form-label">Event End Date   <span style="display: none" id="ev_end_e" class="text-danger ">(Please Choose a date)</span></label>
                   <input type="date" id="ev_end" onchange="getDays(this)" name="ev_end" class="form-control">
 
@@ -319,7 +324,7 @@
               <label class="form-label">Activity Name <span id="act_name_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
               <input type="text" class="form-control" id="act_name" name="act_name" placeholder="Activity Name">
             </div>
-       
+
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-1">
@@ -362,7 +367,7 @@
               Cancel
             </button>
             <button type="button" onclick="VerifyAddEventActivity('{{ route('addEventActivity') }}', '{{ route('deleteEventActivities') }}', '{{ route('getActDetails') }}')" class="btn btn-primary ms-auto">
-            
+
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
               Create new activity
             </button>
@@ -387,7 +392,7 @@
               <label class="form-label">Activity Name <span id="act_name_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
               <input type="text" class="form-control" id="act_name_edit" name="act_name" placeholder="Activity Name">
             </div>
-       
+
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-1">
@@ -430,7 +435,7 @@
               Cancel
             </button>
             <button type="button" onclick="VerifyEditEventActivity('{{route('updateEventActivities')}}', '{{route('getActDetails')}}', '{{route('deleteEventActivities')}}')" class="btn btn-primary ms-auto">
-            
+
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
               Update Activity
             </button>
@@ -471,7 +476,7 @@
                   <div class="datagrid-item">
                     <div class="datagrid-title">Description</div>
                     <div class="datagrid-content" id="act_description_view">
-                     
+
                     </div>
                   </div>
                 </div>
@@ -534,7 +539,7 @@
 <input type="hidden" value="{{asset('static/illustrations/undraw_joyride_hnno.svg')}}" id="empty_programme_empty_asset">
 <input type="hidden" value="{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}" id="emptyImage">
 <form id="deptForm" method="POST">@csrf <input type="hidden" name="event_id" id="dept_event_id"> <input type="hidden" name="dept_id" id="selected_dept"></form>
-<form id="removeProgrammeForm" method="POST">@csrf 
+<form id="removeProgrammeForm" method="POST">@csrf
   <input type="hidden" name="event_id" id="event_id_programme_delete">
   <input type="hidden" name="programme_name" id="programme_name_programme_delete">
   </form>
@@ -542,7 +547,7 @@
 
       </div>
     </div>
-    
+
 @include('Admin.components.scripts')
 <!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
@@ -554,7 +559,7 @@
   function limitFiles(event) {
       var files = event.target.files;
       if (files.length > 4) {
-        
+
         alertify.alert("You can only upload up to 4 files.", function(){
           alertify.message('OK');
         });
@@ -564,14 +569,14 @@
   document.getElementById('ev_pic').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const image = document.getElementById('event_image');
-    
+
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
             image.src = e.target.result;
         }
         reader.readAsDataURL(file);
-    } 
+    }
 });
 
     function downloadImage(imageUrl) {
@@ -603,10 +608,10 @@
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}");
       LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}")
       LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}","{{asset('programme_images')}}", "{{asset('static/illustrations/undraw_joyride_hnno.svg')}}", "{{route('removeProgramme')}}")
-    
+
     }
-     
+
   </script>
-  
+
   </body>
 </html>

@@ -2,7 +2,7 @@
 
 <html lang="en">
 
-@include('Student.components.head', ['title' => 'Events'])
+@include('Student.components.head', ['title' => 'Dashboard'])
 @include('Student.components.header')
 @include('Student.components.nav')
 

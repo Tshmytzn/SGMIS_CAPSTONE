@@ -40,7 +40,8 @@
                                     activities. Your input will help us improve future events.
                                 </p>
                             </div>
-                            <div class="card-footer btn btn-outline-primary btn-block">
+                            <hr style="margin-top: -1%; margin-bottom: -1%">
+                            <div class="card-footer btn btn-outline-primary btn-block" style="border: none">
                                 Evaluate
                             </div>
                         </div>

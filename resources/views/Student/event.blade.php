@@ -32,9 +32,6 @@
                             <div class="card card-sm">
                                 <div class="position-relative"> <!-- Add position-relative class here -->
                                     <a href="#" class="d-block">
-                                        <button class="btn btn-outline-success position-absolute top-0 start-0 me-4 col-12" style="opacity: 1; border:none">
-                                            View Event Compendium
-                                        </button>
 
                                         <img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top">
                                     </a>

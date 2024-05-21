@@ -81,7 +81,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                      <iframe src="" class="displayfile" style="width:600px; height:500px;" frameborder="0"></iframe>
+                      <iframe src="" class="displayfile" width="600px" height="auto" frameborder="0"></iframe>
                      {{-- <embed class="displayfile" src="" width="300px" height="auto" /> --}}
                       </div>
                       <div class="modal-footer">

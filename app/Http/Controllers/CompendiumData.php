@@ -10,7 +10,7 @@ use App\Models\CompendiumFile;
 class CompendiumData extends Controller
 {
     public function AddCompendium(Request $request){
-        $check = Compendium::where('event_id',$request->eventId)->where('com_name',$request->compendiumname)->first();
+        $check = Compendium::where('event_id',$request->eventId)->first();
         if($request->eventId ==''|| $request->compendiumname==''){
         return response()->json(['status' => 'empty']);
         }else if($check){
