@@ -332,18 +332,18 @@ function LoadEvalQuestion(route){
 }
 
 function EvalQuestionSwitchNum(route){
-  document.getElementById('mainLoader').style.display = 'flex';
-    $.ajax({
-     type: "POST",
-     url: route,
-     data: $('form#switchQuestion').serialize(),
-     success: res=>{
-        console.log(res);
-        document.getElementById('mainLoader').style.display = 'none';
-     }, error: xhr=>{
-      console.log(xhr.responseText);
-     }
-    })
+  // document.getElementById('mainLoader').style.display = 'flex';
+  //   $.ajax({
+  //    type: "POST",
+  //    url: route,
+  //    data: $('form#switchQuestion').serialize(),
+  //    success: res=>{
+  //       console.log(res);
+  //       document.getElementById('mainLoader').style.display = 'none';
+  //    }, error: xhr=>{
+  //     console.log(xhr.responseText);
+  //    }
+  //   })
 }
 /**
  * Todo: 

@@ -72,36 +72,7 @@ class EvaluationController extends Controller
     }
 
     public function SwitchQuestionNum(Request $req){
-        $getOldNum = $req->old_index + 1;
-        $newIndex = $req->new_index + 1;
-        $getNum = EvalQuestion::where('eval_id', $req->eval_id)->where('eq_num', $getOldNum)->first();
-        $getNum->update([
-            'eq_num'=>$newIndex,
-        ]);
-        if($newIndex - $getOldNum > 0){
-            $updateOther = EvalQuestion::where('eval_id', $req->eval_id)->where('eq_num','<', $newIndex)->get();
-            // foreach($updateOther as $other){
-            //   $newNum = $other->eq_num - 1;
-            //   $other->update([
-            //     'eq_num'=> $newNum
-            //   ]);
-            // }
-          }
-  
        
-       
-      
-        // if($newIndex - $getOldNum < 0){
-        //     $updateOther = EvalQuestion::where('eval_id', $req->eval_id)->where('eq_num','<', $newIndex)->get();
-        //     foreach($updateOther as $other){
-        //       $newNum = $other->eq_num + 1;
-        //       $other->update([
-        //         'eq_num'=> $newNum
-        //       ]);
-        //     }
-        // }
-
-        return response()->json(['status'=> $updateOther ]);
        
     }
 }
