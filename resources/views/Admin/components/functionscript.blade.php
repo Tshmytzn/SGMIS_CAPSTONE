@@ -1501,7 +1501,7 @@ function GetCompendiumFiles() {
                     const fileNameWithoutExt = Data.file_name.split('.').slice(1).join('.');
 
                     var div = document.createElement("div");
-                    div.setAttribute("class", "col-md-3 col-lg-3 admincardeffects"); 
+                    div.setAttribute("class", "col-md-2 col-lg-3 admincardeffects"); 
                      div.setAttribute("data-bs-toggle", "modal");
                     div.setAttribute("data-bs-target", "#viewFile");
                    div.setAttribute("onclick", `viewfile('${Data.file_name}')`);
@@ -1516,6 +1516,12 @@ function GetCompendiumFiles() {
                                     <span class="badge bg-green-lt"></span>
                                 </div>
                             </div>
+                            <div class="d-flex">
+                <a href="#" data-bs-toggle="modal" data-bs-target="" class="card-btn" onclick="DeleteFile('${Data.com_file_id}')">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7h16" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /><path d="M10 12l4 4m0 -4l-4 4" /></svg>
+                    Delete
+                </a>
+            </div>
                         </div>
                     `;
                     comfileElement.appendChild(div);
@@ -1605,9 +1611,44 @@ function viewfile(file) {
         modalBody.innerHTML = `<p>Unsupported file type</p>`;
     }
 }
-
 function handleError(err) {
     console.log(err);
 }
+function DeleteFile(id) {
+
+    alertify.confirm("Warning","Are You Sure You Want To Delete This File?",
+  function(){
+    var formData = new FormData();
+    formData.append('id', id);
+    formData.append('_token', '{{ csrf_token() }}');
+
+    $.ajax({
+        type: "POST",
+        url: "{{ route('DeleteFile') }}",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.message) {
+                GetCompendiumFiles();
+                alertify
+                .alert("Message",response.message, function(){
+             
+                    });
+              
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+           
+        }
+    });
+  },
+  function(){
+    alertify.error('Cancel');
+  });
+    
+}
+
 
 </script>
