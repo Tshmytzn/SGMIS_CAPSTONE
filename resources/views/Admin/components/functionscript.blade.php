@@ -1427,7 +1427,7 @@ function EditStudentAdminPosition(){
                 formData.append("com_id", document.getElementById("com_id").value);
             });
 
-            myDropzone.on("success", function(file, response) {
+            this.on("success", function(file, response) {
                 console.log("File uploaded successfully:", response);
               
                 if (response && response.status && response.status === 'success') {
