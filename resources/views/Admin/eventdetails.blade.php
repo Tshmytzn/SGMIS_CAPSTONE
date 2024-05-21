@@ -3,7 +3,7 @@
 <html lang="en">
 
 @include('Admin.components.header', ['title' => 'Event Details'])
-
+<link href="{{asset('./dist/libs/dropzone/dist/dropzone.css?1684106062')}}" rel="stylesheet"/>
 <style>
   .custom-dropdown:hover .dropdown-menu {
     display: block;
