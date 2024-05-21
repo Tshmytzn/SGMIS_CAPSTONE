@@ -209,7 +209,7 @@ function DeleteEvalForm(route, eval_id, empty) {
           }, 1000);
           alertify.set('notifier', 'position', 'top-right');
           alertify.warning('Evaluation Form was deleted').dismissOthers();
-
+          document.getElementById('mainLoader').style.display = 'none';
         }
       }, error: xhr => {
         console.log(xhr.responseText);
@@ -220,7 +220,7 @@ function DeleteEvalForm(route, eval_id, empty) {
 
 }
 
-function SubmitQuestion(q_num, route) {
+function SubmitQuestion(q_num, route, deleteQuestion, updateQuestion, getEvalQuestion) {
   const question = document.getElementById(`eval_form_question${q_num}`);
   const scale = document.getElementById(`eval_form_scale${q_num}`);
 
@@ -251,11 +251,11 @@ function SubmitQuestion(q_num, route) {
     document.getElementById('eval_question').value = question.value;
     document.getElementById('eval_scale').value = scale.value;
     document.getElementById('eval_num').value = q_num;
-    SaveQuestion(route, question.value, scale.value, q_num);
+    SaveQuestion(route, question.value, scale.value, q_num, deleteQuestion, updateQuestion, getEvalQuestion);
   }
 }
 
-function SaveQuestion(route, question, scale, q_num) {
+function SaveQuestion(route, question, scale, q_num, deleteQuestion, updateQuestion, getEvalQuestion) {
   document.getElementById('mainLoader').style.display = 'flex';
   var formData = $('form#formQuestions').serialize();
   $.ajax({
@@ -265,14 +265,21 @@ function SaveQuestion(route, question, scale, q_num) {
     success: res => {
       if (res.status === 'success') {
         document.getElementById('mainLoader').style.display = 'none';
+        const questionList = document.getElementById(`question_list${q_num}`);
         const content = document.getElementById(`question_content${q_num}`);
         const scaleTD = document.getElementById(`question_scale${q_num}`);
         const actions = document.getElementById(`question_action${q_num}`);
+        questionList.classList.add("alltrquestions");
+        questionList.id = `question_list${q_num}-${res.id}`;
+
 
         content.innerHTML = question;
         scaleTD.innerHTML = EvalScaleConvert(scale);
-        actions.innerHTML = `<button class="btn btn-outline-primary me-2">Edit</button>
-        <button class="btn btn-outline-danger">Delete</button>`;
+        actions.innerHTML = `<button class="btn btn-outline-primary me-2" onclick="ChangeUpdateDataQuestion('${updateQuestion}', '${res.id}', '${q_num}', '${getEvalQuestion}', '${deleteQuestion}')">Edit</button>
+        <button class="btn btn-outline-danger" onclick="SubmitDeleteQuestion('${deleteQuestion}', '${res.id}')">Delete</button>`;
+
+        document.getElementById('saveChanges').style.display = 'none';
+        document.getElementById('discardChanges').style.display = 'none';
       }
     }, error: xhr => {
       console.log(xhr.responseText)
@@ -301,15 +308,21 @@ function EvalScaleConvert(num) {
   }
 }
 
-function LoadEvalQuestion(route) {
-  const list = document.getElementById('question_list');
+function LoadEvalQuestion(route, deleteQuestion, updateQuestion, getEvalQuestion, method) {
+  if(method === 'discard'){
+    document.getElementById('mainLoader').style.display = 'flex';
+  }
+  const list = document.getElementById('question_list_data');
   $.ajax({
     type: "GET",
     url: route,
     dataType: 'json',
     success: res => {
+      list.innerHTML = '';
+      if(res.question.length > 0){
+        
       res.question.forEach(q => {
-        list.innerHTML += `<tr id="question_list${q.eq_num}">
+        list.innerHTML += `<tr class="alltrquestions" id="question_list${q.eq_num}-${q.eq_id}">
          <td id="qnum${q.eq_num}" scope="row">${q.eq_num}</td>
         
          <td id="question_content${q.eq_num}">
@@ -319,12 +332,32 @@ function LoadEvalQuestion(route) {
             ${EvalScaleConvert(q.eq_scale)}
          </td>
          <td id="question_action${q.eq_num}">
-         <button class="btn btn-outline-primary me-2">Edit</button>
-         <button class="btn btn-outline-danger">Delete</button>
+         <button class="btn btn-outline-primary me-2" onclick="ChangeUpdateDataQuestion('${updateQuestion}', '${q.eq_id}', '${q.eq_num}', '${getEvalQuestion}', '${deleteQuestion}')">Edit</button>
+         <button class="btn btn-outline-danger" onclick="SubmitDeleteQuestion('${deleteQuestion}', '${q.eq_id}')">Delete</button>
          </td>
      
      </tr>`
       });
+    }else{
+      list.innerHTML = `<tr id="empty_question">
+      <td colspan="6" class="text-center">
+      <div class="empty-img"><img src="${document.getElementById('empty_asset').value}" height="128" alt="">
+      </div>
+      <p class="empty-title">No Questions Added Yet</p>
+      <p class="empty-subtitle text-muted">
+        Please Add Questions to start publishing the evaluation form
+      </p>
+      </td>
+  </tr>`
+    }
+      if(method === 'discard'){
+        document.getElementById('mainLoader').style.display = 'none';
+        alertify.set('notifier','position', 'top-right');
+        alertify.warning('Questions Sequence Discarded');
+        document.getElementById('saveChanges').style.display = 'none';
+        document.getElementById('discardChanges').style.display = 'none';
+      }
+   
     }, error: xhr => {
       console.log(xhr.responseText);
     }
@@ -339,22 +372,217 @@ function EvalQuestionSwitchNum() {
     rowsData.push(rows[i].id);
   }
 
-  // Assign sequential numbers to the first cell of each <tr>
   for (let i = 1; i < rows.length; i++) {
     if(rows[1] != 'tr_head'){
-      let firstCell = rows[i].cells[0]; // Use cells[0] to get the first cell regardless of its type
+      let firstCell = rows[i].cells[0];
       if (firstCell) {
         firstCell.textContent = i;
       }
     }
-  }
 
+  }
+  document.getElementById('saveChanges').style.display = '';
+  document.getElementById('discardChanges').style.display = '';
+}
+
+  function SaveSwitchNumQuestion(route){
+    const table = document.getElementById('questionTable');
+    var rows = table.getElementsByTagName('tr');
+    var rowsData = [];
+    var dataUpdate = '';
+    for (var i = 0; i < rows.length; i++) {
+      rowsData.push(rows[i].id);
+    }
+    for (var i = 0; i < rows.length; i++) {
+      const getId = rowsData[i].split('-')[1];
+
+      if(i!=0){
+        const concatData = getId + '-' + i + ',';
+        dataUpdate += concatData;
+      }
+    }
+
+    document.getElementById('allnewplace').value = dataUpdate;
+    
+    SubmitSwitchNumQuestion(route);
+  
+}
+function SubmitSwitchNumQuestion(route){
+  document.getElementById('mainLoader').style.display = 'flex';
+   var formData = $('form#switchQuestion').serialize();
+
+   $.ajax({
+    type: "POST",
+    url: route,
+    data: formData,
+    success: res=>{
+      if(res.status == 'success'){
+        console.log(res.status);
+       document.getElementById('mainLoader').style.display = 'none';
+       alertify.set('notifier','position', 'top-right');
+       alertify.success('Questions Sequence Changed');
+       document.getElementById('discardChanges').style.display = 'none';
+       document.getElementById('saveChanges').style.display = 'none';
+      }
+    }, error: xhr => {
+      console.log(xhr.responseText);
+    }
+   })
+}
+
+
+function SubmitDeleteQuestion(route, id){
+  document.getElementById('delete_eq_id').value = id;
+  document.getElementById('mainLoader').style.display = 'flex';
+  DeleteQuestion(route);
+}
+
+function DeleteQuestion(route){
+ $.ajax({
+   type:"POST",
+   url: route,
+   data: $('form#deleteQuestion').serialize(),
+   success: res=>{
+    if(res.status === 'success'){
+      document.getElementById(`question_list${res.num}-${res.id}`).remove();
+      document.getElementById('forKeepQuestionCount').value = res.q_num;
+      EvalQuestionSwitchNum();
+      setTimeout(()=>{
+        SaveSwitchNumQuestion(document.getElementById('updateNumbering').value);
+      },100);
+
+      
+      document.getElementById('mainLoader').style.display = 'none';
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.warning('Question Deleted');
+      DisplayEmpty();
+    }
+   },error: xhr=>{
+    console.log(xhr.responseText);
+   }
+ });
+}
+
+function ChangeUpdateDataQuestion(route, id, q_num, getQuestion, deleteQuestion){
+  alertify.set('notifier', 'position', 'top-center')
+  alertify.warning('Processing....');
+  $.ajax({
+    type:"GET",
+    url: getQuestion + "?q_id=" + id,
+    dataType:"json",
+    success: res=>{
+      const trData = document.getElementById(`question_list${q_num}-${id}`);
+      trData.innerHTML = `<td  id="qnum${q_num}" scope="row">${q_num}</td>
+      <td id="question_content${q_num}">
+      <input type="text" id="eval_form_question${q_num}" class="form-control question-input" value="${res.question.eq_question}" name="evalname" placeholder="Question ${q_num}">
+      <label  id="eval_form_question_e${q_num}" style="display:none" class="text-sm text-danger" for="eval_form_question${q_num}">(No Input in this field)</label>
+      </td>
+      <td id="question_scale${q_num}">
+      <select id="eval_form_scale${q_num}" class="form-control">
+      <option ${res.question.eq_scale === 1 ? 'selected' : ''} value="1">Likert Scale(1-5) Strongly Disagree-Strongly Agree</option>   
+      <option ${res.question.eq_scale === 2 ? 'selected' : ''} value="2">Rating Scale(1-5) Poor-Excellent</option>
+      <option ${res.question.eq_scale === 3 ? 'selected' : ''} value="3">Performance Scale(1-5) Needs Improvement-Excellent</option>
+      <option ${res.question.eq_scale === 4 ? 'selected' : ''} value="4">Close Ended (Yes/No)</option>  
+      <option ${res.question.eq_scale === 5 ? 'selected' : ''} value="5">Open Ended (Describe)</option> 
+      </select>
+      <label style="display:none" id="eval_form_scale_e${q_num}" class="text-sm text-danger" for="eval_form_scale${q_num}">(No Selected Scale in this field)</label>
+      </td>
+      <td id="question_action${q_num}">
+      <button class="btn btn-outline-primary me-2 m-auto" 
+      onclick="SubmitUpdateQuestion('${route}', '${q_num}', '${id}', '${getQuestion}', '${deleteQuestion}')">
+      Update</button>
+      <button class="btn btn-outline-danger me-2 m-auto" 
+      onclick="DiscardUpdate('${q_num}','${id}', '${res.question.eq_question}', '${res.question.eq_scale}', '${getQuestion}', '${deleteQuestion}', '${route}')">
+      Discard</button>
+      </td>
+      `
+    }, error: xhr=>{
+      console.log(xhr.responseText);
+    }
+  });
 
 }
-/**
- * Todo: 
- * Load Questions,
- * Edit Questions
- * Delete Questions
- * Adjust Numbering
- */
+function SubmitUpdateQuestion(route, q_num, id, getQuestion, deleteQuestion){
+  document.getElementById('mainLoader').style.display = 'flex';
+
+  document.getElementById('update_q_id').value = id;
+  document.getElementById('update_q_name').value = document.getElementById(`eval_form_question${q_num}`).value;
+  document.getElementById('update_q_scale').value = document.getElementById(`eval_form_scale${q_num}`).value;
+
+  UpdateQuestion(route, q_num, id, getQuestion, deleteQuestion);
+}
+
+function UpdateQuestion(route, q_num, id, getQuestion,deleteQuestion){
+
+  $.ajax({
+    type:"POST",
+    url: route,
+    data: $('form#updateQuestion').serialize(),
+    success: res=>{
+      if(res.status === 'success'){
+        const trData = document.getElementById(`question_list${q_num}-${id}`);
+        trData.innerHTML = `<td id="qnum${q_num}" scope="row">${q_num}</td>
+        
+        <td id="question_content${q_num}">
+         ${res.question}
+        </td>
+        <td id="question_scale${q_num}">
+           ${EvalScaleConvert(res.scale)}
+        </td>
+        <td id="question_action${q_num}">
+        <button class="btn btn-outline-primary me-2" onclick="ChangeUpdateDataQuestion('${route}', '${id}', '${q_num}', '${getQuestion}')">Edit</button>
+        <button class="btn btn-outline-danger" onclick="SubmitDeleteQuestion('${deleteQuestion}', '${id}')">Delete</button>
+        </td>`;
+
+        document.getElementById('mainLoader').style.display = 'none';
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Question has been updated');
+      }
+    },error: xhr => {
+      console.log(xhr.responseText);
+    }
+  })
+}
+
+function DiscardUpdate(q_num, id, question, scale, getQuestion, deleteQuestion, updateQuestion){
+ const trData = document.getElementById(`question_list${q_num}-${id}`);
+
+ trData.innerHTML = ` <td id="qnum${q_num}" scope="row">${q_num}</td>
+        
+ <td id="question_content${q_num}">
+  ${question}
+ </td>
+ <td id="question_scale${q_num}">
+    ${EvalScaleConvert(scale)}
+ </td>
+ <td id="question_action${q_num}">
+ <button class="btn btn-outline-primary me-2" onclick="ChangeUpdateDataQuestion('${updateQuestion}', '${id}', '${q_num}', '${getQuestion}', '${deleteQuestion}')">Edit</button>
+ <button class="btn btn-outline-danger" onclick="SubmitDeleteQuestion('${deleteQuestion}', '${id}')">Delete</button>
+ </td>`;
+}
+
+function CancelAddQuestion(q_num){
+  const trData = document.getElementById(`question_list${q_num}`);
+  trData.remove();
+
+  EvalQuestionSwitchNum();
+
+  DisplayEmpty();
+}
+
+function DisplayEmpty(){
+  const allTr = document.querySelectorAll('.alltrquestions');
+
+  if(allTr.length === 0){
+    document.getElementById('question_list_data').innerHTML = `<tr id="empty_question">
+    <td colspan="6" class="text-center">
+    <div class="empty-img"><img src="${document.getElementById('empty_asset').value}" height="128" alt="">
+    </div>
+    <p class="empty-title">No Questions Added Yet</p>
+    <p class="empty-subtitle text-muted">
+      Please Add Questions to start publishing the evaluation form
+    </p>
+    </td>
+</tr>`;
+  }
+}

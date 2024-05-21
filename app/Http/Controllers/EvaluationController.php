@@ -62,7 +62,7 @@ class EvaluationController extends Controller
        $question->eq_num = $req->eval_num;
        $question->save();
 
-       return response()->json(['status'=>'success']);
+       return response()->json(['status'=>'success', 'id'=> $question->eq_id]);
     }
 
     public function GetAllEvalQuestion(Request $req){
@@ -72,7 +72,46 @@ class EvaluationController extends Controller
     }
 
     public function SwitchQuestionNum(Request $req){
+       $allData = explode(',', $req->allupdate);
+       array_pop($allData);
+       foreach($allData as $data){
+        $id = explode('-', $data)[0];
+
+        if($id !== '' || $id !== null){
+            $question = EvalQuestion::where('eq_id', $id)->first();
+            $question->update(['eq_num'=> explode('-', $data)[1]]);
+        }
+       }
+
+       return response()->json(['status'=> 'success']);
        
-       
+    }
+
+    public function DeleteEvalQuestion(Request $req){
+     if($req->eq_id != '' || $req->eq_id != null){
+        $eval = EvalQuestion::where('eq_id', $req->eq_id)->first();
+        $finalCount = EvalQuestion::where('eval_id', $req->eval_id)->get()->count() - 1;
+        $num = $eval->eq_num;
+        $eval->delete();
+        return response()->json(['status'=>'success', 'id'=> $req->eq_id, 'num'=> $num, 'q_count'=>$finalCount]);
+     }else{
+        return response()->json(['status'=>'success', 'id'=> 'none', 'num'=> 'none', 'q_count'=>'none']);
+     }
+    }
+
+    public function UpdateEvalQuestion(Request $req){
+        $eval = EvalQuestion::where('eq_id', $req->q_id)->first();
+        $eval->update([
+           'eq_question'=>$req->q_name,
+           'eq_scale'=> $req->q_scale,
+        ]);
+
+        return response()->json(['status'=>'success', 'question'=> $req->q_name, 'scale'=> $req->q_scale]);
+    }
+
+    public function GetEvalQuestion(Request $req){
+        $eval = EvalQuestion::where('eq_id', $req->q_id)->first();
+        
+        return response()->json(['question'=> $eval]);
     }
 }
