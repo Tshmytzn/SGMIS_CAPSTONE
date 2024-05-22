@@ -9,6 +9,7 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
             ->select('evaluation.*', 'school_event.event_name as event_name')
             ->where('evaluation.eval_id', $eval_id)
             ->first();
+$questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->count();
 @endphp
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
@@ -46,6 +47,25 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
 
                         <div class="position-relative" style="margin-top: -3%;">
                             <div class="display-flex justify-content-end position-absolute top-0 end-0 p-3">
+                                <button onclick="SaveSwitchNumQuestion('{{route('switchQuestionNum')}}')" class="btn btn-primary" style="display: none" id="saveChanges">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-sd-card">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M7 21h10a2 2 0 0 0 2 -2v-14a2 2 0 0 0 -2 -2h-6.172a2 2 0 0 0 -1.414 .586l-3.828 3.828a2 2 0 0 0 -.586 1.414v10.172a2 2 0 0 0 2 2z" />
+                                        <path d="M13 6v2" />
+                                        <path d="M16 6v2" />
+                                        <path d="M10 7v1" />
+                                      </svg> Save Changes
+                                </button>
+
+                                <button class="btn btn-danger" style="display: none" id="discardChanges" onclick="LoadEvalQuestion('{{route('getAllEvalQuestion')}}?eval_id={{$eval_id}}', '{{route('deleteEvalQuestion')}}', '{{route('updateEvalQuestion')}}', '{{route('getEvalQuestion')}}', 'discard')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M18 6l-12 12" />
+                                        <path d="M6 6l12 12" />
+                                      </svg> Discard Changes
+                                </button>
+
+
                                 <button class="btn btn-outline-primary" id="addQuestionBtn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -74,8 +94,15 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="question_list">
-
+                                    <tbody id="question_list_data">
+                                        <tr id="loading-question">
+                                            <td colspan="6" class="text-center">
+                                              <div class="text-muted mb-3">Loading Questions...</div>
+                                              <div class="progress progress-sm ">
+                                                <div class="progress-bar progress-bar-indeterminate"></div>
+                                              </div>
+                                            </td>
+                                            </tr>  
                                     </tbody>
                                 </table>
                             </div>
@@ -101,9 +128,25 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
     <form method="POST" id="switchQuestion">
         @csrf
         <input type="hidden" name="eval_id" value="{{ $eval_id }}">
-        <input type="hidden" name="old_index" id="switch_old">
-        <input type="hidden" name="new_index" id="switch_new">
+        <input type="hidden" name="allupdate" id="allnewplace">
     </form>
+
+    <form method="POST" id="deleteQuestion">
+        @csrf
+        <input type="hidden" name="eval_id" value="{{$eval_id}}">
+        <input type="hidden" name="eq_id" id="delete_eq_id">
+    </form>
+
+    <form method="POST" id="updateQuestion">
+        @csrf
+    <input type="hidden" name="q_id" id="update_q_id">
+    <input type="hidden" name="q_name" id="update_q_name" >
+    <input type="hidden" name="q_scale" id="update_q_scale">
+    </form>
+
+    <input type="hidden" id="forKeepQuestionCount" value=" {{$questionCount > 0 ? $questionCount + 1 : '1'}}">
+    <input type="hidden" id="updateNumbering" value="{{route('switchQuestionNum')}}">
+    <input type="hidden" value="{{asset('static/illustrations/undraw_joyride_hnno.svg')}}" id="empty_asset">
     @include('Admin.components.scripts')
 
     <script>
@@ -113,25 +156,25 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
              animation: 150,
              ghostClass: 'blue-background-class',
              onEnd: function (evt) {
-                    var oldIndex = evt.oldIndex;
-                    var newIndex = evt.newIndex;
-                    
-                    document.getElementById('switch_old').value = oldIndex;
-                    document.getElementById('switch_new').value = newIndex;
    
-                    EvalQuestionSwitchNum("{{route('switchQuestionNum')}}");
+                    EvalQuestionSwitchNum();
                 }
              });
 
-            LoadEvalQuestion("{{route('getAllEvalQuestion')}}?eval_id={{$eval_id}}");
+            LoadEvalQuestion("{{route('getAllEvalQuestion')}}?eval_id={{$eval_id}}", "{{route('deleteEvalQuestion')}}", "{{route('updateEvalQuestion')}}", "{{route('getEvalQuestion')}}", "load");
 
             const addQuestionBtn = document.getElementById('addQuestionBtn');
             const questionTableBody = document.querySelector('#questionTable tbody');
-            let questionCount = 1;
+            let questionCount = Number(document.getElementById('forKeepQuestionCount').value);
+       
     
             addQuestionBtn.addEventListener('click', function() {
+                var emptyData = document.getElementById('empty_question');
+                if(emptyData){
+                    emptyData.remove();
+                }
                 const newRow = `
-                    <tr id="question_list${questionCount}">
+                    <tr class="alltrquestions" id="question_list${questionCount}">
                         <td id="qnum${questionCount}" scope="row">${questionCount}</td>
                        
                         <td id="question_content${questionCount}">
@@ -150,9 +193,12 @@ $eval = App\Models\Evaluation::join('school_event', 'evaluation.event_id', '=', 
                             <label style="display:none" id="eval_form_scale_e${questionCount}" class="text-sm text-danger" for="eval_form_scale${questionCount}">(No Selected Scale in this field)</label>
                         </td>
                         <td id="question_action${questionCount}">
-                            <button class="btn btn-outline-primary me-2" 
-                            onclick="SubmitQuestion('${questionCount}', '{{ route('addEvalQuestion') }}')">
+                            <button class="btn btn-outline-primary me-2 m-auto" 
+                            onclick="SubmitQuestion('${questionCount}', '{{ route('addEvalQuestion') }}', '{{route('deleteEvalQuestion')}}', '{{route('updateEvalQuestion')}}', '{{route('getEvalQuestion')}}')">
                             Save</button>
+                            <button class="btn btn-outline-danger me-2 m-auto" 
+                            onclick="CancelAddQuestion('${questionCount}')">
+                            Cancel</button>
                         </td>
                     
                     </tr>

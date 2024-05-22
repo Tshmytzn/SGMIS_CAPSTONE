@@ -55,6 +55,8 @@ Route::post('Admin/Evaluation/CreateEvalForm',[EvaluationController::class,'Crea
 Route::post('Admin/Evaluation/DeleteEvalForm',[EvaluationController::class,'DeleteEvalForm'] )->name('deleteEvalForm');
 Route::post('Admin/Evaluation/EvalDetails/AddQuestion',[EvaluationController::class,'AddEvalQuestion'] )->name('addEvalQuestion');
 Route::post('Admin/Evaluation/EvalDetails/SwitchQuestionNum',[EvaluationController::class,'SwitchQuestionNum'] )->name('switchQuestionNum');
+Route::post('Admin/Evaluation/EvalDetails/DeleteEvalQuestion',[EvaluationController::class,'DeleteEvalQuestion'] )->name('deleteEvalQuestion');
+Route::post('Admin/Evaluation/EvalDetails/UpdateEvalQuestion',[EvaluationController::class,'UpdateEvalQuestion'] )->name('updateEvalQuestion');
 //Rheyan Get Route
 Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
 Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
@@ -68,6 +70,7 @@ Route::get('Events/getEvent/getProgramme',[SchoolEvent::class,'GetProgrammeList'
 Route::get('Evaluation/getEvalDetails',[EvaluationController::class,'GetEvalForm'] )->name('getEvalForm');
 Route::get('Evaluation/getAllEval',[EvaluationController::class,'GetAllEvalForm'] )->name('getAllEvalForm');
 Route::get('Evaluation/getAllEvalQuestion',[EvaluationController::class,'GetAllEvalQuestion'] )->name('getAllEvalQuestion');
+Route::get('Evaluation/GetEvalQuestion',[EvaluationController::class,'GetEvalQuestion'] )->name('getEvalQuestion');
 
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
@@ -90,6 +93,7 @@ Route::post('Admin/DemoteAdmin',[AdminData::class,'DemoteAdmin'] )->name('Demote
 Route::post('Admin/DemoteStudentAdmin',[AdminData::class,'DemoteStudentAdmin'] )->name('DemoteStudentAdmin');
 Route::post('Admin/AddCompendium',[CompendiumData::class,'AddCompendium'] )->name('AddCompendium');
 Route::post('Admin/UploadCompendiumFile', [CompendiumData::class,'UploadCompendiumFile'])->name('UploadCompendiumFile');
+Route::post('Admin/DeleteFile', [CompendiumData::class,'DeleteFile'])->name('DeleteFile');
 
 
 // jpubas route get
