@@ -432,9 +432,14 @@ function SubmitSwitchNumQuestion(route){
 
 
 function SubmitDeleteQuestion(route, id){
+  alertify.confirm('Delete Question', 'Are you sure do you want to delete this question?',
+   function(){ 
   document.getElementById('delete_eq_id').value = id;
   document.getElementById('mainLoader').style.display = 'flex';
   DeleteQuestion(route);
+    }
+  , function(){ console.log('cancel')});
+  
 }
 
 function DeleteQuestion(route){
