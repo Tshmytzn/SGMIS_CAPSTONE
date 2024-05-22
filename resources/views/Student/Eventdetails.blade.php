@@ -265,7 +265,7 @@
                         color: '#008631',
                         fillColor: '#cefad0',
                         fillOpacity: 0.3,
-                        radius: 150
+                        radius: 100
                     }).addTo(map).bindPopup('Carlos Hilado Memorial State University Campus');
 
                     // Define the custom icon using the SVG for the school

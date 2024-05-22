@@ -49,7 +49,7 @@
                         <div class="col-lg-12" style="height: 100vh; display: flex; flex-direction: column;">
                             <div class="card" style="flex: 1; display: flex; flex-direction: column;">
                                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                                    <h3 class="card-title">Multiple File Upload</h3>
+                                    <h3 class="card-title">Upload Compendium</h3>
                                     <form class="dropzone" id="dropzone-multiple"
                                         action="{{ route('UploadCompendiumFile') }}" autocomplete="off" novalidate
                                         style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
@@ -81,7 +81,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                      <iframe src="" class="displayfile" width="600px" height="auto" frameborder="0"></iframe>
+                      <iframe src="" class="displayfile" width="100%" height="auto" frameborder="0"></iframe>
                      {{-- <embed class="displayfile" src="" width="300px" height="auto" /> --}}
                       </div>
                       <div class="modal-footer">
