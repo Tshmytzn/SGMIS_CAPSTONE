@@ -46,7 +46,7 @@ class CompendiumData extends Controller
     }
     public function GetCompendiumFiles(Request $request){
 
-      $get = CompendiumFile::where('com_id',$request->id)->get();
+      $get = CompendiumFile::where('com_id',$request->id)->orderBy('created_at','desc')->get();
       return response()->json(['data' => $get]);
     }
     public function DeleteFile(Request $request){
