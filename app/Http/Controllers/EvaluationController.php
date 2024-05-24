@@ -114,4 +114,20 @@ class EvaluationController extends Controller
         
         return response()->json(['question'=> $eval]);
     }
+
+    public function LoadQuestionEvaluate(Request $req){
+       $question = EvalQuestion::where('eval_id', $req->eval_id)->orderBy('eq_num', 'asc')->get();
+       return response()->json(['question'=>$question]);
+    }
+
+    public function EvaluationSaveResult(Request $request){
+    $input = $request->all();
+    
+    $data= [];
+    foreach ($input as $key => $value) {
+      array_push($data, [$key, $value]);
+    }
+
+    return response()->json(['data'=>$data]);
+   }
 }

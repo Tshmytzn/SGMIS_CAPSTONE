@@ -72,7 +72,7 @@
         var getAllEvalRoute = "{{ route('getAllEvalForm') }}";
         var emptyPlaceholder = "{{ asset('./static/illustrations/reading.svg') }}";
         var evalForm = "{{ route('getEvalForm') }}";
-        var viewEval = "{{ route('ViewEvaluations') }}";
+        var viewEval = "{{ route('studentEvaluate') }}";
         var evalImage = "{{ asset('event_images') }}";
         var deleteEval = "{{ route('deleteEvalForm') }}"
        window.onload= ()=>{

@@ -604,3 +604,149 @@ function DisplayEmpty(){
 </tr>`;
   }
 }
+
+//Evaluate Events By Student
+function LoadEvaluateQuestion(route){
+  const list = document.getElementById('questionList');
+  $.ajax({
+    type:"GET",
+    url: route,
+    dataType: "json",
+    success: res=>{
+      res.question.forEach(data=>{
+        if(data.eq_scale == 1){
+          list.innerHTML += `<div id="q${data.eq_num}" class="mt-3">
+          <div class="form-label"> ${data.eq_num }. ${data.eq_question}</div>
+          <div>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="5" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(5)Strongly Agree</span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="4" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(4)Agree</span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="3" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(3)Neutral</span>
+            </label>
+            <label class="form-check form-check-inline">
+            <input class="form-check-input" value="2" type="radio" name="quest${data.eq_id}" >
+            <span class="form-check-label">(2)Disagree</span>
+          </label>
+          <label class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" value="1" name="quest${data.eq_id}" >
+          <span class="form-check-label">(1)Strongly Disagree</span>
+        </label>
+          </div>
+         </div>`;
+        }else if(data.eq_scale == 2){
+          list.innerHTML += `<div id="q${data.eq_num}" class="mt-3">
+          <div class="form-label">${data.eq_num}. ${data.eq_question}</div>
+          <div>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="5" name="quest${data.eq_id}" >
+              <span class="form-check-label">(5)Excellent</span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="4" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(4)Very Good</span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="3" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(3)Good</span>
+            </label>
+            <label class="form-check form-check-inline">
+            <input class="form-check-input" value="2" type="radio" name="quest${data.eq_id}" >
+            <span class="form-check-label">(2)Fair</span>
+          </label>
+          <label class="form-check form-check-inline">
+          <input class="form-check-input" value="1" type="radio" name="quest${data.eq_id}" >
+          <span class="form-check-label">(1)Poor</span>
+          </label>
+          </div>
+         </div>`;
+        }else if(data.eq_scale == 3){
+          list.innerHTML += `<div id="q${data.eq_num}" class="mt-3">
+          <div class="form-label">${data.eq_num}. ${data.eq_question}</div>
+          <div>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="5" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(5)Excellent</span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="4" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(4)Very Good</span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" value="3" type="radio" name="quest${data.eq_id}" >
+              <span class="form-check-label">(3)Good</span>
+            </label>
+            <label class="form-check form-check-inline">
+            <input class="form-check-input" value="2" type="radio" name="quest${data.eq_id}" >
+            <span class="form-check-label">(2)Satisfactory</span>
+          </label>
+          <label class="form-check form-check-inline">
+          <input class="form-check-input" value="1" type="radio" name="quest${data.eq_id}" >
+          <span class="form-check-label">(1)Needs Improvement</span>
+        </label>
+          </div>
+         </div>`;
+        }else if(data.eq_scale == 4){
+          list.innerHTML += `  <div id="q${data.eq_num}" class="mt-3">
+          <label class="form-label">${data.eq_num}. ${data.eq_question}</label>
+          <div class="form-selectgroup">
+            <label class="form-selectgroup-item">
+              <input type="radio" name="quest${data.eq_id}" value="yes" class="form-selectgroup-input">
+              <span class="form-selectgroup-label"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12l5 5l10 -10" />
+              </svg>
+                Yes</span>
+            </label>
+            <label class="form-selectgroup-item">
+              <input type="radio" name="quest${data.eq_id}" value="no" class="form-selectgroup-input">
+              <span class="form-selectgroup-label"><!-- Download SVG icon from http://tabler-icons.io/i/user -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M18 6l-12 12" />
+              <path d="M6 6l12 12" />
+            </svg>
+                No</span>
+            </label>
+  
+          </div>
+         </div>
+  `
+        }else{
+          list.innerHTML += ` <div id="qid="q${data.eq_num}"" class="mt-3">
+          <label class="form-label">${data.eq_num}. ${data.eq_question} <span class="form-label-description">56/100</span></label>
+          <textarea class="form-control" name="quest${data.eq_id}" rows="3" placeholder="Content.."></textarea>
+         </div>`
+        }
+      });
+       
+    },error: xhr=>{
+      console.log(xhr.responseText);
+    }
+  });
+}
+
+function SubmitEvaluationStudent(route){
+  $.ajax({
+    type:"POST",
+    data: $('form#questionList').serialize(),
+    url:route,
+    success: res=>{
+     console.log(res.data);
+    }, error: xhr=>{
+      console.log(xhr.responseText);
+    }
+  })
+}
+
+//Evaluation Results Charts
+function LoadChartQuestions(){
+
+}
