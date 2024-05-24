@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Evaluation;
 use App\Models\SchoolEvents;
 use App\Models\EvalQuestion;
+use App\Models\EvalResult;
 
 class EvaluationController extends Controller
 {
@@ -123,11 +124,31 @@ class EvaluationController extends Controller
     public function EvaluationSaveResult(Request $request){
     $input = $request->all();
     
-    $data= [];
+    $quest_id= [];
+    $val = [];
     foreach ($input as $key => $value) {
-      array_push($data, [$key, $value]);
+      if($key === 'student_id'){
+          $student_id = $value;
+      }else if($key != '_token'){
+        $id = preg_replace('/\D/', '', $key);
+        array_push($quest_id, $id);
+        array_push($val, $value);
+      }
     }
 
-    return response()->json(['data'=>$data]);
+    for($i = 0; $i < count($quest_id); $i++){
+        $res = EvalResult::where('eq_id', $quest_id[$i])->first();
+        if($res){
+           $res->update(['res_value'=>$val[$i]]);
+        }else{
+        $quest = new EvalResult();
+        $quest->student_id = $student_id;
+        $quest->eq_id = $quest_id[$i];
+        $quest->res_value = $val[$i];
+        $quest->save(); 
+        }    
+    }
+
+    return response()->json(['status'=>'success']);
    }
 }

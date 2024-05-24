@@ -734,12 +734,18 @@ function LoadEvaluateQuestion(route){
 }
 
 function SubmitEvaluationStudent(route){
+  document.getElementById('mainLoader').style.display = 'flex';
   $.ajax({
     type:"POST",
     data: $('form#questionList').serialize(),
     url:route,
     success: res=>{
-     console.log(res.data);
+  
+     if(res.status === 'success'){
+      document.getElementById('mainLoader').style.display = 'none';
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success('Evaluation Result Submitted');
+     }
     }, error: xhr=>{
       console.log(xhr.responseText);
     }

@@ -3,8 +3,7 @@
 <html lang="en">
 
 @include('Student.components.head', ['title'=>'Evaluate'])
-@include('Student.components.header')
-@include('Student.components.nav')
+
 @php
     $eval = App\Models\Evaluation::where('eval_id', $eval_id)->first();
     $event = App\Models\SchoolEvents::where('event_id', $eval->event_id)->first();
@@ -12,6 +11,9 @@
     $num = 1;
 @endphp
   <body >
+    @include('Admin.components.loading')
+    @include('Student.components.header')
+@include('Student.components.nav')
 
     <div class="page">
       <div class="page-wrapper">
@@ -21,7 +23,7 @@
             <div class="row g-2 align-items-center">
               <div class="col">
                 <h2 class="page-title">
-                  Evaluate: <a href="{{ route('ViewDetails') }}?event_id={{ $eval->event_id }}">{{ $event->event_name }}({{ $eval->eval_name }})</a>
+                  <a href="{{ route('ViewDetails') }}?event_id={{ $eval->event_id }}">{{ $event->event_name }}({{ $eval->eval_name }})</a>
                 </h2>
               </div>
             </div>
@@ -45,7 +47,8 @@
               </svg> Evaluate this event</button>
             </div>
              <form id="questionList" class="mt-4">
-               @csrf 
+               @csrf
+               <input type="hidden" name="student_id" value="1"> 
              </form>
            
           </div>

@@ -13,6 +13,10 @@
     <link href="{{asset('./dist/css/tabler-vendors.min.css?1684106062')}}" rel="stylesheet"/>
     <link href="{{asset('./dist/css/demo.min.css?1684106062')}}" rel="stylesheet"/>
     <link href="{{asset('./dist/css/event.css')}}" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs/build/css/themes/default.min.css" />
 
     <style>
       @import url('https://rsms.me/inter/inter.css');
