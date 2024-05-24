@@ -132,6 +132,7 @@
                                         <th>Venue</th>
                                         <th>Facilitator</th>
                                         <th>Date & Time</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody id="act_list">
@@ -186,29 +187,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-2">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h3 class="card-title">Participating Departments</h3>
-                        </div>
-                        <div class="row row-cards" id="event_department_list">
-
-                            <div class="page page-center mt-4" id="loading-dept">
-                                <div class="container container-slim py-4">
-                                    <div class="text-center">
-                                        <div class="mb-3">
-                                            <a href="." class="navbar-brand navbar-brand-autodark"><img
-                                                    src="{{ asset('./static/logoicon.png') }}" height="50"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="text-muted mb-3">Loading Departments</div>
-                                        <div class="progress progress-sm">
-                                            <div class="progress-bar progress-bar-indeterminate"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+               
                 </div>
 
                 {{-- MODALS --}}
@@ -311,6 +290,15 @@
             });
         </script>
 
+
+<script>
+    //Event Details Load
+    window.onload = function(){
+        EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
+        LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}", 'student');
+        LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}","{{asset('programme_images')}}", "{{asset('static/illustrations/undraw_joyride_hnno.svg')}}", "{{route('removeProgramme')}}", 'student');
+    }
+</script>
 </body>
 
 </html>

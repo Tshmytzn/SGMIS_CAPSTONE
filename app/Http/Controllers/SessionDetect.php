@@ -103,4 +103,7 @@ class SessionDetect extends Controller
             return view('Admin.login');
         }
     }
+    public function StudentViewEventDetails(Request $req){
+        return view('Student.EventDetails', ['event_id'=>$req->event_id]); 
+    }
 }

@@ -124,5 +124,5 @@ Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank
 Route::get('StudentDashboard', function () { return view('Student.index'); })->name('StudentDashboard');
 Route::get('EventDashboard', function () { return view('Student.event'); })->name('EventDashboard');
 Route::get('EventEvaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
-Route::get('ViewDetails', function () { return view('Student.eventdetails'); })->name('ViewDetails');
+Route::get('ViewDetails', [SessionDetect::class, 'StudentViewEventDetails'])->name('ViewDetails');
 Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');

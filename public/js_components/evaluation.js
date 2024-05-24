@@ -43,7 +43,7 @@ function VerifyCreateEvalForm(route, evalForm, viewEval, images, deleteEval, emp
 
 }
 
-function CreateEvalForm(route, evalForm, viewEval, images, deleteEval, emptys) {
+function CreateEvalForm(route, evalForm, viewEval, images, deleteEval, emptys, where) {
   var formData = $('form#createeval').serialize();
   document.getElementById('mainLoader').style.display = 'flex';
   const empty = document.getElementById('empty_eval');
@@ -58,7 +58,7 @@ function CreateEvalForm(route, evalForm, viewEval, images, deleteEval, emptys) {
         if (empty) {
           empty.remove();
         }
-        AddEvalForm(evalForm, res.eval_id, viewEval, images, deleteEval, emptys);
+        AddEvalForm(evalForm, res.eval_id, viewEval, images, deleteEval, emptys, where);
         document.getElementById('closeEvalForm').click();
         document.getElementById('mainLoader').style.display = 'none';
       } else {
@@ -72,7 +72,7 @@ function CreateEvalForm(route, evalForm, viewEval, images, deleteEval, emptys) {
   });
 }
 
-function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty) {
+function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty, where) {
 
   const route = evalForm + "?eval_id=" + eval_id;
   const list = document.getElementById('eval_list');
@@ -97,24 +97,37 @@ function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty) {
                     </div>
                 </a>
                     <div class="d-flex">
-                        <a href="${viewEval}?eval_id=${eval_id}" 
-                            class="card-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                <path
-                                    d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                <path d="M16 5l3 3" />
-                            </svg>
-                                 Edit
-                        </a>
-                        <a href="#" onclick="DeleteEvalForm('${deleteEval}', '${res.eval.eval_id}', '${empty}')"
-                            class="card-btn">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                             Delete</a>
+                      ${where === 'admin' ? `  <a href="${viewEval}?eval_id=${eval_id}" 
+                      class="card-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round"
+                          class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                          <path
+                              d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                          <path d="M16 5l3 3" />
+                      </svg>
+                           Edit
+                  </a>
+                  <a href="#" onclick="DeleteEvalForm('${deleteEval}', '${res.eval.eval_id}', '${empty}')"
+                      class="card-btn">
+                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                       Delete</a>` : `<a href="${viewEval}?eval_id=${eval_id}" 
+                       class="card-btn">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                           stroke-linecap="round" stroke-linejoin="round"
+                           class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                           <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                           <path
+                               d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                           <path d="M16 5l3 3" />
+                       </svg>
+                            Evaluate Form
+                   </a>`}
                     </div>
                 </div>
             </div>`;
@@ -132,7 +145,7 @@ function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty) {
   })
 }
 
-function LoadEvaluationForm(getAll, empty, evalForm, viewEval, evalImage, deleteEval) {
+function LoadEvaluationForm(getAll, empty, evalForm, viewEval, evalImage, deleteEval, where) {
   $.ajax({
     type: "GET",
     url: getAll,
@@ -161,7 +174,7 @@ function LoadEvaluationForm(getAll, empty, evalForm, viewEval, evalImage, delete
        </div> `
       } else {
         res.eval.forEach(ev => {
-          AddEvalForm(evalForm, ev.eval_id, viewEval, evalImage, deleteEval, empty);
+          AddEvalForm(evalForm, ev.eval_id, viewEval, evalImage, deleteEval, empty, where);
         });
       }
     }, error: xhr => {

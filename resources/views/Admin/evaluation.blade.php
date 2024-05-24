@@ -137,7 +137,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="closeEvalForm" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="VerifyCreateEvalForm('{{ route('createEvalForm') }}', '{{ route('getEvalForm') }}', '{{ route('ViewEvaluations') }}', '{{ asset('event_images') }}', '{{ route('deleteEvalForm') }}', '{{ asset('./static/illustrations/reading.svg') }}')">Save</button>
+                            <button type="button" class="btn btn-primary" onclick="VerifyCreateEvalForm('{{ route('createEvalForm') }}', '{{ route('getEvalForm') }}', '{{ route('ViewEvaluations') }}', '{{ asset('event_images') }}', '{{ route('deleteEvalForm') }}', '{{ asset('./static/illustrations/reading.svg') }}','admin')">Save</button>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
         var evalImage = "{{ asset('event_images') }}";
         var deleteEval = "{{ route('deleteEvalForm') }}"
        window.onload= ()=>{
-        LoadEvaluationForm(getAllEvalRoute, emptyPlaceholder, evalForm, viewEval, evalImage, deleteEval);
+        LoadEvaluationForm(getAllEvalRoute, emptyPlaceholder, evalForm, viewEval, evalImage, deleteEval, 'admin');
        }
     </script>
     @include('Admin.components.scripts')

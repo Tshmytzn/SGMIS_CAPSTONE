@@ -146,7 +146,7 @@
 
 <script>
   window.onload = function(){
-    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}");
+    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}",'admin');
   }
 
 </script>
