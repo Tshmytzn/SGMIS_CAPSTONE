@@ -833,10 +833,9 @@
                         clearFormInputs('EditAdminInfoForm');
                         reloadElementById('EditAdminInfoForm');
                         const imgElement = document.getElementById('adminpicture');
-                        const currentSrc = imgElement.src;
-
-                        const newSrc = currentSrc.split('?')[0] + '?' + new Date().getTime();
-                        imgElement.src = newSrc;
+                                const currentSrc = imgElement.src;
+                                const newSrc = currentSrc.split('?')[0] + '?' + new Date().getTime();
+                                imgElement.src = newSrc;
                         alertify
                             .alert("Message", "Admin Image Successfully Updated", function() {
                                 alertify.message('OK');
@@ -1204,60 +1203,78 @@
     }
 
     function GetAllStudentAdminData() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('GetAllStudentAdminData') }}",
-            success: function(response) {
+    $.ajax({
+        type: "GET",
+        url: "{{ route('GetAllStudentAdminData') }}",
+        success: function(response) {
+            document.getElementById("adminCard2").innerHTML = "";
 
-                document.getElementById("adminCard2").innerHTML = "";
-                response.data.forEach(function(Data) {
-
-                    var div = document.createElement("div");
-                    div.setAttribute("id", "administrators-card2");
-                    div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
-
-                    div.innerHTML = `
-        <div class="card">
-            <div class="card-body p-4 text-center">
-                <span class="avatar avatar-xl mb-3 rounded" ><img src="student_images/${Data.student_pic}" alt="picture">  </span>
-                <h3 class="m-0 mb-1">${Data.student_firstname+' '+Data.student_lastname}</h3>
-                <div class="text-muted">${Data.student_position}</div>
-                <div class="mt-3">
-                    <span class="badge bg-green-lt">${Data.student_type}</span>
-                </div>
-            </div>
-            <div class="d-flex">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#editstudentadmin" class="card-btn" onclick="editstudentadmin('${Data.student_id}','${Data.student_firstname}','${Data.student_lastname}','${Data.school_id}','${Data.student_position}')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
-                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
-                        <path d="M16 5l3 3"/>
-                    </svg>                                
-                    &nbsp; Edit
-                </a>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#studentdemote" class="card-btn" onclick="DemoteStudent('${Data.student_id}')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down-to-arc">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M12 3v12"/>
-                        <path d="M16 11l-4 4l-4 -4"/>
-                        <path d="M3 12a9 9 0 0 0 18 0"/>
-                    </svg>
-                    &nbsp; Demote
-                </a>
-            </div>
-        </div>
-    `;
-                    document.getElementById("adminCard2").appendChild(div);
-                    runCardAnimation();
-                });
-
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+            if (response.data.length === 0) {
+                document.getElementById("adminCard2").innerHTML = `
+                    <div class="page-body">
+                        <div class="container-xl d-flex flex-column justify-content-center">
+                            <div class="empty">
+                                <div class="empty-img"><img src="./static/illustrations/undraw_joyride_hnno.svg" height="128" alt=""></div>
+                                <p class="empty-title">No Student Admin Found!</p>
+                                <p class="empty-subtitle text-muted">
+                                    No student admin record found! Please select a student admin first. </p>
+                            
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
             }
-        });
-    }
+
+            response.data.forEach(function(Data) {
+                var div = document.createElement("div");
+                div.setAttribute("id", "administrators-card2");
+                div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
+
+                div.innerHTML = `
+                    <div class="card">
+                        <div class="card-body p-4 text-center">
+                            <span class="avatar avatar-xl mb-3 rounded">
+                                <img src="student_images/${Data.student_pic}" alt="picture">
+                            </span>
+                            <h3 class="m-0 mb-1">${Data.student_firstname} ${Data.student_lastname}</h3>
+                            <div class="text-muted">${Data.student_position}</div>
+                            <div class="mt-3">
+                                <span class="badge bg-green-lt">${Data.student_type}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#editstudentadmin" class="card-btn" onclick="editstudentadmin('${Data.student_id}', '${Data.student_firstname}', '${Data.student_lastname}', '${Data.school_id}', '${Data.student_position}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
+                                    <path d="M16 5l3 3"/>
+                                </svg>
+                                &nbsp; Edit
+                            </a>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#studentdemote" class="card-btn" onclick="DemoteStudent('${Data.student_id}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-down-to-arc">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M12 3v12"/>
+                                    <path d="M16 11l-4 4l-4 -4"/>
+                                    <path d="M3 12a9 9 0 0 0 18 0"/>
+                                </svg>
+                                &nbsp; Demote
+                            </a>
+                        </div>
+                    </div>
+                `;
+                document.getElementById("adminCard2").appendChild(div);
+                runCardAnimation();
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
 
     function DemoteStudent(id) {
         document.getElementById('demotestudentid').value = id;
@@ -1403,28 +1420,50 @@
     }
 
     function GetAllCompendium() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('GetAllCompendium') }}",
-            success: function(response) {
-               
+    $.ajax({
+        type: "GET",
+        url: "{{ route('GetAllCompendium') }}",
+        success: function(response) {
+            // Check if the response is empty
+            if (response.data.length === 0) {
+                // Display the 'Feature Coming Soon' message
+                document.getElementById("eventsContainer").innerHTML = `
+                    <div class="page-body">
+                        <div class="container-xl d-flex flex-column justify-content-center">
+                            <div class="empty">
+                                <div class="empty-img"><img src="./static/illustrations/undraw_printing_invoices_5r4r.svg" height="128" alt="">
+                                </div>
+                                <p class="empty-title">Feature Coming Soon!</p>
+                                <p class="empty-subtitle text-muted">
+                                    This feature is not yet ready for the pre-oral defense stage. Stay tuned as it will be available for the final defense. See you there!
+                                </p>
+                                <div class="empty-action">
+                                    <a href="./." class="btn btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                        Stay tuned!
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Clear the container
                 document.getElementById("eventsContainer").innerHTML = "";
 
-              
+                // Iterate over each event in the response
                 response.data.forEach(function(event) {
-                  
                     var div = document.createElement("div");
-                    div.setAttribute("class",
-                        " col-md-3 col-sm-4 animate__animated animate__zoomIn");
+                    div.setAttribute("class", "col-md-3 col-sm-4 animate__animated animate__zoomIn");
 
                     div.innerHTML = `
                         <div class="card card-link card-link-pop folder ">
                             <div class="ribbon ribbon-top bg-yellow">
-                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-pinned"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" /><path d="M12 16l0 5" /><path d="M8 4l8 0" /></svg>                  
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pinned"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" /><path d="M12 16l0 5" /><path d="M8 4l8 0" /></svg>                  
                             </div>
                             <div class="card-body">
                                 <h3 class="card-title">${event.event_name}</h3>
-                                 <h4>${event.com_name}</h4>
+                                <h4>${event.com_name}</h4>
                                 <p class="text-muted">${event.event_description}</p>
                             </div>
                             <!-- Card footer -->
@@ -1446,8 +1485,10 @@
                     document.getElementById("eventsContainer").appendChild(div);
                 });
             }
-        });
-    }
+        }
+    });
+}
+
 
     Dropzone.options.dropzoneMultiple = {
         paramName: "file",

@@ -45,6 +45,8 @@
                               $adminAcc = App\Models\Admin::where('admin_id',session('admin_id'))->first();
                             @endphp
                             <h3 class="card-title">Profile Details</h3>
+                            <form action="" method="POST" id="EditAdminInfoForm">
+                              @csrf
                             <div class="row align-items-center">
                               <div class="col-auto"><span class="avatar avatar-xl"><img src="dept_image/{{$adminAcc->admin_pic}}" alt="" id="adminpicture"></span>
                               </div>
@@ -56,8 +58,7 @@
                             </div>
                             <h3 class="card-title mt-4">Student Profile</h3>
                           
-                            <form action="" method="POST" id="EditAdminInfoForm">
-                              @csrf
+                           
                            
                             <div class="row g-3">
                               <div class="col-md">
@@ -205,6 +206,25 @@
                       </div>
 
                         <div class="row g-5" id="adminCard2">
+                          <div class="page-body">
+                            <div class="container-xl d-flex flex-column justify-content-center">
+                              <div class="empty">
+                                <div class="empty-img"><img src="./static/illustrations/undraw_printing_invoices_5r4r.svg" height="128" alt="">
+                                </div>
+                                <p class="empty-title">Feature Coming Soon!</p>
+                                <p class="empty-subtitle text-muted">
+                                  This feature is not yet ready for the pre-oral defense stage. Stay tuned as it will be available for the final defense. See you there!
+                                </p>
+                                <div class="empty-action">
+                                  <a href="./." class="btn btn-primary">
+                                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                    Stay tuned!
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           {{-- <div id="administrators-card" class="col-md-6 col-lg-4 admincardeffects">
                             <div class="card">
                               <div class="card-body p-4 text-center">
