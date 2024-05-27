@@ -1,4 +1,4 @@
- 
+
  <!-- Navbar -->
  <header class="navbar navbar-expand-md d-print-none" >
     <div class="container-xl">
@@ -46,7 +46,7 @@
   </header>
 
   {{-- logout modal --}}
-<div class="modal modal-blur fade" id="logoutmodal" tabindex="-1" role="dialog" aria-hidden="true">
+{{-- <div class="modal modal-blur fade" id="logoutmodal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
     <div class="modal-content">
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -64,8 +64,8 @@
               <a href="#" class="btn w-100" data-bs-dismiss="modal">
                 Cancel
               </a>
-            </div>
-            <div class="col">
+            </div> --}}
+            {{-- <div class="col">
               <a href="#" class="btn btn-danger w-100" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 Yes, Logout
               </a>
@@ -75,7 +75,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 {{-- logout modal --}}
 
  {{-- modal --}}
@@ -110,10 +110,10 @@
                                       data-bs-dismiss="modal">Edit Profile</button>
                               </div>
                               <div class="col text-end ">
-                                  <form method="POST" action="{{ route('AdminLogout') }}">
+                                  <form method="POST" action="{{ route('LogoutStudent') }}">
                                       @csrf
                                       <button type="submit" class="btn btn-danger btn-block ms"
-                                          style="width: 120px" data-bs-toggle="modal" data-bs-target="#logoutmodal">Logout</button>
+                                          style="width: 120px">Logout</button>
                                   </form>
                               </div>
                           </div>

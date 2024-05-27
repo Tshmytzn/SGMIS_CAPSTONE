@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\StudentAccounts;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 class Login extends Controller
@@ -28,4 +29,28 @@ class Login extends Controller
     Session::forget('admin_id');
     return redirect()->route('AdminLogin');
    }
+
+   public function LoginStudent (Request $req) {
+
+    $student = StudentAccounts::where('school_id', $req->studentusername)->first();
+
+    if($student) {
+    if(Hash::check($req->studentpass, $student->student_pass)){
+          Session::put('student_id', $student->student_id);
+          return response()->json(['status'=>'success']);
+      }else{
+          return response()->json(['status'=>'incorrect']);
+      }
+    }else{
+      return response()->json(['status'=>'not_found']);
+    }
+    }
+
+    public function LogoutStudent(Request $req){
+
+        // Session::forget('student_id');
+        return redirect()->route('Userlogin');
+       }
+
 }
+

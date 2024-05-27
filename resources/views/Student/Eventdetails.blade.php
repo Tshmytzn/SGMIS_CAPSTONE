@@ -132,7 +132,7 @@
                                         <th>Venue</th>
                                         <th>Facilitator</th>
                                         <th>Date & Time</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody id="act_list">
@@ -187,7 +187,7 @@
                             </div>
                         </div>
                     </div>
-               
+
                 </div>
 
                 {{-- MODALS --}}

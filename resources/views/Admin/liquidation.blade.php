@@ -2,14 +2,14 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Budgeting'])
+@include('Admin.components.header', ['title' => 'Liquidation'])
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'Budgeting'])
+        @include('Admin.components.nav', ['active' => 'Liquidation'])
 
         <div class="page-wrapper">
 
@@ -24,7 +24,7 @@
                                 Overview
                             </div>
                             <h2 class="page-title">
-                                Budgeting
+                                Liquidation
                             </h2>
                         </div>
 
@@ -47,18 +47,15 @@
                                     </div>
                                 </div>
                                 <button class="btn" style="background-color: #DF7026; color: white;"
-                                    data-bs-toggle="modal" data-bs-target="#bproposal"> Create Budgeting
-                                    Proposal</button>
+                                    data-bs-toggle="modal" data-bs-target="#liquidation"> Create Liquidation </button>
 
                             </div>
                         </div>
 
+
                     </div>
                 </div>
             </div>
-
-
-
 
             <!-- Page body -->
             <div class="page-body">
