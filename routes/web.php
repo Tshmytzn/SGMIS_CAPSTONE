@@ -133,5 +133,4 @@ Route::get('Student/Evaluation/Evaluate', [SessionDetect::class, 'StudentEvaluat
 Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');
 
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
-Route::post('Student/LogoutStudent', [Login::class,'LogoutStudent'])->name('LogoutStudent');
-
+Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');

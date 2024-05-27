@@ -38,7 +38,13 @@
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
             <a href="" data-bs-toggle="modal" data-bs-target="#profile" class="dropdown-item">Profile</a>
             <a href="{{route('accountsettings')}}" class="dropdown-item">Settings</a>
-            <a href="" data-bs-toggle="modal" data-bs-target="#logoutmodal" class="dropdown-item">Logout</a>
+            <form method="POST" action="{{ route('LogoutStudent') }}">
+              @csrf
+              <button type="submit"  class="dropdown-item">
+                  Logout
+              </button>
+          </form>
+            {{-- <a href="" data-bs-toggle="modal" data-bs-target="#logoutmodal" class="dropdown-item">Logout</a> --}}
           </div>
         </div>
       </div>
@@ -110,11 +116,13 @@
                                       data-bs-dismiss="modal">Edit Profile</button>
                               </div>
                               <div class="col text-end ">
-                                  <form method="POST" action="{{ route('LogoutStudent') }}">
-                                      @csrf
-                                      <button type="submit" class="btn btn-danger btn-block ms"
-                                          style="width: 120px">Logout</button>
-                                  </form>
+                                <form method="POST" action="{{ route('LogoutStudent') }}">
+                                  @csrf
+                                  <button type="submit" class="btn btn-danger btn-block ms" style="width: 120px" data-bs-dismiss="modal">
+                                      Logout
+                                  </button>
+                              </form>
+                              
                               </div>
                           </div>
                       </div>

@@ -46,11 +46,11 @@ class Login extends Controller
     }
     }
 
-    public function LogoutStudent(Request $req){
-
-        // Session::forget('student_id');
-        return redirect()->route('Userlogin');
-       }
+    public function LogoutStudent()
+    {
+        Session::forget('student_id');
+        return redirect()->route('AdminLogin');
+    }
 
 }
 
