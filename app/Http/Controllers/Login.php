@@ -49,7 +49,7 @@ class Login extends Controller
     public function LogoutStudent()
     {
         Session::forget('student_id');
-        return redirect()->route('AdminLogin');
+        return redirect()->route('Userlogin');
     }
 
 }
