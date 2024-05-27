@@ -129,3 +129,4 @@ Route::get('Student/Evaluation', function () { return view('Student.evaluations'
 Route::get('Student/Evaluation/View', [SessionDetect::class, 'StudentViewEventDetails'])->name('ViewDetails');
 Route::get('Student/Evaluation/Evaluate', [SessionDetect::class, 'StudentEvaluateEvent'])->name('studentEvaluate');
 Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');
+
