@@ -1214,7 +1214,7 @@
                     <div class="page-body">
                         <div class="container-xl d-flex flex-column justify-content-center">
                             <div class="empty">
-                                <div class="empty-img"><img src="./static/illustrations/undraw_joyride_hnno.svg" height="128" alt=""></div>
+                                <div class="empty-img"><img src="./static/illustrations/undraw_collaborators_re_hont.svg" height="128" alt=""></div>
                                 <p class="empty-title">No Student Admin Found!</p>
                                 <p class="empty-subtitle text-muted">
                                     No student admin record found! Please select a student admin first. </p>
@@ -1431,14 +1431,14 @@
                     <div class="page-body">
                         <div class="container-xl d-flex flex-column justify-content-center">
                             <div class="empty">
-                                <div class="empty-img"><img src="./static/illustrations/undraw_printing_invoices_5r4r.svg" height="128" alt="">
+                                <div class="empty-img"><img src="./static/illustrations/undraw_add_files_re_v09g.svg" height="128" alt="">
                                 </div>
                                 <p class="empty-title">Feature Coming Soon!</p>
                                 <p class="empty-subtitle text-muted">
                                     This feature is not yet ready for the pre-oral defense stage. Stay tuned as it will be available for the final defense. See you there!
                                 </p>
                                 <div class="empty-action">
-                                    <a href="./." class="btn btn-primary">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#uploadcomp" class="btn btn-primary">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
                                         Stay tuned!
                                     </a>
