@@ -206,7 +206,7 @@
                       </div>
 
                         <div class="row g-5" id="adminCard2">
-                          <div class="page-body">
+                          {{-- <div class="page-body">
                             <div class="container-xl d-flex flex-column justify-content-center">
                               <div class="empty">
                                 <div class="empty-img"><img src="./static/illustrations/undraw_printing_invoices_5r4r.svg" height="128" alt="">
@@ -224,7 +224,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div> --}}
                           {{-- <div id="administrators-card" class="col-md-6 col-lg-4 admincardeffects">
                             <div class="card">
                               <div class="card-body p-4 text-center">
