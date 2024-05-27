@@ -1,7 +1,7 @@
 <!doctype html>
 
 <html lang="en">
-  
+
 @include('Admin.components.header', ['title' => 'Budgeting'])
 
   <body >
@@ -27,7 +27,7 @@
                   Budgeting & Liquidation
                 </h2>
               </div>
-              
+
               <div class="col-auto ms-auto d-print-none">
                 <div class="d-flex">
                   <div class="me-3">
@@ -42,7 +42,7 @@
                   <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#liquidation"> Create Liquidation </button>
                   &nbsp;
                       <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#bproposal"> Create Proposal</button>
-      
+
               </div>
             </div>
 
@@ -50,14 +50,14 @@
           </div>
         </div>
 
-        
-        
-        
+
+
+
         <!-- Page body -->
         <div class="page-body">
           <div class="container-xl d-flex flex-column justify-content-center">
             <div class="empty">
-              <div class="empty-img"><img src="./static/illustrations/undraw_printing_invoices_5r4r.svg" height="128" alt="">
+              <div class="empty-img"><img src="./static/illustrations/undraw_under_construction_-46-pa.svg" height="128" alt="">
               </div>
               <p class="empty-title">Feature Coming Soon!</p>
               <p class="empty-subtitle text-muted">
@@ -78,8 +78,8 @@
 
       </div>
     </div>
-    
-    
+
+
 @include('Admin.components.scripts')
 
   </body>
