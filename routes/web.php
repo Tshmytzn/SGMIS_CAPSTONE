@@ -6,6 +6,7 @@ use App\Http\Controllers\SchoolEvent;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\SessionDetect;
 use App\Http\Controllers\AdminData;
+use App\Http\Controllers\StudentData;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\CompendiumData;
 /*
@@ -134,3 +135,4 @@ Route::get('Account/Settings', function () { return view('Student.accsettings');
 
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
 Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');
+Route::post('Student/UpdateStudentDetails', [StudentData::class,'UpdateStudentDetails'])->name('UpdateStudentDetails');

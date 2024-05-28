@@ -44,20 +44,19 @@
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                     aria-label="Open user menu">
                     @php
-                        $StudentAcc = App\Models\StudentAccounts::where('student_id', session('student_id'))->first();
+                        $StudentAcc = App\Models\StudentAccounts::join('section', 'student_accounts.student_id','=','section.sect_id')->select('student_accounts.*','section.sect_name', 'section.year_level')->where('student_accounts.student_id',session('student_id'))->first();
                         $studentname =
                             $StudentAcc->student_firstname .
                             ' ' .
                             $StudentAcc->student_middlename .
                             ' ' .
                             $StudentAcc->student_lastname;
-                        // $studentyrsec =
                     @endphp
                     <span class="avatar avatar-sm"><img src="dept_image/{{ $StudentAcc->student_pic }}" alt=""
                             id="studentpicture"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{ $studentname }}</div>
-                        <div class="mt-1 small text-muted">{{ $StudentAcc->sect_id }}</div>
+                        <div class="mt-1 small text-muted">{{ $StudentAcc-> year_level }} - {{ $StudentAcc-> sect_name }}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -121,17 +120,13 @@
                             <div class="row align-items-center">
                                 <div class="col-12">
                                     @php
-                                        $StudentAcc = App\Models\StudentAccounts::where(
-                                            'student_id',
-                                            session('student_id'),
-                                        )->first();
+                                        $StudentAcc = App\Models\StudentAccounts::join('section', 'student_accounts.student_id','=','section.sect_id')->select('student_accounts.*','section.sect_name', 'section.year_level')->where('student_accounts.student_id',session('student_id'))->first();
                                         $studentname =
                                             $StudentAcc->student_firstname .
                                             ' ' .
                                             $StudentAcc->student_middlename .
                                             ' ' .
                                             $StudentAcc->student_lastname;
-                                        // $studentyrsec =
                                     @endphp
 
                                     <span class="avatar avatar-xl"><img src="dept_image/{{ $StudentAcc->student_pic }}"
@@ -144,7 +139,7 @@
                                     <div class="form-label mb-0" style="font-size: 20px;">
                                         {{ $studentname }}</div>
                                     <hr class="my-2 mt-0 mb-1 ms-5" style="width: 263px;">
-                                    <div class="form-label" style="font-size: 14px;"> {{ $StudentAcc->sect_id }}
+                                    <div class="form-label" style="font-size: 14px;"> {{ $StudentAcc-> year_level }} - {{ $StudentAcc-> sect_name }}
                                     </div>
                                 </div>
                             </div>
