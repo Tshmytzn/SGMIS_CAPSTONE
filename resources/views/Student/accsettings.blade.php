@@ -27,9 +27,22 @@
                                             <div class="col d-flex flex-column">
                                                 <h3 class="card-title">Profile Details</h3>
                                                 <div class="row align-items-center">
-                                                    <div class="col-auto"><span class="avatar avatar-xl"><img
-                                                                src="{{asset('./static/avatars/000m.jpg')}}" alt=""
-                                                                id="adminpicture"></span>
+                                                    <div class="col-auto">
+                                                        @php
+                                                        $StudentAcc = App\Models\StudentAccounts::where(
+                                                            'student_id',
+                                                            session('student_id'),
+                                                        )->first();
+                                                        $studentname =
+                                                            $StudentAcc->student_firstname .
+                                                            ' ' .
+                                                            $StudentAcc->student_middlename .
+                                                            ' ' .
+                                                            $StudentAcc->student_lastname;
+                                                        // $studentyrsec =
+                                                    @endphp
+                                                         <span class="avatar avatar-xl"><img src="dept_image/{{ $StudentAcc->student_pic }}"
+                                                            alt="" id="studentpicture"></span>
                                                     </div>
                                                     <div class="col-auto">
                                                         <button type="button" data-bs-toggle="modal"
@@ -47,12 +60,12 @@
                                                             <div class="form-label">Student Name</div>
 
                                                             <input type="text" class="form-control" name="adminname"
-                                                                id="adminname" value="Ghiza Ann Dojoles">
+                                                                id="adminname" value="{{ $studentname }}" readonly>
                                                         </div>
                                                         <div class="col-md">
                                                             <div class="form-label">Student ID</div>
                                                             <input type="text" class="form-control"
-                                                                name="adminschoolid" id="adminschoolid" value="20216582">
+                                                                name="adminschoolid" id="adminschoolid" value="{{ $StudentAcc->school_id }}" readonly>
                                                         </div>
                                                     </div>
                                                 </form>
