@@ -39,12 +39,12 @@
 
                 </div>
             </div>
-
+          
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                     aria-label="Open user menu">
                     @php
-                        $StudentAcc = App\Models\StudentAccounts::join('section', 'student_accounts.student_id','=','section.sect_id')->select('student_accounts.*','section.sect_name', 'section.year_level')->where('student_accounts.student_id',session('student_id'))->first();
+                        $StudentAcc = App\Models\StudentAccounts::join('section', 'student_accounts.sect_id','=','section.sect_id')->select('student_accounts.*','section.sect_name', 'section.year_level')->where('student_accounts.student_id',session('student_id'))->first();
                         $studentname =
                             $StudentAcc->student_firstname .
                             ' ' .
@@ -52,7 +52,7 @@
                             ' ' .
                             $StudentAcc->student_lastname;
                     @endphp
-                    <span class="avatar avatar-sm"><img src="dept_image/{{ $StudentAcc->student_pic }}" alt=""
+                    <span class="avatar avatar-sm"><img src="/student_images/{{ $StudentAcc->student_pic }}" alt=""
                             id="studentpicture"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{ $studentname }}</div>
@@ -68,7 +68,7 @@
                             Logout
                         </button>
                     </form>
-                    {{-- <a href="" data-bs-toggle="modal" data-bs-target="#logoutmodal" class="dropdown-item">Logout</a> --}}
+                
                 </div>
             </div>
         </div>
@@ -119,17 +119,9 @@
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-12">
-                                    @php
-                                        $StudentAcc = App\Models\StudentAccounts::join('section', 'student_accounts.student_id','=','section.sect_id')->select('student_accounts.*','section.sect_name', 'section.year_level')->where('student_accounts.student_id',session('student_id'))->first();
-                                        $studentname =
-                                            $StudentAcc->student_firstname .
-                                            ' ' .
-                                            $StudentAcc->student_middlename .
-                                            ' ' .
-                                            $StudentAcc->student_lastname;
-                                    @endphp
+                            
 
-                                    <span class="avatar avatar-xl"><img src="dept_image/{{ $StudentAcc->student_pic }}"
+                                    <span class="avatar avatar-xl"><img src="/student_images/{{ $StudentAcc->student_pic }}"
                                             alt="" id="studentpicture"></span>
                                 </div>
                             </div>

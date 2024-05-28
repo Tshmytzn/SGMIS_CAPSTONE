@@ -18,11 +18,11 @@
             <div class="card card-md">
               <div class="card-body">
                 <h2 class="h2 text-center mb-4">Login to your account</h2>
-                <form method="post" autocomplete="off" id="studentloginform" novalidate> @csrf
+                <form method="post" id="studentloginform"> @csrf
 
                   <div class="mb-3">
                     <label class="form-label">Username</label>
-                    <input type="text" id="studentusername" name="studentusername" class="form-control" placeholder="your username" autocomplete="off">
+                    <input type="text" id="studentusername" name="studentusername" class="form-control" placeholder="your username" >
                   </div>
                   <div class="mb-2">
                     <label class="form-label">
