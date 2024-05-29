@@ -177,7 +177,7 @@ $check = Section::join('course', 'section.course_id', '=', 'course.course_id')
     }else if($request->studentid == ''|| $request->firstname == ''|| $request->middlename == ''|| $request->lastname== ''){
         return response()->json(['status' => 'empty']);
     }else{
-        $pass = Hash::make($request->firstname.'123');
+        $pass = Hash::make($request->studentid);
         $data = new StudentAccounts;
         $data->school_id = $request->studentid;
         $data->sect_id = $request->AddStudentSectId;
