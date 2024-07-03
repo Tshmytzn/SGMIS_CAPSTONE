@@ -10,6 +10,7 @@
     function selectSect(id, name, year) {
         document.getElementById('selectSectId').value = id + ',' + name + ',' + year;
         GetStudentData(id);
+        document.getElementById('yeardropdown').textContent= year  + ' - ' + name;
     }
 
     function closeModal() {
@@ -40,21 +41,21 @@
 
     }
 
-    function AddStudentModal(id) {
-        const sectId = document.getElementById('selectSectId').value
-        const sectIdArray = sectId.split(',');
-        if (sectId !== '') {
-            document.getElementById('ModalTitle').textContent = sectIdArray[2] + ' ' + sectIdArray[1];
-            document.getElementById('AddStudentSectId').value = sectIdArray[0];
-        } else {
-            alertify
-                .alert("Warning", "Please Select Year And Section First!", function() {
+    // function AddStudentModal(id) {
+    //     const sectId = document.getElementById('selectSectId').value
+    //     const sectIdArray = sectId.split(',');
+    //     if (sectId !== '') {
+    //         document.getElementById('ModalTitle').textContent = sectIdArray[2] + ' ' + sectIdArray[1];
+    //         document.getElementById('AddStudentSectId').value = sectIdArray[0];
+    //     } else {
+    //         alertify
+    //             .alert("Warning", "Please Select Year And Section First!", function() {
 
-                    closeModal();
+    //                 closeModal();
 
-                });
-        }
-    }
+    //             });
+    //     }
+    // }
 
     function SaveStudent() {
         var formData = $("form#SaveStudentForm").serialize();
@@ -690,6 +691,44 @@
                 response.data.forEach(function(course) {
                     $('#selectcourse').append('<option value="' + course.course_id + '">' + course
                         .course_name + '</option>');
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    function GetDeptDataSavestudent() {
+        const dept = document.getElementById('selectdepartment').value;
+        console.log(dept);
+        $.ajax({
+            type: "GET",
+            url: "{{ route('GetDeptData') }}?dept_id=" + dept,
+            success: function(response) {
+                $('#selectcourse').empty();
+                $('#selectcourse').append('<option>Select Course</option>');
+                response.data.forEach(function(course) {
+                    $('#selectcourse').append('<option value="' + course.course_id + '">' + course
+                        .course_name + '</option>');
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    function GetSectData() {
+        const crs = document.getElementById('selectcourse').value;
+        console.log(crs);
+        $.ajax({
+            type: "GET",
+            url: "{{ route('GetSectData') }}?course_id=" + crs,
+            success: function(response) {
+                $('#selectsection').empty();
+                response.data.forEach(function(course) {
+                    $('#selectsection').append('<option value="' + course.sect_id + '">' + course
+                        .sect_name + '</option>');
                 });
             },
             error: function(xhr, status, error) {

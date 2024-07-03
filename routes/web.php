@@ -104,6 +104,7 @@ Route::post('Admin/DeleteFile', [CompendiumData::class,'DeleteFile'])->name('Del
 
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
+Route::get('/admin/GetSectData', [DeparmentData::class,"GetSectData"])->name('GetSectData');
 Route::get('/admin/GetDepartmentData', [DeparmentData::class,"GetDepartmentData"])->name('GetDepartmentData');
 Route::get('/admin/GetCourseData', [DeparmentData::class,"GetCourseData"])->name('GetCourseData');
 Route::get('/admin/GetSectionData', [DeparmentData::class,"GetSectionData"])->name('GetSectionData');

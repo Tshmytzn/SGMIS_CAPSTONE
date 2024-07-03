@@ -65,7 +65,13 @@ class DeparmentData extends Controller
 
     $check = Course::where('dept_id', $request->dept_id)->get();
     return response()->json(['data' =>  $check]);
-   } 
+   }
+   public function GetSectData(Request $request){
+
+    $check = Section::where('course_id', $request->course_id)->get();
+    return response()->json(['data' =>  $check]);
+   }
+
    public function SaveSection(Request $request)
    {
        if ($request->selectdepartment== ''||$request->selectcourse=='' || $request->section=='') {
@@ -180,7 +186,7 @@ $check = Section::join('course', 'section.course_id', '=', 'course.course_id')
         $pass = Hash::make($request->studentid);
         $data = new StudentAccounts;
         $data->school_id = $request->studentid;
-        $data->sect_id = $request->AddStudentSectId;
+        $data->sect_id = $request->selectsection;
         $data->student_firstname = $request->firstname;
         $data->student_middlename = $request->middlename;
         $data->student_lastname = $request->lastname;
