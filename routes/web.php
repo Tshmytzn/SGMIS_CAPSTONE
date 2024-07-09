@@ -126,7 +126,7 @@ Route::fallback(function () {
 
 // STUDENT
 // tisha's routes
-Route::get('/Student/login', function () { return view('Student.login'); })->name('Userlogin');
+Route::get('/Student/Login', function () { return view('Student.login'); })->name('Userlogin');
 Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
 // Route::get('Student/Dashboard', function () { return view('Student.index'); })->name('StudentDashboard');
 Route::get('Student/Dashboard', [SessionDetect::class, 'StudentDashboard'])->name('StudentDashboard');

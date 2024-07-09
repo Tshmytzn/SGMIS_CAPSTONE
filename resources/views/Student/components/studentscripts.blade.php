@@ -15,10 +15,7 @@
         data: formData,
         success: function(response) {
             if (response.status === "success") {
-                alertify.alert("Message", "Student Successfully Logged in", function() {
-                    alertify.message('OK');
                     window.location.href = "{{ route('StudentDashboard') }}";
-                });
             } else if (response.status === "incorrect") {
                 alertify.alert("Message", "Incorrect Username or Password!", function() {
                     alertify.message('OK');
@@ -111,5 +108,77 @@
         });
     }
     }
+
+
+var map;
+var modal = document.getElementById('timeinmodal');
+
+modal.addEventListener('shown.bs.modal', function() {
+    if (!map) {
+        map = L.map('map').setView([10.7433, 122.9701], 16);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var universityLocation = L.latLng(10.7425, 122.9701);
+
+        L.circle(universityLocation, {
+            color: '#008631',
+            fillColor: '#cefad0',
+            fillOpacity: 0.3,
+            radius: 100
+        }).addTo(map).bindPopup('Carlos Hilado Memorial State University Campus');
+
+        var schoolIcon = L.icon({
+            iconUrl: '/student_images/schoolL.png',
+            iconSize: [90, 90],  // Adjusted size to 90x90
+            iconAnchor: [45, 70],  // Adjusted anchor position
+            popupAnchor: [0, -30]
+        });
+
+        var studentIcon = L.divIcon({
+            html: '<img src="/student_images/studentL.png" alt="" id="" style="width:60px;height:60px;transform: translate(-50%, -100%); display: flex;justify-content: center;align-items: center;">',
+            iconSize: [1, 1]
+        });
+
+        L.marker(universityLocation, { icon: schoolIcon }).addTo(map)
+            .bindPopup('<b>Carlos Hilado Memorial State University</b>').openPopup();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var userLat = position.coords.latitude;
+                var userLng = position.coords.longitude;
+                var userLocation = L.latLng(userLat, userLng);
+
+                L.marker(userLocation, { icon: studentIcon }).addTo(map)
+                    .bindPopup('<b>Your Location</b>').openPopup();
+
+                map.setView(userLocation, 17);
+
+                var distance = userLocation.distanceTo(universityLocation);
+                var radius = 100; 
+
+                if (distance <= radius) {
+                    console.log("You are inside Carlos Hilado Memorial State University Campus radius.");
+                } else {
+                    console.log("You are outside Carlos Hilado Memorial State University Campus radius.");
+                }
+
+            }, function(error) {
+                console.error("Error retrieving location: " + error.message);
+                alert("Error retrieving your location. Please enable location services.");
+            }, { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+            alert("Geolocation is not supported by this browser.");
+        }
+    } else {
+        map.invalidateSize();
+    }
+});
+
+
+
 
 </script>

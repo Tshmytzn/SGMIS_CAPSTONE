@@ -770,7 +770,7 @@
                 } else if (response.status == 'empty') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Warning", "Enter Section Name First!", function() {
+                        .alert("Warning", "Fill All Field!", function() {
                             alertify.message('OK');
                         });
                 }
