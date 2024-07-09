@@ -132,8 +132,8 @@ modal.addEventListener('shown.bs.modal', function() {
 
         var schoolIcon = L.icon({
             iconUrl: '/student_images/schoolL.png',
-            iconSize: [90, 90],  // Adjusted size to 90x90
-            iconAnchor: [45, 70],  // Adjusted anchor position
+            iconSize: [90, 90], 
+            iconAnchor: [45, 70], 
             popupAnchor: [0, -30]
         });
 

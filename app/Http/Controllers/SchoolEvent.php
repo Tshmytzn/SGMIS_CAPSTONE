@@ -20,8 +20,7 @@ class SchoolEvent extends Controller
 
         if(!in_array($pic->getClientOriginalExtension(), ['jpeg', 'jpg', 'png', 'gif'])){
             return response()->json(['status'=>'invalid_img']);
-        }
-             
+        } 
         $event = new SchoolEvents;
         $event->event_name  = $req->ev_name;
         $event->event_description = $req->ev_description;
