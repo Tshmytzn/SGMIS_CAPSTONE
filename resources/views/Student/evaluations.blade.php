@@ -32,7 +32,7 @@
                         <div class="card">
                             <div class="ribbon bg-green">Ongoing</div>
                             <div class="img-responsive img-responsive-21x9 card-img-top"
-                                style="background-image: url({{asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg')}})">
+                                style="background-image: url({{ asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg') }})">
                             </div>
                             <div class="card-body">
                                 <h3 class="card-title">University Week Evaluation Form</h3>
@@ -40,10 +40,13 @@
                                     activities. Your input will help us improve future events.
                                 </p>
                             </div>
+
                             <hr style="margin-top: -1%; margin-bottom: -1%">
-                            <div class="card-footer btn btn-outline-primary btn-block" style="border: none">
+                            <a href="{{ route('evaluationpage') }}"
+                                class="card-footer btn btn-outline-primary btn-block" style="border: none">
                                 Evaluate
-                            </div>
+                            </a>
+
                         </div>
                     </div>
 

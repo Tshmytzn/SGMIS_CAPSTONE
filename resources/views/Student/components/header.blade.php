@@ -90,7 +90,7 @@
                           <div class="row align-items-center">
                               <div class="col-12">
                                   <span class="avatar avatar-xl"><img
-                                          src="./static/logoicon.png" alt=""
+                                          src="{{asset('./static/logoicon.png')}}" alt=""
                                           id="adminpicture"></span>
                               </div>
                           </div>

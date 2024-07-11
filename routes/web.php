@@ -119,10 +119,11 @@ Route::fallback(function () {
 
 // STUDENT
 // tisha's routes
-Route::get('/Userlogin', function () { return view('Student.login'); })->name('Userlogin');
+Route::get('/Student/login', function () { return view('Student.login'); })->name('Userlogin');
 Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
-Route::get('StudentDashboard', function () { return view('Student.index'); })->name('StudentDashboard');
-Route::get('EventDashboard', function () { return view('Student.event'); })->name('EventDashboard');
-Route::get('EventEvaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
-Route::get('ViewDetails', function () { return view('Student.eventdetails'); })->name('ViewDetails');
-Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');
+Route::get('Student/dashboard', function () { return view('Student.index'); })->name('StudentDashboard');
+Route::get('Student/events', function () { return view('Student.event'); })->name('EventDashboard');
+Route::get('Student/evaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
+Route::get('Student/eventdetails', function () { return view('Student.eventdetails'); })->name('ViewDetails');
+Route::get('Student/settings', function () { return view('Student.accsettings'); })->name('accountsettings');
+Route::get('Student/evaluationpage', function () { return view('Student.evaluationpage'); })->name('evaluationpage');

@@ -32,23 +32,21 @@
                             <div class="card card-sm">
                                 <a href="{{ route('ViewDetails') }}" class="d-block">
                                     <div class="position-relative">
-                                        <img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg"
+                                        <img src="{{ asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg') }}"
                                             class="card-img-top">
                                     </div>
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <span class="avatar me-3 rounded"
-                                                style="background-image: url(./static/avatars/000m.jpg)"></span>
-                                            <div class="me-4">
+                                                style="background-image: url({{ asset('./static/avatars/000m.jpg') }})"></span>
+                                            <div class="me-4 text-dark">
                                                 <div>Uweek Celebration</div>
                                                 <div class="text-muted">3 days ago</div>
-                                            </div> &nbsp;
+                                            </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-
-
                         </div>
                     </div>
 
