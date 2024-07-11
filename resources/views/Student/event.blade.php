@@ -18,6 +18,8 @@
                             <h2 class="page-title">
                                 Event
                             </h2>
+
+
                         </div>
                     </div>
                 </div>
@@ -25,30 +27,21 @@
 
             <!-- Page body -->
             <div class="page-body">
-                <div class="container-xl">
+                <div class="container-xl" id="eventList">
 
-                    <div class="row row-cards">
-                        <div class="col-sm-6 col-lg-4">
-                            <div class="card card-sm">
-                                <div class="position-relative"> <!-- Add position-relative class here -->
-                                    <a href="#" class="d-block">
-
-                                        <img src="./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg" class="card-img-top">
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <span class="avatar me-3 rounded" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                                        <div class="me-4">
-                                            <div>Uweek Celebration</div>
-                                            <div class="text-muted">3 days ago</div>
-                                        </div> &nbsp;
-                                    </div>
-                                </div>
+                    <div class="page page-center" id="loading-events">
+                        <div class="container container-slim py-4">
+                          <div class="text-center">
+                            <div class="mb-3">
+                              <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logoicon.png" height="36" alt=""></a>
                             </div>
-                            
+                            <div class="text-muted mb-3">Loading Events</div>
+                            <div class="progress progress-sm">
+                              <div class="progress-bar progress-bar-indeterminate"></div>
+                            </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
 
 
                 </div>
@@ -57,6 +50,12 @@
     </div>
     @include('Student.components.footer')
     @include('Student.components.scripts')
+
+    <script>
+        window.onload = function(){
+            LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('ViewDetails') }}", "student");
+        }
+    </script>
 </body>
 
 </html>

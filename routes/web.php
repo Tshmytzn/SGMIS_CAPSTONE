@@ -6,6 +6,7 @@ use App\Http\Controllers\SchoolEvent;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\SessionDetect;
 use App\Http\Controllers\AdminData;
+use App\Http\Controllers\StudentData;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\CompendiumData;
 /*
@@ -32,10 +33,14 @@ Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLo
 Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
 Route::get('/Evaluation', [SessionDetect::class, 'Evaluation'])->name('Evaluation');
 Route::get('/Evaluation/ViewEvaluations', [SessionDetect::class, 'EvaluationDetails'])->name('ViewEvaluations');
+Route::get('/Evaluation/ViewEvaluations/results', [SessionDetect::class, 'EvaluationResult'])->name('evaluationResult');
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 Route::get('/Profile', [SessionDetect::class, 'AdminProfile'])->name('Profile');
 Route::get('/Budgeting', [SessionDetect::class, 'Budgeting'])->name('Budgeting');
 Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('Attendance');
+Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
+Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
+
 
 
 //Rheyan Post Route
@@ -57,21 +62,22 @@ Route::post('Admin/Evaluation/EvalDetails/AddQuestion',[EvaluationController::cl
 Route::post('Admin/Evaluation/EvalDetails/SwitchQuestionNum',[EvaluationController::class,'SwitchQuestionNum'] )->name('switchQuestionNum');
 Route::post('Admin/Evaluation/EvalDetails/DeleteEvalQuestion',[EvaluationController::class,'DeleteEvalQuestion'] )->name('deleteEvalQuestion');
 Route::post('Admin/Evaluation/EvalDetails/UpdateEvalQuestion',[EvaluationController::class,'UpdateEvalQuestion'] )->name('updateEvalQuestion');
+Route::post('Student/Evaluation/Evaluate/SaveResult',[EvaluationController::class,'EvaluationSaveResult'] )->name('saveEvaluationResult');
 //Rheyan Get Route
-Route::get('Events/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
-Route::get('Events/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
-Route::get('Events/getEvent/eventdetails',[SchoolEvent::class,'EventDetailsLoad'] )->name('getEventDetails');
-Route::get('Events/getEvent/eventActivities',[SchoolEvent::class,'GetAllEventActivities'] )->name('getEventAct');
-Route::get('Events/getEvent/actDetails',[SchoolEvent::class,'GetActDetails'] )->name('getActDetails');
-Route::get('Events/getEvent/getDept',[SchoolEvent::class,'GetDeptEvent'] )->name('GetDeptEvent');
-Route::get('Events/getEvent/getDepartment',[SchoolEvent::class,'GetDepartment'] )->name('getDepartment');
-Route::get('Events/getEvent/getCourse',[SchoolEvent::class,'GetCourse'] )->name('getCourse');
-Route::get('Events/getEvent/getProgramme',[SchoolEvent::class,'GetProgrammeList'] )->name('getProgramme');
-Route::get('Evaluation/getEvalDetails',[EvaluationController::class,'GetEvalForm'] )->name('getEvalForm');
-Route::get('Evaluation/getAllEval',[EvaluationController::class,'GetAllEvalForm'] )->name('getAllEvalForm');
-Route::get('Evaluation/getAllEvalQuestion',[EvaluationController::class,'GetAllEvalQuestion'] )->name('getAllEvalQuestion');
-Route::get('Evaluation/GetEvalQuestion',[EvaluationController::class,'GetEvalQuestion'] )->name('getEvalQuestion');
-
+Route::get('Admin/Event/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('getAllEvent');
+Route::get('Admin/Event/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
+Route::get('Admin/Event/getEvent/eventdetails',[SchoolEvent::class,'EventDetailsLoad'] )->name('getEventDetails');
+Route::get('Admin/Event/getEvent/eventActivities',[SchoolEvent::class,'GetAllEventActivities'] )->name('getEventAct');
+Route::get('Admin/Event/getEvent/actDetails',[SchoolEvent::class,'GetActDetails'] )->name('getActDetails');
+Route::get('Admin/Event/getEvent/getDept',[SchoolEvent::class,'GetDeptEvent'] )->name('GetDeptEvent');
+Route::get('Admin/Event/getEvent/getDepartment',[SchoolEvent::class,'GetDepartment'] )->name('getDepartment');
+Route::get('Admin/Event/getEvent/getCourse',[SchoolEvent::class,'GetCourse'] )->name('getCourse');
+Route::get('Admin/Event/getEvent/getProgramme',[SchoolEvent::class,'GetProgrammeList'] )->name('getProgramme');
+Route::get('Admin/Evaluation/getEvalDetails',[EvaluationController::class,'GetEvalForm'] )->name('getEvalForm');
+Route::get('Admin/Evaluation/getAllEval',[EvaluationController::class,'GetAllEvalForm'] )->name('getAllEvalForm');
+Route::get('Admin/Evaluation/getAllEvalQuestion',[EvaluationController::class,'GetAllEvalQuestion'] )->name('getAllEvalQuestion');
+Route::get('Admin/Evaluation/GetEvalQuestion',[EvaluationController::class,'GetEvalQuestion'] )->name('getEvalQuestion');
+Route::get('Student/Evaluation/Evaluate/LoadQuestion',[EvaluationController::class,'LoadQuestionEvaluate'] )->name('loadQuestionEvaluate');
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');
@@ -98,6 +104,7 @@ Route::post('Admin/DeleteFile', [CompendiumData::class,'DeleteFile'])->name('Del
 
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
+Route::get('/admin/GetSectData', [DeparmentData::class,"GetSectData"])->name('GetSectData');
 Route::get('/admin/GetDepartmentData', [DeparmentData::class,"GetDepartmentData"])->name('GetDepartmentData');
 Route::get('/admin/GetCourseData', [DeparmentData::class,"GetCourseData"])->name('GetCourseData');
 Route::get('/admin/GetSectionData', [DeparmentData::class,"GetSectionData"])->name('GetSectionData');
@@ -119,11 +126,21 @@ Route::fallback(function () {
 
 // STUDENT
 // tisha's routes
-Route::get('/Student/login', function () { return view('Student.login'); })->name('Userlogin');
+
+Route::get('/Student/Login', function () { return view('Student.login'); })->name('Userlogin');
 Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
-Route::get('Student/dashboard', function () { return view('Student.index'); })->name('StudentDashboard');
-Route::get('Student/events', function () { return view('Student.event'); })->name('EventDashboard');
-Route::get('Student/evaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
-Route::get('Student/eventdetails', function () { return view('Student.eventdetails'); })->name('ViewDetails');
-Route::get('Student/settings', function () { return view('Student.accsettings'); })->name('accountsettings');
-Route::get('Student/evaluationpage', function () { return view('Student.evaluationpage'); })->name('evaluationpage');
+
+// Route::get('Student/Dashboard', function () { return view('Student.index'); })->name('StudentDashboard');
+
+Route::get('Student/Dashboard', [SessionDetect::class, 'StudentDashboard'])->name('StudentDashboard');
+Route::get('Student/Event', function () { return view('Student.event'); })->name('EventDashboard');
+Route::get('Student/Evaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
+Route::get('Student/Evaluation/View', [SessionDetect::class, 'StudentViewEventDetails'])->name('ViewDetails');
+Route::get('Student/Evaluation/Evaluate', [SessionDetect::class, 'StudentEvaluateEvent'])->name('studentEvaluate');
+Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');
+Route::get('Student/Evaluationpage', function () { return view('Student.evaluationpage'); })->name('evaluationpage');
+
+Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
+Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');
+Route::post('Student/UpdateStudentDetails', [StudentData::class,'UpdateStudentDetails'])->name('UpdateStudentDetails');
+

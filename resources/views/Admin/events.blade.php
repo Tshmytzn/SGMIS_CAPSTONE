@@ -39,8 +39,11 @@
             </div>
             </div>
 
-                <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#modal-report"> Create Event</button>
-
+                <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#modal-report"> Create Event</button> &nbsp; &nbsp;
+                <button class="btn btn-secondary" style="" data-bs-toggle="modal" data-bs-target="#modal-setting"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                </svg></button>
         </div>
       </div>
 
@@ -78,7 +81,7 @@
       </div>
     </div>
 
-        <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header text-white" style="background-color: #3E8A34;">
@@ -140,13 +143,118 @@
         </div>
       </div>
     </div>
+    {{-- setting modal --}}
+    <div class="modal modal-blur fade" id="modal-setting" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-white" style="background-color: #3E8A34;">
+            <h5 class="modal-title">Event Setting</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="add_event" method="POST" enctype="multipart/form-data">
+            @csrf
+          <div class="modal-body">
+
+            <div class="page-body">
+              <div class="container-xl">
+                <div class="card">
+                  <div class="row g-0">
+                    <div class="col-3 d-none d-md-block border-end">
+                      <div class="card-body">
+                        <h4 class="subheader">settings</h4>
+                        <ul class="nav nav-pills flex-column">
+                          <li class="nav-item">
+                            <a class="nav-link active" id="my-account-tab" data-bs-toggle="pill" href="#map"><h3>Event Venue</h3></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="administrators-tab" data-bs-toggle="pill" href="#sample1"><h3>Sample</h3></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="studentadmins-tab" data-bs-toggle="pill" href="#sample2"><h3>Sample</h3></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col d-flex flex-column">
+                      <div class="card-body">
+                        <div class="tab-content">
+                          <div class="tab-pane fade show active" id="map">
+                            <h2 class="mb-4">Venue</h2>
+                            <div class="col d-flex flex-column">
+                              <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="SelectStundentTable">
+                                  <thead>
+                                    <tr>
+                                      <th>Name</th>
+                                      <th>Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {{-- <tr>
+                                      <td>Sample name</td>
+                                      <td>34545469</td>
+                                      <td>USG PRESIDENT</td>
+                                      <td>
+                                        <button class="btn btn-warning btn-sm">Select</button>
+                                      </td>
+                                    </tr> --}}
+                                  </tbody>
+                                </table>
+                              </div>
+                              <hr>
+                              
+                              <form class="row g-3" id="addnewstudentadmin" method="POST">@csrf
+              
+                              <div class="row g-2">
+                                <div class="col-12">
+                                  <div id="mapL"></div>   
+                                </div>
+                              </div>
+              
+                              </form>
+                            </div>                      
+                          </div>
+                          {{-- administrator --}}
+                          <div class="tab-pane fade" id="sample1">
+                            <h2 class="mb-4">sample1 </h2>
+                            <div class="col d-flex flex-column">
+                              
+                            </div>                      
+                          </div>
+                         {{-- administrator --}}
+                         <div class="tab-pane fade" id="sample2">
+                          <h2 class="mb-4">sample2 </h2>
+                          <div class="col d-flex flex-column">
+                            
+                          </div>                      
+                        </div>
+                        
+                        </div>
+                      </div>
+    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="close-button" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" onclick="VerifyFormEvent('{{route('saveEvent')}}', '{{ route('getEvent') }}', '{{ asset('event_images/') }}', '{{ route('deleteEvent') }}', '{{ route('EventDetails') }}', 'add')" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
     
 @include('Admin.components.scripts')
+@include('Admin.components.functionscript')
 
 
 <script>
   window.onload = function(){
-    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}");
+    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}",'admin');
   }
 
 </script>

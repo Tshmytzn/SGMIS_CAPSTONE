@@ -65,25 +65,41 @@ class DeparmentData extends Controller
 
     $check = Course::where('dept_id', $request->dept_id)->get();
     return response()->json(['data' =>  $check]);
-   } 
-   public function SaveSection(Request $request)
-   {
-       if ($request->selectdepartment== ''||$request->selectcourse=='' || $request->section=='') {
-           return response()->json(['status' => 'empty']);
-       } else {
-           $check = Section::where('sect_name', $request->section)->where('course_id', $request->selectcourse)->where('year_level', $request->selectyear)->first();
-           if ($check) {
-               return response()->json(['status' => 'exist']);
-           } else {
-               $data = new Section;
-               $data->course_id = $request->selectcourse;
-               $data->sect_name = $request->section;
-               $data->year_level = $request->selectyear;
-               $data->save();
-               return response()->json(['status' => 'success']);
-           }
-       }
    }
+   public function GetSectData(Request $request){
+
+    $check = Section::where('course_id', $request->course_id)->get();
+    return response()->json(['data' =>  $check]);
+   }
+
+   public function SaveSection(Request $request){
+    
+    if (
+        $request->selectdepartment === '' || 
+        $request->selectcourse === '' || 
+        $request->section === '' || 
+        $request->selectyear === 'null'
+    ) {
+        return response()->json(['status' => 'empty']);
+    }
+    
+    $check = Section::where('sect_name', $request->section)
+                    ->where('course_id', $request->selectcourse)
+                    ->where('year_level', $request->selectyear)
+                    ->first();
+                    
+    if ($check) {
+        return response()->json(['status' => 'exist']);
+    }
+    $data = new Section;
+    $data->course_id = $request->selectcourse;
+    $data->sect_name = $request->section;
+    $data->year_level = $request->selectyear;
+    $data->save();
+    
+    return response()->json(['status' => 'success']);
+}
+
     public function GetDepartmentData( ){
 
     $check = Department::all();
@@ -174,13 +190,13 @@ $check = Section::join('course', 'section.course_id', '=', 'course.course_id')
     $check = StudentAccounts::where('school_id', $request->studentid)->first();  
     if($check){
         return response()->json(['status' => 'exist']);
-    }else if($request->studentid == ''|| $request->firstname == ''|| $request->middlename == ''|| $request->lastname== ''){
+    }else if($request->studentid == ''|| $request->firstname == ''|| $request->middlename == ''|| $request->lastname== ''|| $request->selectdepartment== ''|| $request->selectcourse== ''|| $request->selectsection== ''){
         return response()->json(['status' => 'empty']);
     }else{
-        $pass = Hash::make($request->firstname.'123');
+        $pass = Hash::make($request->studentid);
         $data = new StudentAccounts;
         $data->school_id = $request->studentid;
-        $data->sect_id = $request->AddStudentSectId;
+        $data->sect_id = $request->selectsection;
         $data->student_firstname = $request->firstname;
         $data->student_middlename = $request->middlename;
         $data->student_lastname = $request->lastname;

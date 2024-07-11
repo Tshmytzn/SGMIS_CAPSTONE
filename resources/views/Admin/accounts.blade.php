@@ -71,7 +71,7 @@
               <li class="nav-item dropdown" style="list-style-type: none;">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" style="background-color: #DF7026; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.300rem;">
 
-                  <span class="nav-link-title">
+                  <span class="nav-link-title" id="yeardropdown">
                      Year Level
                   </span>
                 </a>
@@ -166,7 +166,7 @@
             </div>
             <input type="hidden" name="selectSectId" id="selectSectId">
             <div class="col-auto text-end">
-              <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#createstudentacc" onclick="AddStudentModal()"> Create Student Account</button>
+              <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#createstudentacc" > Create Student Account</button>
             </div>
        
           </div>
@@ -210,11 +210,31 @@
               </div>
               <div class="modal-body">
                 <form class="row g-3" method="POST" id="SaveStudentForm">@csrf
-                  <h5 class="modal-title" id="ModalTitle"></h5>
-                  <hr class="my-2 mt-2">
                 <div class="row g-2">
+                  <div class="col-12">
+                    <label for="firstname" class="form-label">Department</label>
+                    @php
+                    $dept = App\Models\Department::all();
+                  @endphp
+                    <select class="form-select" name="selectdepartment" id="selectdepartment" onchange="GetDeptDataSavestudent()">
+                      <option>Select Department</option>
+                      @foreach ($dept as $dep)
+              <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
+              @endforeach                                  
+                    </select>                  
+                  </div>
+                  <div class="col-12">
+                    <label for="firstname" class="form-label">Courses</label>
+                    <select class="form-select" name="selectcourse" id="selectcourse" onchange="GetSectData()">
+                      <option>Select Course</option>                     
+                  </select>                  
+                </div>
+                <div class="col-12">
+                  <label for="firstname" class="form-label">Section</label>
+                  <select class="form-select" name="selectsection" id="selectsection">                       
+                </select>                  
+              </div>
                   <div class="col-6">
-                    <input type="hidden" name="AddStudentSectId" id="AddStudentSectId">
                     <label for="firstname" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
                   </div>

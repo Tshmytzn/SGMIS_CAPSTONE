@@ -256,7 +256,7 @@ function SaveEvent(route, events, images, deleteEvent, eventDetails) {
 }
 
 
-function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
+function LoadEvents(route, imageRoute, deleteEvent, eventDetails, where) {
   $.ajax({
     url: route,
     type: "GET",
@@ -279,27 +279,35 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails) {
                 <div class="text-muted">${ev.event_status === 0 ? 'Unpublished Event' : 'Published Event'}</div>
               </div>
               <div class="ms-auto">
-                <a title="Edit ${ev.event_name}" onclick="openEvent()" href="${eventDetails}?event_id=${ev.event_id}" title="View" class="text-muted">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                <path d="M16 5l3 3" />
+              ${where === 'admin' ? `<a title="Edit ${ev.event_name}" onclick="openEvent()" href="${eventDetails}?event_id=${ev.event_id}" title="View" class="text-muted">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+              <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+              <path d="M16 5l3 3" />
               </svg>
-                   
-                </a>
-                <button title="Delete ${ev.event_name}" onclick="DeleteEvent('${deleteEvent}', '${ev.event_id}')" class="ms-3 text-muted  border-0 bg-body">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M4 7l16 0" />
-  <path d="M10 11l0 6" />
-  <path d="M14 11l0 6" />
-  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-</svg>
+                 
+              </a>
+              <button title="Delete ${ev.event_name}" onclick="DeleteEvent('${deleteEvent}', '${ev.event_id}')" class="ms-3 text-muted  border-0 bg-body">
+                <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+              </button>` : `<a title="View ${ev.event_name}" href="${eventDetails}?event_id=${ev.event_id}"  class="text-muted">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+              <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+              </svg>
+                 
+              </a>`}
                 
-                </button>
+
               </div>
             </div>
           </div>
@@ -707,7 +715,7 @@ function AddEventActivity(route, deleteRoute, actDetails) {
   });
 }
 
-function LoadEventActivities(route, deleteRoute, actDetails) {
+function LoadEventActivities(route, deleteRoute, actDetails, where) {
   const act_list = document.getElementById('act_list');
   $.ajax({
     type: "GET",
@@ -730,27 +738,27 @@ function LoadEventActivities(route, deleteRoute, actDetails) {
          <td class="text-muted" >
          ${data.eact_date} & ${convertToAmPm(data.eact_time)}
          </td>
-         <td class="d-flex gap-1">
-           <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-           <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-           <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-         </svg></button>
-           <button data-bs-toggle="modal" data-bs-target="#editAct" onclick="EditActEvent('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-           <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-           <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-           <path d="M16 5l3 3" />
-         </svg></button>
-           <button onclick="DeleteActEvent('${data.eact_id}', '${deleteRoute}')" class="border-0 bg-body text-danger" title="Delete Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-           <path d="M4 7l16 0" />
-           <path d="M10 11l0 6" />
-           <path d="M14 11l0 6" />
-           <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-           <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-         </svg></button>
-         </td>
+         ${where === 'admin' ? `   <td class="d-flex gap-1">
+         <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+         <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+         <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+       </svg></button>
+         <button data-bs-toggle="modal" data-bs-target="#editAct" onclick="EditActEvent('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-success" title="Edit Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+         <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+         <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+         <path d="M16 5l3 3" />
+       </svg></button>
+         <button onclick="DeleteActEvent('${data.eact_id}', '${deleteRoute}')" class="border-0 bg-body text-danger" title="Delete Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+         <path d="M4 7l16 0" />
+         <path d="M10 11l0 6" />
+         <path d="M14 11l0 6" />
+         <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+       </svg></button>
+       </td>` : ''}
        </tr>`;
         });
 
@@ -1191,7 +1199,7 @@ function DisplayProgramm(img){
 </div>`;
 }
 
-function LoadProgrammeList(route, imgRoute, empty, removeRoute){
+function LoadProgrammeList(route, imgRoute, empty, removeRoute, where){
   $.ajax({
     type:'GET',
     url: route,
@@ -1206,13 +1214,13 @@ function LoadProgrammeList(route, imgRoute, empty, removeRoute){
         programme.forEach(data=>{
           if(data !== ''){
             list.innerHTML += `<div id="${data}" class="col mb-3" style="position: relative;">
-            <button onclick="RemoveProgramme('${data}', '${removeRoute}', '${res.event_id}', '${empty}')" class="downloadBtn bg-white" type="button" style="position: absolute; top: -2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
+            ${where === 'admin' ? `  <button onclick="RemoveProgramme('${data}', '${removeRoute}', '${res.event_id}', '${empty}')" class="downloadBtn bg-white" type="button" style="position: absolute; top: -2px; right: 6px; z-index: 1; background-color: transparent; border: none; padding: 5px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M18 6l-12 12" />
             <path d="M6 6l12 12" />
-          </svg>
-            </button>
+            </svg>
+            </button>` : ''}
             <a class="image-link" data-fslightbox="gallery" href="${imgRoute}/${data}">
               <div class="img-responsive img-responsive-1x1 rounded border" style="background-image: url('${imgRoute}/${data}')"></div>
             </a>

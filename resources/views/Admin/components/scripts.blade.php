@@ -11,8 +11,6 @@
     <script src="{{asset('./dist/libs/nouislider/dist/nouislider.min.js?1684106062')}}" defer></script>
     <script src="{{asset('./dist/libs/litepicker/dist/litepicker.js?1684106062')}}" defer></script>
     <script src="{{asset('./dist/libs/tom-select/dist/js/tom-select.base.min.js?1684106062')}}" defer></script>
-   
-
 
     <script>
         // @formatter:off

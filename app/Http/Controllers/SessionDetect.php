@@ -90,7 +90,7 @@ class SessionDetect extends Controller
 
     public function AdminProfile(Request $req){
         if(Session::has('admin_id')){
-            return view('Admin.Profile', ['event_id'=>$req->event_id]); 
+            return view('Admin.Profile', ['event_id'=>$req->event_id]);
         }else{
             return view('Admin.login');
         }
@@ -98,9 +98,38 @@ class SessionDetect extends Controller
 
     public function Budgeting(Request $req){
         if(Session::has('admin_id')){
-            return view('Admin.budgeting', ['event_id'=>$req->event_id]); 
+            return view('Admin.budgeting', ['event_id'=>$req->event_id]);
         }else{
             return view('Admin.login');
+        }
+    }
+    public function StudentViewEventDetails(Request $req){
+        return view('Student.EventDetails', ['event_id'=>$req->event_id]);
+    }
+    public function StudentEvaluateEvent(Request $req){
+        if (!$req->has('eval_id') || empty($req->eval_id)) {
+            return view('error');
+        }else{
+            return view('Student.evaluate', ['eval_id'=>$req->eval_id]);
+        }
+    }
+    public function EvaluationResult(Request $req){
+        if(Session::has('admin_id')){
+            if (!$req->has('eval_id') || empty($req->eval_id)) {
+                return view('error');
+            }else{
+                return view('Admin.eval_result', ['eval_id'=>$req->eval_id]);
+            }
+        }else{
+            return view('Admin.login');
+        }
+    }
+
+    public function StudentDashboard() {
+        if(Session::has('student_id')){
+            return view('Student.index');
+        }else{
+            return view('Student.login');
         }
     }
 }

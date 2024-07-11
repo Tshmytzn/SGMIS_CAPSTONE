@@ -392,8 +392,8 @@
                         </div>
                         <div class="col-12">
                           <label for="yearlevel" class="form-label">Year Level</label>
-                          <select id="selectyear" name="selectyear" class="form-select">
-                          <option>Select Year Level</option>
+                          <select id="selectyear" name="selectyear" class="form-select" required>
+                          <option value="null">Select Year Level</option>
                           <option value="First Year">First Year</option>
                           <option value="Second Year">Second Year</option>
                           <option value="Third Year">Third Year</option> 

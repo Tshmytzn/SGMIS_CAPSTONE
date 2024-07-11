@@ -336,7 +336,7 @@
                                       </span>
                                   </a>
                               </li>
-                              {{-- 
+                              {{--
                   <li class="nav-item dropdown {{$active == 'Events' ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('Events')}}" >
                       <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
@@ -346,6 +346,16 @@
                       </span>
                     </a>
                   </li> --}}
+                  <li class="nav-item {{ $active == 'Election' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('Election') }}">
+                        <span
+                            class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-flag"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0v-9z" /><path d="M5 21v-7" /></svg> </span>
+                        <span class="nav-link-title">
+                            Election
+                        </span>
+                    </a>
+                </li>
 
                               <li class="nav-item dropdown">
                                   <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
@@ -426,18 +436,41 @@
                                   <a class="nav-link" href="{{ route('Budgeting') }}">
                                       <span
                                           class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                              class="icon icon-tabler icons-tabler-outline icon-tabler-moneybag">
-                                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                              <path
-                                                  d="M9.5 3h5a1.5 1.5 0 0 1 1.5 1.5a3.5 3.5 0 0 1 -3.5 3.5h-1a3.5 3.5 0 0 1 -3.5 -3.5a1.5 1.5 0 0 1 1.5 -1.5z" />
-                                              <path d="M4 17v-1a8 8 0 1 1 16 0v1a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
-                                          </svg>
+                                          <span
+                                              class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                  class="icon icon-tabler icons-tabler-outline icon-tabler-coins">
+                                                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                  <path
+                                                      d="M9 14c0 1.657 2.686 3 6 3s6 -1.343 6 -3s-2.686 -3 -6 -3s-6 1.343 -6 3z" />
+                                                  <path d="M9 14v4c0 1.656 2.686 3 6 3s6 -1.344 6 -3v-4" />
+                                                  <path
+                                                      d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z" />
+                                                  <path d="M3 6v10c0 .888 .772 1.45 2 2" />
+                                                  <path d="M3 11c0 .888 .772 1.45 2 2" />
+                                              </svg>
+                                          </span>
                                       </span>
                                       <span class="nav-link-title">
-                                          Budgeting & Liquidation
+                                          Budgeting
+                                      </span>
+                                  </a>
+                              </li>
+                              <li class="nav-item {{ $active == 'Liquidation' ? 'active' : '' }}">
+                                  <a class="nav-link" href="{{ route('Liquidation') }}">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round"
+                                          class="icon icon-tabler icons-tabler-outline icon-tabler-moneybag">
+                                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                          <path
+                                              d="M9.5 3h5a1.5 1.5 0 0 1 1.5 1.5a3.5 3.5 0 0 1 -3.5 3.5h-1a3.5 3.5 0 0 1 -3.5 -3.5a1.5 1.5 0 0 1 1.5 -1.5z" />
+                                          <path d="M4 17v-1a8 8 0 1 1 16 0v1a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z" />
+                                      </svg>
+                                      <span class="nav-link-title">
+                                          Liquidation
                                       </span>
                                   </a>
                               </li>

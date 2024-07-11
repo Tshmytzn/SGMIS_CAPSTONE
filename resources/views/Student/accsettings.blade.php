@@ -27,9 +27,25 @@
                                             <div class="col d-flex flex-column">
                                                 <h3 class="card-title">Profile Details</h3>
                                                 <div class="row align-items-center">
-                                                    <div class="col-auto"><span class="avatar avatar-xl"><img
-                                                                src="{{asset('./static/avatars/000m.jpg')}}" alt=""
-                                                                id="adminpicture"></span>
+                                                    <div class="col-auto">
+                                                        @php
+                                                        $StudentAcc = App\Models\StudentAccounts::where(
+                                                            'student_id',
+                                                            session('student_id'),
+                                                        )->first();
+                                                        $studentname =
+                                                            $StudentAcc->student_firstname .
+                                                            ' ' .
+                                                            $StudentAcc->student_middlename .
+                                                            ' ' .
+                                                            $StudentAcc->student_lastname;
+                                                        // $studentyrsec =
+                                                    @endphp
+
+                                                    <form action="" method="POST" id="Studentdetailsform"> @csrf
+
+                                                 <span class="avatar avatar-xl"><img src="dept_image/{{ $StudentAcc->student_pic }}"
+                                                            alt="" id="studentpicture"></span>
                                                     </div>
                                                     <div class="col-auto">
                                                         <button type="button" data-bs-toggle="modal"
@@ -40,20 +56,34 @@
                                                 </div>
                                                 <h3 class="card-title mt-4">Student Profile</h3>
 
-                                                <form action="" method="POST" id="">
-
-                                                    <div class="row g-3">
-                                                        <div class="col-md">
-                                                            <div class="form-label">Student Name</div>
-
-                                                            <input type="text" class="form-control" name="adminname"
-                                                                id="adminname" value="Ghiza Ann Dojoles">
-                                                        </div>
-                                                        <div class="col-md">
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
                                                             <div class="form-label">Student ID</div>
                                                             <input type="text" class="form-control"
-                                                                name="adminschoolid" id="adminschoolid" value="20216582">
+                                                                name="studentschoolid" id="studentschoolid" value="{{ $StudentAcc->school_id }}">
                                                         </div>
+                                                    </div>
+                                                    <div class="row g-3">
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-label"> First Name</div>
+
+                                                            <input type="text" class="form-control" name="studentfname"
+                                                                id="studentfname" value="{{ $StudentAcc->student_firstname }}" >
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-label"> Middle Name</div>
+
+                                                            <input type="text" class="form-control" name="studentmname"
+                                                                id="studentmname" value="{{ $StudentAcc->student_middlename }}" >
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-label"> Last Name</div>
+
+                                                            <input type="text" class="form-control" name="studentlname"
+                                                                id="studentlname" value="{{ $StudentAcc->student_lastname }}" >
+                                                        </div>
+
                                                     </div>
                                                 </form>
                                                 <h3 class="card-title mt-4">Password</h3>
@@ -136,10 +166,10 @@
                 <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
-                            <form action="" id="" method="POST">
+                            <form action=""  id="Studentimageform" method="POST">
                                 <div class="modal-title">Upload Profile Picture</div>
                                 <img src="" alt="">
-                                <input type="file" class="form-control" name="editadminpic" id="editadminpic">
+                                <input type="file" class="form-control" name="updatestudentpic" id="updatestudentpic">
                         </div>
                         <div class="modal-footer">
                             <div class="w-100">
@@ -148,7 +178,8 @@
                                             data-bs-dismiss="modal">
                                             Cancel
                                         </a></div>
-                                    <div class="col"><button type="button" class="btn btn-success w-100"
+                                    <div class="col">
+                                        <button type="button" onclick="UpdateStudentimage()" class="btn btn-success w-100"
                                             data-bs-dismiss="modal">
                                             Save Changes
                                         </button></div>
@@ -168,7 +199,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <div class="modal-status bg-warning"></div>
                     <div class="modal-body text-center py-4">
-                      <!-- Download SVG icon from http://tabler-icons.io/i/circle-check -->
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-yellow icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
                       <h3>Confirm Save Changes</h3>
                       <div class="text-muted">Are you sure you want to save the changes to your account?</div>
@@ -179,7 +209,8 @@
                           <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
                               Cancel
                             </a></div>
-                          <div class="col"><a href="#" class="btn btn-warning w-100" id="saveChangesButton">
+                          <div class="col">
+                            <a href="#" class="btn btn-warning w-100" data-bs-dismiss="modal" onclick="UpdateStudentDetails()">
                               Save Changes
                             </a></div>
                         </div>
@@ -193,13 +224,13 @@
 
             {{-- Modal --}}
 
-            @include('Admin.components.footer')
+            @include('Student.components.footer')
 
         </div>
     </div>
 
-    @include('Admin.components.scripts')
-    @include('Admin.components.functionscript')
+    @include('Student.components.scripts')
+    @include('Student.components.studentscripts')
 
 </body>
 
