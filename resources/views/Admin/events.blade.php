@@ -202,12 +202,15 @@
                                 </table>
                               </div>
                               <hr>
+
+
                               
                               <form class="row g-3" id="addnewstudentadmin" method="POST">@csrf
               
                               <div class="row g-2">
                                 <div class="col-12">
-                                  <div id="mapL"></div>   
+                                  <div id="mapL" style="height: 340px;"></div>
+  
                                 </div>
                               </div>
               
@@ -256,7 +259,65 @@
   window.onload = function(){
     LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}",'admin');
   }
-
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('mapL').setView([0, 0], 2); // Default center and zoom level
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var userMarker = null;
+
+    // Function to handle setting user location
+    function setUserLocation(latitude, longitude) {
+      // Clear existing marker if any
+      if (userMarker) {
+        map.removeLayer(userMarker);
+      }
+
+      // Set new user marker
+      userMarker = L.marker([latitude, longitude]).addTo(map);
+      userMarker.bindPopup("Your Location").openPopup();
+
+      // Optional: Adjust map view to user location
+      map.setView([latitude, longitude], 15);
+    }
+
+    // Event listener for map click to set user location
+    map.on('click', function(e) {
+      var userLat = e.latlng.lat;
+      var userLng = e.latlng.lng;
+      setUserLocation(userLat, userLng);
+    });
+
+    // Check for geolocation support
+    if (navigator.geolocation) {
+      // Get current position
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // Set map view to user's location
+        var userLat = position.coords.latitude;
+        var userLng = position.coords.longitude;
+        setUserLocation(userLat, userLng);
+      }, function(error) {
+        console.error('Error getting the user location:', error);
+      });
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  });
+</script>
+
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Leaflet.markercluster JavaScript -->
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+
   </body>
 </html>
