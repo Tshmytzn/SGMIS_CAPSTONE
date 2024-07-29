@@ -27,28 +27,6 @@
             <div class="page-body">
                 <div class="container-xl" id="eventList">
 
-
-                    <div class="row row-cards">
-                        <div class="col-sm-6 col-lg-4">
-                            <div class="card card-sm">
-                                <a href="{{ route('ViewDetails') }}" class="d-block">
-                                    <div class="position-relative">
-                                        <img src="{{ asset('./static/photos/beautiful-blonde-woman-relaxing-with-a-can-of-coke-on-a-tree-stump-by-the-beach.jpg') }}"
-                                            class="card-img-top">
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <span class="avatar me-3 rounded"
-                                                style="background-image: url({{ asset('./static/avatars/000m.jpg') }})"></span>
-                                            <div class="me-4 text-dark">
-                                                <div>Uweek Celebration</div>
-                                                <div class="text-muted">3 days ago</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
                     <div class="page page-center" id="loading-events">
                         <div class="container container-slim py-4">
                           <div class="text-center">
@@ -60,7 +38,6 @@
                               <div class="progress-bar progress-bar-indeterminate"></div>
                             </div>
                           </div>
-
                         </div>
                       </div>
                   </div>
