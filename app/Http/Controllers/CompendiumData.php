@@ -45,7 +45,6 @@ class CompendiumData extends Controller
         return response()->json(['status' => 'success']);
     }
     public function GetCompendiumFiles(Request $request){
-
       $get = CompendiumFile::where('com_id',$request->id)->orderBy('created_at','desc')->get();
       return response()->json(['data' => $get]);
     }
