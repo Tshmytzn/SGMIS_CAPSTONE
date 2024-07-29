@@ -126,21 +126,16 @@ Route::fallback(function () {
 
 // STUDENT
 // tisha's routes
-
 Route::get('/Student/Login', function () { return view('Student.login'); })->name('Userlogin');
 Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
-
 // Route::get('Student/Dashboard', function () { return view('Student.index'); })->name('StudentDashboard');
-
 Route::get('Student/Dashboard', [SessionDetect::class, 'StudentDashboard'])->name('StudentDashboard');
 Route::get('Student/Event', function () { return view('Student.event'); })->name('EventDashboard');
 Route::get('Student/Evaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
 Route::get('Student/Evaluation/View', [SessionDetect::class, 'StudentViewEventDetails'])->name('ViewDetails');
 Route::get('Student/Evaluation/Evaluate', [SessionDetect::class, 'StudentEvaluateEvent'])->name('studentEvaluate');
 Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');
-Route::get('Student/Evaluationpage', function () { return view('Student.evaluationpage'); })->name('evaluationpage');
 
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
 Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');
 Route::post('Student/UpdateStudentDetails', [StudentData::class,'UpdateStudentDetails'])->name('UpdateStudentDetails');
-
