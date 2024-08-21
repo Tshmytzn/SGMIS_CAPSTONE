@@ -1,7 +1,7 @@
 <!doctype html>
 
 <html lang="en">
-  
+
 @include('Admin.components.header' , ['title' => 'Programs'])
 
 @include('Admin.components.adminstyle')
@@ -14,8 +14,8 @@
     {{-- <div class="loader-container">
       <div class="loader"></div>
   </div> --}}
-  
-    
+
+
 
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
@@ -42,12 +42,12 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Page body -->
         <div class="page-body">
           <div class="container-xl">
             <div class="row row-deck row-cards">
-              
+
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
@@ -79,7 +79,7 @@
                                   <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Department</button>
                               </div>
                           </div>
-                      </div>                                       
+                      </div>
                         {{-- ADD DEPARTMENT --}}
                             <div id="" class="table-responsive">
                               <table id="GetDepTable" class="table" style="width:100%">
@@ -90,14 +90,14 @@
                                   </tr>
                               </thead>
                               <tbody class="table-tbody">
-                                
+
                               </tbody>
-                            
+
                           </table>
                                     </div>
                                 </div>
                   {{-- DEPARTMENTS TAB --}}
-
+  
                    {{-- COURSES TAB --}}
                       <div class="tab-pane fade" id="courses">
                         <div>
@@ -111,7 +111,7 @@
                                     <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Course</button>
                                 </div>
                             </div>
-                          </div>                                       
+                          </div>
                           {{-- ADD Course --}}
                               <div id="table-default" class="table-responsive">
                                <table id="GetCourseTable" class="table" style="width:100%">
@@ -123,9 +123,9 @@
                                   </tr>
                               </thead>
                               <tbody class="table-tbody">
-                                
+
                               </tbody>
-                            
+
                           </table>
                               </div>
 
@@ -146,7 +146,7 @@
                                       <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Section</button>
                                   </div>
                               </div>
-                            </div>                                       
+                            </div>
                             {{-- ADD SECTION --}}
                             <div id="table-default" class="table-responsive">
                              <table id="GetSectionTable" class="table" style="width:100%">
@@ -159,9 +159,9 @@
                                   </tr>
                               </thead>
                               <tbody class="table-tbody">
-                                
+
                               </tbody>
-                            
+
                           </table>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                
+
                 <form class="row g-3" id="adddepartmentform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
@@ -221,7 +221,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                
+
                 <form class="row g-3" id="editdeptform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
@@ -257,7 +257,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                
+
                 <form class="row g-3" id="editdeptpicform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
@@ -289,7 +289,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                
+
                 <form class="row g-3" id="addcourseform" method="POST">@csrf
                 <div class="row g-2">
                   <div class="col-12">
@@ -300,12 +300,12 @@
                       @endphp
                       @foreach ($dept as $dep)
                       <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
-                      @endforeach                          
-                    </select>                  
+                      @endforeach
+                    </select>
                   </div>
                   <div class="col-12">
                     <label for="firstname" class="form-label">Course Name</label>
-                    <input type="text" class="form-control" name="coursename" id="coursename" placeholder="Course Name">                
+                    <input type="text" class="form-control" name="coursename" id="coursename" placeholder="Course Name">
                   </div>
                 </div>
 
@@ -330,7 +330,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        
+
                         <form class="row g-3" id="editcourseform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
@@ -342,17 +342,17 @@
                       @endphp
                       @foreach ($dept as $dep)
                       <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
-                      @endforeach                                      
-                            </select>                  
+                      @endforeach
+                            </select>
                           </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Course Name</label>
-                            <input type="text" class="form-control" id="editcoursename" name="editcoursename" placeholder="Course Name">                
+                            <input type="text" class="form-control" id="editcoursename" name="editcoursename" placeholder="Course Name">
                           </div>
                         </div>
-        
+
                         </form>
-        
+
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -372,7 +372,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        
+
                         <form class="row g-3" id="addsectionform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
@@ -381,14 +381,14 @@
                               <option>Select Department</option>
                               @foreach ($dept as $dep)
                       <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
-                      @endforeach                                  
-                            </select>                  
+                      @endforeach
+                            </select>
                           </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Courses</label>
                             <select class="form-select" name="selectcourse" id="selectcourse">
-                                                        
-                          </select>                  
+
+                          </select>
                         </div>
                         <div class="col-12">
                           <label for="yearlevel" class="form-label">Year Level</label>
@@ -396,14 +396,14 @@
                           <option value="null">Select Year Level</option>
                           <option value="First Year">First Year</option>
                           <option value="Second Year">Second Year</option>
-                          <option value="Third Year">Third Year</option> 
-                          <option value="Fourth Year">Fourth Year</option>                                     
-                          <option value="Fifth Year">Fifth Year</option>                                                                         
-                        </select>                 
+                          <option value="Third Year">Third Year</option>
+                          <option value="Fourth Year">Fourth Year</option>
+                          <option value="Fifth Year">Fifth Year</option>
+                        </select>
                       </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Section</label>
-                            <input type="text" class="form-control" name="section" id="section" placeholder="Section">                
+                            <input type="text" class="form-control" name="section" id="section" placeholder="Section">
                           </div>
                         </div>
 
@@ -428,7 +428,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        
+
                         <form class="row g-3" id="editsectionform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
@@ -437,14 +437,14 @@
                             <select id="editsectiondept" name="editsectiondept" class="form-select" onchange="GetDeptData2()">
                             @foreach ($dept as $dep)
                       <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
-                      @endforeach                                          
-                            </select>                  
+                      @endforeach
+                            </select>
                           </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Courses</label>
                             <select id="editsectioncourse" name="editsectioncourse" class="form-select">
-                                                              
-                          </select>                  
+
+                          </select>
                         </div>
                         <div class="col-12">
                           <label for="yearlevel" class="form-label">Year Level</label>
@@ -452,14 +452,14 @@
                           <option>Select Year Level</option>
                           <option value="First Year">First Year</option>
                           <option value="Second Year">Second Year</option>
-                          <option value="Third Year">Third Year</option> 
-                          <option value="Fourth Year">Fourth Year</option>                                     
-                          <option value="Fifth Year">Fifth Year</option>                                                                         
-                        </select>                  
+                          <option value="Third Year">Third Year</option>
+                          <option value="Fourth Year">Fourth Year</option>
+                          <option value="Fifth Year">Fifth Year</option>
+                        </select>
                       </div>
                           <div class="col-12">
                             <label for="firstname" class="form-label">Section</label>
-                            <input type="text" class="form-control" id="editsectionname" name="editsectionname" placeholder="Section">                
+                            <input type="text" class="form-control" id="editsectionname" name="editsectionname" placeholder="Section">
                           </div>
                         </div>
 
@@ -481,8 +481,8 @@
 
       </div>
     </div>
-    
-    
+
+
 @include('Admin.components.scripts')
 @include('Admin.components.functionscript')
   </body>

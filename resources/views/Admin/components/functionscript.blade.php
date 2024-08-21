@@ -1019,7 +1019,7 @@
                         <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
                         <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
                         <path d="M16 5l3 3"/>
-                    </svg>                                
+                    </svg>
                     &nbsp; Edit
                 </a>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#demotemodal" class="card-btn" onclick="DemoteAdministrator('${Data.admin_id}')">
@@ -1257,7 +1257,7 @@
                                 <p class="empty-title">No Student Admin Found!</p>
                                 <p class="empty-subtitle text-muted">
                                     No student admin record found! Please select a student admin first. </p>
-                            
+
                             </div>
                         </div>
                     </div>
@@ -1498,7 +1498,7 @@
                     div.innerHTML = `
                         <div class="card card-link card-link-pop folder ">
                             <div class="ribbon ribbon-top bg-yellow">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pinned"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" /><path d="M12 16l0 5" /><path d="M8 4l8 0" /></svg>                  
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pinned"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" /><path d="M12 16l0 5" /><path d="M8 4l8 0" /></svg>
                             </div>
                             <div class="card-body">
                                 <h3 class="card-title">${event.event_name}</h3>
@@ -1572,16 +1572,16 @@ function GetCompendiumFiles() {
         type: "GET",
         url: "{{ route('GetCompendiumFiles') }}?id=" + encodedId,
         success: function(response) {
-            
+
             if (response && Array.isArray(response.data)) {
                 const comfileElement = document.getElementById("comfile");
-                comfileElement.innerHTML = ""; 
+                comfileElement.innerHTML = "";
                 response.data.forEach(function(Data) {
 
                     const fileNameWithoutExt = Data.file_name.split('.').slice(1).join('.');
 
                     var div = document.createElement("div");
-                    div.setAttribute("class", "col-md-2 col-lg-3 admincardeffects"); 
+                    div.setAttribute("class", "col-md-2 col-lg-3 admincardeffects");
                      div.setAttribute("data-bs-toggle", "modal");
                     div.setAttribute("data-bs-target", "#viewFile");
                    div.setAttribute("onclick", `viewfile('${Data.file_name}')`);
@@ -1642,7 +1642,7 @@ const fileTypeIcons = {
     'txt':'txt-icon.png',
     'zip':'zip-icon.png',
     'rar':'rar-icon.png',
-   
+
 };
 
 function getFileType(url) {
@@ -1713,21 +1713,21 @@ function DeleteFile(id) {
                 GetCompendiumFiles();
                 alertify
                 .alert("Message",response.message, function(){
-             
+
                     });
-              
+
             }
         },
         error: function(xhr, status, error) {
             console.error(xhr.responseText);
-           
+
         }
     });
   },
   function(){
     alertify.error('Cancel');
   });
-    
+
 }
 
 
