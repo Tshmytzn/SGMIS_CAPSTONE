@@ -14,6 +14,7 @@ class EventLocation extends Model
        'location_name',
        'latitude',
        'longitude',
+       'lrange',
        'status',
     ];
 }

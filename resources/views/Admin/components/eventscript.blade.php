@@ -2,12 +2,16 @@
 
 let map, marker,circle;
 let radius = 500;
-function initMap(lat, lng, name,id) {
+function initMap(lat, lng, name,id,lrange) {
     if(name){
         document.getElementById('venue').value=name;
         document.getElementById('venueID').value=id;
+        document.getElementById('rangeRadius').value=lrange;
         document.getElementById('updateVenue').style.display='';
         document.getElementById('newVenue').style.display='none';
+    }
+     if (lrange) {
+        radius = parseInt(lrange);
     }
     // Initialize the map centered on the user's location
     if (!map) {
@@ -82,6 +86,7 @@ function refreshLocation() {
     // Check if the browser supports geolocation
     document.getElementById('venue').value='';
     document.getElementById('venueID').value='';
+    document.getElementById('rangeRadius').value='';
     document.getElementById('updateVenue').style.display='none';
     document.getElementById('newVenue').style.display='';
     if ("geolocation" in navigator) {
@@ -166,7 +171,7 @@ function GetVenue()
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return '<button class="btn btn-primary" onclick="initMap('+data.latitude+','+data.longitude+',`'+data.location_name+'`,`'+data.l_id+'`)">Select</button>';
+                        return '<button class="btn btn-primary" onclick="initMap('+data.latitude+','+data.longitude+',`'+data.location_name+'`,`'+data.l_id+'`,'+data.lrange+')">Select</button>';
                     }
                 }
             ]
@@ -174,6 +179,15 @@ function GetVenue()
 }
 $(document).ready(function() {
     GetVenue()
+
+    $('#eventSettings').on('shown.bs.modal', function () {
+    refreshLocation();
+    if (map) {
+        setTimeout(function() {
+            map.invalidateSize();
+        }, 10); // Give it a small delay to ensure the modal is fully open
+    }
+});
 });
 
 </script>
