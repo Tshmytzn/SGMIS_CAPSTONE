@@ -68,12 +68,12 @@ class DeparmentData extends Controller
    }
    public function GetSectData(Request $request){
 
-    $check = Section::where('course_id', $request->course_id)->get();
+    $check = Section::where('course_id', $request->course_id)->where('year_level', $request->year_level)->get();
     return response()->json(['data' =>  $check]);
    }
 
-   public function SaveSection(Request $request){
-    
+ public function SaveSection(Request $request)
+{
     if (
         $request->selectdepartment === '' || 
         $request->selectcourse === '' || 
@@ -83,7 +83,10 @@ class DeparmentData extends Controller
         return response()->json(['status' => 'empty']);
     }
     
-    $check = Section::where('sect_name', $request->section)
+    // Convert section name to uppercase
+    $sectionName = strtoupper($request->section);
+    
+    $check = Section::where('sect_name', $sectionName)
                     ->where('course_id', $request->selectcourse)
                     ->where('year_level', $request->selectyear)
                     ->first();
@@ -91,14 +94,16 @@ class DeparmentData extends Controller
     if ($check) {
         return response()->json(['status' => 'exist']);
     }
+    
     $data = new Section;
     $data->course_id = $request->selectcourse;
-    $data->sect_name = $request->section;
+    $data->sect_name = $sectionName;
     $data->year_level = $request->selectyear;
     $data->save();
     
     return response()->json(['status' => 'success']);
 }
+
 
     public function GetDepartmentData( ){
 
@@ -163,14 +168,15 @@ public function EditDeptPicInfo(Request $request){
    }
     public function GetSectionData( ){
 
-$check = Section::join('course', 'section.course_id', '=', 'course.course_id')
+                $check = Section::join('course', 'section.course_id', '=', 'course.course_id')
                 ->join('department', 'course.dept_id', '=', 'department.dept_id')
                 ->select('section.*', 'department.dept_id', 'department.dept_name', 'course.course_id', 'course.course_name')
                 ->get();
-    return response()->json(['data' =>  $check]);
+        return response()->json(['data' =>  $check]);
    } 
-      public function EditSectionInfo(Request $request){
-       $check = Section::where('course_id', $request->editsectioncourse)->where('sect_name', $request->editsectionname)->first();  
+
+    public function EditSectionInfo(Request $request){
+       $check = Section::where('course_id', $request->editsectioncourse)->where('sect_name', $request->editsectionname)->where('year_level',$request->editsectionyear)->first();  
     if($request->editsectiondept == '' || $request->editsectioncourse == '' || $request->editsectionyear == '' || $request->editsectionname == ''){
           return response()->json(['status' => 'empty']);
     }else if($check){

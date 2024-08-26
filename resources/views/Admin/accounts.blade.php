@@ -225,10 +225,21 @@
                   </div>
                   <div class="col-12">
                     <label for="firstname" class="form-label">Courses</label>
-                    <select class="form-select" name="selectcourse" id="selectcourse" onchange="GetSectData()">
+                    <select class="form-select" name="selectcourse" id="selectcourse">
                       <option>Select Course</option>                     
                   </select>                  
                 </div>
+                 <div class="col-12">
+                  <label for="selectYearLevel" class="form-label">Year Level</label>
+                  <select class="form-select" name="selectYearLevel" id="selectYearLevel" onchange="GetSectData()">      
+                    <option value="">Select Year Level</option>
+                    <option value="First Year">First Year</option>
+                    <option value="Second Year">Second Year</option>
+                    <option value="Third Year">Third Year</option>
+                    <option value="Fourth Year">Fourth Year</option>
+                    <option value="Fifth Year">Fifth Year</option>                 
+                </select>                  
+              </div>
                 <div class="col-12">
                   <label for="firstname" class="form-label">Section</label>
                   <select class="form-select" name="selectsection" id="selectsection">                       

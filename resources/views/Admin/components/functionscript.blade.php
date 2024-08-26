@@ -719,23 +719,33 @@
         });
     }
     function GetSectData() {
-        const crs = document.getElementById('selectcourse').value;
-        console.log(crs);
-        $.ajax({
-            type: "GET",
-            url: "{{ route('GetSectData') }}?course_id=" + crs,
-            success: function(response) {
-                $('#selectsection').empty();
-                response.data.forEach(function(course) {
-                    $('#selectsection').append('<option value="' + course.sect_id + '">' + course
-                        .sect_name + '</option>');
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
+    const crs = document.getElementById('selectcourse').value;
+    const yearLevel = document.getElementById('selectYearLevel').value;
+
+    // Log the values for debugging
+    console.log(crs);
+    console.log(yearLevel);
+
+    $.ajax({
+        type: "GET",
+        url: "{{ route('GetSectData') }}",
+        data: {
+            course_id: crs,
+            year_level: yearLevel,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            $('#selectsection').empty();
+            response.data.forEach(function(course) {
+                $('#selectsection').append('<option value="' + course.sect_id + '">' + course.sect_name + '</option>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
 
     function SaveSection() {
         document.getElementById('adminloader').style.display = 'grid';
