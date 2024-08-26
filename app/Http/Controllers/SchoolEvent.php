@@ -12,6 +12,7 @@ use App\Models\EventDepartment;
 use App\Models\Course;
 use App\Models\EvalQuestion;
 use App\Models\Evaluation;
+use App\Models\EventLocation;
 
 class SchoolEvent extends Controller
 {
@@ -20,7 +21,7 @@ class SchoolEvent extends Controller
 
         if(!in_array($pic->getClientOriginalExtension(), ['jpeg', 'jpg', 'png', 'gif'])){
             return response()->json(['status'=>'invalid_img']);
-        } 
+        }
         $event = new SchoolEvents;
         $event->event_name  = $req->ev_name;
         $event->event_description = $req->ev_description;
@@ -82,7 +83,7 @@ class SchoolEvent extends Controller
         }
         if(file_exists($image)){
             unlink($image);
-            $event->delete(); 
+            $event->delete();
             return response()->json(['status'=>'success']);
         }else{
             return response()->json(['status'=>'fail']);
@@ -117,7 +118,7 @@ class SchoolEvent extends Controller
 
                   $pic->move(public_path('event_images/'),  "Event". $req->event_id . ".". $pic->getClientOriginalExtension());
             }
-        } 
+        }
          $event->update([
            'event_name'=> $req->ev_name,
            'event_description'=>$req->ev_description,
@@ -128,7 +129,7 @@ class SchoolEvent extends Controller
     }
 
     public function AddEventActivity(Request $req){
-    
+
         $act = new EventActivities;
         $act->event_id = $req->event_id;
         $act->eact_name = $req->act_name;
@@ -187,7 +188,7 @@ class SchoolEvent extends Controller
       ]);
        return response()->json(['status' => 'success', 'event_id'=>$req->event_id, 'img'=>$name]);
     }
-    
+
     public function AddDeptEvent(Request $req){
        $dept = new EventDepartment();
        $dept->event_id = $req->event_id;
@@ -203,11 +204,11 @@ class SchoolEvent extends Controller
     public function RemoveDeptEvent(Request $req){
         $dept = EventDepartment::where('event_id', $req->event_id)->where('dept_id', $req->dept_id)->first();
         $dept->delete();
-         
+
         $event = EventDepartment::where('event_id', $req->event_id)->get()->count();
         return response()->json(['status'=>'success', 'dept'=>$event]);
     }
-    
+
     public function GetDeptEvent(Request $req){
        $dept = EventDepartment::where('event_id', $req->event_id)->get();
        return response()->json(['dept'=>$dept]);
@@ -237,7 +238,7 @@ class SchoolEvent extends Controller
             $newList .= $prog.',';
           }
         }
-       }  
+       }
 
        $image = public_path('programme_images/'. $req->programme_name);
        if(file_exists($image)){
@@ -248,5 +249,28 @@ class SchoolEvent extends Controller
        }
 
        return response()->json(['status'=>'success', 'programme'=>$req->programme_name, 'list'=>$newList]);
+     }
+     public function SubmitEventVenue(request $request){
+        $data = new EventLocation;
+        $data->location_name = $request->venue;
+        $data->latitude = $request->lat;
+        $data->longitude = $request->lng;
+        $data->lrange = $request->rangeRadius;
+        $data->save();
+        return response()->json(['status' => 'success']);
+     }
+     public function GetVenue(request $request){
+        $venue = EventLocation::all();
+        return response()->json(['data' => $venue]);
+     }
+     public function updateVenue(request $request){
+        $venue = EventLocation::where('l_id', $request->venueID)->first();
+        $venue->update([
+          'location_name'=>$request->venue,
+          'latitude'=>$request->lat,
+          'longitude'=>$request->lng,
+          'lrange'=>$request->rangeRadius,
+        ]);
+        return response()->json(['status' => 'success']);
      }
 }

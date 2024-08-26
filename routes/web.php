@@ -40,6 +40,7 @@ Route::get('/Budgeting', [SessionDetect::class, 'Budgeting'])->name('Budgeting')
 Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('Attendance');
 Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
 Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
+Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');
 
 
 
@@ -100,6 +101,8 @@ Route::post('Admin/DemoteStudentAdmin',[AdminData::class,'DemoteStudentAdmin'] )
 Route::post('Admin/AddCompendium',[CompendiumData::class,'AddCompendium'] )->name('AddCompendium');
 Route::post('Admin/UploadCompendiumFile', [CompendiumData::class,'UploadCompendiumFile'])->name('UploadCompendiumFile');
 Route::post('Admin/DeleteFile', [CompendiumData::class,'DeleteFile'])->name('DeleteFile');
+Route::post('Admin/SubmitEventVenue', [SchoolEvent::class,'SubmitEventVenue'])->name('SubmitEventVenue');
+Route::post('Admin/updateVenue', [SchoolEvent::class,'updateVenue'])->name('updateVenue');
 
 
 // jpubas route get
@@ -115,6 +118,7 @@ Route::get('/admin/GetAllStudentData', [AdminData::class,"GetAllStudentData"])->
 Route::get('/admin/GetAllStudentAdminData', [AdminData::class,"GetAllStudentAdminData"])->name('GetAllStudentAdminData');
 Route::get('/admin/GetAllCompendium', [CompendiumData::class,"GetAllCompendium"])->name('GetAllCompendium');
 Route::get('/admin/GetCompendiumFiles', [CompendiumData::class,"GetCompendiumFiles"])->name('GetCompendiumFiles');
+Route::get('/admin/GetVenue', [SchoolEvent::class,"GetVenue"])->name('GetVenue');
 
 
 
