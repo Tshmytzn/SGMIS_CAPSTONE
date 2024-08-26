@@ -4,6 +4,24 @@
 
 @include('Admin.components.header', ['title' => 'Events'])
 
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+    .coordinates {
+        margin-top: 10px;
+    }
+    .range-slider {
+            display: flex;
+            align-items: center;
+        }
+        .range-slider input {
+            margin-left: 10px;
+            flex: 1;
+        }
+</style>
+@include('Admin.components.adminstyle')
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
@@ -11,6 +29,7 @@
 @include('Admin.components.nav', ['active' => 'Events'])
 
 @include('Admin.components.loading')
+
             <div class="page-wrapper">
 
         <!-- Page header -->
@@ -40,7 +59,7 @@
             </div>
 
                 <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#modal-report"> Create Event</button>
-                &nbsp;  <button class="btn" style="background-color: #b9b6b4; color: rgb(61, 61, 61);" data-bs-toggle="modal" data-bs-target="#eventSettings"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                &nbsp;  <button class="btn" id="mapModal" onclick="modelOpen()" style="background-color: #b9b6b4; color: rgb(61, 61, 61);" data-bs-toggle="modal" data-bs-target="#eventSettings"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                     <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
                 </svg> Settings</button>
 
@@ -149,7 +168,7 @@
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Update Password</h5>
+          <h5 class="modal-title">Event Setting</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -182,13 +201,68 @@
                           <div class="tab-content">
                             <div class="tab-pane fade show active" id="my-account">
                               <!-- Content for My Account tab removed -->
-                              <h1>h1</h1>
+                              <div class="col-12 d-flex flex-column " style="margin: 2%; padding:2%;">
+
+                              <div class="table-responsive">
+                                <table id="Venuetable" class="table table-striped" style="width:100%">
+                                  <thead>
+                                    <tr>
+                                      <th>Venue</th>
+
+                                      <th>Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {{-- <tr>
+                                      <td>Sample name</td>
+                                      <td>34545469</td>
+                                      <td>USG PRESIDENT</td>
+                                      <td>
+                                        <button class="btn btn-warning btn-sm">Select</button>
+                                      </td>
+                                    </tr> --}}
+                                  </tbody>
+                                </table>
+                              </div>
+                              <br>
+                              {{-- table end --}}
+                              {{-- map --}}
+                              <div id="map">Loading map...</div>
+
+                              <button type="button" class="btn btn-primary" onclick="refreshLocation()">Refresh Location</button>
+                                <form action="" class="" id="eventlocationForm" method="post">
+                                    @csrf
+                                    <br>
+                                    <div class="range-slider">
+                                        <label for="rangeRadius">Range Radius (meters):</label>
+                                        <input type="range" id="rangeRadius" name="rangeRadius" min="10" max="500" step="20" value="100" oninput="updateRadius(this.value)">
+                                        <span id="rangeValue">500</span> meters
+                                    </div>
+                                    <br>
+                                    <input type="text" id="lat" name="lat" readonly hidden>
+                                    <input type="text" id="lng" name="lng" readonly hidden>
+                                    <div class="row g-2">
+                                    <div class="col-12">
+                                        <label for="adminuser" class="form-label">Venue</label>
+                                        <input type="text" class="form-control" name="venue" id="venue">
+                                        <input type="text" class="form-control" name="venueID" id="venueID" hidden>
+                                      </div>
+                                    </div>
+                                    <br>
+                                      <button type="button" class="btn btn-primary" id='newVenue' onclick="dynamicFuction('eventlocationForm','{{ route('SubmitEventVenue') }}')">Add Venue</button>
+                                      <button type="button" class="btn btn-primary"id='updateVenue' style="display:none;" onclick="dynamicFuction('eventlocationForm','{{ route('updateVenue') }}')">Update</button>
+
+                                </form>
+
+                              {{-- end map --}}
+                            </div>
                             </div>
                             <div class="tab-pane fade" id="administrators">
                               <!-- Content for Primary Admins tab removed -->
                             </div>
                             <div class="tab-pane fade" id="studentadmins">
                               <!-- Content for Student Admins tab removed -->
+                            </div>
                             </div>
                           </div>
                         </div>
@@ -204,7 +278,7 @@
 {{-- modal end --}}
 
 @include('Admin.components.scripts')
-
+@include('Admin.components.eventscript')
 
 <script>
   window.onload = function(){

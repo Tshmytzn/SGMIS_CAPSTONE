@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('evaluation_result', function (Blueprint $table) {
             $table->id('res_id');
-            $table->unsignedBigInteger('student_id'); 
+            $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('student_id')->on('student_accounts');
-            $table->unsignedBigInteger('eq_id'); 
+            $table->unsignedBigInteger('eq_id');
             $table->foreign('eq_id')->references('eq_id')->on('eval_question');
             $table->string('res_value');
             $table->timestamps();

@@ -5,8 +5,6 @@
 @include('Admin.components.header' , ['title' => 'Programs'])
 
 @include('Admin.components.adminstyle')
-  <body >
-
 {{-- @include('Admin.components.programsloader') --}}
 
   <body>
@@ -97,7 +95,7 @@
                                     </div>
                                 </div>
                   {{-- DEPARTMENTS TAB --}}
-  
+
                    {{-- COURSES TAB --}}
                       <div class="tab-pane fade" id="courses">
                         <div>
