@@ -16,7 +16,6 @@
         bottom: 100%;
         left: 30%;  }
 </style>
-
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
@@ -326,16 +325,22 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="mb-1">
                   <label class="form-label">Facilitator Name <span id="act_fac_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                   <input type="text" class="form-control" id="act_fac" name="act_fac" placeholder="Facilitator Name">
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="mb-1">
                   <label class="form-label">Activity Venue <span id="act_venue_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
-                  <input type="text" class="form-control" id="act_venue" name="act_venue" placeholder="Activity Venue">
+                  <div class="row">
+                  <div class="col-9">
+                    <input type="text" class="form-control" id="act_venue" name="act_venue" placeholder="Venue" hidden>
+                    <input type="text" class="form-control" id="act_venue2" name="act_venue2" placeholder="Venue" readonly>
+                  </div>
+                  <div class="col-3"><button class="btn btn-primary" type="button" id="mapModal" data-bs-toggle="modal" data-bs-target="#eventSettings">Select Venue</button></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -376,6 +381,7 @@
         </div>
       </div>
     </div>
+    @include('Admin.components.layout.map')
 
     <div class="modal modal-blur fade" id="editAct" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -549,6 +555,7 @@
     </div>
 
 @include('Admin.components.scripts')
+@include('Admin.components.eventdscript')
 <!-- Bootstrap CSS -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 <script src="{{asset('./dist/libs/dropzone/dist/dropzone-min.js?1684106062')}}" defer></script>

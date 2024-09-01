@@ -103,6 +103,7 @@ Route::post('Admin/UploadCompendiumFile', [CompendiumData::class,'UploadCompendi
 Route::post('Admin/DeleteFile', [CompendiumData::class,'DeleteFile'])->name('DeleteFile');
 Route::post('Admin/SubmitEventVenue', [SchoolEvent::class,'SubmitEventVenue'])->name('SubmitEventVenue');
 Route::post('Admin/updateVenue', [SchoolEvent::class,'updateVenue'])->name('updateVenue');
+Route::post('Admin/deleteVenue', [SchoolEvent::class,'deleteVenue'])->name('deleteVenue');
 
 
 // jpubas route get

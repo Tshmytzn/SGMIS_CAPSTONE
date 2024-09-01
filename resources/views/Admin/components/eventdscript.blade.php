@@ -1,4 +1,62 @@
 <script>
+   $(document).ready(function() {
+    
+    $('#eventSettings').on('shown.bs.modal', function () {
+     GetVenue()
+    refreshLocation();
+    if (map) {
+        setTimeout(function() {
+            map.invalidateSize();
+        }, 10); // Give it a small delay to ensure the modal is fully open
+    }
+});
+}); 
+function GetVenue()
+{
+    $('#Venuetable').DataTable({
+            destroy: true,
+            pageLength: 5,
+            lengthChange: false,
+            ajax: {
+                url: '{{ route('GetVenue') }}',
+                type: 'GET'
+            },
+            columns: [{
+                    data: 'location_name'
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return `
+                        <button class="btn btn-primary" onclick="selectVenue(${data.l_id},'${data.location_name}')">Select</button>
+                        <button class="btn btn-primary" onclick="initMap(${data.latitude}, ${data.longitude}, '${data.location_name}', '${data.l_id}', ${data.lrange})">Update</button>
+                        <button class="btn btn-danger" onclick="deleteVenue('${data.l_id}')">Delete</button>
+                    `;
+                    }
+                }
+            ]
+        });
+}
+function selectVenue(id,name){
+document.getElementById('act_venue').value=id;
+document.getElementById('act_venue2').value=name;
+$('#eventSettings').modal('hide');
+$('#addActivity').modal('show');
+}
+
+
+function deleteVenue(id){
+    alertify.confirm("Warning","Are you sure you want to delete this venue?",
+  function(){
+    document.getElementById('v_id').value = id;
+    dynamicFuction('deleteVenueForm', `{{route('deleteVenue')}}`)
+  },
+  function(){
+    alertify.error('Cancel');
+  });
+    
+}
+
 
 let map, marker,circle;
 let radius = 500;
@@ -125,8 +183,6 @@ function updateRadius(newRadius) {
 // Initialize the map with the user's location on page load
 refreshLocation();
 
-
-
     function dynamicFuction(formId, routeUrl) {
     // Show the loader
     document.getElementById('adminloader').style.display = 'grid';
@@ -141,53 +197,23 @@ refreshLocation();
         data: formData,
         success: function(response) {
             document.getElementById('adminloader').style.display = 'none';
-            console.log('success');
-            GetVenue();
-            alertify
-                        .alert("Message", "Venue Successfully Added", function() {
+            if(response.status=='error'){
+                alertify
+                        .alert("Warning", response.message, function() {
                             alertify.message('OK');
                         });
-            // You can also add custom success handling here if needed
-        },
+            }else{
+                GetVenue();
+            alertify
+                        .alert("Message", response.message, function() {
+                            alertify.message('OK');
+                        });
+            }
+         },
         error: function(xhr, status, error) {
             console.error(xhr.responseText);
             // You can also add custom error handling here if needed
         }
     });
 }
-
-function GetVenue()
-{
-    $('#Venuetable').DataTable({
-            destroy: true,
-            pageLength: 5,
-            ajax: {
-                url: '{{ route('GetVenue') }}',
-                type: 'GET'
-            },
-            columns: [{
-                    data: 'location_name'
-                },
-                {
-                    data: null,
-                    render: function(data, type, row) {
-                        return '<button class="btn btn-primary" onclick="initMap('+data.latitude+','+data.longitude+',`'+data.location_name+'`,`'+data.l_id+'`,'+data.lrange+')">Select</button>';
-                    }
-                }
-            ]
-        });
-}
-$(document).ready(function() {
-    GetVenue()
-
-    $('#eventSettings').on('shown.bs.modal', function () {
-    refreshLocation();
-    if (map) {
-        setTimeout(function() {
-            map.invalidateSize();
-        }, 10); // Give it a small delay to ensure the modal is fully open
-    }
-});
-});
-
 </script>

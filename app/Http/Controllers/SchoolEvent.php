@@ -251,13 +251,16 @@ class SchoolEvent extends Controller
        return response()->json(['status'=>'success', 'programme'=>$req->programme_name, 'list'=>$newList]);
      }
      public function SubmitEventVenue(request $request){
+        if($request->venue==''){
+            return  response()->json(['status'=>'error', 'message'=>'Please put a venue name!']);
+        }
         $data = new EventLocation;
         $data->location_name = $request->venue;
         $data->latitude = $request->lat;
         $data->longitude = $request->lng;
         $data->lrange = $request->rangeRadius;
         $data->save();
-        return response()->json(['status' => 'success']);
+        return response()->json(['message'=>'Venue Successfully Added','status' => 'success']);
      }
      public function GetVenue(request $request){
         $venue = EventLocation::all();
@@ -271,6 +274,11 @@ class SchoolEvent extends Controller
           'longitude'=>$request->lng,
           'lrange'=>$request->rangeRadius,
         ]);
-        return response()->json(['status' => 'success']);
+        return response()->json(['message'=>'Venue Successfully Updated','status' => 'success']);
+     }
+     public function deleteVenue(request $request){
+        $venue =  EventLocation::where('l_id', $request->v_id)->first();
+        $venue->delete();
+        return response()->json(['message'=>'Venue Successfully Deleted','status' => 'success']);
      }
 }
