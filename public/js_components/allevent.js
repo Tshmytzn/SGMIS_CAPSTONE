@@ -758,7 +758,8 @@ function LoadEventActivities(route, deleteRoute, actDetails, where) {
          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
        </svg></button>
-       </td>` : ''}
+       </td>` : ` <td><button class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#timeinmodal" onclick="attendance('${data.eact_id}')">
+                                Attendance</button></td>`}
        </tr>`;
         });
 

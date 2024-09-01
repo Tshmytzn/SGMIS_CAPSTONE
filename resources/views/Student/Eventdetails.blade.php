@@ -11,10 +11,7 @@
 @include('Student.components.nav')
 
 <style>
-    #map {
-        height: 400px;
-        width: 100%;
-    }
+  
 </style>
 
 <body>
@@ -38,20 +35,6 @@
             <div class="page-body">
 
                 <div class="container-xl">
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <button class="btn btn-primary btn-block w-100" data-bs-toggle="modal"
-                                data-bs-target="#timeinmodal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-clock">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-                                    <path d="M12 7v5l3 3" />
-                                </svg>Click to Time in</button>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-12">
 
@@ -132,7 +115,7 @@
                                         <th>Venue</th>
                                         <th>Facilitator</th>
                                         <th>Date & Time</th>
-
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="act_list">
@@ -201,12 +184,19 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-
+                                <div class="col-12" id="mapLoading">
+                                    <div class="loader-container">
+                                        <div class="bouncing-dots">
+                                            <div class="dot"></div>
+                                            <div class="dot"></div>
+                                            <div class="dot"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="map"></div>
-
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Time
+                                <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal" id="attend">Time
                                     In</button>
                             </div>
                         </div>
@@ -217,7 +207,7 @@
         </div>
         @include('Student.components.footer')
         @include('Student.components.scripts')
-        @include('Student.components.studentscripts')
+        @include('Student.components.eventscript')
         <!-- Bootstrap CSS -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
         <script src="{{ asset('./dist/libs/dropzone/dist/dropzone-min.js?1684106062') }}" defer></script>

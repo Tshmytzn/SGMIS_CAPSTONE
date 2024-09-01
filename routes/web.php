@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminData;
 use App\Http\Controllers\StudentData;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\CompendiumData;
+use App\Http\Controllers\StudentAttendance;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -120,6 +121,7 @@ Route::get('/admin/GetAllStudentAdminData', [AdminData::class,"GetAllStudentAdmi
 Route::get('/admin/GetAllCompendium', [CompendiumData::class,"GetAllCompendium"])->name('GetAllCompendium');
 Route::get('/admin/GetCompendiumFiles', [CompendiumData::class,"GetCompendiumFiles"])->name('GetCompendiumFiles');
 Route::get('/admin/GetVenue', [SchoolEvent::class,"GetVenue"])->name('GetVenue');
+Route::get('/admin/getVenueByID', [StudentAttendance::class,"getVenueByID"])->name('getVenueByID');
 
 
 
