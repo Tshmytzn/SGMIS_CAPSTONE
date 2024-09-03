@@ -3,7 +3,7 @@
 <html lang="en">
 
 @include('Admin.components.header', ['title' => 'Election'])
-
+@include('Admin.components.adminstyle')
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -148,37 +148,20 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="row g-3" id="createeval" method="POST">
+                        <form class="row g-3" id="createelect" method="POST">
                             @csrf
                             <div class="row g-2">
                                 <div class="col-12">
 
                                     <div class="mb-2">
                                         <label for="firstname" class="form-label">Election Title</label>
-                                        <input name="election_name" class="form-control" name="electionname"
-                                            id="election" placeholder="Student Government Elections SY-0000">
-                                        </input>
+                                        <input name="election_name" class="form-control" id="election_name" placeholder="Student Government Elections SY-0000">
                                     </div>
 
                                     <div class="mb-2">
-                                        <label for="election_desc" class="form-label">Election Description</label>
+                                        <label for="election_desc" class="form-label">Election Description(optional)</label>
                                         <textarea name="election_desc" id="election_desc" class="form-control"
                                             placeholder="Enter brief overview of the election, and other notes..."></textarea>
-                                    </div>
-
-                                    <hr class="my-4">
-                                    <h3 for="election date">Election Dates</h3>
-                                    <div class="row mb-2">
-                                        <div class="col-6">
-                                            <label for="start_date" class="form-label">Start Date</label>
-                                            <input type="date" name="start_date" id="start_date"
-                                                class="form-control">
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="end_date" class="form-label">End Date</label>
-                                            <input type="date" name="end_date" id="end_date"
-                                                class="form-control">
-                                        </div>
                                     </div>
 
                                     <hr class="my-4">
@@ -194,11 +177,7 @@
                                             <input type="datetime-local" name="voting_end_date" id="voting_end_date"
                                                 class="form-control">
                                         </div>
-
                                     </div>
-
-                                    <hr class="my-4">
-
 
                                 </div>
                         </form>
@@ -208,7 +187,7 @@
                         <button type="button" id="closeEvalForm" class="btn btn-danger"
                             data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary"
-                            onclick="VerifyCreateEvalForm('{{ route('createEvalForm') }}', '{{ route('getEvalForm') }}', '{{ route('ViewEvaluations') }}', '{{ asset('event_images') }}', '{{ route('deleteEvalForm') }}', '{{ asset('./static/illustrations/reading.svg') }}','admin')">Save</button>
+                            onclick="dynamicFuction('createelect','{{route('createElection')}}')">Save</button>
                     </div>
                 </div>
             </div>
@@ -222,7 +201,7 @@
 
 
     @include('Admin.components.scripts')
-
+    @include('admin.components.electionscript')
 </body>
 
 </html>

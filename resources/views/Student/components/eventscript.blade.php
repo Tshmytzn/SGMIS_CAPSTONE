@@ -62,9 +62,9 @@
     }
 }
 </style>
-<input type="text" id="latitude">
-<input type="text" id="longitude">
-<input type="text" id="lrange">
+<input type="text" id="latitude" hidden>
+<input type="text" id="longitude" hidden>
+<input type="text" id="lrange" hidden>
 
 <script>
 const studentId = <?php echo session('student_id'); ?>;
