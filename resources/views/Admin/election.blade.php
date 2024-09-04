@@ -79,9 +79,9 @@
                                         nostrum recusandae reiciendis saepe.</p>
                                 </div>
                                 <div class="card-footer card-footer-transparent" >
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editelection" class="btn btn-outline-green"
+                                    <a href="{{route('Editelection')}}"class="btn btn-outline-green"
                                         style="display: flex; align-items: center; justify-content: center;">
-                                        Edit Details <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        Update Details <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                             class="icon icon-tabler icons-tabler-outline icon-tabler-edit"
@@ -96,6 +96,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
 
 
@@ -117,26 +118,6 @@
 
         {{-- Modal --}}
 
-
-         {{-- Edit Election Details --}}
-         <div class="modal fade" id="editelection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Election Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        {{-- Edit Election Details --}}
 
         {{-- Create Election Modal --}}
         <div class="modal modal-blur fade" id="createelection" data-bs-backdrop="static" data-bs-keyboard="false"

@@ -1,4 +1,4 @@
-@include('Admin.components.adminstyle')
+
 <script>
     function dynamicFuction(formId, routeUrl) {
     // Show the loader
