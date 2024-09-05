@@ -125,6 +125,7 @@ Route::get('/admin/GetAllCompendium', [CompendiumData::class,"GetAllCompendium"]
 Route::get('/admin/GetCompendiumFiles', [CompendiumData::class,"GetCompendiumFiles"])->name('GetCompendiumFiles');
 Route::get('/admin/GetVenue', [SchoolEvent::class,"GetVenue"])->name('GetVenue');
 Route::get('/admin/getVenueByID', [StudentAttendance::class,"getVenueByID"])->name('getVenueByID');
+Route::get('Admin/getElection', [ElectionController::class,'getElection'])->name('getElection');
 
 
 

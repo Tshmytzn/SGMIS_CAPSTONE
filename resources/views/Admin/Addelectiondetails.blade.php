@@ -3,7 +3,7 @@
 <html lang="en">
 
 @include('Admin.components.header', ['title' => 'Add Election Details'])
-
+@include('Admin.components.adminstyle')
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -31,8 +31,9 @@
             
         <div class="page-body">
           <div class="container-xl">
+          @include('Admin.components.lineLoading')
 
-            <div class="row bg-white p-4">
+            <div class="row bg-white p-4" id="formElect" style="display: none">
               <div class="col-12 col-sm-6">
                 <label for="election_name" class="form-label">Election Title</label>
                     <input name="election_name" class="form-control" id="election_name"
@@ -180,7 +181,7 @@
     </div>
 
     @include('Admin.components.scripts')
-
+     @include('admin.components.electiondscript')
 </body>
 
 </html>

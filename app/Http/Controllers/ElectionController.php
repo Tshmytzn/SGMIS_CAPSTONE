@@ -23,4 +23,12 @@ class ElectionController extends Controller
 
         return response()->json(['message'=>'Election Successfully Created','status' => 'success']);
     }
+    public function getElection(request $request){
+        if($request->elect_id){
+             $elect = Election::where('elect_id',$request->elect_id)->first();
+              return response()->json(['data'=>$elect,'status' => 'success']);
+        }
+        $elect = Election::All();
+        return response()->json(['data'=>$elect,'status' => 'success']);
+    }
 }

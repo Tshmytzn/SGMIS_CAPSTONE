@@ -4,6 +4,19 @@
 
 @include('Admin.components.header', ['title' => 'Election'])
 @include('Admin.components.adminstyle')
+<style>
+    .fade-card {
+            opacity: 0;
+            transform: scale(0.5); /* Make it slightly smaller */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Pop-up animation */
+        .fade-card.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -64,9 +77,9 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    <div class="row row-deck row-cards">
-
-                        <div class="col-md-6 col-lg-3">
+                    <div class="row row-deck row-cards" id="cards">
+                        @include('Admin.components.lineLoading')
+                        {{-- <div class="col-md-6 col-lg-3">
                             <div class="card card-stacked">
                               <div class="card-status-start bg-success"></div>
                               <div class="ribbon bg-green">Ongoing</div>
@@ -95,7 +108,9 @@
                                         </svg></a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
+
+                        
                         
                     </div>
 
