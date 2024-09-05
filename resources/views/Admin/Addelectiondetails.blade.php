@@ -4,6 +4,19 @@
 
 @include('Admin.components.header', ['title' => 'Add Election Details'])
 @include('Admin.components.adminstyle')
+<style>
+    .fade-card {
+            opacity: 0;
+            transform: scale(0.5); /* Make it slightly smaller */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Pop-up animation */
+        .fade-card.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -31,7 +44,7 @@
             
         <div class="page-body">
           <div class="container-xl">
-          @include('Admin.components.lineLoading')
+          @include('Admin.components.lineLoading', ['loadID' => 'formload'])
 
             <div class="row bg-white p-4" id="formElect" style="display: none">
               <div class="col-12 col-sm-6">
@@ -83,36 +96,10 @@
                                     </div>
                                 </div>
               </div>
-
-              <div class="row row-cards">
-
-                            <div class="col-md-6 col-lg-3">
-                              <div class="card">
-                                <!-- Photo -->
-                                <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url(/dept_image/1720528738.jpg)"></div>
-                                <div class="card-body">
-                                  <h3 class="card-title">Card with top image</h3>
-                                    <div class="d-flex justify-content-between">
-                                      <button class="btn btn-primary">Left Button</button>
-                                      <button class="btn btn-secondary">Right Button</button>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-md-6 col-lg-3">
-                              <div class="card">
-                                <!-- Photo -->
-                                <div class="img-responsive img-responsive-21x9 card-img-top" style="background-image: url(/dept_image/1720528738.jpg)"></div>
-                                <div class="card-body">
-                                  <h3 class="card-title">Card with top image</h3>
-                                    <div class="d-flex justify-content-between">
-                                      <button class="btn btn-primary">Left Button</button>
-                                      <button class="btn btn-secondary">Right Button</button>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
+               @include('Admin.components.lineLoading', ['loadID' => 'cardload'])
+              <div class="row row-cards" id="cards">
+               
+                           
 
                          </div>
 
@@ -120,14 +107,11 @@
 
           </div>
         </div>
-
-
-        </div>
-    </div>
-
-    @include('Admin.components.footer')
-
-    {{-- Create Party Modal --}}
+<form action="" id="removePartyForm" hidden>
+  <input type="text" name="method" value="delete">
+  <input type="text" name="party_id" id="party_id">
+</form>
+{{-- Create Party Modal --}}
     <div class="modal modal-blur fade" id="createparty" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -137,13 +121,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" id="createparty" method="POST">
+                    <form class="row g-3" id="createpartyForm" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row g-2">
                             <div class="col-12">
 
                                 <div class="mb-2">
                                     <label for="party" class="form-label">Party Title</label>
+                                    <input type="text" id="elect_id" name="elect_id" hidden>
+                                    <input type="text" name="method" id="" value="add" hidden>
                                     <input name="party_name" class="form-control" id="party_name"
                                         placeholder="Kasanag Party">
                                 </div>
@@ -170,14 +156,18 @@
                     <button type="button" id="closeEvalForm" class="btn btn-danger"
                         data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary"
-                        onclick="dynamicFuction('createelect','{{ route('createElection') }}')">Save</button>
+                        onclick="dynamicFunction('createpartyForm','{{ route('party') }}')">Save</button>
                 </div>
             </div>
         </div>
     </div>
     {{-- Create Party modal --}}
+      
 
-    </div>
+
+    @include('Admin.components.footer')
+
+     </div>
     </div>
 
     @include('Admin.components.scripts')

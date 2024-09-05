@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('party_id');
             $table->integer('elect_id')->nullable();
             $table->string('party_name')->nullable();
-            $table->string('party_desciption')->nullable();
+            $table->string('party_description')->nullable();
             $table->string('party_picture')->nullable();            
             $table->string('party_status')->nullable();
             $table->timestamps();

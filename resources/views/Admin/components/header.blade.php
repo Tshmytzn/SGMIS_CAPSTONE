@@ -59,5 +59,23 @@
             top: -50px;
             left: 0;
         }
+         .folder2 {
+           
+            margin: 0 auto;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.59);
+            overflow: hidden; /* to hide overflow content */
+        }
+
+        .folder2:before {
+            content: '';
+            border-style: solid;
+            border-width: 50px 150px 0 150px; /* adjust these values for different folder sizes */
+            border-color: transparent transparent transparent transparent;
+            position: absolute;
+            top: -50px;
+            left: 0;
+        }
     </style>
 </head>

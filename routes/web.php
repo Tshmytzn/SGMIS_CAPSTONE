@@ -108,6 +108,7 @@ Route::post('Admin/SubmitEventVenue', [SchoolEvent::class,'SubmitEventVenue'])->
 Route::post('Admin/updateVenue', [SchoolEvent::class,'updateVenue'])->name('updateVenue');
 Route::post('Admin/deleteVenue', [SchoolEvent::class,'deleteVenue'])->name('deleteVenue');
 Route::post('Admin/createElection', [ElectionController::class,'createElection'])->name('createElection');
+Route::post('Admin/party', [ElectionController::class,'party'])->name('party');
 
 
 // jpubas route get

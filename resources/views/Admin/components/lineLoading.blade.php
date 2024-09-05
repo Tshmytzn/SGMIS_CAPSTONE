@@ -52,7 +52,7 @@
 }
 
 </style>
-<div class="center-container"  id="lineLoading" style="display: none">
+<div class="center-container"  id="{{$loadID}}" style="display: none">
     <img src="/static/logoicon.png" alt="" style="width: 60px;">
     <p>loading</p>
     <div class="loader-line"></div>
