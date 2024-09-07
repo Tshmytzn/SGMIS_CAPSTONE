@@ -14,7 +14,7 @@ class ElectionParty extends Model
     protected $fillable = [
         'party_name',
         'party_desciption',
-        'candi_picture',
+        'party_picture',
         'party_status',
     ];
 }

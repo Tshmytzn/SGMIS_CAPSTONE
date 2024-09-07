@@ -51,7 +51,14 @@ function getElection(){
 
                          if (response.data.length === 0) {
                 // No data available
-                cardsContainer.innerHTML = '<h1>No data</h1>';
+                cardsContainer.innerHTML = `<div class="empty">
+                    <div class="empty-img"><img src="{{asset('./static/illustrations/undraw_voting_nvu7.svg')}}" height="128" alt="">
+                    </div>
+                    <p class="empty-title">No Party Results Available</p>
+                    <p class="empty-subtitle text-secondary">
+                      Try adjusting your filters or search criteria to find specific election results.
+                    </p>
+                  </div>`;
             } else {
                         // Iterate through the data array and create card elements
                         response.data.forEach(function(item, index) {
