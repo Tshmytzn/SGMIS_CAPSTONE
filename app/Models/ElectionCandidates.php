@@ -14,6 +14,7 @@ class ElectionCandidates extends Model
     protected $fillable = [
         'party_id',
         'student_id',
+        'student_name',
         'candi_picture',
         'candi_position',
         'candi_status',

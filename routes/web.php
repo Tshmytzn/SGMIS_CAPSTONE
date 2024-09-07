@@ -44,7 +44,7 @@ Route::get('/Attendance', function () { return view('Admin.attendance'); })->nam
 Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
 Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
 Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');
-
+Route::get('/Party/Candidates', function () { return view('Admin.party_candidates'); })->name('partycandidates');
 
 
 //Rheyan Post Route
@@ -109,7 +109,7 @@ Route::post('Admin/updateVenue', [SchoolEvent::class,'updateVenue'])->name('upda
 Route::post('Admin/deleteVenue', [SchoolEvent::class,'deleteVenue'])->name('deleteVenue');
 Route::post('Admin/createElection', [ElectionController::class,'createElection'])->name('createElection');
 Route::post('Admin/party', [ElectionController::class,'party'])->name('party');
-
+Route::post('Admin/Candidate', [ElectionController::class,'Candidate'])->name('Candidate');
 
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');

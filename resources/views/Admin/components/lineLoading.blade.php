@@ -46,9 +46,9 @@
     flex-direction: column; /* Stack the image and h1 vertically */
     justify-content: center; /* Center vertically */
     align-items: center; /* Center horizontally */
-    height: 100vh; /* Take full viewport height to center vertically */
+    height: 100%; /* Take full viewport height to center vertically */
     text-align: center; /* Align text */
-    margin-top: -200px;
+   
 }
 
 </style>

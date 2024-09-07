@@ -51,7 +51,14 @@ function getElection(){
 
                          if (response.data.length === 0) {
                 // No data available
-                cardsContainer.innerHTML = '<h1>No data</h1>';
+                cardsContainer.innerHTML = `<div class="empty">
+                    <div class="empty-img"><img src="{{asset('./static/illustrations/undraw_voting_nvu7.svg')}}" height="128" alt="">
+                    </div>
+                    <p class="empty-title">No Party Results Available</p>
+                    <p class="empty-subtitle text-secondary">
+                      Try adjusting your filters or search criteria to find specific election results.
+                    </p>
+                  </div>`;
             } else {
                         // Iterate through the data array and create card elements
                         response.data.forEach(function(item, index) {
@@ -59,7 +66,7 @@ function getElection(){
                                 <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">
                                     <div class="card card-stacked">
                                         <div class="card-status-start bg-success"></div>
-                                        <div class="ribbon bg-green">${item.elect_status || 'Ongoing'}</div>
+                                        <div class="ribbon bg-green">${item.elect_status || 'Pending'}</div>
                                         <div class="card-body">
                                             <h3 class="card-title">${item.elect_name}</h3>
                                             <hr class="my-4 mt-1">
