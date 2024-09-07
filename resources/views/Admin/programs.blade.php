@@ -74,7 +74,7 @@
                                   <div style="margin-left: -30px;">
                                     <h3>Carlos Hilado Memorial State of University Departments </h3>
                                   </div>
-                                  <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Department</button>
+                                  <button class="btn" type="button" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Department</button>
                               </div>
                           </div>
                       </div>
@@ -106,7 +106,7 @@
                                     <div style="margin-left: -20px;">
                                       <h3>Carlos Hilado Memorial State of University Courses </h3>
                                     </div>
-                                    <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Course</button>
+                                    <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Course</button>
                                 </div>
                             </div>
                           </div>
@@ -141,7 +141,7 @@
                                       <div style="margin-left: -20px;">
                                         <h3>Carlos Hilado Memorial State of University Courses </h3>
                                       </div>
-                                      <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Section</button>
+                                      <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Section</button>
                                   </div>
                               </div>
                             </div>
