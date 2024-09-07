@@ -63,7 +63,52 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl d-flex flex-column justify-content-center">
-                    <div class="empty">
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card">
+                            <div class="card card-stacked "></div>
+                            <div class="img-responsive img-responsive-21x9 card-img-top"
+                                style="background-image: url(./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg)">
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title text-center">Budgeting Proposal #1</h3>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-0">
+                                    <div class="col-6">
+                                        <a href="#" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M4 7l16 0" />
+                                                <path d="M10 11l0 6" />
+                                                <path d="M14 11l0 6" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>Delete</a>
+                                    </div>
+                                    <div class="col-6">
+
+                                        <a href="#" class="btn btn-primary ms-auto"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                <path
+                                                    d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                <path d="M16 5l3 3" />
+                                            </svg> Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- <div class="empty">
                         <div class="empty-img"><img src="./static/illustrations/undraw_under_construction_-46-pa.svg"
                                 height="128" alt="">
                         </div>
@@ -85,190 +130,192 @@
                                 Stay tuned!
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
             @include('Admin.components.footer')
 
             {{-- Modals --}}
-{{-- Modals --}}
-<div class="modal fade" id="budgetProposalModal" tabindex="-1" aria-labelledby="budgetProposalModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="budgetProposalModalLabel">Create Budget Proposal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="budgetProposalForm">
-
-                    <!-- Proposal Title -->
-                    <div class="mb-3">
-                        <label for="proposalTitle" class="form-label">Proposal Title</label>
-                        <input type="text" class="form-control" id="proposalTitle" placeholder="Enter proposal title" required>
-                    </div>
-
-                    <!-- Event Related -->
-                    <div class="mb-3">
-                        <label for="event" class="form-label">Events</label>
-                        <select class="form-select" id="department" required>
-                            <option selected disabled value="">Select event</option>
-                            <option value="Event 1">Event 1</option>
-                            <option value="Event 2">Event 2</option>
-                        </select>
-                    </div>
-
-                    <!-- Budget Period -->
-                    <div class="mb-3">
-                        <label for="budgetPeriod" class="form-label">Budget Period</label>
-                        <input type="date" class="form-control" id="budgetPeriodStart" required> to 
-                        <input type="date" class="form-control" id="budgetPeriodEnd" required>
-                    </div>
-
-                    <!-- Allocated Funds -->
-                    <div class="mb-3">
-                        <label for="allocatedFunds" class="form-label">Allocated Funds (Initial Estimate)</label>
-                        <input type="number" class="form-control" id="allocatedFunds" placeholder="Enter estimated total budget" required>
-                    </div>
-
-                    <!-- Working Committees -->
-                    <div class="mb-3">
-                        <label class="form-label">Working Committees and Members</label>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Committee</th>
-                                    <th>Person-in-Charge</th>
-                                    <th>Members</th>
-                                    <th>Total Members</th>
-                                </tr>
-                            </thead>
-                            <tbody id="committeeTable">
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Enter committee name" required>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Enter head(s)" required>
-                                    </td>
-                                    <td>
-                                        <div class="member-list">
-                                            <input type="text" class="form-control mb-2 member-name" placeholder="Enter member name" required>
+            <div class="modal fade" id="budgetProposalModal" tabindex="-1" aria-labelledby="budgetProposalModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="budgetProposalModalLabel">Create Budget Proposal</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="POST" id="budgetProposalForm">
+                                @csrf
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" id="modalTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" id="proposal-details-tab" data-bs-toggle="tab"
+                                            href="#proposal-details" role="tab" aria-controls="proposal-details"
+                                            aria-selected="true">Proposal Details</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="funding-committees-tab" data-bs-toggle="tab"
+                                            href="#funding-committees" role="tab"
+                                            aria-controls="funding-committees" aria-selected="false">Funding and
+                                            Committees</a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="submission-info-tab" data-bs-toggle="tab"
+                                            href="#submission-info" role="tab" aria-controls="submission-info"
+                                            aria-selected="false">Submission Information</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab content -->
+                                <div class="tab-content mt-3">
+                                    <!-- Proposal Details -->
+                                    <div class="tab-pane fade show active" id="proposal-details" role="tabpanel"
+                                        aria-labelledby="proposal-details-tab">
+                                        <!-- Proposal Title -->
+                                        <div class="mb-3">
+                                            <label for="proposalTitle" class="form-label">Proposal Title</label>
+                                            <input type="text" class="form-control" id="proposalTitle"
+                                                placeholder="Enter proposal title" required>
                                         </div>
-                                        <button type="button" class="btn btn-secondary add-member-btn">Add Member</button>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control total-members" value="1" readonly>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-secondary" id="addCommitteeRow">Add Another Committee</button>
-                    </div>
+                                        <!-- Event Related -->
+                                        <div class="mb-3">
+                                            <label for="event" class="form-label">Event</label>
+                                            <select class="form-select" id="event" required>
+                                                <option selected disabled value="">Select event</option>
+                                                <option value="Event 1">Event 1</option>
+                                                <option value="Event 2">Event 2</option>
+                                            </select>
+                                        </div>
+                                        <div class="row">
+                                            <!-- Project Proponent -->
+                                            <div class="col-6 mb-3">
+                                                <label for="projectproponent" class="form-label">Project
+                                                    Proponent</label>
+                                                <input type="text" class="form-control" id="projectproponent"
+                                                    placeholder="Enter project proponent" required>
+                                            </div>
+                                            <!-- Project Participant -->
+                                            <div class="col-6 mb-3">
+                                                <label for="projectparticipant" class="form-label">Project
+                                                    Participant</label>
+                                                <input type="text" class="form-control" id="projectparticipant"
+                                                    placeholder="Enter project participant" required>
+                                            </div>
+                                        </div>
+                                        <!-- Budget Period -->
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label for="budgetPeriodStart" class="form-label">Budget Period
+                                                    Start</label>
+                                                <input type="datetime-local" class="form-control"
+                                                    id="budgetPeriodStart" required>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <label for="budgetPeriodEnd" class="form-label">Budget Period
+                                                    End</label>
+                                                <input type="datetime-local" class="form-control"
+                                                    id="budgetPeriodEnd" required>
+                                            </div>
+                                        </div>
+                                        <!-- Allocated Funds -->
+                                        <div class="mb-3">
+                                            <label for="fundingSource" class="form-label">Funding Source</label>
+                                            <input type="text" class="form-control" id="fundingSource"
+                                                placeholder="Enter funding source" required>
+                                        </div>
+                                    </div>
 
-                    <!-- Proposed By -->
-                    <div class="mb-3">
-                        <label for="proposedBy" class="form-label">Proposed By</label>
-                        <input type="text" class="form-control" id="proposedBy" value="John Doe" readonly>
-                    </div>
+                                    <!-- Funding and Committees -->
+                                    <div class="tab-pane fade" id="funding-committees" role="tabpanel"
+                                        aria-labelledby="funding-committees-tab">
 
-                    <!-- Submission Date -->
-                    <div class="mb-3">
-                        <label for="submissionDate" class="form-label">Submission Date</label>
-                        <input type="date" class="form-control" id="submissionDate" value="<?php echo date('Y-m-d'); ?>" readonly>
-                    </div>
+                                        <!-- Working Committees -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Working Committees and Members</label>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Committee</th>
+                                                        <th>Person-in-Charge</th>
+                                                        <th>Members</th>
+                                                        <th>Total Members</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="committeeTable">
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter committee name" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter head(s)" required>
+                                                        </td>
+                                                        <td>
+                                                            <div class="member-list">
+                                                                <input type="text"
+                                                                    class="form-control mb-2 member-name"
+                                                                    placeholder="Enter member name" required>
+                                                            </div>
+                                                            <button type="button"
+                                                                class="btn btn-primary add-member-btn">Add
+                                                                Member</button>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control total-members"
+                                                                value="1" readonly>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button type="button" class="btn btn-secondary" id="addCommitteeRow">Add
+                                                Another Committee</button>
+                                        </div>
+                                    </div>
 
-                    <!-- Additional Notes -->
-                    <div class="mb-3">
-                        <label for="additionalNotes" class="form-label">Additional Notes</label>
-                        <textarea class="form-control" id="additionalNotes" rows="3" placeholder="Enter any additional details"></textarea>
+                                    <!-- Submission Information -->
+                                    <div class="tab-pane fade" id="submission-info" role="tabpanel"
+                                        aria-labelledby="submission-info-tab">
+                                        <!-- Proposed By -->
+                                        <div class="mb-3">
+                                            <label for="proposedBy" class="form-label">Proposed By</label>
+                                            <input type="text" class="form-control" id="proposedBy"
+                                                value="John Doe" readonly>
+                                        </div>
+                                        <!-- Submission Date -->
+                                        <div class="mb-3">
+                                            <label for="submissionDate" class="form-label">Submission Date</label>
+                                            <input type="date" class="form-control" id="submissionDate"
+                                                value="<?php echo date('Y-m-d'); ?>" readonly>
+                                        </div>
+                                        <!-- Additional Notes -->
+                                        <div class="mb-3">
+                                            <label for="additionalNotes" class="form-label">Additional Notes</label>
+                                            <textarea class="form-control" id="additionalNotes" rows="3" placeholder="Enter any additional details"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" form="budgetProposalForm">Submit
+                                Proposal</button>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" form="budgetProposalForm">Submit Proposal</button>
-            </div>
-        </div>
-    </div>
-</div>
             {{-- Modals --}}
+
+
         </div>
     </div>
 
-  
-<script>
-    // Function to update member count
-    function updateMemberCount(memberListElement, totalMembersInput) {
-        const membersCount = memberListElement.querySelectorAll('.member-name').length;
-        totalMembersInput.value = membersCount;
-    }
-
-    // Add a new committee row
-    document.getElementById('addCommitteeRow').addEventListener('click', function() {
-        const committeeTable = document.getElementById('committeeTable');
-        const row = committeeTable.insertRow();
-        
-        // Committee Name
-        const cell1 = row.insertCell(0);
-        cell1.innerHTML = `<input type="text" class="form-control" placeholder="Enter committee name" required>`;
-        
-        // Person-in-Charge
-        const cell2 = row.insertCell(1);
-        cell2.innerHTML = `<input type="text" class="form-control" placeholder="Enter head(s)" required>`;
-        
-        // Members
-        const cell3 = row.insertCell(2);
-        const memberListDiv = document.createElement('div');
-        memberListDiv.className = 'member-list';
-        memberListDiv.innerHTML = `<input type="text" class="form-control mb-2 member-name" placeholder="Enter member name" required>`;
-        
-        const addMemberButton = document.createElement('button');
-        addMemberButton.type = 'button';
-        addMemberButton.className = 'btn btn-secondary add-member-btn';
-        addMemberButton.innerText = 'Add Member';
-        
-        cell3.appendChild(memberListDiv);
-        cell3.appendChild(addMemberButton);
-        
-        // Total Members (auto-calculated)
-        const cell4 = row.insertCell(3);
-        const totalMembersInput = document.createElement('input');
-        totalMembersInput.type = 'number';
-        totalMembersInput.className = 'form-control total-members';
-        totalMembersInput.value = 1; // Initially 1 member (the default input)
-        totalMembersInput.readOnly = true;
-        cell4.appendChild(totalMembersInput);
-
-        // Add member event for this row
-        addMemberButton.addEventListener('click', function() {
-            const newMemberInput = document.createElement('input');
-            newMemberInput.type = 'text';
-            newMemberInput.className = 'form-control mb-2 member-name';
-            newMemberInput.placeholder = 'Enter member name';
-            memberListDiv.appendChild(newMemberInput);
-            updateMemberCount(memberListDiv, totalMembersInput);
-        });
-    });
-
-    // Add member for the first committee row
-    document.querySelectorAll('.add-member-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const memberListDiv = this.previousElementSibling;
-            const totalMembersInput = this.parentElement.nextElementSibling.querySelector('.total-members');
-            const newMemberInput = document.createElement('input');
-            newMemberInput.type = 'text';
-            newMemberInput.className = 'form-control mb-2 member-name';
-            newMemberInput.placeholder = 'Enter member name';
-            memberListDiv.appendChild(newMemberInput);
-            updateMemberCount(memberListDiv, totalMembersInput);
-        });
-    });
-</script>
 
     @include('Admin.components.scripts')
-
+    @include('Admin.components.budgetingscripts')
 </body>
 
 </html>

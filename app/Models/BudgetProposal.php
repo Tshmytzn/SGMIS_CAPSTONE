@@ -24,7 +24,6 @@ class BudgetProposal extends Model
         'additional_notes',
     ];
 
-    // Specify which attributes should be cast to native types
     protected $casts = [
         'budget_period_start' => 'date',
         'budget_period_end' => 'date',
