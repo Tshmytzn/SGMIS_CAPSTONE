@@ -66,7 +66,7 @@ function getElection(){
                                 <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">
                                     <div class="card card-stacked">
                                         <div class="card-status-start bg-success"></div>
-                                        <div class="ribbon bg-green">${item.elect_status || 'Ongoing'}</div>
+                                        <div class="ribbon bg-green">${item.elect_status || 'Pending'}</div>
                                         <div class="card-body">
                                             <h3 class="card-title">${item.elect_name}</h3>
                                             <hr class="my-4 mt-1">
