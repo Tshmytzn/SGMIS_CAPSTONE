@@ -159,12 +159,12 @@
                                             href="#proposal-details" role="tab" aria-controls="proposal-details"
                                             aria-selected="true">Proposal Details</a>
                                     </li>
-                                    {{-- <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="funding-committees-tab" data-bs-toggle="tab"
                                             href="#funding-committees" role="tab"
                                             aria-controls="funding-committees" aria-selected="false">Funding and
                                             Committees</a>
-                                    </li> --}}
+                                    </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="submission-info-tab" data-bs-toggle="tab"
                                             href="#submission-info" role="tab" aria-controls="submission-info"
@@ -185,7 +185,7 @@
                                         <!-- Event Related -->
                                         <div class="mb-3">
 
-                                            {{-- <div class="col-12">
+                                            <div class="col-12">
 
                                                 <label for="budgetEvent" class="form-label">Associated Event</label>
                                                 <select name="budgetEvent" class="form-select" id="budgetEvent">
@@ -201,7 +201,7 @@
                                                         <option value="{{ $eve->event_id }}">{{ $eve->event_name }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div> --}}
+                                            </div>
 
                                         </div>
                                         <div class="row">
@@ -245,7 +245,7 @@
                                         </div>
                                     </div>
 
-                                    {{-- <!-- Funding and Committees -->
+                                    <!-- Funding and Committees -->
                                     <div class="tab-pane fade" id="funding-committees" role="tabpanel"
                                         aria-labelledby="funding-committees-tab">
 
@@ -291,7 +291,7 @@
                                             <button type="button" onclick="createBudgetProposal()" class="btn btn-secondary" id="addCommitteeRow">Add
                                                 Another Committee</button>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <!-- Submission Information -->
                                     <div class="tab-pane fade" id="submission-info" role="tabpanel"
