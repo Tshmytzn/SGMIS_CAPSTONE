@@ -11,6 +11,7 @@ use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\CompendiumData;
 use App\Http\Controllers\StudentAttendance;
 use App\Http\Controllers\ElectionController;
+use App\Http\Controllers\BudgetProposalController;
 ;
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ use App\Http\Controllers\ElectionController;
 */
 
 // ADMIN
-// tisha's routes
+// tish admin: get routes
 Route::get('/', [SessionDetect::class, 'Dashboard'])->name('AdminDashboard');
 Route::get('/Accounts', [SessionDetect::class, 'Accounts'])->name('Accounts');
 Route::get('/Events', [SessionDetect::class, 'Events'])->name('Events');
@@ -111,6 +112,10 @@ Route::post('Admin/createElection', [ElectionController::class,'createElection']
 Route::post('Admin/party', [ElectionController::class,'party'])->name('party');
 Route::post('Admin/Candidate', [ElectionController::class,'Candidate'])->name('Candidate');
 
+// tish budgeting controller: post routes
+Route::post('admin/GetBudgetProposal', [BudgetProposalController::class, 'getBudgetProposal'])->name('getBudgetProposal');
+
+
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
 Route::get('/admin/GetSectData', [DeparmentData::class,"GetSectData"])->name('GetSectData');
@@ -137,10 +142,9 @@ Route::fallback(function () {
 
 
 // STUDENT
-// tisha's routes
+// tish student: get routes
 Route::get('/Student/Login', function () { return view('Student.login'); })->name('Userlogin');
 Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
-// Route::get('Student/Dashboard', function () { return view('Student.index'); })->name('StudentDashboard');
 Route::get('Student/Dashboard', [SessionDetect::class, 'StudentDashboard'])->name('StudentDashboard');
 Route::get('Student/Event', function () { return view('Student.event'); })->name('EventDashboard');
 Route::get('Student/Evaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
@@ -149,6 +153,7 @@ Route::get('Student/Evaluation/Evaluate', [SessionDetect::class, 'StudentEvaluat
 Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');
 Route::get('/Student/Election', function () { return view('Student.electionvote'); })->name('electionvote');
 
+// tish student: post routes
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
 Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');
 Route::post('Student/UpdateStudentDetails', [StudentData::class,'UpdateStudentDetails'])->name('UpdateStudentDetails');

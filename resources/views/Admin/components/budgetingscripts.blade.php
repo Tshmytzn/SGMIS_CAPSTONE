@@ -69,3 +69,38 @@
         });
     });
 </script>
+
+<script>
+    function createBudgetProposal(formId) {
+        var formElement = document.getElementById(formId);
+
+        // Serialize the form data
+        var formData = $(formElement).serialize();
+
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",  
+            url: '{{ route('getBudgetProposal') }}',
+            data: formData,
+            success: function(response) {
+                if (response.status == 'error') {
+                    alertify.alert("Warning", response.message, function() {
+                        alertify.message('OK');
+                    });
+                } else {
+                    formElement.reset(); // Reset form
+                    $('#' + response.modal).modal('hide');
+                    alertify.alert("Message", response.message, function() {
+                        alertify.message('OK');
+                    });
+                    if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload]();
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    </script>
