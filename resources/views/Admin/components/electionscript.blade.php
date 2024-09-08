@@ -21,6 +21,8 @@
                 } else {
                     getElection()
                     document.getElementById(formId).reset();
+                    $('#' + response.modal).modal('hide');
+
                     alertify
                         .alert("Message", response.message, function() {
                             alertify.message('OK');
@@ -61,18 +63,32 @@
                 } else {
                     // Iterate through the data array and create card elements
                     response.data.forEach(function(item, index) {
+                        const startDate = new Date(item.elect_start);
+                        const endDate = new Date(item.elect_end);
+                        const currentDate = new Date();
+                        console.log(currentDate)
+                        let status;
+                        let color;
+                        if (currentDate >= startDate) {
+                            if (currentDate >= endDate) {
+                                color = 'red'
+                                status =
+                                'close'; // If the current date is greater than or equal to endDate, set status to 'close'
+                            } else {
+                                color = 'green'
+                                status =
+                                'ongoing'; // If the current date is between startDate and endDate, set status to 'ongoing'
+                            }
+                        } else {
+                            color = 'yellow'
+                            status =
+                            'not started'; // If the current date is less than startDate, set status to 'not started'
+                        }
                         var cardHtml = `
                                 <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">
                                     <div class="card card-stacked">
                                         <div class="card-status-start bg-success"></div>
-                                        <div class="ribbon bg-${item.elect_status === null ? 'yellow' : 
-                                                                item.elect_status === '1' ? 'green' : 
-                                                                item.elect_status === '2' ? 'red' : ''}
-                                                                        ">
-                                                                         ${item.elect_status === null ? 'Pending' : 
-                                                                        item.elect_status === '1' ? 'Ongoing' : 
-                                                                        item.elect_status === '2' ? 'Close' : ''}
-                                        </div>
+                                        <div class="ribbon bg-${color}">${status}</div>
                                         <div class="card-body">
                                             <h3 class="card-title">${item.elect_name}</h3>
                                             <hr class="my-4 mt-1">
@@ -80,7 +96,7 @@
                                             <p class="text-secondary"><strong>Start:</strong> ${new Date(item.elect_start).toLocaleString()}</p>
                                             <p class="text-secondary"><strong>End:</strong> ${new Date(item.elect_end).toLocaleString()}</p>
                                         </div>
-                                        <div class="card-footer card-footer-transparent" style="display:${item.elect_status === null ? '' : 'none'}">
+                                        <div class="card-footer card-footer-transparent" style="display:${status === 'close' ? 'none' : ''}">
                                             <a href="{{ route('Editelection') }}?elect_id=${item.elect_id}" class="btn btn-outline-green"
                                                 style="display: flex; align-items: center; justify-content: center;">
                                                 Update Details

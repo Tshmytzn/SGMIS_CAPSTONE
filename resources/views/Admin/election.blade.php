@@ -77,9 +77,9 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
+                    @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
                     <div class="row row-deck row-cards" id="cards">
-                        @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
-                        
+
                         {{-- <div class="col-md-6 col-lg-3">
                             <div class="card card-stacked">
                               <div class="card-status-start bg-success"></div>
@@ -111,8 +111,8 @@
                             </div>
                         </div> --}}
 
-                        
-                        
+
+
                     </div>
 
 

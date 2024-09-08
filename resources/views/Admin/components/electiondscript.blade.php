@@ -11,7 +11,7 @@
 
     // Example usage to get the elect_id
     let electId = getQueryParam('elect_id');
-    
+
     function getElection() {
         document.getElementById('formload').style.display = '';
         document.getElementById('formElect').style.display = 'none';

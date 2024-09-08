@@ -5,7 +5,17 @@
         GetCourseData();
         GetSectionData();
         GetStudentData()
+
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {  // Check if the pressed key is "Enter"
+            event.preventDefault();   // Prevent the default action for the "Enter" key
+        }
+    });
+});
+
 
     function selectSect(id, name, year) {
         document.getElementById('selectSectId').value = id + ',' + name + ',' + year;

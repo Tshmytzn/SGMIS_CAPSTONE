@@ -79,13 +79,12 @@
                             <input type="datetime-local" name="voting_end_date" id="voting_end_date"
                                 class="form-control" value="2024-09-07T17:00">
                         </div>
-                        
+
                         <div class="col-12 mt-4">
                             <button type="button" class="col-12 btn btn-primary" onclick="dynamicFunction('updateElectionForm','{{ route('createElection') }}')">Update</button>
                         </div>
                         </form>
                         <hr class="my-4">
-
                         <div class="col-12 d-flex justify-content-between align-items-center">
                             <h3 id="PartyDetails">Participating Party</h3>
                             <div class="col-auto ms-auto d-print-none">
