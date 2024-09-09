@@ -192,9 +192,8 @@
                                                     <option selected disabled>Select Event</option>
 
                                                     @php
-                                                    use App\Models\SchoolEvents;
                                                     $currentDate = date('Y-m-d');
-                                                    $event = SchoolEvents::where('event_start', '>', $currentDate)->get();
+                                                    $event = App\Models\SchoolEvents::where('event_start','>',$currentDate)->get();
                                                     @endphp
 
                                                     @foreach ($event as $eve)

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\StudentAccounts;
+use App\Models\Department;
+use App\Models\Course;
+use App\Models\Section;
 use Illuminate\Support\Facades\Hash;
 
 class AdminData extends Controller
@@ -38,7 +41,7 @@ class AdminData extends Controller
         $spiltimage = explode('.',$check->admin_pic)[0];
         $imageName =  $spiltimage. '.' . $file->getClientOriginalExtension();
         $file->move(public_path('dept_image/'), $imageName);
-       
+
     $check->update([
         'admin_pic'=>$imageName,
     ]);
@@ -46,8 +49,8 @@ class AdminData extends Controller
     }
     }
     public function ChangeAdminPass(Request $request){
-    
-    $check = Admin::where('admin_id',session('admin_id'))->first();    
+
+    $check = Admin::where('admin_id',session('admin_id'))->first();
     if($request->newpass !== $request->repass){
     return response()->json(['status' => '!match']);
     }else {
@@ -65,10 +68,10 @@ class AdminData extends Controller
     }
     }
     }
-    } 
+    }
 
     public function AddAdministrator(Request $request){
-        $check = Admin::where('admin_name',$request->administratorname)->where('admin_username',$request->administratoruser)->first(); 
+        $check = Admin::where('admin_name',$request->administratorname)->where('admin_username',$request->administratoruser)->first();
         if($request->administratorname==''||$request->administratoruser==''||$request->administratorpass==''){
             return response()->json(['status' => 'empty']);
         }else if($check){
@@ -84,7 +87,7 @@ class AdminData extends Controller
         return response()->json(['status' => 'success']);
         }
 
-        
+
     }
     public function GetAdministratorData(){
         $check = Admin::where('admin_type','Super Admin')->get();
@@ -100,8 +103,8 @@ class AdminData extends Controller
     public function EditAdministratorInfo(Request $request){
 
         if( $request->aditadministratorname == '' || $request->aditadministratoruser == ''){
-          
-            return response()->json(['status' => 'empty']);   
+
+            return response()->json(['status' => 'empty']);
         }else if($request->aditadministratorpass){
             $check = Admin::where('admin_id',$request->administratorId)->first();
             $check->update([
@@ -109,19 +112,57 @@ class AdminData extends Controller
                 'admin_username'=>$request->aditadministratoruser,
                 'admin_password'=>Hash::make($request->aditadministratorpass),
                 ]);
-            return response()->json(['status' => 'success']);   
+            return response()->json(['status' => 'success']);
         }else{
         $check = Admin::where('admin_id',$request->administratorId)->first();
         $check->update([
             'admin_name'=>$request->aditadministratorname,
             'admin_username'=>$request->aditadministratoruser,
-           
+
             ]);
         return response()->json(['status' => 'success']);
         }
 
     }
-    public function GetAllStudentData(){
+    public function GetAllStudentData(request $request){
+        if($request->dept==='dept'){
+
+// Fetch all departments
+$departments = Department::all();
+
+// Initialize an empty array to hold the results
+$results = [];
+
+// Loop through each department
+foreach ($departments as $department) {
+    // Fetch courses for the current department
+    $courses = Course::where('dept_id', $department->dept_id)->get();
+
+    foreach ($courses as $course) {
+        // Fetch sections for the current course
+        $sections = Section::where('course_id', $course->course_id)->get();
+
+        foreach ($sections as $section) {
+            // Fetch students for the current section
+            $students = StudentAccounts::where('sect_id', $section->sect_id)->get();
+
+            foreach ($students as $student) {
+                // Collect the data
+                $results[] = [
+                    'dept_name' => $department->dept_name,
+                    'course_name' => $course->course_name,
+                    'year_level' => $section->year_level.'-'.$section->sect_name,
+                    'student_firstname' => $student->student_firstname,
+                    'student_lastname' => $student->student_lastname,
+                     'school_id' => $student->school_id,
+                     'student_id' => $student->student_id
+                ];
+            }
+        }
+    }
+}
+            return response()->json(['data' => $results]);
+        }
         $data = StudentAccounts::All();
         return response()->json(['data' => $data]);
     }
@@ -140,10 +181,10 @@ class AdminData extends Controller
             ]);
         return response()->json(['status' => 'success']);
         }
-       
+
     }
     public function EditStudentAdminPosition(Request $request){
-        
+
         $data = StudentAccounts::where('student_id',$request->editstudentadminid)->first();
         $data->update([
             'student_position'=>$request->editstudentposition,

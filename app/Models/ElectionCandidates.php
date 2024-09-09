@@ -17,6 +17,7 @@ class ElectionCandidates extends Model
         'student_name',
         'candi_picture',
         'candi_position',
+        'group_of',
         'candi_status',
     ];
 }

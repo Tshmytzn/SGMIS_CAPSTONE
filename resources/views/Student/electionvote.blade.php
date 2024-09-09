@@ -6,54 +6,61 @@
 @include('Student.components.nav')
 
 <style>
-/* Styling for container */
-.position-relative {
-    position: relative;
-}
+    /* Styling for container */
+    .position-relative {
+        position: relative;
+    }
 
-/* Card styling */
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-.card-link:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+    /* Card styling */
+    .card-link {
+        text-decoration: none;
+        color: inherit;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
 
-/* Initially hide the dropdown cards */
-.dropdown-card {
-    display: none;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(-20px); /* Start from above */
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
-}
-.dropdown-card.show {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
+    .card-link:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-/* Style for the submit button */
-.submit-button-container {
-    text-align: center;
-    margin-top: 20px;
-    display: none; /* Initially hidden */
-}
-.submit-button-container .btn {
-    border-radius: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-.submit-button-container .btn:hover {
-    background-color: #0056b3;
-}
+    /* Initially hide the dropdown cards */
+    .dropdown-card {
+        display: none;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(-20px);
+        /* Start from above */
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        /* Smooth transition */
+    }
+
+    .dropdown-card.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Style for the submit button */
+    .submit-button-container {
+        text-align: center;
+        margin-top: 20px;
+        display: none;
+        /* Initially hidden */
+    }
+
+    .submit-button-container .btn {
+        border-radius: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button-container .btn:hover {
+        background-color: #0056b3;
+    }
 </style>
 
 <body>
@@ -72,39 +79,592 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    <div class="col-md-12 col-lg-12">
-                        <div id="container">
-                            <!-- Initial Vote Here card -->
-                            <div class="position-relative mb-4">
-                                <a href="#" class="card card-link card-link-pop p-3" id="vote-card-1">
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">President</h5>
-                                    </div>
-                                </a>
-                                <div class="dropdown-card" id="dropdown-card-1">
-                                    <div class="row row-cards">
-                                        <div class="col-md-6 col-lg-3 mb-4">
-                                            <div class="card card-link card-link-pop">
-                                                <img src="{{ asset('/student_images/student.png') }}" class="card-img-top" alt="Student Image">
-                                                <div class="card-body text-center">
-                                                    <h6 class="card-title">Student Name - 1</h6>
-                                                    <p class="card-text text-muted">Position - President</p>
+
+                    <div class="container mt-5">
+                        <div class="accordion" id="accordionExample">
+                            <!-- First Item -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        President
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+
+                                        <div class="row row-cards" id="cards2">
+
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top" alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 1</div>
+                                                                <div class="tex-t-muted">President</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event" class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top" alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 2</div>
+                                                                <div class="tex-t-muted">President</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event" class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Placeholder for additional Vote Here cards -->
-                            <div id="additional-cards"></div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        VICE PRESIDENT
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
 
-                            <!-- Submit button -->
-                            <div class="submit-button-container">
-                                <button type="button" class="btn btn-primary" id="submit-vote">Submit Vote</button>
+                                        <div class="row row-cards" id="cards2">
+
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 1</div>
+                                                                <div class="tex-t-muted">VICE PRESIDENT</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 2</div>
+                                                                <div class="tex-t-muted">VICE PRESIDENT</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
+
+                            <!-- SENATORS -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                        aria-expanded="false" aria-controls="collapseThree">
+                                        SENATORS
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+
+                                        <div class="row row-cards" id="cards2">
+
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 1</div>
+                                                                <div class="tex-t-muted">SENATOR</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 2</div>
+                                                                <div class="tex-t-muted">SENATOR</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- GOVERNOR -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                        aria-expanded="false" aria-controls="collapseFour">
+                                        GOVERNOR
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse"
+                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+
+                                        <div class="row row-cards" id="cards2">
+
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 1</div>
+                                                                <div class="tex-t-muted">GOVERNOR</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 2</div>
+                                                                <div class="tex-t-muted">GOVERNOR</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- VICE GOVERNOR -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                        aria-expanded="false" aria-controls="collapseFive">
+                                        VICE GOVERNOR
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse"
+                                    aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+
+                                        <div class="row row-cards" id="cards2">
+
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 1</div>
+                                                                <div class="tex-t-muted">VICE GOVERNOR</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 2</div>
+                                                                <div class="tex-t-muted">VICE GOVERNOR</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BSIS REPRESENTATIVE -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false"
+                                        aria-controls="collapseSix">
+                                        BSIS REPRESENTATIVE
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse"
+                                    aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+
+                                        <div class="row row-cards" id="cards2">
+
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 1</div>
+                                                                <div class="tex-t-muted">BSIS REPRESENTATIVE</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 fade-card">
+                                                <div class="card card-link card-link-pop ">
+                                                    <a href="#" class="d-block">
+                                                        <img src="{{ asset('/student_images/161_student_picture.png') }}"
+                                                            style="height: 40vh" class="card-img-top"
+                                                            alt="Event image">
+                                                    </a>
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div>Candidate 2</div>
+                                                                <div class="tex-t-muted">BSIS REPRESENTATIVE</div>
+                                                            </div>
+                                                            <div class="ms-auto">
+                                                                <a href="#" title="View event"
+                                                                    class="text-muted"
+                                                                    onclick="updatePic('${item.candi_picture}','${item.candi_id}')"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#updateCandi">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="icon icon-tabler icon-tabler-eye">
+                                                                        <path stroke="none" d="M0 0h24v24H0z"
+                                                                            fill="none" />
+                                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                                        <path
+                                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                                    </svg>
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="text-center mt-4 col-12">
+                            <Button class="btn btn-primary col-12" type="button"> Submit Vote</Button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -113,97 +673,6 @@
     @include('Student.components.footer')
     @include('Student.components.scripts')
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var cardCount = 1; // Start with the first card
-            var positions = ['President', 'Vice President', 'Secretary', 'Treasurer', 'Public Relations Officer', 'Member']; // Define positions
-            var isLastCardRevealed = false; // Flag to track if the last card is revealed
-
-            $('#container').on('click', '.card-link', function(e) {
-                e.preventDefault(); // Prevent the default anchor click behavior
-
-                var clickedCardId = $(this).attr('id');
-                var clickedCardNumber = parseInt(clickedCardId.split('-')[2]);
-
-                if (isLastCardRevealed && clickedCardNumber === cardCount - 1) {
-                    // If the last card is revealed and it is clicked, show the student card
-                    var lastDropdownId = '#dropdown-card-' + (cardCount - 1);
-                    var $lastDropdown = $(lastDropdownId);
-
-                    if ($lastDropdown.hasClass('show')) {
-                        // If the last dropdown is already visible, hide it
-                        $lastDropdown.removeClass('show');
-                    } else {
-                        // Otherwise, show the last dropdown
-                        $('.dropdown-card').not($lastDropdown).removeClass('show');
-                        $lastDropdown.addClass('show');
-                    }
-                    return; // Prevent further action
-                }
-
-                // Proceed to reveal the next card if it’s not the last one
-                if (!isLastCardRevealed) {
-                    var currentDropdownId = '#dropdown-card-' + clickedCardNumber;
-                    var $currentDropdown = $(currentDropdownId);
-
-                    if ($currentDropdown.hasClass('show')) {
-                        // If the current dropdown is already visible, hide it
-                        $currentDropdown.removeClass('show');
-                    } else {
-                        // Otherwise, show the current dropdown and add the next Vote Here card below
-                        $('.dropdown-card').not($currentDropdown).removeClass('show');
-                        $currentDropdown.addClass('show');
-
-                        // Increment cardCount and add a new Vote Here card below
-                        cardCount++;
-                        var nextCardId = 'vote-card-' + cardCount;
-                        var nextDropdownId = 'dropdown-card-' + cardCount;
-
-                        // Get the next position from the array
-                        var nextPosition = positions[cardCount - 1] || 'Position';
-
-                        if (nextPosition === 'Member') {
-                            isLastCardRevealed = true; // Set the flag to true if the last card is revealed
-                        }
-
-                        $('#additional-cards').append(`
-                            <div class="position-relative mb-4">
-                                <a href="#" class="card card-link card-link-pop p-3" id="${nextCardId}">
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">${nextPosition}</h5>
-                                    </div>
-                                </a>
-                                <div class="dropdown-card" id="${nextDropdownId}">
-                                    <div class="row row-cards">
-                                        <div class="col-md-6 col-lg-3 mb-4">
-                                            <div class="card card-link card-link-pop">
-                                                <img src="{{ asset('/student_images/student.png') }}" class="card-img-top" alt="Student Image">
-                                                <div class="card-body text-center">
-                                                    <h6 class="card-title">Student Name - ${cardCount}</h6>
-                                                    <p class="card-text text-muted">Position - ${nextPosition}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-
-                        // Show the submit button if the last card is revealed
-                        if (isLastCardRevealed) {
-                            $('.submit-button-container').show();
-                        }
-                    }
-                }
-            });
-
-            $('#submit-vote').click(function() {
-                alert('Vote submitted!');
-                // Add form submission logic or other actions here
-            });
-        });
-    </script>
 </body>
 
 </html>

@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id('candi_id');
             $table->integer('party_id')->nullable();
             $table->integer('student_id')->nullable();
-            $table->string('student_name')->nullable();     
-            $table->string('candi_picture')->nullable();            
-            $table->string('candi_position')->nullable();            
+            $table->string('student_name')->nullable();
+            $table->string('candi_picture')->nullable();
+            $table->string('candi_position')->nullable();
+            $table->string('group_of')->nullable();
             $table->string('candi_status')->nullable();
             $table->timestamps();
-        });  
+        });
     }
 
     /**

@@ -94,6 +94,22 @@
                     </div>
                 </div>
             </div>
+            {{-- <div class="col-md-6 col-lg-2 fade-card" style="height: 200px;"> <!-- Fixed height -->
+                <div class="card card-link card-link-pop folder2" style="height: 100%;"> <!-- Full height for the card -->
+                  <div style="width: 100%; height: 100%; border: 2px dashed #000; padding: 2px; box-sizing: border-box;"> <!-- Dashed border and padding -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-plus" style="width: 100%; height: 100%;"> <!-- Make SVG fill the container -->
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                      <path d="M16 19h6" />
+                      <path d="M19 16v6" />
+                      <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+                    </svg>
+                  </div>
+                </div>
+              </div> --}}
+
+
+
 
             <!-- Page body -->
             <div class="page-body" id="pageB">
@@ -105,52 +121,19 @@
                     </div>
                     <br>
                     @include('Admin.components.lineLoading', ['loadID' => 'cardload'])
-                    <div class="row row-cards" id="cards">
 
-                        {{-- <div class="col-md-6 col-lg-3 fade-card" id="card-${index}" style="width: 25%">
-                              <div class="card card-link card-link-pop folder2">
-                                <a href="#" class="d-block">
-                                    <img src="{{ asset('/party_image/w3.jpg') }}" style="height: 40vh" class="card-img-top"
-                                        alt="Event image">
-                                </a>
-                                <div class="card-body">
-                                  <div class="d-flex align-items-center">
-                                        <div>
-                                            <div>Event Name</div>
-                                            <div class="text-muted">Event Details</div>
-                                        </div>
-                                    <div class="ms-auto">
-                                            <a href="#" title="View event" class="text-muted">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="icon icon-tabler icon-tabler-eye">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                    <path
-                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                                </svg>
-                                            </a>
-                                            <button class="ms-3 text-muted border-0 bg-body" title="Delete event">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="icon icon-tabler icon-tabler-trash">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M4 7l16 0" />
-                                                    <path d="M10 11l0 6" />
-                                                    <path d="M14 11l0 6" />
-                                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div> --}}
+                        <div class="row row-cards  border border-primary p-4" id="cards" style="display: none">
 
-                    </div>
+                        </div>
+                        <br>
+                        <div class="row row-cards  border border-primary p-4" id="cards2" style="display: none">
+
+                        </div>
+                        <br>
+                        <div class="row row-cards  border border-primary p-4" id="cards3" style="display: none">
+
+                        </div>
+
 
                 </div>
             </div>
@@ -160,7 +143,7 @@
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header text-white" style="background-color: #3E8A34;">
-                            <h5 class="modal-title" id="staticBackdropLabel">Create Party Form</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Update Candidate Form</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -169,6 +152,7 @@
                                 @csrf
                                 <div class="row g-2">
                                     <div class="col-12">
+
                                         <input type="text" id="candi_id" name="candi_id" hidden>
                                         <input type="text" name="method" value="update" hidden>
                                         <div class="mb-2">
@@ -204,6 +188,73 @@
             @include('Admin.components.footer')
 
         </div>
+        {{-- Create Party Modal --}}
+    <div class="modal modal-blur fade" id="addCandi2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-white" style="background-color: #3E8A34;">
+                <h5 class="modal-title" id="staticBackdropLabel">Create Party Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" id="addCadidateForm2" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row g-2">
+                        <div class="col-12">
+                            <input type="text" id="party_id2" name="party_id" hidden>
+                            <input type="text" name="group" id="groupBy" value="" hidden>
+                            <input type="text" id="student_id2" name="student_id" hidden>
+                            <input type="text" name="method" value="add" hidden>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="SelectStundentTable2"
+                                    style="width: 100% !important;">
+                                    <thead>
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>SCHOOL ID No.</th>
+                                            <th>Department</th>
+                                            <th>Course</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Data will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="student_name" class="form-label">Student Name</label>
+                                <input type="text" name="student_name" class="form-control" id="student_name2"
+                                    placeholder="Enter student name..." readonly>
+                            </div>
+                            <div class="mb-2" id="selectP">
+
+                            </div>
+                            <div class="mb-2">
+                                <label for="student_picture" class="form-label">Party Image</label>
+                                <input type="file" name="student_picture" id="student_picture"
+                                    class="form-control" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeEvalForm" class="btn btn-danger"
+                    data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary"
+                    onclick="dynamicFunction('addCadidateForm2','{{ route('Candidate') }}')">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- Create Party modal --}}
     </div>
     {{-- Create Party Modal --}}
     <div class="modal modal-blur fade" id="addCandi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -220,6 +271,7 @@
                         <div class="row g-2">
                             <div class="col-12">
                                 <input type="text" id="party_id" name="party_id" hidden>
+                                <input type="text" name="group" id="" value="1" hidden>
                                 <input type="text" id="student_id" name="student_id" hidden>
                                 <input type="text" name="method" value="add" hidden>
 
@@ -242,7 +294,7 @@
                                 <div class="mb-2">
                                     <label for="student_name" class="form-label">Student Name</label>
                                     <input type="text" name="student_name" class="form-control" id="student_name"
-                                        placeholder="Enter student name...">
+                                        placeholder="Enter student name..." readonly>
                                 </div>
                                 <div class="mb-2">
                                     <label for="student_position" class="form-label">Position</label>
@@ -250,14 +302,7 @@
                                         <option value="" disabled selected>Select Position</option>
                                         <option value="President">President</option>
                                         <option value="Vice President">Vice President</option>
-                                        <option value="Secretary">Secretary</option>
-                                        <option value="Treasurer">Treasurer</option>
-                                        <option value="Public Relations Officer">Public Relations Officer</option>
-                                        <option value="Auditor">Auditor</option>
-                                        <option value="Sergeant-at-Arms">Sergeant-at-Arms</option>
-                                        <option value="Business Manager">Business Manager</option>
-                                        <option value="Committee Chairperson">Committee Chairperson</option>
-                                        <option value="Representative">Representative</option>
+                                        <option value="Senator">Senator</option>
                                     </select>
                                 </div>
                                 <div class="mb-2">

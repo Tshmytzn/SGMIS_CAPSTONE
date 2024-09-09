@@ -12,9 +12,12 @@ class BudgetProposalController extends Controller
 {
     public function getBudgetProposal(Request $request)
     {
+
+        try{
+
     $request->validate([
         'proposalTitle' => 'required|string|max:255',
-        // 'budgetEvent' => 'required|exists:school_events,event_id', // Ensure event exists
+        'budgetEvent' => 'required|exists:school_event,event_id', // Ensure event exists
         'projectproponent' => 'required|string|max:255',
         'projectparticipant' => 'required|string|max:255',
         'budgetPeriodStart' => 'required|date',
@@ -25,9 +28,10 @@ class BudgetProposalController extends Controller
         'additionalNotes' => 'nullable|string',
     ]);
 
+
     $data = new BudgetProposal;
     $data->title = $request->proposalTitle;
-    // $data->eventid = $request->budgetEvent;
+    $data->eventid = $request->budgetEvent;
     $data->project_proponent = $request->projectproponent;
     $data->project_participant = $request->projectparticipant;
     $data->budget_period_start = $request->budgetPeriodStart;
@@ -39,6 +43,12 @@ class BudgetProposalController extends Controller
     $data->save();
 
     return response()->json(['message' => 'Budget Proposal Successfully Submitted', 'status' => 'success']);
+} catch (\Illuminate\Validation\ValidationException $e) {
+    // Catch validation exceptions
+    return response()->json(['message' => 'Validation Failed', 'errors' => $e->errors(), 'status' => 'error'], 422);
+} catch (\Exception $e) {
+    // Catch any other exceptions
+    return response()->json(['message' => 'An error occurred while submitting the budget proposal', 'error' => $e->getMessage(), 'status' => 'error'], 500);
 }
-
+}
 }
