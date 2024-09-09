@@ -80,8 +80,11 @@
                                 class="form-control" value="2024-09-07T17:00">
                         </div>
 
-                        <div class="col-12 mt-4">
+                        <div class="col-12 col-sm-6 mt-2">
                             <button type="button" class="col-12 btn btn-primary" onclick="dynamicFunction('updateElectionForm','{{ route('createElection') }}')">Update</button>
+                        </div>
+                        <div class="col-12 col-sm-6 mt-2">
+                            <button type="button" class="col-12 btn btn-primary bg-yellow" onclick="dynamicFunction('updateElectionForm','{{ route('createElection') }}')">Publish</button>
                         </div>
                         </form>
                         <hr class="my-4">

@@ -111,6 +111,7 @@ Route::post('Admin/deleteVenue', [SchoolEvent::class,'deleteVenue'])->name('dele
 Route::post('Admin/createElection', [ElectionController::class,'createElection'])->name('createElection');
 Route::post('Admin/party', [ElectionController::class,'party'])->name('party');
 Route::post('Admin/Candidate', [ElectionController::class,'Candidate'])->name('Candidate');
+Route::post('Admin/vote', [ElectionController::class,'vote'])->name('vote');
 
 // tish budgeting controller: post routes
 Route::post('admin/GetBudgetProposal', [BudgetProposalController::class, 'getBudgetProposal'])->name('getBudgetProposal');

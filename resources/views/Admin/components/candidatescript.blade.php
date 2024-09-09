@@ -43,6 +43,7 @@
         // Show the loader
         document.getElementById('cardload').style.display = '';
         document.getElementById('cards').style.display = 'none';
+        console.log(party_id)
         // Create FormData object
         var formData = new FormData();
         // Append the CSRF token to the FormData
@@ -60,6 +61,7 @@
             processData: false, // Disable processing data (FormData)
             success: function(response) {
                 // Hide the loader on success
+                console.log(response)
                 document.getElementById('cardload').style.display = 'none';
                 document.getElementById('cards').style.display = '';
                 var cardsContainer = document.getElementById('cards');

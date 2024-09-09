@@ -7,6 +7,9 @@ use App\Models\ElectionCandidates;
 use Illuminate\Http\Request;
 use App\Models\Election;
 use App\Models\ElectionParty;
+use App\Models\StudentAccounts;
+use App\Models\Course;
+use App\Models\Section;
 
 class ElectionController extends Controller
 {
@@ -33,7 +36,7 @@ class ElectionController extends Controller
         $data->elect_end = $request->voting_end_date;
         $data->save();
 
-        return response()->json(['message' => 'Election Successfully Created', 'modal' => 'createelection' , 'status' => 'success']);
+        return response()->json(['message' => 'Election Successfully Created', 'modal' => 'createelection', 'status' => 'success']);
     }
     public function getElection(request $request)
     {
@@ -66,7 +69,7 @@ class ElectionController extends Controller
                 }
 
                 // Extract the original name and extension, then combine them
-                $imageNameWithExtension =  $randomString. $image->getClientOriginalExtension(); // Image name with extension
+                $imageNameWithExtension =  $randomString . $image->getClientOriginalExtension(); // Image name with extension
                 $request->party_image->move(public_path('party_image/'), $imageNameWithExtension); // Save file and return path
                 // Save data to the database
                 $data = new ElectionParty;
@@ -142,19 +145,19 @@ class ElectionController extends Controller
                 $party = ElectionParty::where('party_id', $request->party_id)->first();
                 return response()->json(['data' => $party, 'status' => 'success']);
             }
-            $party = ElectionParty::where('elect_id', $request->elect_id)->where('party_status',null)->get();
+            $party = ElectionParty::where('elect_id', $request->elect_id)->where('party_status', null)->get();
             return response()->json(['data' => $party, 'status' => 'success']);
         } else if ($request->method === 'delete') {
             $party = ElectionParty::where('party_id', $request->party_id)->first();
             $candi = ElectionCandidates::where('party_id', $party->party_id)->get();
-            foreach($candi as $can){
+            foreach ($candi as $can) {
                 $can->update([
-                        'candi_status' => '1',
-                    ]);
+                    'candi_status' => '1',
+                ]);
             }
             $party->update([
-                        'party_status' => '1',
-                    ]);
+                'party_status' => '1',
+            ]);
             return response()->json(['message' => 'Party Successfully Removed', 'reload' => 'getParty', 'status' => 'success']);
         }
         return response()->json(['message' => 'Process failed', 'status' => 'error'], 400);
@@ -162,21 +165,67 @@ class ElectionController extends Controller
     public function Candidate(request $request)
     {
         if ($request->method == 'get') {
-            if($request->group_of=='1'){
-                $candi = ElectionCandidates::where('party_id', $request->party_id)->where('group_of','1')->where('candi_status',null)->get();
-            return response()->json(['data' => $candi, 'status' => 'success']);
-            }else if($request->group_of=='2'){
-                $candi = ElectionCandidates::where('party_id', $request->party_id)->where('group_of','2')->where('candi_status',null)->get();
-            return response()->json(['data' => $candi, 'status' => 'success']);
-            }else if($request->group_of=='3'){
-                $candi = ElectionCandidates::where('party_id', $request->party_id)->where('group_of','3')->where('candi_status',null)->get();
-            return response()->json(['data' => $candi, 'status' => 'success']);
+            if ($request->group_of == '1') {
+                if ($request->vote == 'vote') {
+                    $elect = Election::where('elect_status', '1')->first();
+                    $elect_party = ElectionParty::where('elect_id', $elect->elect_id)->get();
+                    $data = [];
+                    foreach ($elect_party as $electP) {
+                        $candi = ElectionCandidates::where('party_id', $electP->party_id)->where('group_of', '1')->where('candi_position', $request->position)->where('candi_status', null)->get();
+
+                        $data = array_merge($data, $candi->toArray());
+                    }
+                    return response()->json(['data' => $data, 'status' => 'success']);
+                }
+                $candi = ElectionCandidates::where('party_id', $request->party_id)->where('group_of', '1')->where('candi_status', null)->get();
+                return response()->json(['data' => $candi, 'status' => 'success']);
+            } else if ($request->group_of == '2') {
+                if ($request->vote == 'vote') {
+                    $elect = Election::where('elect_status', '1')->first();
+                    $elect_party = ElectionParty::where('elect_id', $elect->elect_id)->get();
+                    $data = [];
+                    foreach ($elect_party as $electP) {
+                        $candi = ElectionCandidates::where('party_id', $electP->party_id)->where('group_of', '2')->where('candi_position', $request->position)->where('candi_status', null)->get();
+                        $data = array_merge($data, $candi->toArray());
+                    }
+                    return response()->json(['data' => $data, 'status' => 'success']);
+                }
+                $candi = ElectionCandidates::where('party_id', $request->party_id)->where('group_of', '2')->where('candi_status', null)->get();
+                return response()->json(['data' => $candi, 'status' => 'success']);
+            } else if ($request->group_of == '3') {
+                if ($request->vote == 'vote') {
+                    $student = StudentAccounts::where('student_id',session('student_id'))->first();
+                    $section1 = Section::where('sect_id', $student->sect_id)->first();
+                    $course1 = Course::where('course_id',$section1->course_id)->first();
+                    $data=[];
+                    $candidate = ElectionCandidates::where('group_of','3')->where('candi_position',$request->position)->where('candi_status',null)->get();
+                    foreach($candidate as $can){
+                        $student2 = StudentAccounts::where('student_id',$can->student_id)->first();
+                        $section2 = Section::where('sect_id', $student2->sect_id)->first();
+                        $course2 = Course::where('course_id',$section2->course_id)->first();
+                        if($course1->course_id ==$course2->course_id){
+                    $candidate2 = ElectionCandidates::where('candi_id',$can->candi_id)->where('group_of','3')->where('candi_position',$request->position)->where('candi_status',null)->first();        
+                       $data[] = $candidate2->toArray();
+                    }
+                    }
+                    return response()->json(['data' => $data, 'status' => 'success']);
+                    // $elect = Election::where('elect_status','1')->first();
+                    // $elect_party = ElectionParty::where('elect_id',$elect->elect_id)->get();
+                    // $data=[];
+                    // foreach($elect_party as $electP){
+                    //      $candi = ElectionCandidates::where('party_id',$electP->party_id)->where('group_of','3')->where('candi_position',$request->position)->where('candi_status',null)->get();
+                    //     $data = array_merge($data, $candi->toArray());
+                    // }
+                    
+                }
+                $candi = ElectionCandidates::where('party_id', $request->party_id)->where('group_of', '3')->where('candi_status', null)->get();
+                return response()->json(['data' => $candi, 'status' => 'success']);
             }
 
-            $candi = ElectionCandidates::where('party_id', $request->party_id)->where('candi_status',null)->get();
+            $candi = ElectionCandidates::where('party_id', $request->party_id)->where('candi_status', null)->get();
             return response()->json(['data' => $candi, 'status' => 'success']);
         } else if ($request->method == 'add') {
-            $check = ElectionCandidates::where('student_id',$request->student_id)->first();
+            $check = ElectionCandidates::where('student_id', $request->student_id)->first();
             if ($request->student_id == '' || $request->student_position == '') {
                 return response()->json([
                     'message' => 'Fill up required fields.',
@@ -190,7 +239,7 @@ class ElectionController extends Controller
                     'status' => 'error'
                 ]);
             }
-            if($check){
+            if ($check) {
                 return response()->json([
                     'message' => 'Student Already Added.',
                     'status' => 'error'
@@ -200,19 +249,19 @@ class ElectionController extends Controller
                 $image = $request->file('student_picture');
 
                 // Store the image in the 'public/party_image' directory
-                if($request->group=='1'){
-                $check2 = ElectionCandidates::where('candi_position',$request->student_position)->first();
-                if($check2){
-                    return response()->json([
-                        'message' => 'Position Already Taken.',
-                        'status' => 'error'
-                    ]);
-                }
-                    $group= '1';
-                }else if($request->group=='2'){
-                    $group= '2';
-                }else if($request->group=='3'){
-                    $group= '3';
+                if ($request->group == '1') {
+                    $check2 = ElectionCandidates::where('party_id', $request->party_id)->where('candi_position', $request->student_position)->first();
+                    if ($check2) {
+                        return response()->json([
+                            'message' => 'Position Already Taken.',
+                            'status' => 'error'
+                        ]);
+                    }
+                    $group = '1';
+                } else if ($request->group == '2') {
+                    $group = '2';
+                } else if ($request->group == '3') {
+                    $group = '3';
                 }
                 // Extract the original name and extension, then combine them
                 $imageNameWithExtension =  $request->party_id . $request->student_id . '_student_picture.' . $image->getClientOriginalExtension(); // Image name with extension
@@ -276,5 +325,11 @@ class ElectionController extends Controller
             $candi->delete();
             return response()->json(['message' => 'Party Member Successfully Removed', 'reload' => 'getCandi', 'status' => 'success']);
         }
+    }
+
+    public function vote(request $request)
+    {
+
+        return response()->json(['data' => session('student_id')]);
     }
 }
