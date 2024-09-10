@@ -46,6 +46,7 @@ Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->n
 Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
 Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');
 Route::get('/Party/Candidates', function () { return view('Admin.party_candidates'); })->name('partycandidates');
+Route::get('/Election/Results', function () { return view('Admin.viewelectionresults'); })->name('viewelectionresults');
 
 
 //Rheyan Post Route
