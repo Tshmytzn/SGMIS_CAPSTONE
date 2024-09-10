@@ -84,7 +84,7 @@
                             <button type="button" class="col-12 btn btn-primary" onclick="dynamicFunction('updateElectionForm','{{ route('createElection') }}')">Update</button>
                         </div>
                         <div class="col-12 col-sm-6 mt-2">
-                            <button type="button" class="col-12 btn btn-primary bg-yellow" onclick="dynamicFunction('updateElectionForm','{{ route('createElection') }}')">Publish</button>
+                            <button type="button" class="col-12 btn btn-primary bg-yellow" onclick="dynamicFunction('publishForm','{{ route('createElection') }}')">Publish</button>
                         </div>
                         </form>
                         <hr class="my-4">
@@ -118,6 +118,11 @@
 
                 </div>
             </div>
+            <form action="" id="publishForm">
+                <input type="text" name="method" value="update">
+                <input type="text" name="status" value="1">
+                <input type="text" name="elect_id" id="elect_idS">
+            </form>
             <form action="" id="removePartyForm" hidden>
                 <input type="text" name="method" value="delete">
                 <input type="text" name="party_id" id="party_id">

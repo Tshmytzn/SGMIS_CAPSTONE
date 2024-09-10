@@ -20,6 +20,7 @@
             method: 'GET',
             dataType: 'json',
             success: function(response) {
+                
                 document.getElementById('formElect').style.display = '';
                 document.getElementById('formload').style.display = 'none';
                 const data = response.data;
@@ -29,6 +30,7 @@
                 document.getElementById('voting_end_date').value = data.elect_end;
                 document.getElementById('elect_id').value = electId;
                 document.getElementById('electID').value = electId;
+                document.getElementById('elect_idS').value = electId;
                 getParty()
             },
             error: function(jqXHR, textStatus, errorThrown) {

@@ -69,20 +69,24 @@
                         console.log(currentDate)
                         let status;
                         let color;
+                        let stats;
                         if (currentDate >= startDate) {
                             if (currentDate >= endDate) {
                                 color = 'red'
                                 status =
                                 'close'; // If the current date is greater than or equal to endDate, set status to 'close'
+                                stats='none'
                             } else {
                                 color = 'green'
                                 status =
                                 'ongoing'; // If the current date is between startDate and endDate, set status to 'ongoing'
+                                stats='none'
                             }
                         } else {
                             color = 'yellow'
                             status =
                             'not started'; // If the current date is less than startDate, set status to 'not started'
+                            stats='flex'
                         }
                         var cardHtml = `
                                 <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">
@@ -98,7 +102,7 @@
                                         </div>
                                         <div class="card-footer card-footer-transparent" style="display:${status === 'close' ? 'none' : ''}">
                                             <a href="{{ route('Editelection') }}?elect_id=${item.elect_id}" class="btn btn-outline-green"
-                                                style="display: flex; align-items: center; justify-content: center;">
+                                                style="display:${stats}; align-items: center; justify-content: center; ">
                                                 Update Details
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"

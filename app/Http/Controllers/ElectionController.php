@@ -17,6 +17,13 @@ class ElectionController extends Controller
     public function createElection(request $request)
     {
         if ($request->method == 'update') {
+            if($request->status){
+                $elect = Election::where('elect_id', $request->elect_id)->first();
+                $elect->update([
+                'elect_status' => $request->status,
+            ]);
+             return response()->json(['message' => 'Election Successfully Updated', 'reload' => 'getElection',  'status' => 'success']);
+            }
             $elect = Election::where('elect_id', $request->electID)->first();
             $elect->update([
                 'elect_name' => $request->election_name,
