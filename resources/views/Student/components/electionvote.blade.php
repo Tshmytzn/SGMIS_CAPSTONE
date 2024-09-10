@@ -1,6 +1,5 @@
 <script>
-
-
+ 
 function getCandi(num,group,pos) {
         // Show the loader
         document.getElementById('cardload'+num).style.display = '';
@@ -23,6 +22,7 @@ function getCandi(num,group,pos) {
             processData: false, // Disable processing data (FormData)
             success: function(response) {
                 // Hide the loader on success
+                console.log(response)
                 document.getElementById('cardload'+num).style.display = 'none';
                 document.getElementById('cards'+num).style.display = '';
                 var cardsContainer = document.getElementById('cards'+num);
@@ -54,20 +54,7 @@ function getCandi(num,group,pos) {
                                             <div>${item.student_name}</div>
                                             <div class="text-muted">${item.candi_position}</div>
                                         </div>
-                                    <div class="ms-auto">
-                                            <a href="#" title="View event" class="text-muted" onclick="updatePic('${item.candi_picture}','${item.candi_id}')" data-bs-toggle="modal" data-bs-target="#updateCandi">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="icon icon-tabler icon-tabler-eye">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                    <path
-                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                                </svg>
-                                            </a>
-                                           
-                                        </div>
+                                    
                                   </div>
                                 </div>
                               </div>
@@ -98,9 +85,12 @@ function getCandi(num,group,pos) {
     }
 function selectCandi(canid,partid,studname,num,pos){
     if(pos == 'Senator'){
-    document.getElementById('canLabel'+num).textContent+=studname+', '
-    document.getElementById('candi_id'+num).value+=canid+','
-    document.getElementById('party_id'+num).value+=partid+','
+    const candi=  document.getElementById('candi_id'+num).value.split(',')
+    if(!candi.includes(canid)){
+        document.getElementById('canLabel'+num).textContent+=studname+', '
+        document.getElementById('candi_id'+num).value+=canid+','
+        document.getElementById('party_id'+num).value+=partid+','
+    }
 }else{
     document.getElementById('candi_id'+num).value=canid
     document.getElementById('party_id'+num).value=partid
@@ -143,11 +133,11 @@ function dynamicFunction(formId, routeUrl) {
                     alertify
                         .alert("Message", response.message, function() {
                             alertify.message('OK');
-
-                        });
                     if (response.reload && typeof window[response.reload] === 'function') {
                         window[response.reload](); // Safe dynamic function call
                     }
+                        });
+                    
                 }
             },
             error: function(xhr, status, error) {
@@ -156,9 +146,67 @@ function dynamicFunction(formId, routeUrl) {
             }
         });
     }
+function verify(){
+    const l1 = document.getElementById('canLabel1').textContent.trim();
+    const l2 = document.getElementById('canLabel2').textContent.trim();
+    const l3 = document.getElementById('canLabel3').textContent.trim();
+    const l4 = document.getElementById('canLabel4').textContent.trim();
+    const l5 = document.getElementById('canLabel5').textContent.trim();
+    const l6 = document.getElementById('canLabel6').textContent.trim();
+
+    // Check if any of the required fields (l1 to l5) are empty
+    if (l1 === '' || l2 === '' || l3 === '' || l4 === '' || l5 === '') {
+        alertify
+  .alert("Warning","It appears you haven't cast your vote for all available positions. Please finish voting to proceed.", function(){
+    
+  });
+        return; // Stop execution if any field is empty
+    }
+
+alertify.confirm("Message",
+  `<h3>Please Review Your Vote.</h3>
+      <table style="width:100%; text-align:left;">
+        <tr>
+          <td><strong>President:</strong></td>
+          <td>` + l1 + `</td>
+        </tr>
+        <tr>
+          <td><strong>Vice President:</strong></td>
+          <td>` + l2 + `</td>
+        </tr>
+        <tr>
+          <td><strong>Senator:</strong></td>
+          <td>` + l3 + `</td>
+        </tr>
+        <tr>
+          <td><strong>Governor:</strong></td>
+          <td>` + l4 + `</td>
+        </tr>
+        <tr>
+          <td><strong>Vice Governor:</strong></td>
+          <td>` + l5 + `</td>
+        </tr>
+        <tr>
+          <td><strong>Representative:</strong></td>
+          <td>` + l6 + `</td>
+        </tr>
+      </table>`,
+  function(){
+    alertify.success('Confirmed');
+    dynamicFunction('votingForm',"{{route('vote')}}")
+  },
+  function(){
+    alertify.error('Cancelled');
+  }
+);
+
+}
 
  $(document).ready(function() {
         getCandi('1','1','President')
     });
+function redirect(){
+    window.location.href = "{{route('StudentDashboard')}}";
 
+}
 </script>

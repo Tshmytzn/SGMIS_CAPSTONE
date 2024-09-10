@@ -41,6 +41,7 @@
 
     function getCandi() {
         // Show the loader
+        
         document.getElementById('cardload').style.display = '';
         document.getElementById('cards').style.display = 'none';
         console.log(party_id)

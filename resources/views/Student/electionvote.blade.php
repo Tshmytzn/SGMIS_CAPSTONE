@@ -4,7 +4,7 @@
 @include('Student.components.head', ['title' => 'Election'])
 @include('Student.components.header')
 @include('Student.components.nav')
-@include('Admin.components.adminstyle')
+
 <style>
     /* Styling for container */
     .position-relative {
@@ -63,8 +63,18 @@
     }
 </style>
 
+@include('Admin.components.adminstyle')
 <body>
-    <div class="page">
+
+       <div class="empty" id="sub_body">
+                    <div class="empty-img"><img src="{{ asset('./static/illustrations/undraw_voting_nvu7.svg') }}" height="128" alt="">
+                    </div>
+                    <p class="empty-title" id="notifT">No Available Election</p>
+                    <p class="empty-subtitle text-secondary" id="notif">
+                      No elections are open for voting at this time.
+                    </p>
+                  </div>
+    <div class="page" id="main_body">
         <div class="page-wrapper">
             <!-- Page header -->
             <div class="page-header d-print-none">
@@ -99,8 +109,8 @@
                                 <div id="collapseOne" class="accordion-collapse collapse show"
                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <input type="text" name="candi_id1" id="candi_id1">
-                                        <input type="text" name="party_id1" id="party_id1">
+                                        <input type="text" name="candi_id1" id="candi_id1" hidden>
+                                        <input type="text" name="party_id1" id="party_id1" hidden>
                                         @include('Admin.components.lineLoading', ['loadID' => 'cardload1'])
                                         <div class="row row-cards" id="cards1">
 
@@ -126,8 +136,8 @@
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <input type="text" name="candi_id2" id="candi_id2">
-                                        <input type="text" name="party_id2" id="party_id2">
+                                        <input type="text" name="candi_id2" id="candi_id2" hidden>
+                                        <input type="text" name="party_id2" id="party_id2" hidden>
                                         @include('Admin.components.lineLoading', ['loadID' => 'cardload2'])
                                         <div class="row row-cards" id="cards2">
 
@@ -156,8 +166,8 @@
                                 <div id="collapseThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <input type="text" name="candi_id3" id="candi_id3">
-                                        <input type="text" name="party_id3" id="party_id3">
+                                        <input type="text" name="candi_id3" id="candi_id3" hidden>
+                                        <input type="text" name="party_id3" id="party_id3" hidden>
                                         @include('Admin.components.lineLoading', ['loadID' => 'cardload3'])
                                         <div class="row row-cards" id="cards3">
 
@@ -185,8 +195,8 @@
                                 <div id="collapseFour" class="accordion-collapse collapse"
                                     aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <input type="text" name="candi_id4" id="candi_id4">
-                                        <input type="text" name="party_id4" id="party_id4">
+                                        <input type="text" name="candi_id4" id="candi_id4" hidden>
+                                        <input type="text" name="party_id4" id="party_id4" hidden>
                                         @include('Admin.components.lineLoading', ['loadID' => 'cardload4'])
                                         <div class="row row-cards" id="cards4">
 
@@ -214,8 +224,8 @@
                                 <div id="collapseFive" class="accordion-collapse collapse"
                                     aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <input type="text" name="candi_id5" id="candi_id5">
-                                        <input type="text" name="party_id5" id="party_id5">
+                                        <input type="text" name="candi_id5" id="candi_id5" hidden>
+                                        <input type="text" name="party_id5" id="party_id5" hidden>
                                         @include('Admin.components.lineLoading', ['loadID' => 'cardload5'])
                                         <div class="row row-cards" id="cards5">
 
@@ -242,8 +252,8 @@
                                 <div id="collapseSix" class="accordion-collapse collapse"
                                     aria-labelledby="headingSix" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <input type="text" name="candi_id6" id="candi_id6">
-                                        <input type="text" name="party_id6" id="party_id6">
+                                        <input type="text" name="candi_id6" id="candi_id6" hidden>
+                                        <input type="text" name="party_id6" id="party_id6" hidden>
                                         @include('Admin.components.lineLoading', ['loadID' => 'cardload6'])
                                         <div class="row row-cards" id="cards6">
 
@@ -258,7 +268,7 @@
                             </form>
                         </div>
                         <div class="text-center mt-4 col-12">
-                            <Button class="btn btn-primary col-12" type="button" onclick="dynamicFunction('votingForm','{{route('vote')}}')"> Submit Vote</Button>
+                            <Button class="btn btn-primary col-12" type="button" onclick="verify()"> Submit Vote</Button>
                         </div>
                     </div>
 
@@ -266,6 +276,62 @@
             </div>
         </div>
     </div>
+<?php
+    use Carbon\Carbon;
+    $election = App\Models\Election::where('elect_status','1')->first();
+    
+    if(!$election){
+   ?>
+   <script>
+    document.getElementById('sub_body').style.display = '';
+    document.getElementById('main_body').style.display='none'
+   </script>
+   <?php
+    }else{
+    
+    $vote = App\Models\ElectionVote::where('elect_id',$election->elect_id)->where('student_id',session('student_id'))->first();
+    if($vote){
+    $start = '';
+    $end = '';
+        // $url = route('StudentDashboard');
+        // header("Location: " . $url);
+        // exit();
+        ?>
+        <script>
+            console.log('q')
+            document.getElementById('sub_body').style.display = '';
+            document.getElementById('notifT').textContent = 'Vote Submitted'
+            document.getElementById('notif').textContent = 'Your vote has been submitted and recorded.'
+            document.getElementById('main_body').style.display='none'
+        </script>
+        <?php
+    }else{
+    $start = $election->elect_start;
+    $end = $election->elect_end;
+    }  
+        ?>
+        <script>
+    const startDate = new Date('{{$start}}');
+    console.log(startDate)
+    const endDate = new Date("{{$end}}");
+    const currentDate = new Date();
+     if (currentDate >= startDate) {
+         if (currentDate >= endDate) {
+           document.getElementById('sub_body').style.display = '';
+        document.getElementById('main_body').style.display='none'
+         }else {
+        document.getElementById('sub_body').style.display = 'none';
+        document.getElementById('main_body').style.display=''               
+        }
+     }else {
+         document.getElementById('sub_body').style.display = '';
+        document.getElementById('main_body').style.display='none'  
+     }
+</script>
+        <?php
+    }
+    
+?>
 
     @include('Student.components.footer')
     @include('Student.components.scripts')
