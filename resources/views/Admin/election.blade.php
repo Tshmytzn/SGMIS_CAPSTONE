@@ -113,7 +113,6 @@
 
                     </div>
 
-
                     {{-- This is a no search results illustration --}}
                     {{-- <div class="empty">
                     <div class="empty-img"><img src="./static/illustrations/undraw_voting_nvu7.svg" height="128" alt="">
