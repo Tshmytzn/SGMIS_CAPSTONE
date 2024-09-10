@@ -134,7 +134,7 @@ Route::get('/admin/GetCompendiumFiles', [CompendiumData::class,"GetCompendiumFil
 Route::get('/admin/GetVenue', [SchoolEvent::class,"GetVenue"])->name('GetVenue');
 Route::get('/admin/getVenueByID', [StudentAttendance::class,"getVenueByID"])->name('getVenueByID');
 Route::get('Admin/getElection', [ElectionController::class,'getElection'])->name('getElection');
-
+Route::get('Admin/ElectionResult', [ElectionController::class, 'ElectionResult'])->name('ElectionResult');
 
 
 //fallback Route to display error if user entered invalid route

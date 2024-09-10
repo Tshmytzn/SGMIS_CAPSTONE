@@ -376,4 +376,24 @@ class ElectionController extends Controller
         }
         return response()->json(['message'=>'Successfully Voted!','reload'=>'redirect','status' => 'success']);
     }
+    public function ElectionResult(request $request){
+        $election = Election::where('elect_id',$request->elect_id)->first();
+        $candi = ElectionParty::where('elect_id',$request->elect_id)->get();
+        $vote = ElectionVote::where('elect_id',$request->elect_id)->get();
+        $result = [];
+        foreach ($candi as $key => $value) {
+            $party_id = $value->party_id;
+            $party_name = ElectionParty::where('party_id',$party_id)->first();
+            $party_name = $party_name->party_name;
+            $result[$party_name] = 0;
+            }
+            foreach ($vote as $key => $value) {
+                $party_id = $value->party_id;
+                $party_name = ElectionParty::where('party_id',$party_id)->first();
+                $party_name = $party_name->party_name;
+                $result[$party_name]++;
+                }
+                return response()->json(['result'=>$result,'status'=>'success']);
+        // return response()->json(['message' => 'Successfully Voted!', 'reload' => 'redirect', 'status' => 'success']);
+    }
 }
