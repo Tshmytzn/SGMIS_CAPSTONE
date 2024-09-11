@@ -66,7 +66,7 @@
                         const startDate = new Date(item.elect_start);
                         const endDate = new Date(item.elect_end);
                         const currentDate = new Date();
-                        console.log(currentDate)
+
                         let status;
                         let color;
                         let stats;
@@ -78,6 +78,7 @@
                                 'close'; // If the current date is greater than or equal to endDate, set status to 'close'
                                 stats='none'
                                 see=''
+                                console.log('a')
                             } else {
                                 color = 'green'
                                 status =
@@ -91,6 +92,7 @@
                             'not started'; // If the current date is less than startDate, set status to 'not started'
                             stats='flex'
                             see='none'
+                            
                         }
                         var cardHtml = `
                                 <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">

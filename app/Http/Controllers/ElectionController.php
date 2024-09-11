@@ -77,7 +77,7 @@ class ElectionController extends Controller
                 }
 
                 // Extract the original name and extension, then combine them
-                $imageNameWithExtension =  $randomString . $image->getClientOriginalExtension(); // Image name with extension
+                $imageNameWithExtension =  $randomString .'.'. $image->getClientOriginalExtension(); // Image name with extension
                 $request->party_image->move(public_path('party_image/'), $imageNameWithExtension); // Save file and return path
                 // Save data to the database
                 $data = new ElectionParty;
@@ -337,7 +337,7 @@ class ElectionController extends Controller
 
     public function vote(request $request)
     {
-       
+
         $election_id = ElectionParty::select('elect_id')->where('party_id', $request->party_id1)->first();
         for ($i = 1; $i < 7; $i++) {
             // Perform some action for each iteration
@@ -377,23 +377,31 @@ class ElectionController extends Controller
         return response()->json(['message'=>'Successfully Voted!','reload'=>'redirect','status' => 'success']);
     }
     public function ElectionResult(request $request){
-        $election = Election::where('elect_id',$request->elect_id)->first();
-        $candi = ElectionParty::where('elect_id',$request->elect_id)->get();
-        $vote = ElectionVote::where('elect_id',$request->elect_id)->get();
+        $election = Election::where('elect_id', $request->elect_id)->first();
+        $votes = ElectionVote::where('elect_id', $request->elect_id)->get();
         $result = [];
-        foreach ($candi as $key => $value) {
-            $party_id = $value->party_id;
-            $party_name = ElectionParty::where('party_id',$party_id)->first();
-            $party_name = $party_name->party_name;
-            $result[$party_name] = 0;
-            }
-            foreach ($vote as $key => $value) {
-                $party_id = $value->party_id;
-                $party_name = ElectionParty::where('party_id',$party_id)->first();
-                $party_name = $party_name->party_name;
-                $result[$party_name]++;
+
+        foreach ($votes as $vot) {
+            $candi = ElectionCandidates::where('candi_id', $vot->candi_id)->first(); // Use $vot instead of $vote
+            if ($candi) {
+                $party = ElectionParty::where('party_id', $candi->party_id)->first(); // Corrected the method chaining operator
+                if ($party) {
+                    $activeUserCount = ElectionVote::where('candi_id', $candi->candi_id)->count(); // This returns an integer
+                    $result[] = [
+                        'candidate_id' => $candi->candi_id,
+                        'student_name' => $candi->student_name,
+                        'candi_position' => $candi->candi_position,
+                        'student_id' => $candi->student_id,
+                        'party_name' => $party->party_name,
+                        'vote_count' => $activeUserCount
+                    ]; // Store the count in the result array
                 }
-                return response()->json(['result'=>$result,'status'=>'success']);
+            }
+        }
+
+        return response()->json(['result' => $result, 'status' => 'success']);
+
+
         // return response()->json(['message' => 'Successfully Voted!', 'reload' => 'redirect', 'status' => 'success']);
     }
 }

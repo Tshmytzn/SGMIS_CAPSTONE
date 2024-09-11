@@ -118,7 +118,7 @@
 
                 </div>
             </div>
-            <form action="" id="publishForm">
+            <form action="" id="publishForm" hidden>
                 <input type="text" name="method" value="update">
                 <input type="text" name="status" value="1">
                 <input type="text" name="elect_id" id="elect_idS">

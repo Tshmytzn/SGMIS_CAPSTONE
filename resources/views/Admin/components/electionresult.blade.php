@@ -6,7 +6,6 @@
 
     // Example usage to get the elect_id
     let electId = getQueryParam('elect_id');
-    console.log(electId)
 
     function getResult(){
         $.ajax({
@@ -16,8 +15,8 @@
             success: function(response) {
                 console.log(response)
                  },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error("Error: " + textStatus + " " + errorThrown);
+            error: function(xhr, textStatus, errorThrown) {
+                console.error(xhr.response);
             }
         });
     }
