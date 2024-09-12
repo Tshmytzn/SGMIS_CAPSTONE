@@ -13,6 +13,19 @@ class BudgetProposalController extends Controller
     public function getBudgetProposal(Request $request)
     {
 
+    if($request->process=='get')
+    {
+        
+        $budget = BudgetProposal::all();
+        return response()->json(['data' => $budget, 'status' => 'success']);
+
+    }else if($request->process=='delete'){
+        $budget = BudgetProposal::where('id', $request->budget_id)->first();
+        $budget->delete();
+
+        return response()->json(['message' => 'Budget Proposal Successfully Deleted','reload' => 'getBudgetingDetails', 'status' => 'success']);
+
+    }
         try{
 
     $request->validate([
@@ -42,7 +55,7 @@ class BudgetProposalController extends Controller
     $data->additional_notes = $request->additionalNotes;
     $data->save();
 
-    return response()->json(['message' => 'Budget Proposal Successfully Submitted', 'status' => 'success']);
+    return response()->json(['message' => 'Budget Proposal Successfully Submitted','reload' => 'getBudgetingDetails','modal' => 'budgetProposalModal', 'status' => 'success']);
 } catch (\Illuminate\Validation\ValidationException $e) {
     // Catch validation exceptions
     return response()->json(['message' => 'Validation Failed', 'errors' => $e->errors(), 'status' => 'error'], 422);

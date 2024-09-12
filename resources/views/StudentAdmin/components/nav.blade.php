@@ -332,7 +332,7 @@
                                               <path d="M6 15l2 0" />
                                           </svg> </span>
                                       <span class="nav-link-title">
-                                          Academics
+                                          Programs & Courses
                                       </span>
                                   </a>
                               </li>
