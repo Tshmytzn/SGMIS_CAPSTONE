@@ -113,6 +113,7 @@ Route::post('Admin/createElection', [ElectionController::class,'createElection']
 Route::post('Admin/party', [ElectionController::class,'party'])->name('party');
 Route::post('Admin/Candidate', [ElectionController::class,'Candidate'])->name('Candidate');
 Route::post('Admin/Attendance', [StudentAttendance::class, 'Attendance'])->name('Attendance');
+Route::post('Admin/Vote', [ElectionController::class, 'vote'])->name('vote');
 
 
 // tish budgeting controller: post routes

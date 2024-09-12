@@ -18,7 +18,10 @@
                         .alert("Warning", response.message, function() {
                             alertify.message('OK');
                         });
-                } else {
+                }else if(response.status == 'update'){
+                    
+                }
+                 else {
                     getElection()
                     document.getElementById(formId).reset();
                     $('#' + response.modal).modal('hide');
@@ -38,18 +41,23 @@
     $(document).ready(function() {
         getElection()
     });
+    function autoSubmit(id){ console.log(id)
+        document.getElementById('elect_id').value=id;
+        dynamicFuction('updateElectionForm', "{{route('createElection')}}")
+    }
 
     function getElection() {
         document.getElementById('lineLoading').style.display = '';
+           var cardsContainer = document.getElementById('cards');
+                cardsContainer.innerHTML = '';
         $.ajax({
             url: "{{ route('getElection') }}",
             method: 'GET',
             dataType: 'json',
             success: function(response) {
                 document.getElementById('lineLoading').style.display = 'none';
-                var cardsContainer = document.getElementById('cards');
-                cardsContainer.innerHTML = ''; // Clear previous content
-
+              // Clear previous content
+                 cardsContainer.innerHTML = '';
                 if (response.data.length === 0) {
                     // No data available
                     cardsContainer.innerHTML = `<div class="empty">
@@ -78,7 +86,9 @@
                                 'close'; // If the current date is greater than or equal to endDate, set status to 'close'
                                 stats='none'
                                 see=''
-                                console.log('a')
+                                if(item.elect_status == '1'){
+                                     autoSubmit(item.elect_id)
+                                }
                             } else {
                                 color = 'green'
                                 status =
@@ -92,7 +102,6 @@
                             'not started'; // If the current date is less than startDate, set status to 'not started'
                             stats='flex'
                             see='none'
-                            
                         }
                         var cardHtml = `
                                 <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">
@@ -106,7 +115,7 @@
                                             <p class="text-secondary"><strong>Start:</strong> ${new Date(item.elect_start).toLocaleString()}</p>
                                             <p class="text-secondary"><strong>End:</strong> ${new Date(item.elect_end).toLocaleString()}</p>
                                         </div>
-                                        <div class="card-footer card-footer-transparent" style="display:${status === 'close' ? 'none' : ''}">
+                                        <div class="card-footer card-footer-transparent" >
                                             <a href="{{ route('Editelection') }}?elect_id=${item.elect_id}" class="btn btn-outline-green"
                                                 style="display:${stats}; align-items: center; justify-content: center; ">
                                                 Update Details
@@ -121,7 +130,7 @@
                                                     <path d="M16 5l3 3"/>
                                                 </svg>
                                             </a>
-                                            <a href="{{ route('viewelectionresults') }}?elect_id=${item.elect_id}"  style="display:${see};color:green" class="d-flex justify-content-end">
+                                            <a href="{{ route('viewelectionresults') }}?elect_id=${item.elect_id}"  style="display:${see}; color:green;" class="justify-content-end">
                                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
                                             </a>
                                         </div>

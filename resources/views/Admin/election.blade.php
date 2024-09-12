@@ -126,6 +126,12 @@
                 </div>
             </div>
         </div>
+        <form action="" id="updateElectionForm" method="POST" hidden>
+            @csrf
+            <input type="text" name="status" id="" value="2">
+            <input type="text" name="elect_id" id="elect_id">
+            <input type="text" name="method" id="" value="update">
+        </form>
 
         @include('Admin.components.footer')
 
