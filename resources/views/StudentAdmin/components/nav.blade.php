@@ -332,7 +332,7 @@
                                               <path d="M6 15l2 0" />
                                           </svg> </span>
                                       <span class="nav-link-title">
-                                          Academics
+                                          Programs & Courses
                                       </span>
                                   </a>
                               </li>
@@ -358,32 +358,33 @@
                                       </span>
                                   </a>
                                   <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="{{ route('Election') }}" rel="noopener">
+                                    <a class="dropdown-item" href="{{ route('Election') }}" rel="noopener">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-event">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                        <path d="M16 3l0 4" />
+                                        <path d="M8 3l0 4" />
+                                        <path d="M4 11l16 0" />
+                                        <path d="M8 15h2v2h-2z" />
+                                    </svg></span>
+                                        &nbsp; Election
+                                    </a>
+                                      <a class="dropdown-item" href="{{ route('viewelectionresults') }}" rel="noopener">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                               viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                              class="icon icon-tabler icons-tabler-outline icon-tabler-flag">
+                                              class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-event">
                                               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                               <path
-                                                  d="M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0v-9z" />
-                                              <path d="M5 21v-7" />
-                                          </svg></span>
-                                          &nbsp; Election
-                                      </a>
-                                      <a class="dropdown-item" href="{{ route('viewelectionresults') }}"
-                                          rel="noopener">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                              class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
-                                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                              <path
-                                                  d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                              <path
-                                                  d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                              <path
-                                                  d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                              <path d="M4 20h14" />
+                                                  d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                              <path d="M16 3l0 4" />
+                                              <path d="M8 3l0 4" />
+                                              <path d="M4 11l16 0" />
+                                              <path d="M8 15h2v2h-2z" />
                                           </svg> </span>
                                           &nbsp; Results
                                       </a>
