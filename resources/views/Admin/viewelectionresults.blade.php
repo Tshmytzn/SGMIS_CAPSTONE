@@ -37,8 +37,8 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-
-                  <table class="table table-hover table-bordered">
+                @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
+                  <table class="table table-hover table-bordered" id="table_id" style="display: none">
                         <thead  class="text-center">
                             <tr>
                                 <th scope="col">Position</th>
@@ -47,23 +47,35 @@
                                 <th scope="col">Votes</th>
                             </tr>
                         </thead>
-                        <tbody  class="text-center">
+                        <tbody  class="text-center" id="president">
                             <tr class="table-success">      
                                 <td colspan="4">President</td>
                             </tr>
-                            <tr>
-                                <td>President</td>
-                                <td>Jane Smith</td>
-                                <td>Party B</td>
-                                <td class="text-success">100</td>
+                        </tbody>
+                        <tbody class="text-center" id="vicepresident">
+                            <tr class="table-success">      
+                                <td colspan="4">Vice President</td>
                             </tr>
-                             <tr>
-                                <td>President</td>
-                                <td>Jake Lopez</td>
-                                <td>Party A</td>
-                                <td class="text-success">101</td>
+                        </tbody>
+                        <tbody class="text-center" id="senators">
+                             <tr class="table-success">      
+                                <td colspan="4">Senators</td>
                             </tr>
-                            
+                        </tbody>
+                        <tbody class="text-center" id="governor">
+                            <tr class="table-success">      
+                                <td colspan="4">Governor</td>
+                            </tr>
+                        </tbody>
+                        <tbody class="text-center" id="vicegovernor">
+                             <tr class="table-success">      
+                                <td colspan="4">Vice Governor</td>
+                            </tr>
+                        </tbody>
+                        <tbody class="text-center" id="representatives">
+                             <tr class="table-success">      
+                                <td colspan="4">Representatives</td>
+                            </tr>
                         </tbody>
                     </table>
 

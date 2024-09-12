@@ -13,7 +13,7 @@
 <style>
   
 </style>
-
+@include('Admin.components.adminstyle')
 <body>
 
     <div class="page">
@@ -194,10 +194,22 @@
                                     </div>
                                 </div>
                                 <div id="map"></div>
+                                <form action="" id="attendanceForm" method="post" hidden>
+                                    @csrf
+                                    <input type="text" name="eact_id" id="event_id">
+                                    <input type="text" name="process" id="" value="add">
+                                </form>
+                                <form action="" id="attendanceUpdateForm" method="post" hidden>
+                                    @csrf
+                                    <input type="text" name="eact_id" id="event_id2">
+                                    <input type="text" name="process" id="" value="update">
+                                </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal" id="attend">Time
+                                <button type="button"  class="btn btn-primary w-100" data-bs-dismiss="modal" id="attend" onclick="dynamicFunction('attendanceForm',`{{route('Attendance')}}`)">Time
                                     In</button>
+                                     <button type="button" id="attendOut" class="btn btn-primary w-100" data-bs-dismiss="modal" style="display: none" id="attend" onclick="dynamicFunction('attendanceUpdateForm',`{{route('Attendance')}}`)">Time
+                                    Out</button>
                             </div>
                         </div>
                     </div>
@@ -216,8 +228,8 @@
         <script src="{{ asset('./dist/libs/tom-select/dist/js/tom-select.base.min.js?1684106062') }}" defer></script>
 
         <!-- Include Leaflet JS library -->
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" defer></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js" defer></script>
 
 
 

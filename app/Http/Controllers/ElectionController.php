@@ -258,7 +258,7 @@ class ElectionController extends Controller
 
                 // Store the image in the 'public/party_image' directory
                 if ($request->group == '1') {
-                    $check2 = ElectionCandidates::where('party_id', $request->party_id)->where('candi_position', $request->student_position)->first();
+                    $check2 = ElectionCandidates::where('party_id', $request->party_id)->where('candi_position', '!=','Senator')->where('candi_position', $request->student_position)->first();
                     if ($check2) {
                         return response()->json([
                             'message' => 'Position Already Taken.',
@@ -376,32 +376,43 @@ class ElectionController extends Controller
         }
         return response()->json(['message'=>'Successfully Voted!','reload'=>'redirect','status' => 'success']);
     }
-    public function ElectionResult(request $request){
+    public function ElectionResult(Request $request)
+    {
         $election = Election::where('elect_id', $request->elect_id)->first();
         $votes = ElectionVote::where('elect_id', $request->elect_id)->get();
         $result = [];
 
         foreach ($votes as $vot) {
-            $candi = ElectionCandidates::where('candi_id', $vot->candi_id)->first(); // Use $vot instead of $vote
+            $candi = ElectionCandidates::where('candi_id', $vot->candi_id)->first();
             if ($candi) {
-                $party = ElectionParty::where('party_id', $candi->party_id)->first(); // Corrected the method chaining operator
+                $party = ElectionParty::where('party_id', $candi->party_id)->first();
                 if ($party) {
-                    $activeUserCount = ElectionVote::where('candi_id', $candi->candi_id)->count(); // This returns an integer
-                    $result[] = [
-                        'candidate_id' => $candi->candi_id,
-                        'student_name' => $candi->student_name,
-                        'candi_position' => $candi->candi_position,
-                        'student_id' => $candi->student_id,
-                        'party_name' => $party->party_name,
-                        'vote_count' => $activeUserCount
-                    ]; // Store the count in the result array
+                    // Check if the candidate is already in the result array
+                    $isAlreadyAdded = false;
+                    foreach ($result as $res) {
+                        if ($res['candidate_id'] == $candi->candi_id) {
+                            $isAlreadyAdded = true;
+                            break;
+                        }
+                    }
+
+                    // If the candidate is not already added, add them to the result array
+                    if (!$isAlreadyAdded) {
+                        $activeUserCount = ElectionVote::where('candi_id', $candi->candi_id)->count();
+                        $result[] = [
+                            'candidate_id' => $candi->candi_id,
+                            'student_name' => $candi->student_name,
+                            'candi_position' => $candi->candi_position,
+                            'student_id' => $candi->student_id,
+                            'party_name' => $party->party_name,
+                            'vote_count' => $activeUserCount
+                        ];
+                    }
                 }
             }
         }
 
-        return response()->json(['result' => $result, 'status' => 'success']);
-
-
-        // return response()->json(['message' => 'Successfully Voted!', 'reload' => 'redirect', 'status' => 'success']);
+        return response()->json(['data' => $result, 'status' => 'success']);
     }
+
 }

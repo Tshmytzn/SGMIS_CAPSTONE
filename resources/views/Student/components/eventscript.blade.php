@@ -67,15 +67,81 @@
 <input type="text" id="lrange" hidden>
 
 <script>
-const studentId = <?php echo session('student_id'); ?>;
-console.log(studentId);
+// const studentId = <?php echo session('student_id'); ?>;
+// console.log(studentId);
+
+// function getQueryParam(param) {
+//         let urlParams = new URLSearchParams(window.location.search);
+//         return urlParams.get(param);
+// }
+// let event_id = getQueryParam('event_id');
+//     $(document).ready(function() {
+//        document.getElementById('event_id').value=event_id
+//     });
+function dynamicFunction(formId, routeUrl) {
+        // Show the loader
+        document.getElementById('adminloader').style.display = 'grid';
+        // Create a new FormData object from the form
+        var formElement = document.getElementById(formId);
+        var formData = new FormData(formElement);
+
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: routeUrl,
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                document.getElementById('adminloader').style.display = 'none';
+                if (response.status == 'error') {
+                    alertify
+                        .alert("Warning", response.message, function() {
+                            alertify.message('OK');
+                        });
+                } else {
+
+                    document.getElementById(formId).reset();
+                    $('#' + response.modal).modal('hide');
+                    alertify
+                        .alert("Message", response.message, function() {
+                            alertify.message('OK');
+
+                        });
+                    if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload](); // Safe dynamic function call
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
+    }
+
 function attendance(id) {
+    var div2 = document.getElementById('map');
+    document.getElementById('event_id').value=id
+    document.getElementById('event_id2').value=id
+    div2.innerHTML = ``;
+    document.getElementById('mapLoading').style.display='block';
     $.ajax({
         type: "GET", // Using GET since you're passing data as query parameters
         url: "{{ route('getVenueByID') }}?l_id=" + id, // Appending the l_id to the URL as a query parameter
         success: function(response) {
             console.log(response); // Log the response to the console
             const data = response.data;
+            if(response.attend=='yes'){
+            document.getElementById('attendOut').style.display=''
+            document.getElementById('attend').style.display='none'
+            }else{
+                document.getElementById('attendOut').style.display='none'
+            document.getElementById('attend').style.display=''
+            }
             document.getElementById('latitude').value=data.latitude;
             document.getElementById('longitude').value=data.longitude;
             document.getElementById('lrange').value=data.lrange;
@@ -87,19 +153,23 @@ function attendance(id) {
     });
 }
 
-var map;
+
+let map;
 function mapping() {
+  
     var div = document.getElementById('mapLoading');
     var div2 = document.getElementById('map');
-            div.style.display = 'block'; 
-            setTimeout(function() {
-                div.style.display = 'none';
-            }, 5000);
+    div2.innerHTML = ``;
+            div.style.display = 'none'; 
+            // setTimeout(function() {
+            //     div.style.display = 'none';
+            // }, 5000);
 
     const range = parseFloat(document.getElementById('lrange').value);
     const lat = parseFloat(document.getElementById('latitude').value);
     const long = parseFloat(document.getElementById('longitude').value);
-
+    
+    
     if (map) {
         // Remove all layers and markers before reinitializing
         map.eachLayer(function(layer) {
@@ -158,12 +228,15 @@ function mapping() {
 
             if (distance <= radius) {
                 console.log("You are inside Carlos Hilado Memorial State University Campus radius.");
+                document.getElementById('attend').disabled = false;
+                document.getElementById('attendOut').disabled = false;
             } else {
                 console.log("You are outside Carlos Hilado Memorial State University Campus radius.");
                 alertify.alert("Warning", "You are outside the venue radius.", function() {
                         alertify.message('OK');
                     });
                     document.getElementById('attend').disabled = true;
+                    document.getElementById('attendOut').disabled = true;
             }
 
         }, function(error) {
