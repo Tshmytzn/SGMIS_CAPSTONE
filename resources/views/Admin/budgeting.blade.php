@@ -62,10 +62,10 @@
 
             <!-- Page body -->
             <div class="page-body">
-                <div class="container-xl d-flex flex-column justify-content-center">
-
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card">
+                <div class="container-xl d-flex flex-column justify-content-center" id="">
+                    <div class="row row-deck row-cards" id="budgetingcard">
+                    </div>
+                        {{-- <div class="card">
                             <div class="card card-stacked "></div>
                             <div class="img-responsive img-responsive-21x9 card-img-top"
                                 style="background-image: url(./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg)">
@@ -104,11 +104,8 @@
                                 </a>
 
                             </div>
-                        </div>
-                    </div>
-
-
-
+                        </div> --}}
+                   
 
                     {{-- <div class="empty">
                         <div class="empty-img"><img src="./static/illustrations/undraw_under_construction_-46-pa.svg"
@@ -136,6 +133,12 @@
                 </div>
             </div>
 
+            <form id="deleteBudgetProposalForm" method="POST" action="" hidden>
+                @csrf
+                <input type="text" name="budget_id" id="budget_id">
+                <input type="text" name="process" value="delete" id="process">
+
+            </form>
             @include('Admin.components.footer')
 
             {{-- Modals --}}
@@ -158,12 +161,6 @@
                                         <a class="nav-link active" id="proposal-details-tab" data-bs-toggle="tab"
                                             href="#proposal-details" role="tab" aria-controls="proposal-details"
                                             aria-selected="true">Proposal Details</a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" id="funding-committees-tab" data-bs-toggle="tab"
-                                            href="#funding-committees" role="tab"
-                                            aria-controls="funding-committees" aria-selected="false">Funding and
-                                            Committees</a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="submission-info-tab" data-bs-toggle="tab"
@@ -244,62 +241,19 @@
                                         </div>
                                     </div>
 
-                                    <!-- Funding and Committees -->
-                                    <div class="tab-pane fade" id="funding-committees" role="tabpanel"
-                                        aria-labelledby="funding-committees-tab">
-
-                                        <!-- Working Committees -->
-                                        <div class="mb-3">
-                                            <label class="form-label">Working Committees and Members</label>
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Committee</th>
-                                                        <th>Person-in-Charge</th>
-                                                        <th>Members</th>
-                                                        <th>Total Members</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="committeeTable">
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Enter committee name" required>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Enter head(s)" required>
-                                                        </td>
-                                                        <td>
-                                                            <div class="member-list">
-                                                                <input type="text"
-                                                                    class="form-control mb-2 member-name"
-                                                                    placeholder="Enter member name" required>
-                                                            </div>
-                                                            <button type="button"
-                                                                class="btn btn-primary add-member-btn">Add
-                                                                Member</button>
-                                                        </td>
-                                                        <td>
-                                                            <input type="number" class="form-control total-members"
-                                                                value="1" readonly>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <button type="button" onclick="createBudgetProposal()" class="btn btn-secondary" id="addCommitteeRow">Add
-                                                Another Committee</button>
-                                        </div>
-                                    </div>
-
                                     <!-- Submission Information -->
                                     <div class="tab-pane fade" id="submission-info" role="tabpanel"
                                         aria-labelledby="submission-info-tab">
+
+                                        @php
+                                        $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                        @endphp
+
                                         <!-- Proposed By -->
                                         <div class="mb-3">
                                             <label for="proposedBy" class="form-label">Proposed By</label>
                                             <input type="text" class="form-control" id="proposedBy"
-                                                name="proposedBy" value="John Doe" readonly>
+                                                name="proposedBy" value="{{ $admin->admin_name}}" readonly>
                                         </div>
                                         <!-- Submission Date -->
                                         <div class="mb-3">
