@@ -1,7 +1,7 @@
 
 /*
 All Codes for Events And Login Function
-Author: Rheyan 
+Author: Rheyan
 Date: May, 19, 2024
 Patch (V1): Codes still Uncommented (Too Many codes to comment medyo waste of time)
 */
@@ -35,17 +35,17 @@ document.addEventListener("DOMContentLoaded", function () {
        RemoveDept(value)
     }
   }));
-  
+
   var myDropzone = new Dropzone("#dropzone-default", {
     paramName: "programmeImages", // The name that will be used to transfer the file
     maxFilesize: 10, // MB
     acceptedFiles: "image/*",
-    autoProcessQueue: true, 
+    autoProcessQueue: true,
     headers: {
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     },
     init: function() {
-    
+
       var myDropzone = this;
         this.on("success", function(file, response) {
           DisplayProgramm(response.img);
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(response);
         });
 
-        
+
     }
 });
 });
@@ -286,7 +286,7 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails, where) {
               <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
               <path d="M16 5l3 3" />
               </svg>
-                 
+
               </a>
               <button title="Delete ${ev.event_name}" onclick="DeleteEvent('${deleteEvent}', '${ev.event_id}')" class="ms-3 text-muted  border-0 bg-body">
                 <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
@@ -304,9 +304,9 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails, where) {
               <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
               <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
               </svg>
-                 
+
               </a>`}
-                
+
 
               </div>
             </div>
@@ -343,7 +343,7 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails, where) {
         </p>
         <div class="empty-action">
           <button data-bs-toggle="modal" data-bs-target="#modal-report" class="btn btn-primary">
-          
+
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
             Add Event
           </button>
@@ -407,7 +407,7 @@ function AddEventsOnList(route, image, deleteEvent, eventDetails) {
                   <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
                   <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                 </svg>
-                
+
                 </button>
               </div>
             </div>
@@ -443,7 +443,7 @@ function DeleteEvent(route, ev_id) {
           if (res.status === 'success') {
             RemoveEvent(ev_id);
             alertify.set('notifier','position', 'top-right');
-            alertify.warning('Event Successfully Deleted').dismissOthers(); 
+            alertify.warning('Event Successfully Deleted').dismissOthers();
           }
 
         }, error: xhr => {
@@ -478,7 +478,7 @@ function RemoveEvent(ev_id) {
       </p>
       <div class="empty-action">
         <button data-bs-toggle="modal" data-bs-target="#modal-report" class="btn btn-primary">
-        
+
           <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
           Add Event
         </button>
@@ -626,7 +626,7 @@ function VerifyAddEventActivity(route, deleteRoute, actDetails) {
   }
 
   if (validity === 6) {
-    
+
     AddEventActivity(route, deleteRoute, actDetails);
     act_name.value = '';
     act_fac.value = '';
@@ -783,9 +783,9 @@ function DeleteActEvent(ids, route) {
     function () {
       document.getElementById('mainLoader').style.display = 'flex';
     document.getElementById('delete_act_id').value = ids;
-  
+
     var formData = $('form#deleteActEvent').serialize();
-  
+
     $.ajax({
       type: "POST",
       url: route,
@@ -798,7 +798,7 @@ function DeleteActEvent(ids, route) {
 
           const nameId = "act_tr"+ids;
           document.getElementById(nameId).remove();
-          
+
           const act_tr = document.querySelectorAll('.act_tr');
           if(act_tr.length === 0){
             document.getElementById('act_list').innerHTML = `<tr id="empty_act">
@@ -815,20 +815,20 @@ function DeleteActEvent(ids, route) {
       }
     });},
     function () { console.log('cancel') });
-  
+
 }
 function convertToAmPm(time) {
- 
+
   var timeArray = time.split(':');
   var hours = parseInt(timeArray[0]);
   var minutes = parseInt(timeArray[1]);
 
- 
+
   if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
-   
+
       var ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
-      hours = hours ? hours : 12; 
+      hours = hours ? hours : 12;
       minutes = minutes < 10 ? '0' + minutes : minutes;
       var formattedTime = hours + ':' + minutes + ' ' + ampm;
       return formattedTime;
@@ -862,7 +862,7 @@ function EditActEvent(ids, route) {
 function VerifyEditEventActivity(route, getDetails, deleteAct){
   const act_name = document.getElementById('act_name_edit');
   const act_fac = document.getElementById('act_fac_edit');
-  const act_venue = document.getElementById('act_venue_edit');
+  const act_venue = document.getElementById('act_venue3');
   const act_date = document.getElementById('act_date_edit');
   const act_time = document.getElementById('act_time_edit');
   const act_description = document.getElementById('act_description_edit');
@@ -918,13 +918,14 @@ function VerifyEditEventActivity(route, getDetails, deleteAct){
   }
 
   if (validity === 6) {
-    
+
     UpdateEventActivity(route, getDetails, deleteAct);
 
   }
 }
 
 function UpdateEventActivity(route, getDetails, deleteAct){
+    console.log('here')
   document.getElementById('mainLoader').style.display = 'flex';
   var formData = $('form#editActForm').serialize();
   $.ajax({
@@ -932,13 +933,14 @@ function UpdateEventActivity(route, getDetails, deleteAct){
     data: formData,
     url: route ,
     success: res=>{
-     
+    console.log('hi')
      if(res.status === 'success'){
       $.ajax({
         type:"GET",
         dataType: 'json',
         url: getDetails + "?act_id=" + res.data,
         success: response=>{
+            console.log()
           document.getElementById('close-button-act_edit').click();
           document.getElementById('mainLoader').style.display = 'none';
           const trName = 'act_tr' + res.data;
@@ -1024,7 +1026,7 @@ function LoadDeptEvent(route, getDept, getCourse, image, empty){
         <p class="empty-subtitle text-muted">
           No Department is Currently Added in this Event
         </p>
-    
+
     </div>`;
       }else{
         if(document.getElementById('loading-dept')){
@@ -1036,7 +1038,7 @@ function LoadDeptEvent(route, getDept, getCourse, image, empty){
             url: getDept + "?dept_id=" + dept.dept_id,
             dataType: 'json',
             success: resp=> {
-                
+
               $.ajax({
                 type:"GET",
                 url: getCourse + "?dept_id=" + dept.dept_id,
@@ -1058,7 +1060,7 @@ function LoadDeptEvent(route, getDept, getCourse, image, empty){
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           ${course}
                         </ul>
-                       
+
                     </div>
                 </div>
             </div>
@@ -1074,13 +1076,13 @@ function LoadDeptEvent(route, getDept, getCourse, image, empty){
                   console.log(xhr.responseText);
                 }
               });
-  
+
             }, error: xhr => {
               console.log(xhr.responseText);
             }
           });
-        
-          
+
+
         })
       }
     }, error: xhr => {
@@ -1103,7 +1105,7 @@ var formData = $('form#deptForm').serialize();
       }
       if(res.status === 'success'){
         alertify.set('notifier','position', 'top-right');
-        alertify.success('Department Added Successfully'); 
+        alertify.success('Department Added Successfully');
         document.getElementById('mainLoader').style.display = 'none';
         let course = '';
         res.course.forEach(c=>{
@@ -1121,7 +1123,7 @@ var formData = $('form#deptForm').serialize();
                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       ${course}
                    </ul>
-                 
+
                </div>
            </div>
        </div>
@@ -1146,7 +1148,7 @@ function RemoveDept(value){
       const deptName = `dept_added_event${value}`;
       document.getElementById(deptName).remove();
       alertify.set('notifier','position', 'top-right');
-      alertify.warning('Department was removed'); 
+      alertify.warning('Department was removed');
       const deptList = document.getElementById('event_department_list');
       if(res.dept === 0){
         deptList.innerHTML = `<div class="empty" id="empty_department">
@@ -1156,7 +1158,7 @@ function RemoveDept(value){
         <p class="empty-subtitle text-muted">
           No Department is Currently Added in this Event
         </p>
-    
+
     </div>`;
       }
       document.getElementById('mainLoader').style.display = 'none';
@@ -1174,7 +1176,7 @@ function DisplayProgramm(img){
   const event_id = document.getElementById('event_id_delete_programme').value;
   const empty = document.getElementById('empty_programme_empty_asset').value;
   alertify.set('notifier','position', 'top-right');
-  alertify.success('Programme Image Added'); 
+  alertify.success('Programme Image Added');
   if(document.getElementById('empty_programme')){
     document.getElementById('empty_programme').remove();
   }
@@ -1211,7 +1213,7 @@ function LoadProgrammeList(route, imgRoute, empty, removeRoute, where){
       if( res.programme != null ){
        if(res.programme != ''){
         const programme = res.programme.split(',');
-     
+
         programme.forEach(data=>{
           if(data !== ''){
             list.innerHTML += `<div id="${data}" class="col mb-3" style="position: relative;">
@@ -1235,10 +1237,10 @@ function LoadProgrammeList(route, imgRoute, empty, removeRoute, where){
             </button>
           </div>`;
           }
-       
+
         })
        }else{
-        
+
         list.innerHTML =  `<div class="empty w-100" id="empty_programme">
         <div class="empty-img"><img src="${empty}" height="128" alt="">
         </div>
@@ -1246,11 +1248,11 @@ function LoadProgrammeList(route, imgRoute, empty, removeRoute, where){
         <p class="empty-subtitle text-muted">
           No Programme Images is Currently Added in this Event
         </p>
-    
+
     </div>`;
        }
       }else{
-      
+
         list.innerHTML =  `<div class="empty w-100" id="empty_programme">
         <div class="empty-img"><img src="${empty}" height="128" alt="">
         </div>
@@ -1258,7 +1260,7 @@ function LoadProgrammeList(route, imgRoute, empty, removeRoute, where){
         <p class="empty-subtitle text-muted">
           No Programme Images is Currently Added in this Event
         </p>
-    
+
     </div>`;
       }
     }, error: xhr=>{
@@ -1287,7 +1289,7 @@ function DeleteProgramme(route, empty){
         document.getElementById(res.programme).remove();
         document.getElementById('mainLoader').style.display = 'none';
         alertify.set('notifier','position', 'top-right');
-        alertify.warning('Programme Image was removed'); 
+        alertify.warning('Programme Image was removed');
         if(res.list === ''){
           document.getElementById('programme_list').innerHTML = `<div class="empty w-100" id="empty_programme">
           <div class="empty-img"><img src="${empty}" height="128" alt="">
@@ -1296,7 +1298,7 @@ function DeleteProgramme(route, empty){
           <p class="empty-subtitle text-muted">
             No Programme Images is Currently Added in this Event
           </p>
-      
+
       </div>`;
         }
       }
