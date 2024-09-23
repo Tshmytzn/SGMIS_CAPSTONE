@@ -127,13 +127,15 @@
                         <th>Description</th>
                         <th>Venue</th>
                         <th>Facilitator</th>
-                        <th>Date & Time</th>
+                        <th>Date</th>
+                        <th>Start</th>
+                        <th>End</th>
                         <th class="w-1">Action</th>
                       </tr>
                     </thead>
                     <tbody id="act_list">
                       <tr id="loading-act">
-                      <td colspan="6" class="text-center">
+                      <td colspan="8" class="text-center">
                         <div class="text-muted mb-3">Loading Activities</div>
                         <div class="progress progress-sm ">
                           <div class="progress-bar progress-bar-indeterminate"></div>
@@ -291,7 +293,7 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                   <div class="mb-1">
                     <label class="form-label">Facilitator Name <span id="act_fac_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                     <input type="text" class="form-control" id="act_fac_edit" name="act_fac" placeholder="Facilitator Name">
@@ -313,7 +315,7 @@
             </div>
             <div class="modal-body">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                   <div class="mb-3">
                     <label class="form-label">Date <span id="act_date_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                     <input type="date" id="act_date_edit" name="act_date"class="form-control">
@@ -321,8 +323,14 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="mb-3">
-                    <label class="form-label">Time <span id="act_time_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                    <label class="form-label">Start Time <span id="act_time_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                     <input type="time" id="act_time_edit" name="act_time" class="form-control">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">End Time <span id="act_end_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                    <input type="time" id="act_end_edit" name="act_end" class="form-control">
                   </div>
                 </div>
                 <div class="col-lg-12">
@@ -472,8 +480,14 @@
               </div>
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label class="form-label">Time <span id="act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <label class="form-label">Start Time <span id="act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                   <input type="time" id="act_time" name="act_time" class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">End Time <span id="end_act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="time" id="end_act_time" name="end_act_time" class="form-control">
                 </div>
               </div>
               <div class="col-lg-12">

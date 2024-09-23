@@ -114,13 +114,15 @@
                                         <th>Description</th>
                                         <th>Venue</th>
                                         <th>Facilitator</th>
-                                        <th>Date & Time</th>
+                                        <th>Date</th>
+                                        <th>Start</th>
+                                        <th>End</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="act_list">
                                     <tr id="loading-act">
-                                        <td colspan="6" class="text-center">
+                                        <td colspan="8" class="text-center">
                                             <div class="text-muted mb-3 text-center">Loading Activities</div>
                                             <div class="progress progress-sm ">
                                                 <div class="progress-bar progress-bar-indeterminate"></div>
@@ -204,11 +206,12 @@
                                     <input type="text" name="eact_id" id="event_id2">
                                     <input type="text" name="process" id="" value="update">
                                 </form>
+                                <div class="text-danger text-center mt-4" id="warning_label" style="display: none"> Your Attendance is Already Recorded</div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button"  class="btn btn-primary w-100" data-bs-dismiss="modal" id="attend" onclick="dynamicFunction('attendanceForm',`{{route('Attendance')}}`)">Time
+                                <button type="button"  class="btn btn-primary w-100" data-bs-dismiss="modal" style="display: none" id="attend" onclick="dynamicFunction('attendanceForm',`{{route('Attendance')}}`)">Time
                                     In</button>
-                                     <button type="button" id="attendOut" class="btn btn-primary w-100" data-bs-dismiss="modal" style="display: none" id="attend" onclick="dynamicFunction('attendanceUpdateForm',`{{route('Attendance')}}`)">Time
+                                     <button type="button" id="attendOut" class="btn btn-primary w-100" data-bs-dismiss="modal" style="display: none" onclick="dynamicFunction('attendanceUpdateForm',`{{route('Attendance')}}`)">Time
                                     Out</button>
                             </div>
                         </div>

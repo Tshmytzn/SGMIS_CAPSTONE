@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\models\EventLocation;
 use App\models\EventActivities;
+use Carbon\Carbon;
 
 class StudentAttendance extends Controller
 {
@@ -22,7 +23,11 @@ class StudentAttendance extends Controller
         // Retrieve the venue based on the activity's venue ID
         $venue = EventLocation::where('l_id', $act->eact_venue)->first();
         $attendance = Attendance::where('eact_id', $act->eact_id)->where('student_id',session('student_id'))->first();
-        if($attendance){
+        $attendance2 = Attendance::where('eact_id', $act->eact_id)->where('student_id', session('student_id'))->where('end','=','1')->first();
+        if($attendance2){
+            $attend = 'already';
+        }
+        else if($attendance){
             $attend='yes';
         }else{
             $attend='no';
@@ -37,6 +42,21 @@ class StudentAttendance extends Controller
 
     public function Attendance(Request $request){
         if($request->process == 'add'){
+            $act = EventActivities::where('eact_id', $request->eact_id)->first();
+            $timezone = 'Asia/Hong_Kong';
+            $currentTime = Carbon::now($timezone)->format('H:i'); // Get the current date and time
+            $currentDate = Carbon::now()->format('Y-m-d');
+            // Compare event time with current time
+            if($currentDate > $act->eact_date){
+                return response()->json(['message' => 'Event has ended', 'status' => 'error']);
+            }else if($currentDate < $act->eact_date){
+                return response()->json(['message' => 'Event has not started yet', 'status' =>'error']);
+            }
+            else if ($act->eact_time > $currentTime ) { // Check if event time is greater than current time
+                return response()->json(['message' => 'Event has not started yet', 'status' => 'error']);
+            }else if($act->eact_time < $currentTime || $act->eact_end < $currentTime){
+                return response()->json(['message' => 'Event has ended', 'status' => 'error']);
+            }
             $data = new Attendance;
             $data->eact_id = $request->eact_id;
             $data->student_id = session('student_id');
@@ -44,6 +64,20 @@ class StudentAttendance extends Controller
             $data->save();
             return response()->json(['message' => 'Attendance has been recorded','status'=>'success'], 200);
         }else if($request->process=='update'){
+            $act = EventActivities::where('eact_id', $request->eact_id)->first();
+            $timezone = 'Asia/Hong_Kong';
+            $currentTime = Carbon::now($timezone)->format('H:i');
+            $currentDate = Carbon::now()->format('Y-m-d');
+            $end = $act->eact_end;
+            $newTime = Carbon::createFromFormat('H:i', $end)->addMinutes(15)->format('H:i');
+            if ($currentDate > $act->eact_date) {
+                return response()->json(['message' => 'Event has ended', 'status' => 'error']);
+            } else if ($currentDate < $act->eact_date) {
+                return response()->json(['message' => 'Event has not started yet', 'status' => 'error']);
+            }
+            else if ($newTime < $currentTime) {
+                return response()->json(['message' => 'Event Ended', 'status' => 'error']);
+            }
             $data = Attendance::where('eact_id',$request->eact_id)->where('student_id',session('student_id'))->first();
             $data->update([
                 'end' => '1',

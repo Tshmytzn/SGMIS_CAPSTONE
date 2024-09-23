@@ -77,7 +77,7 @@ Route::get('Admin/Event/allEvent/',[SchoolEvent::class,'GetAllEvents'] )->name('
 Route::get('Admin/Event/getEvent/',[SchoolEvent::class,'GetEvent'] )->name('getEvent');
 Route::get('Admin/Event/getEvent/eventdetails',[SchoolEvent::class,'EventDetailsLoad'] )->name('getEventDetails');
 Route::get('Admin/Event/getEvent/eventActivities',[SchoolEvent::class,'GetAllEventActivities'] )->name('getEventAct');
-Route::get('Admin/Event/getEvent/actDetails',[SchoolEvent::class,'GetActDetails'] )->name('getActDetails');
+Route::get('Admin/Event/getEvent/actDetails',[SchoolEvent::class,'GetActDetails'] )->name(name: 'getActDetails');
 Route::get('Admin/Event/getEvent/getDept',[SchoolEvent::class,'GetDeptEvent'] )->name('GetDeptEvent');
 Route::get('Admin/Event/getEvent/getDepartment',[SchoolEvent::class,'GetDepartment'] )->name('getDepartment');
 Route::get('Admin/Event/getEvent/getCourse',[SchoolEvent::class,'GetCourse'] )->name('getCourse');

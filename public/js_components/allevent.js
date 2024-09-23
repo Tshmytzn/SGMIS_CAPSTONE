@@ -563,7 +563,11 @@ function TextDisplayAnimate(elementId, text) {
 }
 
 function AssVal(eid, data) {
-  document.getElementById(eid).value = data;
+  const element = document.getElementById(eid);
+  if(element){
+      element.value = data;
+  }
+
 }
 
 
@@ -679,13 +683,15 @@ function AddEventActivity(route, deleteRoute, actDetails) {
         <td class="text-muted" >
           ${res.data.eact_description.length < 15 ? res.data.eact_description : res.data.eact_description.substring(0, 15) + '....'}
         </td>
-        <td class="text-muted" > ${res.data.eact_venue}</td>
+        <td class="text-muted" > ${res.data.location_name}</td>
         <td class="text-muted" >
         ${res.data.eact_facilitator}
         </td>
         <td class="text-muted" >
-        ${res.data.eact_date} & ${convertToAmPm(res.data.eact_time)}
+        ${res.data.eact_date} 
         </td>
+        <td>${convertToAmPm(res.data.eact_time)}</td>
+        <td>${convertToAmPm(res.data.eact_end)}</td>
         <td class="d-flex gap-1">
           <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${res.data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -731,13 +737,15 @@ function LoadEventActivities(route, deleteRoute, actDetails, where) {
          <td class="text-muted" >
            ${data.eact_description.length < 15 ? data.eact_description : data.eact_description.substring(0, 15) + '....'}
          </td>
-         <td class="text-muted" > ${data.eact_venue}</td>
+         <td class="text-muted" > ${data.location_name}</td>
          <td class="text-muted" >
          ${data.eact_facilitator}
          </td>
          <td class="text-muted" >
-         ${data.eact_date} & ${convertToAmPm(data.eact_time)}
+         ${data.eact_date}
          </td>
+         <td>${convertToAmPm(data.eact_time)}</td>
+        <td>${data.eact_end==null?'':convertToAmPm(data.eact_end)}</td>
          ${where === 'admin' ? `   <td class="d-flex gap-1">
          <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -848,9 +856,11 @@ function EditActEvent(ids, route) {
        actTitle.textContent = res.act.eact_name;
        AssVal('act_name_edit', res.act.eact_name);
        AssVal('act_fac_edit', res.act.eact_facilitator);
-       AssVal('act_venue_edit', res.act.eact_venue);
+       AssVal('act_venue3', res.act.l_id);
+       AssVal('act_venue4', res.act.location_name);
        AssVal('act_date_edit', res.act.eact_date);
        AssVal('act_time_edit', res.act.eact_time);
+       AssVal('act_end_edit', res.act.eact_end);
        AssVal('act_description_edit', res.act.eact_description);
        AssVal('act_id_edit', res.act.eact_id);
      },error: xhr => {
@@ -933,14 +943,12 @@ function UpdateEventActivity(route, getDetails, deleteAct){
     data: formData,
     url: route ,
     success: res=>{
-    console.log('hi')
      if(res.status === 'success'){
       $.ajax({
         type:"GET",
         dataType: 'json',
         url: getDetails + "?act_id=" + res.data,
         success: response=>{
-            console.log()
           document.getElementById('close-button-act_edit').click();
           document.getElementById('mainLoader').style.display = 'none';
           const trName = 'act_tr' + res.data;
@@ -951,13 +959,15 @@ function UpdateEventActivity(route, getDetails, deleteAct){
           <td class="text-muted" >
             ${response.act.eact_description.length < 15 ? response.act.eact_description : response.act.eact_description.substring(0, 15) + '....'}
           </td>
-          <td class="text-muted" > ${response.act.eact_venue}</td>
+          <td class="text-muted" > ${response.act.location_name}</td>
           <td class="text-muted">
           ${response.act.eact_facilitator}
           </td>
           <td class="text-muted" >
-          ${response.act.eact_date} & ${convertToAmPm(response.act.eact_time)}
+          ${response.act.eact_date}
           </td>
+          <td>${convertToAmPm(response.act.eact_time)}</td>
+          <td>${response.act.eact_end==null?'':convertToAmPm(response.act.eact_end)}</td>
           <td class="d-flex gap-1">
             <button data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${response.act.eact_id}', '${getDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -1002,7 +1012,7 @@ function ViewActivity(ids, route){
     success: res => {
       AssText('act_name_view', res.act.eact_name);
       AssText('act_fac_view', res.act.eact_facilitator);
-      AssText('act_venue_view', res.act.eact_venue);
+      AssText('act_venue_view', res.act.location_name);
       AssText('act_date_time_view', res.act.eact_date + " & " + res.act.eact_time);
       AssText('act_description_view', res.act.eact_description);
     },error: xhr => {

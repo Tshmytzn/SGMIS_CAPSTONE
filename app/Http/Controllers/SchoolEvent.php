@@ -144,6 +144,7 @@ class SchoolEvent extends Controller
         $act->eact_venue = $req->act_venue;
         $act->eact_date = $req->act_date;
         $act->eact_time = $req->act_time;
+        $act->eact_end = $req->end_act_time;
         $act->eact_description= $req->act_description;
         $act->save();
 
@@ -153,7 +154,10 @@ class SchoolEvent extends Controller
     }
 
     public function GetAllEventActivities(Request $req){
-        $act = EventActivities::where('event_id', $req->event_id)->get();
+        $act = EventActivities::where('event_id', $req->event_id)
+            ->join('event_location', 'event_activities.eact_venue', '=', 'event_location.l_id')
+            ->select('event_activities.*', 'event_location.location_name as location_name', 'event_location.l_id as l_id')
+            ->get();
         return response()->json(['act'=>$act]);
     }
 
@@ -164,24 +168,28 @@ class SchoolEvent extends Controller
         return response()->json(['status'=>'success']);
     }
 
-    public function GetActDetails(Request $req){
-        $act = EventActivities::where('eact_id', $req->act_id)->first();
-        return response()->json(['act'=>$act]);
+    public function GetActDetails(Request $req)
+    {
+        $act = EventActivities::where('eact_id', $req->act_id)
+            ->join('event_location', 'event_activities.eact_venue', '=', 'event_location.l_id')
+            ->select('event_activities.*', 'event_location.location_name as location_name', 'event_location.l_id as l_id')
+            ->first();
+        return response()->json(['act' => $act]);
     }
 
     public function UpdateEventActivities(Request $req){
-        return response()->json(['status'=>'success', 'data'=>$req->act_id]);
-        // $act = EventActivities::where('eact_id', $req->act_id)->first();
-        // $act->update([
-        //   'eact_name'=>$req->act_name,
-        //   'eact_facilitator'=>$req->act_fac,
-        //   'eact_venue'=>$req->act_venue,
-        //   'eact_date'=>$req->act_date,
-        //   'eact_time'=>$req->act_time,
-        //   'eact_description'=>$req->act_description,
-        // ]);
+        $act = EventActivities::where('eact_id', $req->act_id)->first();
+        $act->update([
+          'eact_name'=>$req->act_name,
+          'eact_facilitator'=>$req->act_fac,
+          'eact_venue'=>$req->act_venue,
+          'eact_date'=>$req->act_date,
+          'eact_time'=>$req->act_time,
+          'eact_end' => $req->act_end,
+          'eact_description'=>$req->act_description,
+        ]);
 
-        // return response()->json(['status'=>'success', 'data'=>$req->act_id]);
+        return response()->json(['status'=>'success', 'data'=>$req->act_id]);
     }
 
     public function UploadProgrammeImages(Request $req) {

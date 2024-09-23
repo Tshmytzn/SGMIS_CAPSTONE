@@ -124,6 +124,9 @@ function dynamicFunction(formId, routeUrl) {
     }
 
 function attendance(id) {
+    document.getElementById('attend').style.display = 'none';
+    document.getElementById('warning_label').style.display='none'
+    document.getElementById('attendOut').style.display='none'
     var div2 = document.getElementById('map');
     document.getElementById('event_id').value=id
     document.getElementById('event_id2').value=id
@@ -133,13 +136,17 @@ function attendance(id) {
         type: "GET", // Using GET since you're passing data as query parameters
         url: "{{ route('getVenueByID') }}?l_id=" + id, // Appending the l_id to the URL as a query parameter
         success: function(response) {
-            console.log(response); // Log the response to the console
             const data = response.data;
-            if(response.attend=='yes'){
+            if(response.attend=='already'){
+                console.log('here')
+            document.getElementById('attend').style.display = 'none';
+            document.getElementById('warning_label').style.display=''
+            }
+            else if(response.attend=='yes'){
             document.getElementById('attendOut').style.display=''
             document.getElementById('attend').style.display='none'
             }else{
-                document.getElementById('attendOut').style.display='none'
+            document.getElementById('attendOut').style.display='none'
             document.getElementById('attend').style.display=''
             }
             document.getElementById('latitude').value=data.latitude;

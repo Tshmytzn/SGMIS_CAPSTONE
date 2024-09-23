@@ -18,5 +18,6 @@ class EventActivities extends Model
        'eact_venue',
        'eact_date',
        'eact_time',
+       'eact_end',
     ];
 }
