@@ -43,6 +43,14 @@ class ElectionController extends Controller
             ]);
             return response()->json(['message' => 'Election Successfully Updated', 'reload' => 'getElection',  'status' => 'success']);
         }
+
+        $check = Election::where('elect_end', '>=', $request->voting_start_date)->where('elect_status','1')->first();
+        if($check){
+            return response()->json(['message' => 'Can Not Add Election That Already Started','status' => 'error']);
+        }
+        if($request->voting_end_date <= $request->voting_start_date){
+            return response()->json(['message' => 'Election Format Not Valid', 'status' => 'error']);
+        }
         if ($request->election_name == '' || $request->voting_start_date == '' || $request->voting_end_date == '') {
             return response()->json(['message' => 'Fill in All Required Fields', 'status' => 'error']);
         }
