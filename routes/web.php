@@ -12,6 +12,7 @@ use App\Http\Controllers\CompendiumData;
 use App\Http\Controllers\StudentAttendance;
 use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\BudgetProposalController;
+use App\Http\Controllers\CalendarController;
 ;
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ use App\Http\Controllers\BudgetProposalController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'index']);
 
 // ADMIN
 // tish admin: get routes

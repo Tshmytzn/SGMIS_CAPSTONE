@@ -57,28 +57,35 @@ class SchoolEvent extends Controller
     public function DeleteEvent(Request $req){
         $event_id = $req->event_id;
         $dept = EventDepartment::where('event_id', $event_id)->get();
-        foreach($dept as $d){
-            $d->delete();
+        if($dept){
+            foreach($dept as $d){
+                $d->delete();
+            }
         }
         $act = EventActivities::where('event_id', $event_id)->get();
-        foreach($act as $a){
-            $a->delete();
+        if($act){
+            foreach($act as $a){
+                $a->delete();
+            }
         }
         $eval = Evaluation::where('event_id', $event_id)->first();
-        $evalQ= EvalQuestion::where('eval_id', $eval->eval_id)->get();
-        foreach($evalQ as $q){
-            $q->delete();
+
+        if($eval){
+            $evalQ= EvalQuestion::where('eval_id', $eval->eval_id)->get();
+            foreach($evalQ as $q){
+                $q->delete();
+            }
+            $eval->delete();
         }
-        $eval->delete();
-
         $event = SchoolEvents::where('event_id', $event_id)->first();
-
         $image= public_path('event_images/'. $event->event_pic);
-        $programme = explode(',', $event->event_programme);
-        foreach($programme as $prog){
-            $p_image = public_path('programme_images/'. $prog);
-            if(file_exists($p_image)){
-                unlink($p_image);
+        if($event->event_programme != null){
+            $programme = explode(',', $event->event_programme);
+            foreach($programme as $prog){
+                $p_image = public_path('programme_images/'. $prog);
+                if(file_exists($p_image)){
+                    unlink($p_image);
+                }
             }
         }
         if(file_exists($image)){
@@ -163,17 +170,18 @@ class SchoolEvent extends Controller
     }
 
     public function UpdateEventActivities(Request $req){
-        $act = EventActivities::where('eact_id', $req->act_id)->first();
-        $act->update([
-          'eact_name'=>$req->act_name,
-          'eact_facilitator'=>$req->act_fac,
-          'eact_venue'=>$req->act_venue,
-          'eact_date'=>$req->act_date,
-          'eact_time'=>$req->act_time,
-          'eact_description'=>$req->act_description,
-        ]);
-
         return response()->json(['status'=>'success', 'data'=>$req->act_id]);
+        // $act = EventActivities::where('eact_id', $req->act_id)->first();
+        // $act->update([
+        //   'eact_name'=>$req->act_name,
+        //   'eact_facilitator'=>$req->act_fac,
+        //   'eact_venue'=>$req->act_venue,
+        //   'eact_date'=>$req->act_date,
+        //   'eact_time'=>$req->act_time,
+        //   'eact_description'=>$req->act_description,
+        // ]);
+
+        // return response()->json(['status'=>'success', 'data'=>$req->act_id]);
     }
 
     public function UploadProgrammeImages(Request $req) {
