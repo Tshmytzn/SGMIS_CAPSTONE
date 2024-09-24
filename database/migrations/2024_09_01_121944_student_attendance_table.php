@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('student_id')->nullable();
             $table->string('start')->nullable();
             $table->string('end')->nullable();
+            $table->string('time_in')->nullable();
+            $table->string(column: 'time_out')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

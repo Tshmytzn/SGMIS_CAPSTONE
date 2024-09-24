@@ -57,39 +57,44 @@
 
                                 <div class="col-3 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Events </h4>
-                                    <select class="form-select" name="" id="">
-                                        <option value=""> Select Event </option>
-                                        <option value=""> Event 1 </option>
-                                        <option value=""> Event 2 </option>
+                                    <select class="form-select" name="" id="EventId" onchange="getAct()">
+                                        <option value="" selected> Select Event </option>
+                                        @php
+                                            $events = \App\Models\SchoolEvents::all();
+                                        @endphp
+                                        @foreach ($events as $event)
+                                        <option value="{{ $event->event_id }}">{{ $event->event_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-3 mb-3">
+                                    <h4 class="mb-2 ms-2 text-white" for=""> Activities </h4>
+                                    <select class="form-select" name="" id="ActId">
+                                        <option value="" selected> Select Activity </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-2">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Department </h4>
                                     <select class="form-select" name="" id="">
                                         <option value=""> Select Department </option>
-                                        <option value=""> Department 1 </option>
-                                        <option value=""> Department 2 </option>
                                     </select>
                                 </div>
 
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Course </h4>
                                     <select class="form-select" name="" id="">
                                         <option value=""> Select Course </option>
-                                        <option value=""> Course 1 </option>
-                                        <option value=""> Course 2 </option>
                                     </select>
                                 </div>
 
 
-                                <div class="col-3">
+                                <div class="col-2">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Section </h4>
                                     <select class="form-select" name="" id="">
                                         <option value=""> Select Section </option>
-                                        <option value=""> Section 1 </option>
-                                        <option value=""> Section 2 </option>
                                     </select>
                                 </div>
                             </div>
@@ -110,87 +115,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Tisha May Tizon </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> John Paul Ubas </td>
-                                                <td> 20201428 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Rheyan John Blanco </td>
-                                                <td> 20201420 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> Hazel Mae Santiago </td>
-                                                <td> 20201424 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year B </td>
-                                                <td> Jeah Lou Huelar </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-danger"> Incomplete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Tisha May Tizon </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> John Paul Ubas </td>
-                                                <td> 20201428 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Rheyan John Blanco </td>
-                                                <td> 20201420 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> Hazel Mae Santiago </td>
-                                                <td> 20201424 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
                                             <tr>
                                                 <td> Uweek </td>
                                                 <td> College of Engineering </td>
@@ -217,6 +141,7 @@
 
 
     @include('Admin.components.scripts')
+    @include('Admin.components.attendancescript')
 
 </body>
 

@@ -4,7 +4,12 @@
 
 @include('Admin.components.header', ['title' => 'Election Results'])
 @include('Admin.components.adminstyle')
-
+<style>
+    .fade-card {
+    height: 400px; /* Set your desired height */
+    overflow: hidden; /* Hide overflow if the content exceeds the height */
+}
+</style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -37,6 +42,10 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
+                     @include('Admin.components.lineLoading',['loadID' => 'cardload'])
+                    <div class="row row-cards p-4 mb-2" id="cards" style="display: none">
+
+                    </div> 
                 @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
                   <table class="table table-hover table-bordered" id="table_id" style="display: none">
                         <thead  class="text-center">

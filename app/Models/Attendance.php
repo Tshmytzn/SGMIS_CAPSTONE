@@ -15,6 +15,8 @@ class Attendance extends Model
       'student_id',
       'start',
       'end',
+      'time_in',
+      'time_out',
       'status',
     ];
 }

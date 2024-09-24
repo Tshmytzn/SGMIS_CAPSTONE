@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-
+@include('Admin.components.adminstyle')
 @include('Student.components.head', ['title' => 'Election'])
 @include('Student.components.header')
 @include('Student.components.nav')
@@ -63,7 +63,7 @@
     }
 </style>
 
-@include('Admin.components.adminstyle')
+
 <body>
 
        <div class="empty" id="sub_body">

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('result_id');
             $table->integer('party_id');
             $table->integer('candi_id');
+            $table->integer('vote');
             $table->string('result_status')->nullable();
             $table->timestamps();
         }); 

@@ -14,6 +14,7 @@ class ElectionResult extends Model
     protected $fillable = [
         'party_id',
         'candi_id',
+        'votes',
         'result_status',
     ];
 }

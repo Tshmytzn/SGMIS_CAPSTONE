@@ -690,8 +690,8 @@ function AddEventActivity(route, deleteRoute, actDetails) {
         <td class="text-muted" >
         ${res.data.eact_date} 
         </td>
-        <td>${convertToAmPm(res.data.eact_time)}</td>
-        <td>${convertToAmPm(res.data.eact_end)}</td>
+        <td class="text-muted">${convertToAmPm(res.data.eact_time)}</td>
+        <td class="text-muted">${convertToAmPm(res.data.eact_end)}</td>
         <td class="d-flex gap-1">
           <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${res.data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -744,8 +744,8 @@ function LoadEventActivities(route, deleteRoute, actDetails, where) {
          <td class="text-muted" >
          ${data.eact_date}
          </td>
-         <td>${convertToAmPm(data.eact_time)}</td>
-        <td>${data.eact_end==null?'':convertToAmPm(data.eact_end)}</td>
+         <td class="text-muted">${convertToAmPm(data.eact_time)}</td>
+        <td class="text-muted">${data.eact_end==null?'':convertToAmPm(data.eact_end)}</td>
          ${where === 'admin' ? `   <td class="d-flex gap-1">
          <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -966,8 +966,8 @@ function UpdateEventActivity(route, getDetails, deleteAct){
           <td class="text-muted" >
           ${response.act.eact_date}
           </td>
-          <td>${convertToAmPm(response.act.eact_time)}</td>
-          <td>${response.act.eact_end==null?'':convertToAmPm(response.act.eact_end)}</td>
+          <td class="text-muted">${convertToAmPm(response.act.eact_time)}</td>
+          <td class="text-muted">${response.act.eact_end==null?'':convertToAmPm(response.act.eact_end)}</td>
           <td class="d-flex gap-1">
             <button data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${response.act.eact_id}', '${getDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />

@@ -44,7 +44,7 @@ Route::get('/Evaluation/ViewEvaluations/results', [SessionDetect::class, 'Evalua
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 Route::get('/Profile', [SessionDetect::class, 'AdminProfile'])->name('Profile');
 Route::get('/Budgeting', [SessionDetect::class, 'Budgeting'])->name('Budgeting');
-Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('Attendance');
+Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('ViewAttendance');
 Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
 Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
 Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');
@@ -117,6 +117,7 @@ Route::post('Admin/party', [ElectionController::class,'party'])->name('party');
 Route::post('Admin/Candidate', [ElectionController::class,'Candidate'])->name('Candidate');
 Route::post('Admin/Attendance', [StudentAttendance::class, 'Attendance'])->name('Attendance');
 Route::post('Admin/Vote', [ElectionController::class, 'vote'])->name('vote');
+Route::post('Admin/saveResult', [ElectionController::class, 'saveResult'])->name('saveResult');
 
 
 // tish budgeting controller: post routes
@@ -140,7 +141,7 @@ Route::get('/admin/GetVenue', [SchoolEvent::class,"GetVenue"])->name('GetVenue')
 Route::get('/admin/getVenueByID', [StudentAttendance::class,"getVenueByID"])->name('getVenueByID');
 Route::get('Admin/getElection', [ElectionController::class,'getElection'])->name('getElection');
 Route::get('Admin/ElectionResult', [ElectionController::class, 'ElectionResult'])->name('ElectionResult');
-
+Route::get('/Admin/getAttendance', [StudentAttendance::class, "getAttendance"])->name('getAttendance');
 
 //fallback Route to display error if user entered invalid route
 Route::fallback(function () {

@@ -2,7 +2,7 @@
 
 <html lang="en">
 
-
+@include('Admin.components.adminstyle')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" />
 
@@ -10,10 +10,7 @@
 @include('Student.components.header')
 @include('Student.components.nav')
 
-<style>
-  
-</style>
-@include('Admin.components.adminstyle')
+
 <body>
 
     <div class="page">
@@ -30,7 +27,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Page body -->
             <div class="page-body">
 

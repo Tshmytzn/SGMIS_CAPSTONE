@@ -11,6 +11,9 @@ use App\Models\ElectionVote;
 use App\Models\StudentAccounts;
 use App\Models\Course;
 use App\Models\Section;
+use Carbon\Carbon;
+use Carbon\CarbonTimeZone;
+use App\Models\ElectionResult;
 
 class ElectionController extends Controller
 {
@@ -395,7 +398,25 @@ class ElectionController extends Controller
         return response()->json(['message'=>'Successfully Voted!','reload'=>'redirect','status' => 'success']);
     }
     public function ElectionResult(Request $request)
-    {
+    {   
+        if($request->getResult){
+            $election = Election::where('elect_id', $request->elect_id)->first();
+
+            $providedDateTime = Carbon::createFromFormat('Y-m-d\TH:i', $election->elect_end, new CarbonTimeZone('Asia/Hong_Kong'));
+
+            // Get the current time in the same timezone (or your app's timezone)
+            $currentDateTime = Carbon::now(new CarbonTimeZone('Asia/Hong_Kong'));
+
+            // Compare the two datetimes
+            if ($providedDateTime->greaterThan($currentDateTime)) {
+                return response()->json(['message' => 'Ongoing', 'status' => 'success']);
+            } elseif ($providedDateTime->lessThan($currentDateTime)) {
+                return response()->json(['message' => 'Ended', 'status' => 'success']);
+           
+            } else {
+                return response()->json(['message' => 'Now', 'status' => 'success']);
+            }
+        } 
         $election = Election::where('elect_id', $request->elect_id)->first();
         $votes = ElectionVote::where('elect_id', $request->elect_id)->get();
         $result = [];
@@ -420,9 +441,11 @@ class ElectionController extends Controller
                         $result[] = [
                             'candidate_id' => $candi->candi_id,
                             'student_name' => $candi->student_name,
+                            'candi_picture'=>$candi->candi_picture,
                             'candi_position' => $candi->candi_position,
                             'student_id' => $candi->student_id,
                             'party_name' => $party->party_name,
+                            'party_id' => $party->party_id,
                             'vote_count' => $activeUserCount
                         ];
                     }
@@ -431,6 +454,33 @@ class ElectionController extends Controller
         }
 
         return response()->json(['data' => $result, 'status' => 'success']);
+    }
+    public function saveResult(Request $request){
+
+        $validatedData = $request->validate([
+            'candidates' => 'required|array', // Ensure candidates is an array
+            'candidates.*' => 'required|string', // Each candidate must be a string
+        ]);
+
+        $candidates = array_map(function ($candidate) {
+            return json_decode($candidate, true);
+        }, $validatedData['candidates']);
+
+        // Process each candidate and insert into the database
+        foreach ($candidates as $candidate) {
+            $candi = ElectionResult::where('candi_id', $candidate['student_id'])->where('party_id',$candidate['party_id'])->where('votes', $candidate['vote_count'])->first();
+            if($candi){
+                return response()->json(['data' => 'result', 'status' => 'success']);
+            }
+            $data = new ElectionResult;
+            $data->party_id = $candidate['party_id']; // Set the party name
+            $data->candi_id = $candidate['student_id']; // Assuming this session value is set correctly
+            $data->votes = $candidate['vote_count']; // Set the vote count
+            $data->save(); // Save to the database
+        }
+
+
+        return response()->json(['data' => 'result', 'status' => 'success']);
     }
 
 }
