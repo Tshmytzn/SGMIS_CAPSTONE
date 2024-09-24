@@ -121,7 +121,7 @@
                                 <h3 class="card-title text-center">${item.title}</h3>
                             </div>
                             <div class="d-flex">
-                                <a href="#" class="card-btn">
+                                <a href="{{route('viewbudget')}}" class="card-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
