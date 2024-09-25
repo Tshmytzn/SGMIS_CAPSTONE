@@ -70,6 +70,7 @@
 
                                 <div class="col-3 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Activities </h4>
+                                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading'])
                                     <select class="form-select" name="" id="ActId">
                                         <option value="" selected> Select Activity </option>
                                     </select>
@@ -77,7 +78,8 @@
 
                                 <div class="col-2">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Department </h4>
-                                    <select class="form-select" name="" id="">
+                                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading2'])
+                                    <select class="form-select" name="" id="DeptId" onchange="getCourse()">
                                         <option value=""> Select Department </option>
                                     </select>
                                 </div>
@@ -85,7 +87,8 @@
 
                                 <div class="col-2">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Course </h4>
-                                    <select class="form-select" name="" id="">
+                                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading3'])
+                                    <select class="form-select" name="" id="CourseId" onchange="getSection()">
                                         <option value=""> Select Course </option>
                                     </select>
                                 </div>
@@ -93,7 +96,8 @@
 
                                 <div class="col-2">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Section </h4>
-                                    <select class="form-select" name="" id="">
+                                     @include('Admin.components.Lloading',['load_ID' => 'lineLoading4'])
+                                    <select class="form-select" name="" id="SectionId">
                                         <option value=""> Select Section </option>
                                     </select>
                                 </div>
@@ -102,28 +106,20 @@
 
                             <div class="card mt-2 mb-4">
                                 <div class="card-body">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" id="attendanceTable">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Event Name</th>
-                                                <th scope="col">Department</th>
+                                                {{-- <th scope="col">Department</th>
                                                 <th scope="col">Course</th>
                                                 <th scope="col">Section</th>
                                                 <th scope="col">Student Name</th>
                                                 <th scope="col">Student ID</th>
-                                                <th scope="col">Attendance Status</th>
+                                                <th scope="col">Attendance Status</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year B </td>
-                                                <td> Jeah Lou Huelar </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-danger"> Incomplete </td>
-                                            </tr>
+                                           
                                         </tbody>
                                     </table>
                                 </div>

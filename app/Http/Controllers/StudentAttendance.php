@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use App\models\EventLocation;
 use App\models\EventActivities;
 use App\models\EventDepartment;
+use App\Models\Department;
+use App\Models\Course;
+use App\Models\Section;
+use App\Models\StudentAccounts;
 use Carbon\Carbon;
 
 class StudentAttendance extends Controller
@@ -101,7 +105,86 @@ class StudentAttendance extends Controller
     public function getAttendance(Request $request){
         if($request->getAttendance=='Act'){
             $event = EventActivities::where('event_id',$request->event_id)->select('eact_id','eact_name')->get();
-            return response()->json(['data' => $event, 'status' => 'success']);
+            $dept = EventDepartment::where('event_id',$request->event_id)->get();
+            $data = [];
+            foreach ($dept as $key => $value) {
+                $department =  Department::where('dept_id',$value->dept_id)->first();
+                $data[]= $department;
+            }
+
+            return response()->json(['Act' => $event,'Dept'=> $data, 'status' => 'success']);
+        }else if($request->getAttendance == 'Course'){
+            $course = Course::where('dept_id',$request->dept_id)->select('course_id','course_name')->get();
+            return response()->json(['Course' =>$course, 'status' => 'success']);
+        }else if ($request->getAttendance == 'Section'){
+            $section = Section::where('course_id',$request->course_id)->select('sect_id','sect_name','year_level')->get();
+            return response()->json(['Section' => $section, 'status' => 'success']);
+        }else if($request->getAttendance=='Attendance'){
+            // Initialize the query for EventActivities
+            $activityQuery = EventActivities::where('event_id', $request->event_id);
+
+            // Conditionally filter by 'act_id' if provided
+            if (!empty($request->act_id)) {
+                $activityQuery->where('eact_id', $request->act_id);
+            }
+
+            // Get the list of activities
+            $activities = $activityQuery->get();
+
+            // Initialize data array
+            $data = [];
+
+            foreach ($activities as $act) {
+                // Get attendance related to the activity
+                $attendances = Attendance::where('eact_id', $act->eact_id)->get();
+
+                foreach ($attendances as $attendance) {
+                    // Fetch related entities in one go for better performance
+                    $schoolevent = SchoolEvents::where('event_id', $request->event_id)
+                        ->select('event_name')
+                        ->first();
+
+                    $department = Department::where('dept_id',$request->dept_id)
+                        ->select('dept_id', 'event_name') // You need 'dept_id' for the Course lookup
+                        ->first();
+
+                    // Ensure a department exists before querying its courses
+                    if ($department) {
+                        $course = Course::where('course_id',$request->course_id)
+                            ->select('course_id', 'course_name') // You need 'course_id' for Section lookup
+                            ->first();
+
+                        // Ensure a course exists before querying its sections
+                        if ($course) {
+                            $section = Section::where('sect_id', $request->sect_id)
+                                ->select('sect_id', 'sect_name', 'year_level') // You need 'sect_id' for student lookup
+                                ->first();
+
+                            // Ensure a section exists before querying its students
+                            if ($section) {
+                                $student = StudentAccounts::where('student_id',operator: $attendance->student_id)
+                                    ->select('student_id', 'student_name')
+                                    ->first();
+                            }
+                        }
+                    }
+
+                    // Add the fetched data into a single array object for easier use
+                    $data[] = [
+                        'event_name' => $schoolevent->event_name ?? null,
+                        'department' => $department->dept_name ?? null,
+                        'course_name' => $course->course_name ?? null,
+                        'section' => $section->sect_name ?? null,
+                        'year_level' => $section->year_level ?? null,
+                        'student_id' => $student->student_id ?? null,
+                        'student_name' => $student->student_name ?? null,
+                    ];
+                }
+            }
+
+            // Return the data as JSON
+            return response()->json(['data' => $data, 'status' => 'success']);
+
         }
         return response()->json(['message' => 'Attendance has been updated', 'status' => 'success']);
     }
