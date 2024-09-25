@@ -13,6 +13,8 @@ use App\Http\Controllers\StudentAttendance;
 use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\BudgetProposalController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CommitteeController;
+
 ;
 /*
 |--------------------------------------------------------------------------
@@ -44,12 +46,16 @@ Route::get('/Evaluation/ViewEvaluations/results', [SessionDetect::class, 'Evalua
 Route::get('/Event/details', [SessionDetect::class, 'EventDetails'])->name('EventDetails');
 Route::get('/Profile', [SessionDetect::class, 'AdminProfile'])->name('Profile');
 Route::get('/Budgeting', [SessionDetect::class, 'Budgeting'])->name('Budgeting');
-Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('ViewAttendance');
+Route::get('/Budgeting/Details', function () { return view('Admin.budgetdetails'); })->name('viewbudget');
+
+Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('Attendance');
 Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
 Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
 Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');
 Route::get('/Party/Candidates', function () { return view('Admin.party_candidates'); })->name('partycandidates');
 Route::get('/Election/Results', function () { return view('Admin.viewelectionresults'); })->name('viewelectionresults');
+
+Route::post('/committees', [CommitteeController::class, 'store'])->name('committees.store');
 
 
 //Rheyan Post Route
