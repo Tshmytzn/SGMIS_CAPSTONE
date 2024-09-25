@@ -8,7 +8,7 @@
         $(formElement).find('input[required], textarea[required], select[required]').each(function() {
             if ($(this).val().trim() === '') {
                 isValid = false;
-                errorMessage += "- " + $(this).prev('label').text() + "\n"; // Get label text
+                errorMessage += "- " + $(this).prev('label').text() + "\n"; 
             }
         });
 

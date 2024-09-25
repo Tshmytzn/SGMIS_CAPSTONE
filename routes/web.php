@@ -13,6 +13,8 @@ use App\Http\Controllers\StudentAttendance;
 use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\BudgetProposalController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\CommitteeController;
+
 ;
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,8 @@ Route::get('/Election', function () { return view('Admin.election'); })->name('E
 Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');
 Route::get('/Party/Candidates', function () { return view('Admin.party_candidates'); })->name('partycandidates');
 Route::get('/Election/Results', function () { return view('Admin.viewelectionresults'); })->name('viewelectionresults');
+
+Route::post('/committees', [CommitteeController::class, 'store'])->name('committees.store');
 
 
 //Rheyan Post Route
