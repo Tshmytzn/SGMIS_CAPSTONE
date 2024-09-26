@@ -83,7 +83,7 @@
                         <h5 class="modal-title" id="staticBackdropLabel">View File</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body">
+                      <div class="modal-body"  style="max-height: 100%; max-width: 100%; overflow: auto;">
                       <iframe src="" class="displayfile" width="100%" height="auto" frameborder="0"></iframe>
                      {{-- <embed class="displayfile" src="" width="300px" height="auto" /> --}}
                       </div>
