@@ -225,6 +225,7 @@
                   </div>
                   <div class="col-12">
                     <label for="firstname" class="form-label">Courses</label>
+                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading'])
                     <select class="form-select" name="selectcourse" id="selectcourse">
                       <option>Select Course</option>                     
                   </select>                  
@@ -242,6 +243,7 @@
               </div>
                 <div class="col-12">
                   <label for="firstname" class="form-label">Section</label>
+                  @include('Admin.components.Lloading',['load_ID' => 'lineLoading2'])
                   <select class="form-select" name="selectsection" id="selectsection">                       
                 </select>                  
               </div>
@@ -396,7 +398,7 @@
     </div>
 
 @include('Admin.components.scripts')
-@include('Admin.components.functionscript')
+@include('Admin.components.studentaccscript')
 
   </body>
 </html>

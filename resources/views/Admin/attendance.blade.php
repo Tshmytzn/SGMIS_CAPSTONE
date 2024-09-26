@@ -2,7 +2,9 @@
 
 <html lang="en">
 @include('Admin.components.header', ['title' => 'Attendance'])
-
+<style>
+    .dataTables_filter, .dataTables_info { display: none; }
+</style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     <div class="page">
@@ -36,7 +38,7 @@
                             <div class="row bg-success">
                                 <div class="col-12 mb-3">
                                     <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-                                        <form action="./" method="get" autocomplete="off" novalidate>
+                                    
                                             <div class="input-icon mt-2 ">
                                                 <span class="input-icon-addon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon"
@@ -48,14 +50,13 @@
                                                         <path d="M21 21l-6 -6" />
                                                     </svg>
                                                 </span>
-                                                <input type="text" value="" class="form-control"
-                                                    placeholder="Search…" aria-label="Search in table">
+                                                <input type="text" id="customSearchInput" class="form-control" placeholder="Search…" aria-label="Search in table">
+
                                             </div>
-                                        </form>
                                     </div>
                                 </div>
 
-                                <div class="col-3 mb-3">
+                                <div class="col-2 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Events </h4>
                                     <select class="form-select" name="" id="EventId" onchange="getAct()">
                                         <option value="" selected> Select Event </option>
@@ -71,12 +72,12 @@
                                 <div class="col-3 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Activities </h4>
                                     @include('Admin.components.Lloading',['load_ID' => 'lineLoading'])
-                                    <select class="form-select" name="" id="ActId">
+                                    <select class="form-select" name="" id="ActId" onchange="getCourse()">
                                         <option value="" selected> Select Activity </option>
                                     </select>
                                 </div>
 
-                                <div class="col-2">
+                                <div class="col-3 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Department </h4>
                                     @include('Admin.components.Lloading',['load_ID' => 'lineLoading2'])
                                     <select class="form-select" name="" id="DeptId" onchange="getCourse()">
@@ -85,7 +86,7 @@
                                 </div>
 
 
-                                <div class="col-2">
+                                <div class="col-2 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Course </h4>
                                     @include('Admin.components.Lloading',['load_ID' => 'lineLoading3'])
                                     <select class="form-select" name="" id="CourseId" onchange="getSection()">
@@ -94,28 +95,29 @@
                                 </div>
 
 
-                                <div class="col-2">
+                                <div class="col-2 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Section </h4>
                                      @include('Admin.components.Lloading',['load_ID' => 'lineLoading4'])
-                                    <select class="form-select" name="" id="SectionId">
+                                    <select class="form-select" name="" id="SectionId" onchange="attendanceTable()">
                                         <option value=""> Select Section </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-
-                            <div class="card mt-2 mb-4">
+                            @include('Admin.components.Lloading',['load_ID' => 'lineLoading5'])
+                            <div class="card mt-2 mb-4"  id="containerTable">
                                 <div class="card-body">
                                     <table class="table table-hover" id="attendanceTable">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Event Name</th>
-                                                {{-- <th scope="col">Department</th>
+                                                <th scope="col">Activity</th>
+                                                <th scope="col">Department</th>
                                                 <th scope="col">Course</th>
                                                 <th scope="col">Section</th>
-                                                <th scope="col">Student Name</th>
                                                 <th scope="col">Student ID</th>
-                                                <th scope="col">Attendance Status</th> --}}
+                                                <th scope="col">Student Name</th>
+                                                <th scope="col">Attendance Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>

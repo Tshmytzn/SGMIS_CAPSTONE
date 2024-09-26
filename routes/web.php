@@ -48,7 +48,7 @@ Route::get('/Profile', [SessionDetect::class, 'AdminProfile'])->name('Profile');
 Route::get('/Budgeting', [SessionDetect::class, 'Budgeting'])->name('Budgeting');
 Route::get('/Budgeting/Details', function () { return view('Admin.budgetdetails'); })->name('viewbudget');
 
-Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('Attendance');
+Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('ViewAttendance');
 Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
 Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
 Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');

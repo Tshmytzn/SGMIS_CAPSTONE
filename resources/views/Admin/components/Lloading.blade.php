@@ -1,7 +1,7 @@
 
 <style>
 .loader-line {
-    width: 200px;
+    width: 100%;
     height: 3px;
     position: relative;
     overflow: hidden;

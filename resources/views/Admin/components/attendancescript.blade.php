@@ -96,37 +96,63 @@
         const course_id = document.getElementById('CourseId').value
         const act = document.getElementById('ActId').value
         const sect_id = document.getElementById('SectionId').value
-        console.log(event_id)
-       
-        // $('#attendanceTable').DataTable({
-        //     destroy: true,
-        //     ajax: {
-        //         url: `{{ route('getAttendance') }}?getAttendance=Attendance&event_id=`+event_id+`&act_id=`+act,
-        //         type: 'GET',
-        //          dataSrc: 'data'
+        document.getElementById('lineLoading5').style.display=''
+        $('#containerTable').hide();
+     $.ajax({
+            url: `{{ route('getAttendance') }}?getAttendance=Attendance&event_id=` + event_id + `&act_id=` + act + `&dept_id=` + dept_id + `&course_id=` + course_id + `&sect_id=` + sect_id,
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                document.getElementById('lineLoading5').style.display='none'
+                $('#containerTable').show();
+                const data = response.data;
+                console.log(data)
+                // Initialize DataTable and store the instance in a variable
+                const table = $('#attendanceTable').DataTable({
+                    destroy: true,
+                    data: data, // Use response data as the source
+                    columns: [
+                        { data: 'event.event_name', title: 'Event Name' },
+                        { data: 'activity', title: 'Activity' },
+                        { data: 'dept.dept_name', title: 'Department' },
+                        { data: 'course.course_name', title: 'Course' },
+                        { data: 'section', title: 'Section' },
+                        { data: 'student.school_id', title: 'Student School ID' },
+                        {
+                            data: null,
+                            render: function(data) {
+                                const middleInitial = data.student.student_middlename ? data.student.student_middlename.charAt(0) + '.' : '';
+                                return `${data.student.student_firstname} ${middleInitial} ${data.student.student_lastname}`;
+                            },
+                            title: 'Student Name'
+                        },
+                        {
+                            data: null,
+                            render: function(data) {
+                                return data.attendance.start && data.attendance.end ? '<span class="text-success">Complete</span>' : '<span class="text-danger">Incomplete</span>';
+                            },
+                            title: 'Attendance Status'
+                        },
+                    ],
+                    paging: true,
+                    searching: true, // Disable the default search bar
+                    info: false,
+                    "dom": 't'
+                });
 
-        //     },
-        //     columns: [{
-        //             data: 'event_name'
-        //         },
-        //         ]
-        //     });
+                // Custom search input logic
+                $('#customSearchInput').on('keyup', function() {
+                    table.search(this.value).draw(); // Use the value from custom input to filter the table
+                });
+            },
+            error: function(xhr) {
+                console.error(xhr.response);
+            }
+        });
 
-             $.ajax({
-        url: `{{ route('getAttendance') }}?getAttendance=Attendance&event_id=`+event_id+`&act_id=`+act+`&dept_id=`+dept_id+`&course_id=`+course_id+`&sect_id=`+sect_id,
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            console.log(response)
-             },
-                    error: function(xhr) {
-                        console.error(xhr.response);
-                        }
-                        });
     }
 
     $(document).ready(function() {
-    // Your code here
-    // attendanceTable()
+        $('#containerTable').hide();
     });
 </script>

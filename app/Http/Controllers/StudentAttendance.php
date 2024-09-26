@@ -83,13 +83,15 @@ class StudentAttendance extends Controller
             $currentTime12 = Carbon::now($timezone)->format('h:i A');
             $currentDate = Carbon::now($timezone)->format('Y-m-d');
             $end = $act->eact_end;
+            $dateTime = Carbon::createFromFormat('H:i', $end);
+            $time12 = $dateTime->format('h:i A');
             $newTime = Carbon::createFromFormat('H:i', $end)->addMinutes(15)->format('H:i');
             if ($currentDate > $act->eact_date) {
                 return response()->json(['message' => 'Event has ended', 'status' => 'error']);
             } else if ($currentDate < $act->eact_date) {
                 return response()->json(['message' => 'Event has not started yet', 'status' => 'error']);
             } else if ($act->eact_end > $currentTime) {
-                return response()->json(['message' => 'Time out available in '. $act->eact_end, 'status' => 'error']);
+                return response()->json(['message' => 'Time out available in '. $time12, 'status' => 'error']);
             }
             else if ($newTime < $currentTime) {
                 return response()->json(['message' => 'Event Ended', 'status' => 'error']);
@@ -120,65 +122,47 @@ class StudentAttendance extends Controller
             $section = Section::where('course_id',$request->course_id)->select('sect_id','sect_name','year_level')->get();
             return response()->json(['Section' => $section, 'status' => 'success']);
         }else if($request->getAttendance=='Attendance'){
-            // Initialize the query for EventActivities
             $activityQuery = EventActivities::where('event_id', $request->event_id);
-
-            // Conditionally filter by 'act_id' if provided
             if (!empty($request->act_id)) {
                 $activityQuery->where('eact_id', $request->act_id);
             }
-
-            // Get the list of activities
             $activities = $activityQuery->get();
-
-            // Initialize data array
             $data = [];
 
             foreach ($activities as $act) {
-                // Get attendance related to the activity
                 $attendances = Attendance::where('eact_id', $act->eact_id)->get();
-
-                foreach ($attendances as $attendance) {
-                    // Fetch related entities in one go for better performance
-                    $schoolevent = SchoolEvents::where('event_id', $request->event_id)
+                if ($attendances) {
+                    foreach($attendances as $attend){
+                        $schoolevent = SchoolEvents::where('event_id', $request->event_id)
                         ->select('event_name')
                         ->first();
-
-                    $department = Department::where('dept_id',$request->dept_id)
-                        ->select('dept_id', 'event_name') // You need 'dept_id' for the Course lookup
+                        $department = Department::where('dept_id', $request->dept_id)
+                        ->select('dept_name', 'dept_id') // You need 'dept_id' for the Course lookup
                         ->first();
-
-                    // Ensure a department exists before querying its courses
-                    if ($department) {
-                        $course = Course::where('course_id',$request->course_id)
-                            ->select('course_id', 'course_name') // You need 'course_id' for Section lookup
-                            ->first();
-
-                        // Ensure a course exists before querying its sections
-                        if ($course) {
-                            $section = Section::where('sect_id', $request->sect_id)
-                                ->select('sect_id', 'sect_name', 'year_level') // You need 'sect_id' for student lookup
-                                ->first();
-
-                            // Ensure a section exists before querying its students
-                            if ($section) {
-                                $student = StudentAccounts::where('student_id',operator: $attendance->student_id)
-                                    ->select('student_id', 'student_name')
-                                    ->first();
-                            }
+                        $course = Course::where('course_id', $request->course_id)
+                        ->where('dept_id', $department->dept_id)
+                        ->select('course_name', 'course_id') // You need 'course_id' for Section lookup
+                        ->first();
+                        $section = Section::where('sect_id', $request->sect_id)
+                        ->where('course_id', $course->course_id)
+                        ->select('sect_name', 'year_level', 'sect_id') // You need 'sect_id' for student lookup
+                        ->first();
+                        $student = StudentAccounts::where('student_id', $attend->student_id)
+                        ->where('sect_id', $section->sect_id)
+                        ->select('school_id', 'student_firstname', 'student_middlename', 'student_lastname')
+                        ->first();
+                        if ($student) {
+                            $data[] = [
+                                'activity' => $act->eact_name,
+                                'attendance' => $attend,
+                                'event' => $schoolevent,
+                                'dept' => $department,
+                                'course' => $course,
+                                'section' => $section->year_level . '-' . $section->sect_name,
+                                'student' => $student,
+                            ];
                         }
                     }
-
-                    // Add the fetched data into a single array object for easier use
-                    $data[] = [
-                        'event_name' => $schoolevent->event_name ?? null,
-                        'department' => $department->dept_name ?? null,
-                        'course_name' => $course->course_name ?? null,
-                        'section' => $section->sect_name ?? null,
-                        'year_level' => $section->year_level ?? null,
-                        'student_id' => $student->student_id ?? null,
-                        'student_name' => $student->student_name ?? null,
-                    ];
                 }
             }
 

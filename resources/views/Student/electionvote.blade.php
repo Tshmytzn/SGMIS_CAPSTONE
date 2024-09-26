@@ -335,7 +335,7 @@
 
     @include('Student.components.footer')
     @include('Student.components.scripts')
-    @include('Student.components.electionvote')
+    @include('Student.components.electionvotescript')
 
 </body>
 

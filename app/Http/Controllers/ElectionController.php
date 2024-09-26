@@ -80,7 +80,7 @@ class ElectionController extends Controller
     {
 
         if ($request->method === 'add') {
-            if ($request->party_name == '' || $request->party_desc == '' || $request->party_image == '') {
+            if ($request->elect_id == '' || $request->party_name == '' || $request->party_desc == '' || $request->party_image == '') {
                 return response()->json(['message' => 'Fill Out Required Field', 'status' => 'error']);
             }
             // Handle the uploaded file
@@ -223,21 +223,26 @@ class ElectionController extends Controller
                 return response()->json(['data' => $candi, 'status' => 'success']);
             } else if ($request->group_of == '3') {
                 if ($request->vote == 'vote') {
-                    $student = StudentAccounts::where('student_id', session('student_id'))->first();
-                    $section1 = Section::where('sect_id', $student->sect_id)->first();
-                    $course1 = Course::where('course_id', $section1->course_id)->first();
-                    $data = [];
-                    $candidate = ElectionCandidates::where('group_of', '3')->where('candi_position', $request->position)->where('candi_status', null)->get();
-                    foreach ($candidate as $can) {
-                        $student2 = StudentAccounts::where('student_id', $can->student_id)->first();
-                        $section2 = Section::where('sect_id', $student2->sect_id)->first();
-                        $course2 = Course::where('course_id', $section2->course_id)->first();
-                        if ($course1->course_id == $course2->course_id) {
-                            $candidate2 = ElectionCandidates::where('candi_id', $can->candi_id)->where('group_of', '3')->where('candi_position', $request->position)->where('candi_status', null)->first();
-                            $data[] = $candidate2->toArray();
+                    $elect = Election::where('elect_status', '1')->first();
+                    $elect_party = ElectionParty::where('elect_id', $elect->elect_id)->get();
+                    foreach($elect_party as $part){
+                        $student = StudentAccounts::where('student_id', session('student_id'))->first();
+                        $section1 = Section::where('sect_id', $student->sect_id)->first();
+                        $course1 = Course::where('course_id', $section1->course_id)->first();
+                        $data = [];
+                        $candidate = ElectionCandidates::where('party_id', $part->party_id)->where('group_of', '3')->where('candi_position', $request->position)->where('candi_status', null)->get();
+                        foreach ($candidate as $can) {
+                            $student2 = StudentAccounts::where('student_id', $can->student_id)->first();
+                            $section2 = Section::where('sect_id', $student2->sect_id)->first();
+                            $course2 = Course::where('course_id', $section2->course_id)->first();
+                            if ($course1->course_id == $course2->course_id) {
+                                $candidate2 = ElectionCandidates::where('candi_id', $can->candi_id)->where('group_of', '3')->where('candi_position', $request->position)->where('candi_status', null)->first();
+                                $data[] = $candidate2->toArray();
+                            }
                         }
+                        return response()->json(['data' => $data, 'status' => 'success']);
                     }
-                    return response()->json(['data' => $data, 'status' => 'success']);
+                    
                     // $elect = Election::where('elect_status','1')->first();
                     // $elect_party = ElectionParty::where('elect_id',$elect->elect_id)->get();
                     // $data=[];
@@ -254,7 +259,7 @@ class ElectionController extends Controller
             $candi = ElectionCandidates::where('party_id', $request->party_id)->where('candi_status', null)->get();
             return response()->json(['data' => $candi, 'status' => 'success']);
         } else if ($request->method == 'add') {
-            $check = ElectionCandidates::where('student_id', $request->student_id)->first();
+            $check = ElectionCandidates::where('student_id', $request->student_id)->where('party_id', $request->party_id)->first();
             if ($request->student_id == '' || $request->student_position == '') {
                 return response()->json([
                     'message' => 'Fill up required fields.',
