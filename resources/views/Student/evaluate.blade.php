@@ -31,13 +31,13 @@
         </div>
         <!-- Page body -->
         <div class="page-body">
-          <div class="container-xl">
+          <div class="container-xl" id="container">
             <p>Description: {{ $eval->eval_description }}</p>
             <p>Published At: {{ $eval->updated_at }}</p>
 
             <div class="d-flex justify-content-between w-100 mt-4">
              <h2>Questions</h2>
-              <button onclick="SubmitEvaluationStudent('{{ route('saveEvaluationResult') }}')" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mood-edit">
+              <button onclick="SubmitEvaluationStudent()" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mood-edit">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M20.955 11.104a9 9 0 1 0 -9.895 9.847" />
                 <path d="M9 10h.01" />
@@ -48,7 +48,7 @@
             </div>
              <form id="questionList" class="mt-4">
                @csrf
-               <input type="hidden" name="student_id" value="1"> 
+               <input type="hidden" name="student_id" value="{{session('student_id')}}"> 
              </form>
            
           </div>
@@ -60,6 +60,7 @@
     <script>
       window.onload = function (){
         LoadEvaluateQuestion("{{ route('loadQuestionEvaluate') }}?eval_id={{ $eval_id }}");
+       
       }
     </script>
   </body>
