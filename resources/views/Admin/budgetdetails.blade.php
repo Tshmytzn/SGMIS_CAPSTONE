@@ -37,39 +37,23 @@
                 <div class="container-xl">
                     <div class="row row-deck row-cards">
 
-                        <form id="committeeForm"
-                            onsubmit="event.preventDefault(); submitCommitteeForm('committeeForm');">
+                        <form id="committeeForm">
                             @csrf
-
                             <div class="mb-3">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Committee</th>
-                                            <th>Expense Type</th>
                                             <th>Person-in-Charge</th>
-                                            <th>Members</th>
-                                            <th>Total Members</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="committeeTable">
                                         <tr>
                                             <td>
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" name="committees[0][name]"
                                                     placeholder="Enter committee name" required>
                                             </td>
-                                            <td>
-                                                <label><input type="checkbox" name="committees[0][expense_types][]"
-                                                        value="Morning Snacks"> Morning Snacks</label><br>
-                                                <label><input type="checkbox" name="committees[0][expense_types][]"
-                                                        value="Lunch"> Lunch</label><br>
-                                                <label><input type="checkbox" name="committees[0][expense_types][]"
-                                                        value="Afternoon Snacks"> Afternoon Snacks</label><br>
-                                                <label><input type="checkbox" name="committees[0][expense_types][]"
-                                                        value="Dinner"> Dinner</label><br>
-                                            </td>
-
                                             <td>
                                                 <div class="person-in-charge-list">
                                                     <input type="text"
@@ -77,40 +61,31 @@
                                                         name="committees[0][persons_in_charge][]"
                                                         placeholder="Enter head(s)" required>
                                                 </div>
-                                                <button type="button"
-                                                    class="btn btn-primary add-person-in-charge-btn">Add Another
-                                                    Person-in-Charge</button>
-                                            </td>
-                                            <td>
-                                                <div class="member-list">
-                                                    <input type="text" class="form-control mb-2 member-name"
-                                                        name="committees[0][members][]" placeholder="Enter member name"
-                                                        required>
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"
+                                                        class="btn btn-primary add-person-in-charge-btn col-6">Add
+                                                        Another Person-in-Charge</button>
+                                                    &nbsp;
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-person-in-charge-btn col-6">Remove
+                                                        Person-in-Charge</button>
                                                 </div>
-                                                <button type="button" class="btn btn-primary w-100 add-member-btn">Add
-                                                    Member</button>
                                             </td>
-                                            <td>
-                                                <input type="number" class="form-control total-members" value="2"
-                                                    readonly>
-                                                <!-- Initial count of 2 -->
-                                            </td>
-                                            <td>
+                                            <td class="d-flex justify-content-center">
                                                 <button type="button"
-                                                    class="btn btn-danger remove-committee-btn">Remove
+                                                    class="btn btn-danger remove-committee-btn col-12">Remove
                                                     Committee</button>
-                                                <!-- Remove Committee Button -->
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <button type="button" class="btn btn-primary w-100" id="addCommitteeRow">Add Another
                                     Committee</button>
-                                <button type="submit" style="background-color: #0065a0 !important; color: #ffffff"
-                                    class="btn w-100 mt-2">Save Changes</button>
-
+                                <button type="button" style="background-color: #0065a0 !important; color: #ffffff"
+                                    onclick="submitForm()" class="btn w-100 mt-2">Save and Proceed</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
