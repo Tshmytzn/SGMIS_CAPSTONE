@@ -136,7 +136,6 @@ public function EditDeptPicInfo(Request $request){
     $spiltimage = explode('.',$check->dept_image)[0];
     $imageName =  $spiltimage. '.' . $file->getClientOriginalExtension();
     $file->move(public_path('dept_image/'), $imageName);
-
     $check->update([
         'dept_image'=>$imageName,
     ]);

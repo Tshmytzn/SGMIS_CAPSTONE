@@ -137,7 +137,6 @@
 
         {{-- Modal --}}
 
-
         {{-- Create Election Modal --}}
         <div class="modal modal-blur fade" id="createelection" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
