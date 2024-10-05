@@ -512,13 +512,6 @@
         </div>
       </div>
     </div>
-    @include('Admin.components.layout.map')
-
-
-
-
-
-
 
     <div class="modal modal-blur fade" id="uploadProgrammeModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -547,8 +540,7 @@
         </div>
       </div>
     </div>
-
-
+    @include('Admin.components.layout.map')
     {{-- MODALS --}}
 
 
