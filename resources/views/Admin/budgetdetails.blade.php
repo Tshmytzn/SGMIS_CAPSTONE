@@ -39,6 +39,7 @@
 
                         <form id="committeeForm">
                             @csrf
+                            <input type="text" name="budget_id" value="{{ $budget->id }}"> 
                             <div class="mb-3">
                                 <table class="table table-bordered">
                                     <thead>

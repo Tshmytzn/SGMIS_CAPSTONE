@@ -280,7 +280,7 @@
                 if (response.status == 'success') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Message", "Section Successfully Updated", function() {
+                        .alert("Message", "Course Successfully Updated", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();

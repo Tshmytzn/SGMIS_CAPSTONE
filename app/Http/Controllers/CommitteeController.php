@@ -11,16 +11,19 @@ class CommitteeController extends Controller
     {
         // Validate the request
         $request->validate([
-            'committees.*.name' => 'required|string|max:255', // Validate committee name
-            'committees.*.persons_in_charge' => 'required|array', // Ensure it's an array
-            'committees.*.persons_in_charge.*' => 'required|string|max:255', // Validate each person in charge
+            'budget_id' => 'required|exists:budget_proposals,id', 
+            'committees.*.name' => 'required|string|max:255', 
+            'committees.*.persons_in_charge' => 'required|array', 
+            'committees.*.persons_in_charge.*' => 'required|string|max:255', 
         ]);
 
-        // Save each committee
         foreach ($request->committees as $committee) {
+            
             Committee::create([
                 'name' => $committee['name'],
                 'person_in_charge' => $committee['persons_in_charge'],
+                'budgeting_id' => $request->budget_id, 
+                
             ]);
         }
 

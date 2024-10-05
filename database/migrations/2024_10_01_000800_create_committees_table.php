@@ -17,6 +17,7 @@ class CreateCommitteesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('person_in_charge');
+            $table->unsignedBigInteger('budgeting_id')->nullable();
             $table->timestamps();
         });
     }
