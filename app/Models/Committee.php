@@ -14,7 +14,7 @@ class Committee extends Model
      *
      * @var string
      */
-    protected $table = 'committees'; 
+    protected $table = 'committees';
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +23,8 @@ class Committee extends Model
      */
     protected $fillable = [
         'name',
-        'person_in_charge'
+        'person_in_charge',
+        'budgeting_id'
     ];
 
     /**
@@ -34,4 +35,5 @@ class Committee extends Model
     protected $casts = [
         'person_in_charge' => 'array',
     ];
+
 }

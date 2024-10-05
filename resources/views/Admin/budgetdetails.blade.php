@@ -25,7 +25,7 @@
                                 Budgeting Details
                             </div>
                             <h2 class="page-title">
-                                Category/Group
+                                {{ $budget->title }}
                             </h2>
                         </div>
                     </div>
@@ -35,57 +35,170 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    <div class="row row-deck row-cards">
-
-                        <form id="committeeForm">
-                            @csrf
-                            <input type="text" name="budget_id" value="{{ $budget->id }}"> 
-                            <div class="mb-3">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Committee</th>
-                                            <th>Person-in-Charge</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="committeeTable">
-                                        <tr>
-                                            <td>
-                                                <input type="text" class="form-control" name="committees[0][name]"
-                                                    placeholder="Enter committee name" required>
-                                            </td>
-                                            <td>
-                                                <div class="person-in-charge-list">
-                                                    <input type="text"
-                                                        class="form-control mb-2 person-in-charge-name"
-                                                        name="committees[0][persons_in_charge][]"
-                                                        placeholder="Enter head(s)" required>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <button type="button"
-                                                        class="btn btn-primary add-person-in-charge-btn col-6">Add
-                                                        Another Person-in-Charge</button>
-                                                    &nbsp;
-                                                    <button type="button"
-                                                        class="btn btn-danger remove-person-in-charge-btn col-6">Remove
-                                                        Person-in-Charge</button>
-                                                </div>
-                                            </td>
-                                            <td class="d-flex justify-content-center">
-                                                <button type="button"
-                                                    class="btn btn-danger remove-committee-btn col-12">Remove
-                                                    Committee</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <button type="button" class="btn btn-primary w-100" id="addCommitteeRow">Add Another
-                                    Committee</button>
-                                <button type="button" style="background-color: #0065a0 !important; color: #ffffff"
-                                    onclick="submitForm()" class="btn w-100 mt-2">Save and Proceed</button>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="container mx-3" style="margin-bottom: -1%;">
+                                <div class="row">
+                                    <div class="col d-flex justify-content-between mt-2">
+                                        <h3 style="margin-left: -3%">More Information</h3>
+                                        <div title="Edit Event"
+                                            style="border: none; background: none; margin-right:1%; cursor: pointer;"
+                                            data-bs-toggle="modal" data-bs-target="#editEventDetails">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                <path
+                                                    d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                <path d="M16 5l3 3" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="datagrid">
+
+
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Associated Event</div>
+                                    <div class="datagrid-content">
+                                        <!-- Display event name or fallback if event is not found -->
+                                        {{ $event ? $event->event_name : 'No associated event found' }}
+                                    </div>
+                                </div>
+
+
+                                <!-- Project Proponent -->
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Project Proponent</div>
+                                    <div class="datagrid-content">{{ $budget->project_proponent }}</div>
+                                </div>
+
+                                <!-- Project Participant -->
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Project Participant</div>
+                                    <div class="datagrid-content">{{ $budget->project_participant }}</div>
+                                </div>
+
+                                <!-- Budget Period Start -->
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Budget Period Start</div>
+                                    <div class="datagrid-content">{{ $budget->budget_period_start }}</div>
+                                </div>
+
+                                <!-- Budget Period End -->
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Budget Period End</div>
+                                    <div class="datagrid-content">{{ $budget->budget_period_end }}</div>
+                                </div>
+
+                                <!-- Funding Source -->
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Funding Source</div>
+                                    <div class="datagrid-content">{{ $budget->funding_source }}</div>
+                                </div>
+
+                                <!-- Proposed By -->
+                                {{-- <div class="datagrid-item">
+                                        <div class="datagrid-title">Proposed By</div>
+                                        <div class="datagrid-content">{{ $budget->proposed_by }}</div>
+                                    </div> --}}
+
+                                <!-- Submission Date -->
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Submission Date</div>
+                                    <div class="datagrid-content">{{ $budget->submission_date }}</div>
+                                </div>
+
+                                <!-- Additional Notes -->
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Additional Notes</div>
+                                    <div class="datagrid-content">
+                                        {{ $budget->additional_notes ?? 'No additional notes provided' }}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row row-deck row-cards mt-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="me-2"> Committees and Performers
+                                </h3>
+
+                            </div>
+                            <form id="committeeForm">
+                                @csrf
+                                <input type="hidden" name="budget_id" value="{{ $budget->id }}">
+                                <div class="mb-3">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Committee</th>
+                                                <th>Person-in-Charge</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="committeeTable">
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                        name="committees[0][name]" placeholder="Enter committee name"
+                                                        required>
+                                                </td>
+                                                <td>
+                                                    <div class="person-in-charge-list">
+                                                        <input type="text"
+                                                            class="form-control mb-2 person-in-charge-name"
+                                                            name="committees[0][persons_in_charge][]"
+                                                            placeholder="Enter head(s)" required>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <button type="button"
+                                                            class="btn btn-primary add-person-in-charge-btn col-6">Add
+                                                            Another Person-in-Charge</button>
+                                                        &nbsp;
+                                                        <button type="button"
+                                                            class="btn btn-danger remove-person-in-charge-btn col-6">Remove
+                                                            Person-in-Charge</button>
+                                                    </div>
+                                                </td>
+                                                <td class="d-flex justify-content-center">
+                                                    <button type="button"
+                                                        class="btn btn-danger remove-committee-btn col-12">Remove
+                                                        Committee</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" class="btn btn-primary w-100" id="addCommitteeRow">Add
+                                        Another
+                                        Committee</button>
+                                    <button type="button" style="background-color: #0065a0 !important; color: #ffffff"
+                                        onclick="submitForm()" class="btn w-100 mt-2">Save and Proceed</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        {{-- 2nd part --}}
+                        <form id="newForm" style="display:none;">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="new_field" class="form-label">New Field</label>
+                                <input type="text" class="form-control" id="new_field" name="new_field"
+                                    placeholder="Enter new data">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Save and Proceed</button>
                         </form>
+
 
                     </div>
                 </div>

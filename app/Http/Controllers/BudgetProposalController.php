@@ -15,7 +15,7 @@ class BudgetProposalController extends Controller
 
     if($request->process=='get')
     {
-        
+
         $budget = BudgetProposal::all();
         return response()->json(['data' => $budget, 'status' => 'success']);
 
@@ -30,7 +30,7 @@ class BudgetProposalController extends Controller
 
     $request->validate([
         'proposalTitle' => 'required|string|max:255',
-        'budgetEvent' => 'required|exists:school_event,event_id', 
+        'budgetEvent' => 'required|exists:school_event,event_id',
         'projectproponent' => 'required|string|max:255',
         'projectparticipant' => 'required|string|max:255',
         'budgetPeriodStart' => 'required|date',
@@ -67,10 +67,16 @@ class BudgetProposalController extends Controller
 
     public function show($id)
     {
+        // Retrieve the specific budget proposal by its ID
         $budget = BudgetProposal::findOrFail($id);
 
-        return view('Admin.budgetdetails', compact('budget'));
+        // Fetch the associated event based on eventid
+        $event = SchoolEvents::where('event_id', $budget->eventid)->first();
+
+        // Pass the budget proposal and event data to the view
+        return view('Admin.budgetdetails', compact('budget', 'event'));
     }
+
 
 
 }

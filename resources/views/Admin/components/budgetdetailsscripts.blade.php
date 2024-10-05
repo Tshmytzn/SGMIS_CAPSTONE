@@ -100,30 +100,36 @@
         if (!allValid) {
             return; // Stop submission if validation fails
         }
-        alertify.confirm("Are you sure you want to save the form?", function(e) {
+        alertify.confirm("Would you like to save the committee data and continue to the next section?", function(e) {
             if (e) {
-                // Proceed with the form submission via AJAX
-                let formData = new FormData($('#committeeForm')[0]);
-                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+            // Proceed with the form submission via AJAX
+            let formData = new FormData($('#committeeForm')[0]);
+            formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
 
-                $.ajax({
-                    url: '{{ route('committees.store') }}',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        alertify.success('Committees saved successfully!');
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        alertify.error('An error occurred: ' + xhr.responseText);
-                        console.log(xhr.responseText);
-                    }
-                });
-            } else {
-                alertify.error("Action canceled.");
-            }
+            $.ajax({
+                url: '{{ route('committees.store') }}', // Laravel route to store data
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alertify.success('Committees saved successfully!');
+                    console.log(response);
+
+                    // Hide the first form
+                    $('#committeeForm').hide();
+
+                    // Show the new form
+                    $('#newForm').show();
+                },
+                error: function(xhr, status, error) {
+                    alertify.error('An error occurred: ' + xhr.responseText);
+                    console.log(xhr.responseText);
+                }
+            });
+        } else {
+            alertify.error("Action canceled.");
+        }
         });
     }
 </script>
