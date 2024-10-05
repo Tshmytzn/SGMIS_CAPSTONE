@@ -30,7 +30,7 @@ return new class extends Migration
                 'admin_username' => 'Admin',
                 'admin_password' => Hash::make('Admin'),
                 'admin_type' => 'Super Admin',
-                'admin_pic' => 'adminpic.png',
+                'admin_pic' => 'default.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
