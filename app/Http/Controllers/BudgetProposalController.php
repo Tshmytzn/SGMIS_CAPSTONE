@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BudgetProposal;
 use App\Models\SchoolEvents;
+use App\Models\Committee;
 
 
 class BudgetProposalController extends Controller
@@ -67,14 +68,11 @@ class BudgetProposalController extends Controller
 
     public function show($id)
     {
-        // Retrieve the specific budget proposal by its ID
         $budget = BudgetProposal::findOrFail($id);
-
-        // Fetch the associated event based on eventid
         $event = SchoolEvents::where('event_id', $budget->eventid)->first();
+        $committees = Committee::where('budgeting_id', $budget->id)->get();
 
-        // Pass the budget proposal and event data to the view
-        return view('Admin.budgetdetails', compact('budget', 'event'));
+        return view('Admin.budgetdetails', compact('budget', 'event', 'committees'));
     }
 
 

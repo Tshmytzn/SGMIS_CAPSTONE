@@ -126,14 +126,36 @@
                         </div>
                     </div>
 
+                    <hr>
 
-                    <div class="row row-deck row-cards mt-3">
+                    <div class="row row-deck row-cards">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="me-2"> Committees and Performers
-                                </h3>
+                                <div class="container mx-3" style="margin-bottom: -1%;">
+                                    <div class="row">
+                                        <div class="col d-flex justify-content-between mt-2">
+                                            <h3 style="margin-left: -3%">Committees and Performers</h3>
+                                            <div title="Edit Committtee"
+                                                style="border: none; background: none; margin-right:1%; cursor: pointer;"
+                                                data-bs-toggle="modal" data-bs-target="#editEventDetails">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                    <path
+                                                        d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                    <path d="M16 5l3 3" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
+
+                            <div class="card-body">
                             <form id="committeeForm">
                                 @csrf
                                 <input type="hidden" name="budget_id" value="{{ $budget->id }}">
@@ -147,57 +169,125 @@
                                             </tr>
                                         </thead>
                                         <tbody id="committeeTable">
-                                            <tr>
-                                                <td>
-                                                    <input type="text" class="form-control"
-                                                        name="committees[0][name]" placeholder="Enter committee name"
-                                                        required>
-                                                </td>
-                                                <td>
-                                                    <div class="person-in-charge-list">
-                                                        <input type="text"
-                                                            class="form-control mb-2 person-in-charge-name"
-                                                            name="committees[0][persons_in_charge][]"
-                                                            placeholder="Enter head(s)" required>
-                                                    </div>
-                                                    <div class="d-flex justify-content-between">
-                                                        <button type="button"
-                                                            class="btn btn-primary add-person-in-charge-btn col-6">Add
-                                                            Another Person-in-Charge</button>
-                                                        &nbsp;
-                                                        <button type="button"
-                                                            class="btn btn-danger remove-person-in-charge-btn col-6">Remove
-                                                            Person-in-Charge</button>
-                                                    </div>
-                                                </td>
-                                                <td class="d-flex justify-content-center">
-                                                    <button type="button"
-                                                        class="btn btn-danger remove-committee-btn col-12">Remove
-                                                        Committee</button>
-                                                </td>
-                                            </tr>
+
+                                            @foreach ($committees as $index => $committee)
+                                                <tr>
+                                                    <td>
+                                                        <input type="hidden"
+                                                            name="committees[{{ $index }}][id]"
+                                                            value="{{ $committee->id }}"> <!-- Hidden ID field -->
+                                                        <input type="text" class="form-control"
+                                                            name="committees[{{ $index }}][name]"
+                                                            placeholder="Enter committee name"
+                                                            value="{{ $committee->name }}" required>
+                                                    </td>
+                                                    <td>
+                                                        <div class="person-in-charge-list">
+                                                            @foreach ($committee->person_in_charge as $personIndex => $person)
+                                                                <input type="text"
+                                                                    class="form-control mb-2 person-in-charge-name"
+                                                                    name="committees[{{ $index }}][persons_in_charge][]"
+                                                                    placeholder="Enter head(s)"
+                                                                    value="{{ $person }}" required>
+                                                            @endforeach
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <button type="button" id="addpersonbtn"
+                                                                class="btn btn-primary add-person-in-charge-btn col-6">Add
+                                                                Another Person-in-Charge</button>
+                                                            &nbsp;
+                                                            <button type="button" id="removepersonbtn"
+                                                                class="btn btn-danger remove-person-in-charge-btn col-6">Remove
+                                                                Person-in-Charge</button>
+                                                        </div>
+                                                    </td>
+                                                    <td class="d-flex justify-content-center">
+                                                        <button type="button" id="removecommitteebtn"
+                                                            class="btn btn-danger remove-committee-btn col-12">Remove
+                                                            Committee</button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
                                         </tbody>
                                     </table>
                                     <button type="button" class="btn btn-primary w-100" id="addCommitteeRow">Add
-                                        Another
                                         Committee</button>
-                                    <button type="button" style="background-color: #0065a0 !important; color: #ffffff"
-                                        onclick="submitForm()" class="btn w-100 mt-2">Save and Proceed</button>
+                                    <button type="button" id="savebtn" style="background-color: #0065a0 !important; color: #ffffff"
+                                        onclick="submitForm()" class="btn w-100 mt-2">Save Committee</button>
                                 </div>
                             </form>
-
+                        </div>
                         </div>
 
-                        {{-- 2nd part --}}
-                        <form id="newForm" style="display:none;">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="new_field" class="form-label">New Field</label>
-                                <input type="text" class="form-control" id="new_field" name="new_field"
-                                    placeholder="Enter new data">
+
+                        {{-- Add committees card --}}
+                        <div class="card">
+                            <div class="card-header">
+
+                                <div class="container mx-3" style="margin-bottom: -1%;">
+                                    <div class="row">
+                                        <div class="col d-flex justify-content-between mt-2">
+                                            <h3 style="margin-left: -3%">Committee Members</h3>
+                                            <div title="Add Members"
+                                                style="border: none; background: none; margin-right:1%; cursor: pointer;"
+                                                data-bs-toggle="modal" data-bs-target="#editEventDetails">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                    <path
+                                                        d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                    <path d="M16 5l3 3" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Save and Proceed</button>
-                        </form>
+                            <div class="card-body">
+                                <form id="committeemembers">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Committee Name</th>
+                                                <th>Add Member</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="committeeMembersTable">
+                                            @foreach($committees as $committee)
+                                            <tr>
+                                                <td>{{ $committee->name }}</td>
+                                                <td>
+                                                    <input type="text" class="form-control mb-2"
+                                                           placeholder="Enter member name"
+                                                           name="members[{{ $committee->id }}][]">
+                                                </td>
+                                                <td>
+                                                    <button type="button"
+                                                            class="btn btn-primary add-member-btn"
+                                                            data-committee-id="{{ $committee->id }}">
+                                                        Add Member
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-danger remove-member-btn"
+                                                            data-committee-id="{{ $committee->id }}">
+                                                        Remove Member
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="button"
+                                            class="btn w-100" style="background-color: #0065a0 !important; color: #ffffff"
+                                            onclick="submitCommitteeMembers()">Save Members</button>
+                                </form>
+                            </div>
+                        </div>
 
 
                     </div>

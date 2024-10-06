@@ -11,20 +11,29 @@ class CommitteeController extends Controller
     {
         // Validate the request
         $request->validate([
-            'budget_id' => 'required|exists:budget_proposals,id', 
-            'committees.*.name' => 'required|string|max:255', 
-            'committees.*.persons_in_charge' => 'required|array', 
-            'committees.*.persons_in_charge.*' => 'required|string|max:255', 
+            'budget_id' => 'required|exists:budget_proposals,id',
+            'committees.*.name' => 'required|string|max:255',
+            'committees.*.persons_in_charge' => 'required|array',
+            'committees.*.persons_in_charge.*' => 'required|string|max:255',
+            'committees.*.id' => 'sometimes|exists:committees,id', // Validate if ID exists for updates
         ]);
 
         foreach ($request->committees as $committee) {
-            
-            Committee::create([
-                'name' => $committee['name'],
-                'person_in_charge' => $committee['persons_in_charge'],
-                'budgeting_id' => $request->budget_id, 
-                
-            ]);
+            if (isset($committee['id'])) {
+                // Update existing committee
+                $existingCommittee = Committee::findOrFail($committee['id']);
+                $existingCommittee->update([
+                    'name' => $committee['name'],
+                    'person_in_charge' => $committee['persons_in_charge'],
+                ]);
+            } else {
+                // Create new committee
+                Committee::create([
+                    'name' => $committee['name'],
+                    'person_in_charge' => $committee['persons_in_charge'],
+                    'budgeting_id' => $request->budget_id,
+                ]);
+            }
         }
 
         return response()->json(['message' => 'Committees saved successfully!']);

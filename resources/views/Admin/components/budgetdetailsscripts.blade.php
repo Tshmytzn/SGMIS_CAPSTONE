@@ -102,34 +102,51 @@
         }
         alertify.confirm("Would you like to save the committee data and continue to the next section?", function(e) {
             if (e) {
-            // Proceed with the form submission via AJAX
-            let formData = new FormData($('#committeeForm')[0]);
-            formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+                // Proceed with the form submission via AJAX
+                let formData = new FormData($('#committeeForm')[0]);
+                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
 
-            $.ajax({
-                url: '{{ route('committees.store') }}', // Laravel route to store data
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    alertify.success('Committees saved successfully!');
-                    console.log(response);
+                $("#committeeForm button").prop('disabled', true); // Disable buttons inside the form
+                $("#committeeForm button").hide(); // Hide all buttons
 
-                    // Hide the first form
-                    $('#committeeForm').hide();
+                $.ajax({
+                    url: '{{ route('committees.store') }}', // Laravel route to store data
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        alertify.success('Committees saved successfully!');
+                        console.log(response);
 
-                    // Show the new form
-                    $('#newForm').show();
-                },
-                error: function(xhr, status, error) {
-                    alertify.error('An error occurred: ' + xhr.responseText);
-                    console.log(xhr.responseText);
-                }
-            });
-        } else {
-            alertify.error("Action canceled.");
-        }
+                    },
+                    error: function(xhr, status, error) {
+                        alertify.error('An error occurred: ' + xhr.responseText);
+                        console.log(xhr.responseText);
+                    }
+                });
+            } else {
+                alertify.error("Action canceled.");
+            }
         });
     }
+
+    $(document).ready(function() {
+        $("#committeeForm button").hide();
+        $("#committeeForm button").prop('disabled', true);
+
+        $("#committeemembers button").hide();
+        $("#committeemembers button").prop('disabled', true);
+
+        $('div[title="Edit Committtee"]').on('click', function() {
+
+            $("#committeeForm button").prop('disabled', false); // Enable form buttons
+            $("#committeeForm button").show(); // Show form buttons
+        });
+        $('div[title="Add Members"]').on('click', function() {
+
+            $("#committeemembers button").prop('disabled', false); // Enable form buttons
+            $("#committeemembers button").show(); // Show form buttons
+        });
+    });
 </script>
