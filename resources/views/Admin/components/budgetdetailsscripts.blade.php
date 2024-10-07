@@ -118,6 +118,7 @@
                     success: function(response) {
                         alertify.success('Committees saved successfully!');
                         console.log(response);
+                        location.reload();
 
                     },
                     error: function(xhr, status, error) {
@@ -148,5 +149,105 @@
             $("#committeemembers button").prop('disabled', false); // Enable form buttons
             $("#committeemembers button").show(); // Show form buttons
         });
+
+        // Add new member input field dynamically
+        $('.add-member-btn').on('click', function() {
+            let committeeId = $(this).data('committee-id');
+            let row = $(`tr[data-committee-id="${committeeId}"]`);
+            let inputContainer = row.find('.member-inputs');
+
+            // Append a new input field for additional member
+            inputContainer.append(
+                `<input type="text" class="form-control mb-2" placeholder="Enter member name" name="members[${committeeId}][]">`
+                );
+        });
+
+        // Remove last added member input field
+        $('.remove-member-btn').on('click', function() {
+            let committeeId = $(this).data('committee-id');
+            let row = $(`tr[data-committee-id="${committeeId}"]`);
+            let inputContainer = row.find('.member-inputs');
+
+            // Remove last input field only if there is more than one
+            if (inputContainer.find('input').length > 1) {
+                inputContainer.find('input:last').remove();
+            } else {
+                alertify.error('At least one member is required.');
+            }
+        });
     });
+
+
+    function submitCommitteeMembers() {
+        // Validate that all member fields are filled
+        let allValid = true;
+
+        // Iterate through each row in the committee members table
+        $('#committeeMembersTable tr').each(function() {
+            let atLeastOneMember = false; // Reset for each committee
+
+            const memberInputs = $(this).find('input[placeholder="Enter member name"]').map(function() {
+                return $(this).val();
+            }).get();
+
+            // Validate members
+            memberInputs.forEach((member, index) => {
+                if (member) {
+                    atLeastOneMember = true; // Mark if at least one member is provided
+                } else {
+                    alertify.error(`Member #${index + 1} is required.`);
+                    allValid = false; // Mark as invalid
+                }
+            });
+
+            // If no members are filled, show an error for the committee
+            if (!atLeastOneMember) {
+                alertify.error('At least one member is required for each committee.');
+                allValid = false;
+            }
+        });
+
+        if (!allValid) {
+            return; // Stop submission if validation fails
+        }
+
+        // Confirmation alert
+        alertify.confirm("Would you like to save the committee members and proceed?", function(e) {
+            if (e) {
+                // Proceed with form submission via AJAX
+                let formData = new FormData($('#committeemembers')[0]);
+                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+
+                formData.forEach((value, key) => {
+                    console.log(key + ": " + value);
+                });
+
+                // Disable buttons and hide them while processing
+                $("#committeemembers button").prop('disabled', true);
+                $("#committeemembers button").hide();
+
+                // AJAX request to save committee members
+                $.ajax({
+                    url: '{{ route('committees.members') }}', // Adjust this URL to match your route
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        alertify.success('Members saved successfully!');
+                        console.log(response);
+
+                    },
+                    error: function(xhr, status, error) {
+                        alertify.error('An error occurred: ' + xhr.responseText);
+                        console.log(xhr.responseText);
+                        $("#committeemembers button").prop('disabled', false); // Re-enable buttons
+                        $("#committeemembers button").show(); // Show buttons again
+                    }
+                });
+            } else {
+                alertify.error("Action canceled.");
+            }
+        });
+    }
 </script>

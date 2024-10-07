@@ -55,7 +55,8 @@ Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails
 Route::get('/Party/Candidates', function () { return view('Admin.party_candidates'); })->name('partycandidates');
 Route::get('/Election/Results', function () { return view('Admin.viewelectionresults'); })->name('viewelectionresults');
 
-Route::post('/committees', [CommitteeController::class, 'store'])->name('committees.store');
+Route::post('/committees', [CommitteeController::class, 'saveCommittee'])->name('committees.store');
+Route::post('/committees/members', [CommitteeController::class, 'saveMembers'])->name('committees.members');
 
 
 //Rheyan Post Route

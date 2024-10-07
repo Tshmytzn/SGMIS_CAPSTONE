@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Committee;
 use Illuminate\Http\Request;
+use App\Models\CommitteeMember;
+
 
 class CommitteeController extends Controller
 {
-    public function store(Request $request)
+    public function saveCommittee(Request $request)
     {
         // Validate the request
         $request->validate([
@@ -39,4 +41,23 @@ class CommitteeController extends Controller
         return response()->json(['message' => 'Committees saved successfully!']);
     }
 
+        public function saveMembers(Request $request)
+        {
+            $validated = $request->validate([
+                'members' => 'required|array',
+                'members.*' => 'required|array',
+                'members.*.*' => 'required|string',
+            ]);
+
+            foreach ($validated['members'] as $committeeId => $members) {
+                foreach ($members as $memberName) {
+                    CommitteeMember::create([
+                        'committee_id' => $committeeId,
+                        'member_name' => $memberName,
+                    ]);
+                }
+            }
+
+            return response()->json(['success' => true, 'message' => 'Members saved successfully!']);
+        }
 }
