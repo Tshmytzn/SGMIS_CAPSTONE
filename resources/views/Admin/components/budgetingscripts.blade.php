@@ -111,14 +111,15 @@
                     response.data.forEach(function(item, index) {
                         budgetcard.innerHTML += `
                 <div class="col-md-6 col-lg-3">
-                <div class="card">
-                            <div class="card card-stacked "></div>
-                            <div class="img-responsive img-responsive-21x9 card-img-top"
-                                style="background-image: url(./static/photos/undraw_data_re_80ws.svg)">
+                    <div class="card">
+                        <div class="card card-stacked "></div>
+                            <div class="img-responsive img-responsive-21x10 card-img-top m-0 "
+                                style="background-image: url(./static/photos/Statistics.svg); background-size: cover; background-position: center;">
                             </div>
-                            <div class="card-body">
 
-                                <h3 class="card-title text-center">${item.title}</h3>
+                            <div class="card-body p-0 m-0">
+
+                                <h3 class="card-title text-center mb-2">${item.title}</h3>
                             </div>
                             <div class="d-flex">
                                 <a href="/Budgeting/Details/${item.id}" class="card-btn">
@@ -198,21 +199,21 @@
 
 
     function deleteBudgetProposal(id) {
-    alertify.confirm(
-        'Delete Budget Proposal',
-        'Are you sure you want to delete this budget proposal?',
-        function() {
+        alertify.confirm(
+            'Delete Budget Proposal',
+            'Are you sure you want to delete this budget proposal?',
+            function() {
 
-            console.log(id);
-            document.getElementById('budget_id').value = id;
-            BudgetProposal('deleteBudgetProposalForm');
-        },
-        function() {
+                console.log(id);
+                document.getElementById('budget_id').value = id;
+                BudgetProposal('deleteBudgetProposalForm');
+            },
+            function() {
 
-            alertify.error('Deletion Cancelled');
-        }
-    );
-}
+                alertify.error('Deletion Cancelled');
+            }
+        );
+    }
 
 
     $(document).ready(function() {
