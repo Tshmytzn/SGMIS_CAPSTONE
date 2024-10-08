@@ -1,4 +1,25 @@
 <script>
+    function updateEventDetails() {
+        const selectElement = document.getElementById('budgetEvent');
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+        // Get start and end dates from data attributes
+        const startDate = selectedOption.getAttribute('data-start');
+        const endDate = selectedOption.getAttribute('data-end');
+
+        // Set values in the respective input fields
+        document.getElementById('budgetPeriodStart').value = startDate;
+        document.getElementById('budgetPeriodEnd').value = endDate;
+
+        // Calculate number of days
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDiff = end - start;
+        const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
+
+        document.getElementById('BudgetDays').value = numberOfDays + ' Days';
+    }
+
     function validateForm(formId) {
         let isValid = true;
         let errorMessage = "Please fill out the following fields:\n";
