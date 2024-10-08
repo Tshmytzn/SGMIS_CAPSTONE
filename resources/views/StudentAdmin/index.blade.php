@@ -2,14 +2,14 @@
 
 <html lang="en">
   
-@include('Admin.components.header', ['title' => 'Admin Dashboard'])
+@include('StudentAdmin.components.header', ['title' => 'Student Admin Dashboard'])
 
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
 
-@include('Admin.components.nav', ['active' => 'Admin Dashboard'])
+@include('StudentAdmin.components.nav', ['active' => 'Student Admin Dashboard'])
 
             <div class="page-wrapper">
 
@@ -167,13 +167,13 @@
           </div>
         </div>
 
-@include('Admin.components.footer')
+@include('StudentAdmin.components.footer')
 
       </div>
     </div>
 
     
-@include('Admin.components.scripts')
+@include('StudentAdmin.components.scripts')
 
   </body>
 </html>

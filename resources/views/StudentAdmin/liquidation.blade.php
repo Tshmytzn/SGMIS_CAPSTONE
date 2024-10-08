@@ -2,14 +2,14 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Liquidation'])
+@include('StudentAdmin.components.header', ['title' => 'Liquidation'])
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'Liquidation'])
+        @include('StudentAdmin.components.nav', ['active' => 'Liquidation'])
 
         <div class="page-wrapper">
 
@@ -86,13 +86,13 @@
                 </div>
             </div>
 
-            @include('Admin.components.footer')
+            @include('StudentAdmin.components.footer')
 
         </div>
     </div>
 
 
-    @include('Admin.components.scripts')
+    @include('StudentAdmin.components.scripts')
 
 </body>
 

@@ -14,7 +14,7 @@ use App\Http\Controllers\ElectionController;
 use App\Http\Controllers\BudgetProposalController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CommitteeController;
-
+use App\Http\Controllers\StudentAdmin;
 ;
 /*
 |--------------------------------------------------------------------------
@@ -174,3 +174,61 @@ Route::get('/Student/Election', function () { return view('Student.electionvote'
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
 Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');
 Route::post('Student/UpdateStudentDetails', [StudentData::class,'UpdateStudentDetails'])->name('UpdateStudentDetails');
+
+
+
+// student Admin
+Route::get('/Student_Admin/Login', function () {
+    return view('StudentAdmin.Login');
+})->name('studentAdminLogin');
+Route::post('Student/StudentAdminLogin', [StudentAdmin::class, 'StudentAdminLogin'])->name('StudentAdminLogin');
+Route::post('Student/StudentAdminLogout', [StudentAdmin::class, 'StudentAdminLogout'])->name('StudentAdminLogout');
+
+
+Route::get('/Student_Admin/Dashboard', action: function () {
+    return view('StudentAdmin.index');
+})->name('studentAdminDashboard');
+
+Route::get('/Student_Admin/Attendance', function () {
+    return view('StudentAdmin.attendance');
+})->name('StudentAdminViewAttendance');
+
+Route::get('/Student_Admin/Liquidation', function () {
+    return view('StudentAdmin.liquidation');
+})->name('StudentAdminLiquidation');
+
+Route::get('/Student_Admin/Election', function () {
+    return view('StudentAdmin.election');
+})->name('StudentAdminElection');
+
+Route::get('/Student_Admin/Edit/Election', function () {
+    return view('StudentAdmin.addelectiondetails');
+})->name('StudentAdminEditelection');
+
+Route::get('/Student_Admin/Election/Results', function () {
+    return view('StudentAdmin.viewelectionresults');
+})->name('StudentAdminviewelectionresults');
+
+Route::get('/Student_Admin/Events/', action: function () {
+    return view('StudentAdmin.events');
+})->name('StudentAdminevents');
+
+Route::get('/Student_Admin/Evaluation/', action: function () {
+    return view('StudentAdmin.evaluation');
+})->name('StudentAdminevaluation');
+
+Route::get('/Student_Admin/Budgeting/', action: function () {
+    return view('StudentAdmin.budgeting');
+})->name('StudentAdminbudgeting');
+
+Route::get('/Student_Admin/Liquidation/', action: function () {
+    return view('StudentAdmin.liquidation');
+})->name('StudentAdminliquidation');
+
+Route::get('/Student_Admin/Document/', action: function () {
+    return view('StudentAdmin.documents');
+})->name('StudentAdmindocuments');
+
+Route::get('/Student_Admin/Election/Results/', action: function () {
+    return view('StudentAdmin.viewelectionresults');
+})->name('StudentAdminelectionresult');

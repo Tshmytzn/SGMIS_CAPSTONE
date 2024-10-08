@@ -2,14 +2,14 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Budgeting'])
+@include('StudentAdmin.components.header', ['title' => 'Budgeting'])
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'Budgeting'])
+        @include('StudentAdmin.components.nav', ['active' => 'Budgeting'])
 
         <div class="page-wrapper">
 
@@ -139,7 +139,7 @@
                 <input type="text" name="process" value="delete" id="process">
 
             </form>
-            @include('Admin.components.footer')
+            @include('StudentAdmin.components.footer')
 
             {{-- Modals --}}
             <div class="modal fade" id="budgetProposalModal" tabindex="-1" aria-labelledby="budgetProposalModalLabel"
@@ -246,14 +246,14 @@
                                         aria-labelledby="submission-info-tab">
 
                                         @php
-                                        $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                        $admin = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
                                         @endphp
 
                                         <!-- Proposed By -->
                                         <div class="mb-3">
                                             <label for="proposedBy" class="form-label">Proposed By</label>
                                             <input type="text" class="form-control" id="proposedBy"
-                                                name="proposedBy" value="{{ $admin->admin_name}}" readonly>
+                                                name="proposedBy" value="{{ $admin->student_firstname}}" readonly>
                                         </div>
                                         <!-- Submission Date -->
                                         <div class="mb-3">
@@ -287,8 +287,8 @@
     </div>
 
 
-    @include('Admin.components.scripts')
-    @include('Admin.components.budgetingscripts')
+    @include('StudentAdmin.components.scripts')
+    @include('StudentAdmin.components.budgetingscripts')
 </body>
 
 </html>

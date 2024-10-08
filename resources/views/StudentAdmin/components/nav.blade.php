@@ -10,33 +10,28 @@
                                   <div class="row align-items-center">
                                       <div class="col-12">
                                           @php
-                                              $adminAcc = App\Models\Admin::where(
-                                                  'admin_id',
+                                              $adminAcc = App\Models\StudentAccounts::where(
+                                                  'student_id',
                                                   session('admin_id'),
                                               )->first();
                                           @endphp
                                           <span class="avatar avatar-xl"><img
-                                                  src="dept_image/{{ $adminAcc->admin_pic }}" alt=""
+                                                  src="/student_images/{{ $adminAcc->student_pic }}" alt=""
                                                   id="adminpicture"></span>
                                       </div>
                                   </div>
                                   <div class="row g-2 mt-2 mb-3">
                                       <div class="col-12">
                                           <div class="form-label mb-0" style="font-size: 20px;">
-                                              {{ $adminAcc->admin_name }}</div>
+                                              {{ $adminAcc->student_firstname }}</div>
                                           <hr class="my-2 mt-0 mb-1 ms-5" style="width: 263px;">
-                                          <div class="form-label" style="font-size: 14px;">{{ $adminAcc->admin_type }}
+                                          <div class="form-label" style="font-size: 14px;">{{ $adminAcc->student_position }}
                                           </div>
                                       </div>
                                   </div>
                                   <div class="row">
-                                      <div class="col text-start">
-                                          <button onclick="window.location.href='{{ route('Settings') }}'"
-                                              class="btn btn-success btn-block" style="width: 120px"
-                                              data-bs-dismiss="modal">Edit Profile</button>
-                                      </div>
                                       <div class="col text-end ">
-                                          <form method="POST" action="{{ route('AdminLogout') }}">
+                                          <form method="POST" action="{{ route('StudentAdminLogout') }}">
                                               @csrf
                                               <button type="submit" class="btn btn-danger btn-block ms"
                                                   style="width: 120px" data-bs-dismiss="modal">Logout</button>
@@ -62,7 +57,7 @@
                       <span class="navbar-toggler-icon"></span>
                   </button>
                   <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                      <a href="{{ route('AdminDashboard') }}">
+                      <a href="{{ route('studentAdminDashboard') }}">
                           <img src="{{ asset('./static/sgmis_si.png') }}" width="120" height="40" alt="SGMIS"
                               class="navbar-brand-image">
                       </a>
@@ -198,20 +193,19 @@
                           <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                               aria-label="Open user menu">
                               @php
-                                  $adminAcc = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                  $adminAcc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
                               @endphp
-                              <span class="avatar avatar-sm"><img src="dept_image/{{ $adminAcc->admin_pic }}"
+                              <span class="avatar avatar-sm"><img src="/student_images/{{ $adminAcc->student_pic }}"
                                       alt="" id="adminpicture"></span>
                               <div class="d-none d-xl-block ps-2">
-                                  <div>{{ $adminAcc->admin_name }}</div>
-                                  <div class="mt-1 small text-muted">{{ $adminAcc->admin_type }}</div>
+                                  <div>{{ $adminAcc->student_firstname}}</div>
+                                  <div class="mt-1 small text-muted">{{ $adminAcc->student_position }}</div>
                               </div>
                           </a>
                           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                               <a href="" data-bs-toggle="modal" data-bs-target="#profile"
                                   class="dropdown-item">Profile</a>
-                              <a href="{{ route('Settings') }}" class="dropdown-item">Account Settings</a>
-                              <form method="POST" action="{{ route('AdminLogout') }}">
+                              <form method="POST" action="{{ route('StudentAdminLogout') }}">
                                   @csrf
                                   <button type="submit" class="dropdown-item">Logout</button>
                               </form>
@@ -225,8 +219,8 @@
                   <div class="navbar">
                       <div class="container-xl">
                           <ul class="navbar-nav">
-                              <li class="nav-item {{ $active == 'Admin Dashboard' ? 'active' : '' }}">
-                                  <a class="nav-link" href="{{ route('AdminDashboard') }}">
+                              <li class="nav-item {{ $active == 'Student Admin Dashboard' ? 'active' : '' }}">
+                                  <a class="nav-link" href="{{ route('studentAdminDashboard') }}">
                                       <span
                                           class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                                           <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
@@ -241,98 +235,6 @@
                                       </span>
                                       <span class="nav-link-title">
                                           Dashboard
-                                      </span>
-                                  </a>
-                              </li>
-                              <li class="nav-item dropdown {{ $active == 'Accounts' ? 'active' : '' }}">
-                                  <a class="nav-link dropdown-toggle" href="{{ route('Accounts') }}"
-                                      data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button"
-                                      aria-expanded="false">
-                                      <span
-                                          class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                              class="icon icon-tabler icons-tabler-outline icon-tabler-users">
-                                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                              <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                                              <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                                              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                              <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
-                                          </svg> </span>
-                                      <span class="nav-link-title">
-                                          Accounts
-                                      </span>
-                                  </a>
-                                  <div class="dropdown-menu">
-
-                                      <div class="dropdown-menu-columns">
-
-                                          <div class="dropdown-menu-column">
-
-                                              <div class="dropend">
-                                                  @php
-                                                      $department = App\Models\Department::all();
-                                                  @endphp
-                                                  @foreach ($department as $dept)
-                                                      <a class="dropdown-item dropdown-toggle"
-                                                          data-bs-toggle="dropdown" data-bs-auto-close="outside"
-                                                          role="button" aria-expanded="false">
-                                                          <svg xmlns="http://www.w3.org/2000/svg"
-                                                              class="icon icon-inline me-1" width="24"
-                                                              height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                              stroke="currentColor" fill="none"
-                                                              stroke-linecap="round" stroke-linejoin="round">
-                                                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                              <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                                              <path
-                                                                  d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                                                              <path d="M9 14l6 0" />
-                                                          </svg>
-                                                          {{ $dept->dept_name }} &nbsp;
-                                                      </a>
-
-                                                      <div class="dropdown-menu">
-                                                          @php
-                                                              $course = App\Models\Course::where(
-                                                                  'dept_id',
-                                                                  $dept->dept_id,
-                                                              )->get();
-                                                          @endphp
-                                                          @foreach ($course as $cour)
-                                                              <a href="{{ route('Accounts') }}?course_id={{ $cour->course_id }}"
-                                                                  class="dropdown-item">
-                                                                  {{ $cour->course_name }}
-                                                              </a>
-                                                          @endforeach
-                                                      </div>
-                                                  @endforeach
-                                              </div>
-
-                                          </div>
-                                      </div>
-                                  </div>
-                              </li>
-
-                              <li class="nav-item {{ $active == 'Programs' ? 'active' : '' }}">
-                                  <a class="nav-link" href="{{ route('Programs') }}">
-                                      <span
-                                          class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                              class="icon icon-tabler icons-tabler-outline icon-tabler-certificate">
-                                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                              <path d="M15 15m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                                              <path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5" />
-                                              <path
-                                                  d="M10 19h-5a2 2 0 0 1 -2 -2v-10c0 -1.1 .9 -2 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -1 1.73" />
-                                              <path d="M6 9l12 0" />
-                                              <path d="M6 12l3 0" />
-                                              <path d="M6 15l2 0" />
-                                          </svg> </span>
-                                      <span class="nav-link-title">
-                                          Programs & Courses
                                       </span>
                                   </a>
                               </li>
@@ -358,7 +260,7 @@
                                       </span>
                                   </a>
                                   <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('Election') }}" rel="noopener">
+                                    <a class="dropdown-item" href="{{ route('StudentAdminElection') }}" rel="noopener">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -373,7 +275,7 @@
                                     </svg></span>
                                         &nbsp; Election
                                     </a>
-                                      <a class="dropdown-item" href="{{ route('viewelectionresults') }}" rel="noopener">
+                                      <a class="dropdown-item" href="{{ route('StudentAdminelectionresult') }}" rel="noopener">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                               viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -426,7 +328,7 @@
                                       </span>
                                   </a>
                                   <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="{{ route('Events') }}" rel="noopener">
+                                      <a class="dropdown-item" href="{{ route('StudentAdminevents') }}" rel="noopener">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                               viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -441,7 +343,7 @@
                                           </svg> </span>
                                           &nbsp; Events
                                       </a>
-                                      <a class="dropdown-item" href="{{ route('Attendance') }}" rel="noopener">
+                                      <a class="dropdown-item" href="{{ route('StudentAdminViewAttendance') }}" rel="noopener">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                               viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -459,7 +361,7 @@
                               </li>
 
                               <li class="nav-item {{ $active == 'Evaluation' ? 'active' : '' }}">
-                                  <a class="nav-link" href="{{ route('Evaluation') }}">
+                                  <a class="nav-link" href="{{ route('StudentAdminevaluation') }}">
                                       <span
                                           class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -479,7 +381,7 @@
                                   </a>
                               </li>
                               <li class="nav-item {{ $active == 'Budgeting' ? 'active' : '' }}">
-                                  <a class="nav-link" href="{{ route('Budgeting') }}">
+                                  <a class="nav-link" href="{{ route('StudentAdminbudgeting') }}">
                                       <span
                                           class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
                                           <span
@@ -505,7 +407,7 @@
                                   </a>
                               </li>
                               <li class="nav-item {{ $active == 'Liquidation' ? 'active' : '' }}">
-                                  <a class="nav-link" href="{{ route('Liquidation') }}">
+                                  <a class="nav-link" href="{{ route('StudentAdminliquidation') }}">
                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                           stroke-linecap="round" stroke-linejoin="round"
@@ -521,7 +423,7 @@
                                   </a>
                               </li>
                               <li class="nav-item {{ $active == 'Documents' ? 'active' : '' }}">
-                                  <a class="nav-link" href="{{ route('Documents') }}">
+                                  <a class="nav-link" href="{{ route('StudentAdmindocuments') }}">
                                       <span
                                           class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
