@@ -75,6 +75,13 @@ class BudgetProposalController extends Controller
         return view('Admin.budgetdetails', compact('budget', 'event', 'committees'));
     }
 
+    public function show2($id)
+    {
+        $budget = BudgetProposal::findOrFail($id);
+        $event = SchoolEvents::where('event_id', $budget->eventid)->first();
+        $committees = Committee::where('budgeting_id', $budget->id)->get();
 
+        return view('Admin.budgetexpense', compact('budget', 'event', 'committees'));
+    }
 
 }

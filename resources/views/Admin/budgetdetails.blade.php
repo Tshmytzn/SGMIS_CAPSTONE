@@ -290,6 +290,9 @@
 
 
                             </div>
+                            <a href="/Budgeting/Expense/{{ $budget->id }}">
+                            <button class="btn btn-primary w-100">Proceed to Expense Setup & Additional Entries</button>
+                        </a>
                         </div>
 
 

@@ -8,7 +8,7 @@
         $(formElement).find('input[required], textarea[required], select[required]').each(function() {
             if ($(this).val().trim() === '') {
                 isValid = false;
-                errorMessage += "- " + $(this).prev('label').text() + "\n"; 
+                errorMessage += "- " + $(this).prev('label').text() + "\n";
             }
         });
 
@@ -132,7 +132,7 @@
                                             d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
                                         <path d="M16 5l3 3" />
                                     </svg>
-                                    Edit ${item.id}
+                                    Edit
                                 </a>
                                 <a href="#" onclick="deleteBudgetProposal('${item.id}')" class="card-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -199,14 +199,14 @@
 
     function deleteBudgetProposal(id) {
     alertify.confirm(
-        'Delete Budget Proposal', 
-        'Are you sure you want to delete this budget proposal?', 
+        'Delete Budget Proposal',
+        'Are you sure you want to delete this budget proposal?',
         function() {
 
             console.log(id);
             document.getElementById('budget_id').value = id;
             BudgetProposal('deleteBudgetProposalForm');
-        }, 
+        },
         function() {
 
             alertify.error('Deletion Cancelled');
