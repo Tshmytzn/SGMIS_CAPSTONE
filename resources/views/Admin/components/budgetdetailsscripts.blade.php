@@ -98,19 +98,19 @@
         });
 
         if (!allValid) {
-            return; // Stop submission if validation fails
+            return;
         }
         alertify.confirm("Would you like to save the committee data and continue to the next section?", function(e) {
             if (e) {
-                // Proceed with the form submission via AJAX
+
                 let formData = new FormData($('#committeeForm')[0]);
                 formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
 
-                $("#committeeForm button").prop('disabled', true); // Disable buttons inside the form
-                $("#committeeForm button").hide(); // Hide all buttons
+                $("#committeeForm button").prop('disabled', true);
+                $("#committeeForm button").hide();
 
                 $.ajax({
-                    url: '{{ route('committees.store') }}', // Laravel route to store data
+                    url: '{{ route('committees.store') }}',
                     type: 'POST',
                     data: formData,
                     contentType: false,
@@ -118,6 +118,8 @@
                     success: function(response) {
                         alertify.success('Committees saved successfully!');
                         console.log(response);
+                        $('table thead tr th:nth-child(3)').hide();
+                        $('table tbody tr td:nth-child(3)').hide();
                         location.reload();
 
                     },
@@ -138,16 +140,22 @@
 
         $("#committeemembers button").hide();
         $("#committeemembers button").prop('disabled', true);
+        $('table thead tr th:nth-child(3)').hide();
+        $('table tbody tr td:nth-child(3)').hide();
 
         $('div[title="Edit Committtee"]').on('click', function() {
 
             $("#committeeForm button").prop('disabled', false); // Enable form buttons
             $("#committeeForm button").show(); // Show form buttons
+            $('table thead tr th:nth-child(3)').show();
+            $('table tbody tr td:nth-child(3)').show();
         });
         $('div[title="Add Members"]').on('click', function() {
 
             $("#committeemembers button").prop('disabled', false); // Enable form buttons
             $("#committeemembers button").show(); // Show form buttons
+            $('table thead tr th:nth-child(3)').show();
+            $('table tbody tr td:nth-child(3)').show();
         });
 
         // Add new member input field dynamically
@@ -159,7 +167,7 @@
             // Append a new input field for additional member
             inputContainer.append(
                 `<input type="text" class="form-control mb-2" placeholder="Enter member name" name="members[${committeeId}][]">`
-                );
+            );
         });
 
         // Remove last added member input field
@@ -168,9 +176,22 @@
             let row = $(`tr[data-committee-id="${committeeId}"]`);
             let inputContainer = row.find('.member-inputs');
 
-            // Remove last input field only if there is more than one
             if (inputContainer.find('input').length > 1) {
-                inputContainer.find('input:last').remove();
+                // Get the member_id of the last member input field
+                let lastInput = inputContainer.find('input:last');
+                let memberIdInput = inputContainer.find('input[type="hidden"]:last');
+                let memberId = memberIdInput.val();
+
+                // If the input has a member_id, track it for removal
+                if (memberId) {
+                    let removedMemberIds = $('#removedMemberIds').val();
+                    removedMemberIds += (removedMemberIds ? ',' : '') + memberId;
+                    $('#removedMemberIds').val(removedMemberIds);
+                }
+
+                // Remove the input field
+                lastInput.remove();
+                memberIdInput.remove();
             } else {
                 alertify.error('At least one member is required.');
             }
@@ -225,6 +246,8 @@
                 // Disable buttons and hide them while processing
                 $("#committeemembers button").prop('disabled', true);
                 $("#committeemembers button").hide();
+                $('table thead tr th:nth-child(3)').hide();
+                $('table tbody tr td:nth-child(3)').hide();
 
                 // AJAX request to save committee members
                 $.ajax({
@@ -237,6 +260,11 @@
                         alertify.success('Members saved successfully!');
                         console.log(response);
 
+                        // Hide the "Actions" column on success
+                        $('table thead tr th:nth-child(3)').hide(); // Hides the Actions header
+                        $('table tbody tr td:nth-child(3)').hide();
+
+                        location.reload();
                     },
                     error: function(xhr, status, error) {
                         alertify.error('An error occurred: ' + xhr.responseText);

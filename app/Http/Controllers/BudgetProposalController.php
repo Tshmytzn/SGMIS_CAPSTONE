@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\BudgetProposal;
 use App\Models\SchoolEvents;
 use App\Models\Committee;
+use App\Models\CommitteeMember;
 
 
 class BudgetProposalController extends Controller
@@ -71,9 +72,12 @@ class BudgetProposalController extends Controller
         $budget = BudgetProposal::findOrFail($id);
         $event = SchoolEvents::where('event_id', $budget->eventid)->first();
         $committees = Committee::where('budgeting_id', $budget->id)->get();
-
-        return view('Admin.budgetdetails', compact('budget', 'event', 'committees'));
+    
+        $committeeMembers = CommitteeMember::whereIn('committee_id', $committees->pluck('id'))->get()->groupBy('committee_id');
+    
+        return view('Admin.budgetdetails', compact('budget', 'event', 'committees', 'committeeMembers'));
     }
+    
 
     public function show2($id)
     {

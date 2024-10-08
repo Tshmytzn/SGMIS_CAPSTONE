@@ -43,7 +43,8 @@
                                         <h3 style="margin-left: -3%">More Information</h3>
                                         <div title="Edit Event"
                                             style="border: none; background: none; margin-right:1%; cursor: pointer;"
-                                            data-bs-toggle="modal" data-bs-target="#budgetProposalUpdate" onclick="openEditModal({{ $budget->id }})">
+                                            data-bs-toggle="modal" data-bs-target="#budgetProposalUpdate"
+                                            onclick="openEditModal({{ $budget->id }})">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -257,7 +258,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Committee Name</th>
-                                                <th>Add Member</th>
+                                                <th>Members</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -267,42 +268,64 @@
                                                     <td>{{ $committee->name }}</td>
                                                     <td>
                                                         <div class="member-inputs">
-                                                            <input type="text" class="form-control mb-2"
-                                                                placeholder="Enter member name"
-                                                                name="members[{{ $committee->id }}][]">
+                                                            @if (isset($committeeMembers[$committee->id]))
+                                                                @foreach ($committeeMembers[$committee->id] as $member)
+                                                                    <input type="hidden"
+                                                                        name="member_ids[{{ $committee->id }}][]"
+                                                                        value="{{ $member->id }}">
+                                                                    <input type="text" class="form-control mb-2"
+                                                                        placeholder="Enter member name"
+                                                                        value="{{ $member->member_name }}"
+                                                                        name="members[{{ $committee->id }}][]">
+                                                                @endforeach
+                                                            @else
+                                                                <input type="text" class="form-control mb-2"
+                                                                    placeholder="Enter member name"
+                                                                    name="members[{{ $committee->id }}][]">
+                                                            @endif
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary add-member-btn"
-                                                            data-committee-id="{{ $committee->id }}">Add Member</button>
-                                                        <button type="button" class="btn btn-danger remove-member-btn"
-                                                            data-committee-id="{{ $committee->id }}">Remove Member</button>
+                                                            data-committee-id="{{ $committee->id }}">Add
+                                                            Member</button>
+                                                        <button type="button"
+                                                            class="btn btn-danger remove-member-btn"
+                                                            data-committee-id="{{ $committee->id }}">Remove
+                                                            Member</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
+
                                         </tbody>
                                     </table>
+                                    <!-- Hidden input to track removed members -->
+                                    <input type="hidden" id="removedMemberIds" name="removed_member_ids[]"
+                                        value="">
+
                                     <button type="button" class="btn w-100"
                                         style="background-color: #0065a0 !important; color: #ffffff"
                                         onclick="submitCommitteeMembers()">Save Members</button>
                                 </form>
+
                             </div>
 
 
-                            </div>
-                            <a href="/Budgeting/Expense/{{ $budget->id }}">
-                            <button class="btn btn-primary w-100">Proceed to Expense Setup & Additional Entries</button>
-                        </a>
                         </div>
-
-
+                        <a href="/Budgeting/Expense/{{ $budget->id }}">
+                            <button class="btn btn-primary w-100">Proceed to Expense Setup & Additional
+                                Entries</button>
+                        </a>
                     </div>
+
+
                 </div>
             </div>
-
-            @include('Admin.components.footer')
-
         </div>
+
+        @include('Admin.components.footer')
+
+    </div>
     </div>
 
     @include('Admin.components.scripts')
