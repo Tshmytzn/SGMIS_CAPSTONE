@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BudgetProposal;
 use App\Models\SchoolEvents;
+use App\Models\Committee;
+use App\Models\CommitteeMember;
 
 
 class BudgetProposalController extends Controller
@@ -15,7 +17,7 @@ class BudgetProposalController extends Controller
 
     if($request->process=='get')
     {
-        
+
         $budget = BudgetProposal::all();
         return response()->json(['data' => $budget, 'status' => 'success']);
 
@@ -30,7 +32,7 @@ class BudgetProposalController extends Controller
 
     $request->validate([
         'proposalTitle' => 'required|string|max:255',
-        'budgetEvent' => 'required|exists:school_event,event_id', // Ensure event exists
+        'budgetEvent' => 'required|exists:school_event,event_id',
         'projectproponent' => 'required|string|max:255',
         'projectparticipant' => 'required|string|max:255',
         'budgetPeriodStart' => 'required|date',
@@ -56,12 +58,34 @@ class BudgetProposalController extends Controller
     $data->save();
 
     return response()->json(['message' => 'Budget Proposal Successfully Submitted','reload' => 'getBudgetingDetails','modal' => 'budgetProposalModal', 'status' => 'success']);
-} catch (\Illuminate\Validation\ValidationException $e) {
-    // Catch validation exceptions
-    return response()->json(['message' => 'Validation Failed', 'errors' => $e->errors(), 'status' => 'error'], 422);
-} catch (\Exception $e) {
-    // Catch any other exceptions
-    return response()->json(['message' => 'An error occurred while submitting the budget proposal', 'error' => $e->getMessage(), 'status' => 'error'], 500);
-}
-}
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Catch validation exceptions
+            return response()->json(['message' => 'Validation Failed', 'errors' => $e->errors(), 'status' => 'error'], 422);
+        } catch (\Exception $e) {
+            // Catch any other exceptions
+            return response()->json(['message' => 'An error occurred while submitting the budget proposal', 'error' => $e->getMessage(), 'status' => 'error'], 500);
+        }
+    }
+
+    public function show($id)
+    {
+        $budget = BudgetProposal::findOrFail($id);
+        $event = SchoolEvents::where('event_id', $budget->eventid)->first();
+        $committees = Committee::where('budgeting_id', $budget->id)->get();
+    
+        $committeeMembers = CommitteeMember::whereIn('committee_id', $committees->pluck('id'))->get()->groupBy('committee_id');
+    
+        return view('Admin.budgetdetails', compact('budget', 'event', 'committees', 'committeeMembers'));
+    }
+    
+
+    public function show2($id)
+    {
+        $budget = BudgetProposal::findOrFail($id);
+        $event = SchoolEvents::where('event_id', $budget->eventid)->first();
+        $committees = Committee::where('budgeting_id', $budget->id)->get();
+
+        return view('Admin.budgetexpense', compact('budget', 'event', 'committees'));
+    }
+
 }

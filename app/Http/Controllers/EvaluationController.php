@@ -118,7 +118,16 @@ class EvaluationController extends Controller
 
     public function LoadQuestionEvaluate(Request $req){
        $question = EvalQuestion::where('eval_id', $req->eval_id)->orderBy('eq_num', 'asc')->get();
-       return response()->json(['question'=>$question]);
+    
+       $evaluateStatus = false;
+       foreach($question as $q){
+        $result = EvalResult::where('eq_id', $q->eq_id)->first();
+        if($result){
+            $evaluateStatus = true;
+        }
+        break;
+       }
+       return response()->json(['question'=>$question, 'eval_status'=> $evaluateStatus]);
     }
 
     public function EvaluationSaveResult(Request $request){

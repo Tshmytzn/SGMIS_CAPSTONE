@@ -9,20 +9,31 @@ class Committee extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'committees';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
-        'total_members',
+        'person_in_charge',
+        'budgeting_id'
     ];
 
-    // Relationship with members
-    public function members()
-    {
-        return $this->hasMany(Member::class);
-    }
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'person_in_charge' => 'array',
+    ];
 
-    // Relationship with expenses
-    public function expenses()
-    {
-        return $this->hasMany(Expense::class);
-    }
 }

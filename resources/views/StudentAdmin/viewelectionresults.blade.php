@@ -2,15 +2,15 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Election Results'])
-@include('Admin.components.adminstyle')
+@include('StudentAdmin.components.header', ['title' => 'Election Results'])
+@include('StudentAdmin.components.adminstyle')
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'electionresults'])
+        @include('StudentAdmin.components.nav', ['active' => 'electionresults'])
 
         <div class="page-wrapper">
 
@@ -70,14 +70,14 @@
                 </div>
               </div>
 
-            @include('Admin.components.footer')
+            @include('StudentAdmin.components.footer')
 
         </div>
     </div>
 
 
-    @include('Admin.components.scripts')
-    @include('Admin.components.electionresult')
+    @include('StudentAdmin.components.scripts')
+    @include('StudentAdmin.components.electionresult')
 </body>
 
 </html>

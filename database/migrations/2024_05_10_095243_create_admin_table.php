@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\DB; // For data insertion
+use Illuminate\Support\Facades\Hash; // For password hashing
 return new class extends Migration
 {
     /**
@@ -21,6 +22,19 @@ return new class extends Migration
             $table->string('admin_pic', 100)->nullable();
             $table->timestamps();
         });
+
+        DB::table('admin')->insert([
+            [
+                'admin_name' => 'Admin',
+                'admin_school_id' => '000000001',
+                'admin_username' => 'Admin',
+                'admin_password' => Hash::make('Admin'),
+                'admin_type' => 'Super Admin',
+                'admin_pic' => 'default.png',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 
     /**

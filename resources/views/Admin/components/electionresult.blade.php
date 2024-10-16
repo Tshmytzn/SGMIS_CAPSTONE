@@ -102,7 +102,6 @@
             const valid = response.message;
             const cardsContainer = document.getElementById('cards');
             const cardLoad = document.getElementById('cardload');
-
             // Hide elements if the election is ongoing
             if (valid === "Ongoing") {
                 cardLoad.style.display = 'none';

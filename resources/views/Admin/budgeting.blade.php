@@ -114,25 +114,24 @@
                                         </div>
                                         <!-- Event Related -->
                                         <div class="mb-3">
-
                                             <div class="col-12">
-
                                                 <label for="budgetEvent" class="form-label">Associated Event</label>
-                                                <select name="budgetEvent" class="form-select" id="budgetEvent">
+                                                <select name="budgetEvent" class="form-select" id="budgetEvent" onchange="updateEventDetails()">
                                                     <option selected disabled>Select Event</option>
-
                                                     @php
-                                                    $currentDate = date('Y-m-d');
-                                                    $event = App\Models\SchoolEvents::where('event_start','>',$currentDate)->get();
+                                                        $currentDate = date('Y-m-d');
+                                                        $events = App\Models\SchoolEvents::where('event_start', '>', $currentDate)->get();
                                                     @endphp
-
-                                                    @foreach ($event as $eve)
-                                                        <option value="{{ $eve->event_id }}">{{ $eve->event_name }}</option>
+                                            
+                                                    @foreach ($events as $eve)
+                                                        <option value="{{ $eve->event_id }}" data-start="{{ $eve->event_start }}" data-end="{{ $eve->event_end }}">
+                                                            {{ $eve->event_name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-
                                         </div>
+
                                         <div class="row">
                                             <!-- Project Proponent -->
                                             <div class="col-6 mb-3">
@@ -153,17 +152,22 @@
                                         </div>
                                         <!-- Budget Period -->
                                         <div class="row">
-                                            <div class="col-6 mb-3">
+                                            <div class="col-4 mb-3">
                                                 <label for="budgetPeriodStart" class="form-label">Budget Period
                                                     Start</label>
-                                                <input type="datetime-local" class="form-control"
-                                                    id="budgetPeriodStart" name="budgetPeriodStart" required>
+                                                <input type="text" class="form-control" id="budgetPeriodStart"
+                                                    name="budgetPeriodStart" readonly>
                                             </div>
-                                            <div class="col-6 mb-3">
+                                            <div class="col-4 mb-3">
                                                 <label for="budgetPeriodEnd" class="form-label">Budget Period
                                                     End</label>
-                                                <input type="datetime-local" class="form-control"
-                                                    id="budgetPeriodEnd" name="budgetPeriodEnd" required>
+                                                <input type="text" class="form-control" id="budgetPeriodEnd"
+                                                    name="budgetPeriodEnd" readonly>
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <label for="BudgetDays" class="form-label">Number Of Days</label>
+                                                <input type="text" class="form-control" id="BudgetDays"
+                                                    name="BudgetDays" readonly>
                                             </div>
                                         </div>
                                         <!-- Allocated Funds -->
@@ -179,14 +183,14 @@
                                         aria-labelledby="submission-info-tab">
 
                                         @php
-                                        $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                            $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
                                         @endphp
 
                                         <!-- Proposed By -->
                                         <div class="mb-3">
                                             <label for="proposedBy" class="form-label">Proposed By</label>
                                             <input type="text" class="form-control" id="proposedBy"
-                                                name="proposedBy" value="{{ $admin->admin_name}}" readonly>
+                                                name="proposedBy" value="{{ $admin->admin_name }}" readonly>
                                         </div>
                                         <!-- Submission Date -->
                                         <div class="mb-3">

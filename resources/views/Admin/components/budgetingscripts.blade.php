@@ -1,4 +1,25 @@
 <script>
+    function updateEventDetails() {
+        const selectElement = document.getElementById('budgetEvent');
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+        // Get start and end dates from data attributes
+        const startDate = selectedOption.getAttribute('data-start');
+        const endDate = selectedOption.getAttribute('data-end');
+
+        // Set values in the respective input fields
+        document.getElementById('budgetPeriodStart').value = startDate;
+        document.getElementById('budgetPeriodEnd').value = endDate;
+
+        // Calculate number of days
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDiff = end - start;
+        const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
+
+        document.getElementById('BudgetDays').value = numberOfDays + ' Days';
+    }
+
     function validateForm(formId) {
         let isValid = true;
         let errorMessage = "Please fill out the following fields:\n";
@@ -8,7 +29,7 @@
         $(formElement).find('input[required], textarea[required], select[required]').each(function() {
             if ($(this).val().trim() === '') {
                 isValid = false;
-                errorMessage += "- " + $(this).prev('label').text() + "\n"; 
+                errorMessage += "- " + $(this).prev('label').text() + "\n";
             }
         });
 
@@ -111,17 +132,18 @@
                     response.data.forEach(function(item, index) {
                         budgetcard.innerHTML += `
                 <div class="col-md-6 col-lg-3">
-                <div class="card">
-                            <div class="card card-stacked "></div>
-                            <div class="img-responsive img-responsive-21x9 card-img-top"
-                                style="background-image: url(./static/photos/undraw_data_re_80ws.svg)">
+                    <div class="card">
+                        <div class="card card-stacked "></div>
+                            <div class="img-responsive img-responsive-21x10 card-img-top m-0 "
+                                style="background-image: url(./static/photos/Statistics.svg); background-size: cover; background-position: center;">
                             </div>
-                            <div class="card-body">
 
-                                <h3 class="card-title text-center">${item.title}</h3>
+                            <div class="card-body p-0 m-0">
+
+                                <h3 class="card-title text-center mb-2">${item.title}</h3>
                             </div>
                             <div class="d-flex">
-                                <a href="{{route('viewbudget')}}" class="card-btn">
+                                <a href="/Budgeting/Details/${item.id}" class="card-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -198,25 +220,24 @@
 
 
     function deleteBudgetProposal(id) {
-    alertify.confirm(
-        'Delete Budget Proposal', 
-        'Are you sure you want to delete this budget proposal?', 
-        function() {
+        alertify.confirm(
+            'Delete Budget Proposal',
+            'Are you sure you want to delete this budget proposal?',
+            function() {
 
-            console.log(id);
-            document.getElementById('budget_id').value = id;
-            BudgetProposal('deleteBudgetProposalForm');
-        }, 
-        function() {
+                console.log(id);
+                document.getElementById('budget_id').value = id;
+                BudgetProposal('deleteBudgetProposalForm');
+            },
+            function() {
 
-            alertify.error('Deletion Cancelled');
-        }
-    );
-}
+                alertify.error('Deletion Cancelled');
+            }
+        );
+    }
 
 
     $(document).ready(function() {
-
         getBudgetingDetails()
     });
 </script>

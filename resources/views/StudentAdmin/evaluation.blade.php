@@ -2,15 +2,15 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Evaluation'])
+@include('StudentAdmin.components.header', ['title' => 'Evaluation'])
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     <script src="{{ asset('./js_components/evaluation.js') }}"></script>
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'Evaluation'])
-        @include('Admin.components.loading')
+        @include('StudentAdmin.components.nav', ['active' => 'Evaluation'])
+        @include('StudentAdmin.components.loading')
         <div class="page-wrapper">
 
             <!-- Page header -->
@@ -166,7 +166,7 @@
         LoadEvaluationForm(getAllEvalRoute, emptyPlaceholder, evalForm, viewEval, evalImage, deleteEval, 'admin');
         }
     </script>
-    @include('Admin.components.scripts')
+    @include('StudentAdmin.components.scripts')
 
 
 </body>

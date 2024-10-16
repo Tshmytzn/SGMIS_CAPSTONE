@@ -1,12 +1,12 @@
 <!doctype html>
 
 <html lang="en">
-@include('Admin.components.header', ['title' => 'Attendance'])
+@include('StudentAdmin.components.header', ['title' => 'Attendance'])
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     <div class="page">
-        @include('Admin.components.nav', ['active' => 'Attendance'])
+        @include('StudentAdmin.components.nav', ['active' => 'Attendance'])
         <div class="page-wrapper">
 
             <!-- Page header -->
@@ -210,13 +210,13 @@
                 </div>
             </div>
 
-            @include('Admin.components.footer')
+            @include('StudentAdmin.components.footer')
 
         </div>
     </div>
 
 
-    @include('Admin.components.scripts')
+    @include('StudentAdmin.components.scripts')
 
 </body>
 

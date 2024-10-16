@@ -2,15 +2,15 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Events'])
+@include('StudentAdmin.components.header', ['title' => 'Events'])
 
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
-@include('Admin.components.nav', ['active' => 'Events'])
+@include('StudentAdmin.components.nav', ['active' => 'Events'])
 
-@include('Admin.components.loading')
+@include('StudentAdmin.components.loading')
 
             <div class="page-wrapper">
 
@@ -144,7 +144,7 @@
   </div>
 {{-- modal end --}}
 
-@include('Admin.components.scripts')
+@include('StudentAdmin.components.scripts')
 
 
 <script>

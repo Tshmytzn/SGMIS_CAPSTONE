@@ -2,15 +2,15 @@
 
 <html lang="en">
   
-@include('Admin.components.header', ['title' => 'Documents'])
-@include('Admin.components.adminstyle')
+@include('StudentAdmin.components.header', ['title' => 'Documents'])
+@include('StudentAdmin.components.adminstyle')
 
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
 
-@include('Admin.components.nav', ['active' => 'Documents'])
+@include('StudentAdmin.components.nav', ['active' => 'Documents'])
 
             <div class="page-wrapper">
 
@@ -128,14 +128,13 @@
 
   {{-- MODALS --}}
 
-@include('Admin.components.footer')
+@include('StudentAdmin.components.footer')
 
       </div>
     </div>
     
-    
-@include('Admin.components.scripts')
-@include('Admin.components.functionscript')
+@include('StudentAdmin.components.scripts')
+@include('StudentAdmin.components.functionscript')
 
   </body>
 </html>

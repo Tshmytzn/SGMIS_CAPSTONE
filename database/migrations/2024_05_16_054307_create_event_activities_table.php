@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('eact_description');
             $table->string('eact_facilitator');
             $table->string('eact_venue');
+            $table->string('eact_end');
             $table->string('eact_date');
             $table->string('eact_time');
             $table->timestamps();

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -20,6 +21,33 @@ return new class extends Migration
             $table->string('sect_status')->default('0');
             $table->timestamps();
         });
+
+        // Now inserting the dummy data for sections
+        $courses = DB::table('course')->get();  // Fetch all courses with course_id from 'course' table
+        $year_levels = ['First Year', 'Second Year', 'Third Year', 'Fourth Year'];
+        $sections = ['A', 'B', 'C'];  // Adjust based on the number of sections
+        $sectionData = [];
+        $now = now();
+
+        foreach ($courses as $course) {
+            $course_id = $course->course_id;  // Assuming course_id is the primary key of the course table
+
+            foreach ($year_levels as $year_level) {
+                foreach ($sections as $section) {
+                    $sectionData[] = [
+                        'course_id' => $course_id,
+                        'sect_name' => $section,
+                        'year_level' => $year_level,
+                        'sect_status' => '0',
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ];
+                }
+            }
+        }
+
+        // Insert the generated section data
+        DB::table('section')->insert($sectionData);
     }
 
     /**

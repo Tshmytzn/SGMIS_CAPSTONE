@@ -41,10 +41,10 @@
     $(document).ready(function() {
         getElection()
     });
-    function autoSubmit(id){ console.log(id)
-        document.getElementById('elect_id').value=id;
-        dynamicFuction('updateElectionForm', "{{route('createElection')}}")
-    }
+    // function autoSubmit(id){ 
+    //     document.getElementById('elect_id').value=id;
+    //     dynamicFuction('updateElectionForm', "{{route('createElection')}}")
+    // }
 
     function getElection() {
         document.getElementById('lineLoading').style.display = '';
@@ -86,9 +86,9 @@
                                 'close'; // If the current date is greater than or equal to endDate, set status to 'close'
                                 stats='none'
                                 see=''
-                                if(item.elect_status == '1'){
-                                     autoSubmit(item.elect_id)
-                                }
+                                // if(item.elect_status == '1'){
+                                //      autoSubmit(item.elect_id)
+                                // }
                             } else {
                                 color = 'green'
                                 status =

@@ -2,8 +2,8 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Election'])
-@include('Admin.components.adminstyle')
+@include('StudentAdmin.components.header', ['title' => 'Election'])
+@include('StudentAdmin.components.adminstyle')
 <style>
     .fade-card {
             opacity: 0;
@@ -22,7 +22,7 @@
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'Election'])
+        @include('StudentAdmin.components.nav', ['active' => 'Election'])
 
         <div class="page-wrapper">
 
@@ -77,7 +77,7 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
+                    @include('StudentAdmin.components.lineLoading',['loadID' => 'lineLoading'])
                     <div class="row row-deck row-cards" id="cards">
 
                         {{-- <div class="col-md-6 col-lg-3">
@@ -127,7 +127,7 @@
             </div>
         </div>
 
-        @include('Admin.components.footer')
+        @include('StudentAdmin.components.footer')
 
         {{-- Modal --}}
 
@@ -194,8 +194,8 @@
     </div>
 
 
-    @include('Admin.components.scripts')
-    @include('admin.components.electionscript')
+    @include('StudentAdmin.components.scripts')
+    @include('StudentAdmin.components.electionscript')
 </body>
 
 </html>
