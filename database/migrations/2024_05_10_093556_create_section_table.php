@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB; // For data insertion
+use Illuminate\Support\Facades\DB;
+
 return new class extends Migration
 {
     /**
@@ -21,97 +22,32 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::table('section')->insert([
-            // Sections for Course ID 1
-            [
-                'course_id' => 1, // Introduction to Programming
-                'sect_name' => 'A',
-                'year_level' => 'Second Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'course_id' => 1, // Introduction to Programming
-                'sect_name' => 'B',
-                'year_level' => 'Second Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+        // Now inserting the dummy data for sections
+        $courses = DB::table('course')->get();  // Fetch all courses with course_id from 'course' table
+        $year_levels = ['First Year', 'Second Year', 'Third Year', 'Fourth Year'];
+        $sections = ['A', 'B', 'C'];  // Adjust based on the number of sections
+        $sectionData = [];
+        $now = now();
 
-            // Sections for Course ID 2
-            [
-                'course_id' => 2, // Data Structures and Algorithms
-                'sect_name' => 'A',
-                'year_level' => 'Third Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'course_id' => 2, // Data Structures and Algorithms
-                'sect_name' => 'B',
-                'year_level' => 'Third Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+        foreach ($courses as $course) {
+            $course_id = $course->course_id;  // Assuming course_id is the primary key of the course table
 
-            // Sections for Course ID 3
-            [
-                'course_id' => 3, // Principles of Management
-                'sect_name' => 'A',
-                'year_level' => 'First Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'course_id' => 3, // Principles of Management
-                'sect_name' => 'B',
-                'year_level' => 'First Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+            foreach ($year_levels as $year_level) {
+                foreach ($sections as $section) {
+                    $sectionData[] = [
+                        'course_id' => $course_id,
+                        'sect_name' => $section,
+                        'year_level' => $year_level,
+                        'sect_status' => '0',
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ];
+                }
+            }
+        }
 
-            // Sections for Course ID 4
-            [
-                'course_id' => 4, // Circuit Analysis
-                'sect_name' => 'A',
-                'year_level' => 'Second Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'course_id' => 4, // Circuit Analysis
-                'sect_name' => 'B',
-                'year_level' => 'Second Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            // Additional Sections for Demonstration
-            [
-                'course_id' => 5, // Assuming there's a Course ID 5
-                'sect_name' => 'A',
-                'year_level' => 'First Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'course_id' => 5, // Assuming there's a Course ID 5
-                'sect_name' => 'B',
-                'year_level' => 'First Year',
-                'sect_status' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        // Insert the generated section data
+        DB::table('section')->insert($sectionData);
     }
 
     /**
