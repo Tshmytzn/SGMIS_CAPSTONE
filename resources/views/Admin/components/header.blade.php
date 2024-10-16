@@ -40,7 +40,7 @@
         }
          .folder {
             width: 300px;
-            height: 200px;
+            height: 300px;
             margin: 0 auto;
             position: relative;
             border-radius: 6px;

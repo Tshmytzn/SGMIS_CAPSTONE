@@ -58,15 +58,15 @@ footer {
 
 <body>
   <div class="container">
-    
+
       <header>
-          <img src="logo.png" alt="Company Logo" class="logo">
+          <img src="logoicon.png" alt="Company Logo" class="logo">
       </header>
 
     <main>
         <h1>Our Website is Coming Soon!</h1>
         <p>We're working hard to bring you something amazing. Stay tuned for our launch!</p>
-        <img src="illustration.png" alt="Coming Soon Illustration" class="illustration">
+        <img src="undraw_A_moment_to_relax_re_v5gv.png" alt="Coming Soon Illustration" class="illustration">
     </main>
 
       <footer>
