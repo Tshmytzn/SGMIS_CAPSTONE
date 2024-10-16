@@ -49,6 +49,7 @@ Route::get('/Budgeting', [SessionDetect::class, 'Budgeting'])->name('Budgeting')
 Route::get('/Budgeting/Details/{id}', [BudgetProposalController::class, 'show'])->name('viewbudget');
 Route::get('/Budgeting/Expense/{id}', [BudgetProposalController::class, 'show2'])->name('setexpense');
 
+Route::get('/landing', function () { return view('Admin.landing'); })->name('landing');
 
 Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('ViewAttendance');
 Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
