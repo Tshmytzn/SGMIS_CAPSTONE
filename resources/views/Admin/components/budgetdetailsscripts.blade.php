@@ -197,13 +197,13 @@
             processData: false, // Important for file uploads
             success: function(response) {
                 let g = 1;
-var committeeField = document.getElementById("committeeTable2");
-committeeField.innerHTML = ``;
+                var committeeField = document.getElementById("committeeTable2");
+                committeeField.innerHTML = ``;
 
-response.data.forEach(element => {
+                response.data.forEach(element => {
 
-    // Append committee row
-    committeeField.innerHTML += `
+                    // Append committee row
+                    committeeField.innerHTML += `
         <div class="row border p-2 rounded mb-3">
             <div class="col-3">
                 <input type="text" class="form-control"
@@ -218,11 +218,12 @@ response.data.forEach(element => {
         </div>
     `;
 
-    // Append members to each committee
-    element.members.forEach(member => {
-        var displayField = document.getElementById("displayfield" + g); // No need for `${g}`
-        
-        displayField.innerHTML += `
+                    // Append members to each committee
+                    element.members.forEach(member => {
+                        var displayField = document.getElementById("displayfield" +
+                            g); // No need for `${g}`
+
+                        displayField.innerHTML += `
             <div class="row mb-2">
                 <div class="col-6">
                     <input type="text" readonly class="form-control" name="" placeholder="Enter head(s)" value="${member.member_name}" required>
@@ -232,10 +233,10 @@ response.data.forEach(element => {
                 </div>
             </div>
         `;
-    });
+                    });
 
-    g++; // Increment g for each new committee
-});
+                    g++; // Increment g for each new committee
+                });
 
             },
             error: function(xhr, status, error) {
@@ -245,7 +246,7 @@ response.data.forEach(element => {
         });
     }
 
-    function loadEditCommittee(){
+    function loadEditCommittee() {
         $('#formBtn').hide();
         $('#formBtn2').show();
 
@@ -266,103 +267,112 @@ response.data.forEach(element => {
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
-            let g = 1;  // Global counter for committees
-let committeeField = document.getElementById("committeeTable2");
-committeeField.innerHTML = ``;  // Clear the field before appending
+                let g = 1; // Global counter for committees
+                let committeeField = document.getElementById("committeeTable2");
+                committeeField.innerHTML = ``; // Clear the field before appending
 
-response.data.forEach(element => {
-    // Create committee row
-    let committeeRow = document.createElement('div');
-    committeeRow.classList.add('row', 'border', 'p-2', 'rounded', 'mb-3');
+                response.data.forEach(element => {
+                    // Create committee row
+                    let committeeRow = document.createElement('div');
+                    committeeRow.classList.add('row', 'border', 'p-2', 'rounded', 'mb-3');
 
-    // Create input for committee ID (hidden)
-    committeeRow.innerHTML += `
+                    // Create input for committee ID (hidden)
+                    committeeRow.innerHTML += `
         <input value="${element.id}" type="hidden" name="committee[${g}][id]">  <!-- Include committee ID -->
     `;
 
-    // Create input for committee name
-    let committeeNameCol = document.createElement('div');
-    committeeNameCol.classList.add('col-3');
-    let committeeNameInput = document.createElement('input');
-    committeeNameInput.type = 'text';
-    committeeNameInput.className = 'form-control';
-    committeeNameInput.name = `committee[${g}][name]`;  // Name with committee index
-    committeeNameInput.placeholder = 'Enter committee name';
-    committeeNameInput.value = element.name;
-    committeeNameInput.readOnly = true;  // Readonly
-    committeeNameCol.appendChild(committeeNameInput);
+                    // Create input for committee name
+                    let committeeNameCol = document.createElement('div');
+                    committeeNameCol.classList.add('col-3');
+                    let committeeNameInput = document.createElement('input');
+                    committeeNameInput.type = 'text';
+                    committeeNameInput.className = 'form-control';
+                    committeeNameInput.name = `committee[${g}][name]`; // Name with committee index
+                    committeeNameInput.placeholder = 'Enter committee name';
+                    committeeNameInput.value = element.name;
+                    committeeNameInput.readOnly = true; // Readonly
+                    committeeNameCol.appendChild(committeeNameInput);
 
-    // Create column for members
-    let memberCol = document.createElement('div');
-    memberCol.classList.add('col-6');
-    let displayField = document.createElement('div');
-    displayField.id = `displayfield${g}`;  // Unique ID for display field
-    memberCol.appendChild(displayField);
+                    // Create column for members
+                    let memberCol = document.createElement('div');
+                    memberCol.classList.add('col-6');
+                    let displayField = document.createElement('div');
+                    displayField.id = `displayfield${g}`; // Unique ID for display field
+                    memberCol.appendChild(displayField);
 
-    let deleteC = document.createElement('div');
-    deleteC.classList.add('col-3');
-    let deleteMemC = document.createElement('button');
-        deleteMemC.type = 'button';
-        deleteMemC.className = 'btn btn-danger';
-        deleteMemC.innerHTML = 'Remove Committee'; 
-        deleteMemC.setAttribute('onclick', `deleteCom('${element.id}')`);
-    deleteC.appendChild(deleteMemC);
-    // Append columns to the committee row
-    committeeRow.appendChild(committeeNameCol);
-    committeeRow.appendChild(memberCol);
-    committeeRow.appendChild(deleteC);
-    committeeField.appendChild(committeeRow);
-    
-    // Counter for members within the current committee
-    let o = 1;  
-    element.members.forEach(member => {
-        // Create member row
-        let memberRow = document.createElement('div');
-        memberRow.classList.add('row', 'mb-2');
+                    let deleteC = document.createElement('div');
+                    deleteC.classList.add('col-3');
+                    let editMemC = document.createElement('button');
+                    editMemC.type = 'button';
+                    editMemC.className = 'btn btn-primary';
+                    editMemC.innerHTML = 'Add Member';
+                    editMemC.setAttribute('onclick',
+                        `addEditFieldCom('displayfield${g}',${g},'${element.id}')`);
+                    deleteC.appendChild(editMemC);
+                    let deleteMemC = document.createElement('button');
+                    deleteMemC.type = 'button';
+                    deleteMemC.className = 'btn btn-danger';
+                    deleteMemC.innerHTML = 'Remove Committee';
+                    deleteMemC.setAttribute('onclick', `deleteCom('${element.id}')`);
+                    deleteC.appendChild(deleteMemC);
+                    // Append columns to the committee row
+                    committeeRow.appendChild(committeeNameCol);
+                    committeeRow.appendChild(memberCol);
+                    committeeRow.appendChild(deleteC);
+                    committeeField.appendChild(committeeRow);
 
-        // Create input for member name
-        let memberNameCol = document.createElement('div');
-        memberNameCol.classList.add('col-6');
-        let memberNameInput = document.createElement('input');
-        memberNameInput.type = 'text';
-        memberNameInput.className = 'form-control';
-        memberNameInput.value = member.member_name;
-        memberNameInput.name = `committee[${g}][members][${o}][name]`;  // Name includes committee and member index
-        memberNameInput.placeholder = 'Enter head(s)';
-        memberNameInput.required = true;  // Make it required
-        memberNameCol.appendChild(memberNameInput);
+                    // Counter for members within the current committee
+                    let o = 1;
+                    element.members.forEach(member => {
+                        // Create member row
+                        let memberRow = document.createElement('div');
+                        memberRow.classList.add('row', 'mb-2');
 
-        // Create column for member role selection
-        let memberRoleCol = document.createElement('div');
-        memberRoleCol.classList.add('col-4');
-        let selectElement = document.createElement('select');
-        selectElement.className = 'form-control';
-        selectElement.name = `committee[${g}][members][${o}][role]`;  // Name includes committee and member index
+                        // Create input for member name
+                        let memberNameCol = document.createElement('div');
+                        memberNameCol.classList.add('col-6');
+                        let memberNameInput = document.createElement('input');
+                        memberNameInput.type = 'text';
+                        memberNameInput.className = 'form-control';
+                        memberNameInput.value = member.member_name;
+                        memberNameInput.name =
+                            `committee[${g}][members][${o}][name]`; // Name includes committee and member index
+                        memberNameInput.placeholder = 'Enter head(s)';
+                        memberNameInput.required = true; // Make it required
+                        memberNameCol.appendChild(memberNameInput);
 
-        // Create and append the options
-        let headOption = document.createElement('option');
-        headOption.value = 'Head';
-        headOption.textContent = 'Head';
-        let memberOption = document.createElement('option');
-        memberOption.value = 'Member';
-        memberOption.textContent = 'Member';
+                        // Create column for member role selection
+                        let memberRoleCol = document.createElement('div');
+                        memberRoleCol.classList.add('col-4');
+                        let selectElement = document.createElement('select');
+                        selectElement.className = 'form-control';
+                        selectElement.name =
+                            `committee[${g}][members][${o}][role]`; // Name includes committee and member index
 
-        // Append options to the select
-        selectElement.appendChild(headOption);
-        selectElement.appendChild(memberOption);
+                        // Create and append the options
+                        let headOption = document.createElement('option');
+                        headOption.value = 'Head';
+                        headOption.textContent = 'Head';
+                        let memberOption = document.createElement('option');
+                        memberOption.value = 'Member';
+                        memberOption.textContent = 'Member';
 
-        // Set the value of the select element
-        selectElement.value = member.member_role;
+                        // Append options to the select
+                        selectElement.appendChild(headOption);
+                        selectElement.appendChild(memberOption);
 
-        // Create column for delete button
-        let divD = document.createElement('div');
-        divD.classList.add('col-2');
-        let deleteMem = document.createElement('button');
-        deleteMem.type = 'button';
-        deleteMem.className = 'btn btn-danger';
-        
-        // Add SVG inside the button
-        deleteMem.innerHTML = `
+                        // Set the value of the select element
+                        selectElement.value = member.member_role;
+
+                        // Create column for delete button
+                        let divD = document.createElement('div');
+                        divD.classList.add('col-2');
+                        let deleteMem = document.createElement('button');
+                        deleteMem.type = 'button';
+                        deleteMem.className = 'btn btn-danger';
+
+                        // Add SVG inside the button
+                        deleteMem.innerHTML = `
             &nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <path d="M4 7l16 0" />
@@ -373,25 +383,27 @@ response.data.forEach(element => {
             </svg>
         `;
 
-        deleteMem.setAttribute('onclick', `deleteMem('${member.id}')`);  // Passing committee and member index as arguments
-        
-        // Append the delete button to its column
-        divD.appendChild(deleteMem);
+                        deleteMem.setAttribute('onclick',
+                            `deleteMem('${member.id}')`
+                        ); // Passing committee and member index as arguments
 
-        // Append select to member role column
-        memberRoleCol.appendChild(selectElement);
-        // Append columns to member row
-        memberRow.appendChild(memberNameCol);
-        memberRow.appendChild(memberRoleCol);
-        memberRow.appendChild(divD);
-        // Append member row to display field
-        displayField.appendChild(memberRow);
+                        // Append the delete button to its column
+                        divD.appendChild(deleteMem);
 
-        o++;  // Increment member counter
-    });
+                        // Append select to member role column
+                        memberRoleCol.appendChild(selectElement);
+                        // Append columns to member row
+                        memberRow.appendChild(memberNameCol);
+                        memberRow.appendChild(memberRoleCol);
+                        memberRow.appendChild(divD);
+                        // Append member row to display field
+                        displayField.appendChild(memberRow);
 
-    g++;  // Increment committee counter
-});
+                        o++; // Increment member counter
+                    });
+
+                    g++; // Increment committee counter
+                });
 
 
             },
@@ -402,10 +414,162 @@ response.data.forEach(element => {
         });
 
     }
-    function deleteMem(id){
 
-        document.getElementById('data_id').value=id;
-            var formElement = document.getElementById('randomForm');
+    function deleteMem(id) {
+
+        document.getElementById('data_id').value = id;
+        var formElement = document.getElementById('randomForm');
+        var formData = new FormData(formElement);
+        document.getElementById('adminloader').style.display = '';
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: "{{ route('budgetingProcess') }}" + '?process=delete',
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                document.getElementById('adminloader').style.display = 'none';
+                if (response.status == 'error') {
+                    alertify
+                        .alert("Warning", response.message, function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    alertify
+                        .alert("Success", response.message, function() {
+                            alertify.message('OK');
+                        });
+                    $('#' + response.modal).modal('hide');
+                    alertify
+                        .alert("Message", response.message, function() {
+                            alertify.message('OK');
+
+                        });
+                    if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload](); // Safe dynamic function call
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
+    }
+
+    function deleteCom(id) {
+
+        document.getElementById('data_id').value = id;
+        var formElement = document.getElementById('randomForm');
+        var formData = new FormData(formElement);
+        document.getElementById('adminloader').style.display = '';
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: "{{ route('budgetingProcess') }}" + '?process=delete2',
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                document.getElementById('adminloader').style.display = 'none';
+                if (response.status == 'error') {
+                    alertify
+                        .alert("Warning", response.message, function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    alertify
+                        .alert("Success", response.message, function() {
+                            alertify.message('OK');
+                        });
+                    $('#' + response.modal).modal('hide');
+                    alertify
+                        .alert("Message", response.message, function() {
+                            alertify.message('OK');
+
+                        });
+                    if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload](); // Safe dynamic function call
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
+    }
+
+    function addEditFieldCom(id, num, data_id) {
+
+        var div = document.getElementById(id);
+        // Get all input and select elements inside the div
+        var inputs = div.querySelectorAll("input");
+        var selects = div.querySelectorAll("select");
+
+        // Check if there are any input elements
+        if (inputs.length === 0) {
+            console.log("No input elements found. Defaulting to 0.");
+            var h = 0;
+        } else {
+            var lastInputName = inputs[inputs.length - 1].getAttribute("name");
+
+            // Extract the number from the name attribute using regex
+            var matches = lastInputName.match(/\d+/g);
+
+            // Check if there was a match for the number
+            if (matches && matches.length >= 2) {
+                var secondNumber = matches[1];
+                var h = parseInt(secondNumber, 10) + 1; // Increment the index for the new input
+            } else {
+                console.error("No valid index found in the input name.");
+                return;
+            }
+        }
+
+        // Create a new div element for the person input
+        var personInput = document.createElement('div');
+        personInput.className = "row mb-2";
+        personInput.id = `personInput${h}`;
+
+        // Create the inner HTML structure for person input
+        personInput.innerHTML = `
+        <div class="col-6">
+            <input type="text" class="form-control" name="committee[${num}][members][${h}][name]" placeholder="Enter head(s)" required>
+        </div>
+        <div class="col-4">
+            <select class="form-control" name="committee[${num}][members][${h}][role]">
+                <option value="Head">Head</option>
+                <option value="Member">Member</option>
+            </select>
+        </div>
+        <div class="col-1 text-center">
+            <button type="button" class="btn btn-danger" onclick="removecommitteeInput('personInput${h}')">
+                &nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-minus">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                    <path d="M9 12l6 0" />
+                </svg>
+            </button>
+        </div>
+    `;
+
+        // Append the new person input fields to the committee input div
+        div.appendChild(personInput);
+    }
+
+
+    function updateCommentteeField() {
+        validateCommittees()
+        if (validateCommittees()) {
+            var formElement = document.getElementById('committeeForm');
             var formData = new FormData(formElement);
             document.getElementById('adminloader').style.display = '';
             // Append the CSRF token to the FormData
@@ -414,7 +578,7 @@ response.data.forEach(element => {
             // Send the AJAX request
             $.ajax({
                 type: "POST",
-                url: "{{ route('budgetingProcess') }}" + '?process=delete',
+                url: "{{ route('budgetingProcess') }}" + '?process=update',
                 data: formData,
                 contentType: false, // Important for file uploads
                 processData: false, // Important for file uploads
@@ -446,53 +610,54 @@ response.data.forEach(element => {
                     // You can also add custom error handling here if needed
                 }
             });
+        }
     }
-    function deleteCom(id){
 
-        document.getElementById('data_id').value=id;
-            var formElement = document.getElementById('randomForm');
-            var formData = new FormData(formElement);
-            document.getElementById('adminloader').style.display = '';
-            // Append the CSRF token to the FormData
-            formData.append('_token', '{{ csrf_token() }}');
+    function submitData(id, route, process) {
+        var formElement = document.getElementById(id);
+        var formData = new FormData(formElement);
+        document.getElementById('adminloader').style.display = '';
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
 
-            // Send the AJAX request
-            $.ajax({
-                type: "POST",
-                url: "{{ route('budgetingProcess') }}" + '?process=delete2',
-                data: formData,
-                contentType: false, // Important for file uploads
-                processData: false, // Important for file uploads
-                success: function(response) {
-                    document.getElementById('adminloader').style.display = 'none';
-                    if (response.status == 'error') {
-                        alertify
-                            .alert("Warning", response.message, function() {
-                                alertify.message('OK');
-                            });
-                    } else {
-                        alertify
-                            .alert("Success", response.message, function() {
-                                alertify.message('OK');
-                            });
-                        $('#' + response.modal).modal('hide');
-                        alertify
-                            .alert("Message", response.message, function() {
-                                alertify.message('OK');
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: route + '?process=' + process,
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                document.getElementById('adminloader').style.display = 'none';
+                if (response.status == 'error') {
+                    alertify
+                        .alert("Warning", response.message, function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    alertify
+                        .alert("Success", response.message, function() {
+                            alertify.message('OK');
+                        });
+                    $('#' + response.modal).modal('hide');
+                    alertify
+                        .alert("Message", response.message, function() {
+                            alertify.message('OK');
 
-                            });
-                        if (response.reload && typeof window[response.reload] === 'function') {
-                            window[response.reload](); // Safe dynamic function call
-                        }
+                        });
+                    if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload](); // Safe dynamic function call
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    // You can also add custom error handling here if needed
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
     }
-    function loadEditCommittee2(){
+
+    function loadEditCommittee2() {
         $('#formBtn').show();
         $('#formBtn2').hide();
 
@@ -500,7 +665,81 @@ response.data.forEach(element => {
         $('#view2').hide();
         loadMembers()
     }
+
+    function loadBudgetDataTable() {
+        var formElement = document.getElementById('getBudgetDateForm');
+        var formData = new FormData(formElement);
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: "{{ route('mealProcess') }}" + '?process=' + 'get',
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                console.log(response)
+                $('#committeeMealTable').DataTable({
+                    data: response.data,
+                    columns: [{
+                            data: 'name'
+                        },
+                        {
+                            data: null, // Use null to indicate that we will render this column manually
+                            render: function(data, row) {
+                                // Check if row.meals is an array and has elements
+                                if (Array.isArray(row.meals) && row.meals.length > 0) {
+                                    row.meals.forEach(item => {
+                                        console.log(item); // Log each meal item
+                                    });
+                                    return row.meals.join(
+                                        ', '
+                                    ); // Display the meals as a comma-separated string
+                                } else {
+                                    console.log('No Meals'); // Log when there are no meals
+                                    return 'No Meals'; // Display 'No Meals' in the table cell
+                                }
+                            }
+                        },
+                        {
+                            data: 'id',
+                            render: function(data) {
+                                return `<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#schedMealModal" onclick="schedMeal('${data}')">Schedule Meal</button>`; // Handle nulls here
+                            }
+                        },
+
+                    ]
+                });
+
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
+    }
+
+    function schedMeal(id) {
+        console.log(id)
+    }
+    
     $(document).ready(function() {
         loadMembers()
+        loadBudgetDataTable()
+        const bDateS = document.getElementById('bDateStart').value;
+        const bDateE = document.getElementById('bDateEnd').value;
+        flatpickr("#multiDatePicker", {
+        mode: "multiple", // Enables multiple date selection
+        dateFormat: "Y-m-d", // Customize date format if needed
+        minDate: bDateS.split(" ")[0], // Set your specific start date
+        maxDate: bDateE.split(" ")[0], // Set your specific end date
+        onClose: function(selectedDates) {
+            console.log(selectedDates); // Log the selected dates
+        }
+    });
+        $('#mealDataTable').DataTable();
+       
     });
 </script>

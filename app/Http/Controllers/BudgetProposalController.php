@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\BudgetMeal;
 use Illuminate\Http\Request;
 use App\Models\BudgetProposal;
 use App\Models\SchoolEvents;
 use App\Models\Committee;
 use App\Models\CommitteeMember;
-
+use App\Models\MealDate;
 
 class BudgetProposalController extends Controller
 {
@@ -147,9 +148,39 @@ class BudgetProposalController extends Controller
             ]);
         }else if($request->process=='update'){
 
+            if (!$request->has('committee')) {
+                return response()->json(['message' => 'Committee data is required.'], 400);
+            }
 
+            $validatedData = $request->validate([
+                'committee.*.id' => 'required|integer|exists:committees,id', // Ensure the committee ID exists
+                'committee.*.name' => 'required|string|max:255', // Validate committee name
+                'committee.*.members.*.name' => 'required|string|max:255', // Validate member name
+                'committee.*.members.*.role' => 'required|string|in:Head,Member', // Validate member role
+            ]);
 
-            return response()->json(['message' => 'SuccessFully Updated', 'reload' => 'loadMembers', 'status' => 'success']);
+            foreach ($validatedData['committee'] as $committeeData) {
+                // Retrieve or create the committee
+                $committee = Committee::updateOrCreate(
+                    ['id' => $committeeData['id']], // Match by ID
+                    ['name' => $committeeData['name']] // Update the name
+                );
+
+                // Optionally delete existing members if you want to reset members
+                CommitteeMember::where('committee_id', $committeeData['id'])->delete();
+
+                // Loop through each member in the committee
+                foreach ($committeeData['members'] as $memberData) {
+                    $member = new CommitteeMember; // Create new member
+                    $member->committee_id = $committeeData['id'];
+                    $member->member_name = $memberData['name'];
+                    $member->member_role = $memberData['role'];
+                    $member->save();
+                }
+            }
+
+            return response()->json(['message' => 'Successfully Updated', 'reload' => 'loadEditCommittee2', 'status' => 'success']);
+
         }else if($request->process == 'delete'){
 
             $data = CommitteeMember::where('id',$request->data_id)->first();
@@ -160,17 +191,52 @@ class BudgetProposalController extends Controller
         } else if ($request->process == 'delete2') {
 
             $data = Committee::where('id', $request->data_id)->first();
-            $data2 = CommitteeMember::where('id', $data->id)->get();
-            if($data2){
-                foreach ($data2 as $dat) {
-                    $dat->delete();
-                }
-            }
+            CommitteeMember::where('committee_id', operator: $data->id)->delete();
             $data->delete();
 
             return response()->json(['message' => 'SuccessFully Deleted', 'reload' => 'loadEditCommittee2', 'status' => 'success']);
         }
-        
+    }
+
+    public function mealProcess(request $request){
+
+        if($request->process == 'add'){
+            $validatedData = $request->validate([
+                'morning' => 'required|max:255',
+                'lunch' => 'required|max:255',
+                'afternoon' => 'required|max:255',
+                'dinner' => 'required|max:255',
+            ]);
+
+            foreach ($validatedData as $key => $value) {
+                $meal = new BudgetMeal();
+                $meal->budget_id = $request->budget_id;
+                $meal->meal = $key; // Use the key (morning, lunch, etc.) as the 'type'
+                $meal->price = $value; // The corresponding value (meal name, etc.)
+                $meal->save();
+            }
+
+            return response()->json(['message' => 'SuccessFully Deleted2', 'reload' => 'loadEditCommittee2', 'status' => 'success']);
+        }
+        else if($request->process == 'get'){
+
+            $committees = Committee::where('budgeting_id', $request->budget_id)->get();
+            $data = [];
+
+            foreach ($committees as $com) {
+                $meals = MealDate::where('committee_id', $com->id)->get();
+                
+                $data[] = [ 
+                    'id' => $com->id,
+                    'name' => $com->name,
+                    'budget_id' => $com->budgeting_id,
+                    'meals' => $meals, 
+                ];
+            }
+
+            return response()->json(['message' => 'Successfully retrieved committees', 'data' => $data, 'status' => 'success']);
+
+        }
     }
 
 }
