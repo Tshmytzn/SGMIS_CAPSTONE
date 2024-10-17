@@ -433,6 +433,7 @@
       </div>
     </div>
 
+    
     <div class="modal modal-blur fade" id="addActivity" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -472,7 +473,7 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="mb-3">
                   <label class="form-label">Date <span id="act_date_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                   <input type="date" id="act_date" name="act_date"class="form-control">

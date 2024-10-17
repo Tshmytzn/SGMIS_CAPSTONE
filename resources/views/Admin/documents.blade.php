@@ -40,7 +40,7 @@
                   </div>
                   </div>
   
-                      <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#uploadcomp"> Create Compendium</button>
+                      <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#uploadcomp"> Create Document</button>
       
               </div>
             </div>
