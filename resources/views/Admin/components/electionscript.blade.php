@@ -18,10 +18,9 @@
                         .alert("Warning", response.message, function() {
                             alertify.message('OK');
                         });
-                }else if(response.status == 'update'){
-                    
-                }
-                 else {
+                } else if (response.status == 'update') {
+
+                } else {
                     getElection()
                     document.getElementById(formId).reset();
                     $('#' + response.modal).modal('hide');
@@ -43,21 +42,21 @@
     });
     // function autoSubmit(id){ 
     //     document.getElementById('elect_id').value=id;
-    //     dynamicFuction('updateElectionForm', "{{route('createElection')}}")
+    //     dynamicFuction('updateElectionForm', "{{ route('createElection') }}")
     // }
 
     function getElection() {
         document.getElementById('lineLoading').style.display = '';
-           var cardsContainer = document.getElementById('cards');
-                cardsContainer.innerHTML = '';
+        var cardsContainer = document.getElementById('cards');
+        cardsContainer.innerHTML = '';
         $.ajax({
             url: "{{ route('getElection') }}",
             method: 'GET',
             dataType: 'json',
             success: function(response) {
                 document.getElementById('lineLoading').style.display = 'none';
-              // Clear previous content
-                 cardsContainer.innerHTML = '';
+                // Clear previous content
+                cardsContainer.innerHTML = '';
                 if (response.data.length === 0) {
                     // No data available
                     cardsContainer.innerHTML = `<div class="empty">
@@ -83,25 +82,25 @@
                             if (currentDate >= endDate) {
                                 color = 'red'
                                 status =
-                                'close'; // If the current date is greater than or equal to endDate, set status to 'close'
-                                stats='none'
-                                see=''
+                                    'close'; // If the current date is greater than or equal to endDate, set status to 'close'
+                                stats = 'none'
+                                see = ''
                                 // if(item.elect_status == '1'){
                                 //      autoSubmit(item.elect_id)
                                 // }
                             } else {
                                 color = 'green'
                                 status =
-                                'ongoing'; // If the current date is between startDate and endDate, set status to 'ongoing'
-                                stats='none'
-                                see=''
+                                    'ongoing'; // If the current date is between startDate and endDate, set status to 'ongoing'
+                                stats = 'none'
+                                see = ''
                             }
                         } else {
                             color = 'yellow'
                             status =
-                            'not started'; // If the current date is less than startDate, set status to 'not started'
-                            stats='flex'
-                            see='none'
+                                'not started'; // If the current date is less than startDate, set status to 'not started'
+                            stats = 'flex'
+                            see = 'none'
                         }
                         var cardHtml = `
                                 <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">

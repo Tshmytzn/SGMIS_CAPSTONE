@@ -4,7 +4,12 @@
 
 @include('Admin.components.header', ['title' => 'Budgeting Details'])
 @include('Admin.components.adminstyle')
+<style>
+    .input-error {
+    border: 2px solid red; /* Adjust the border thickness and color */
+}
 
+</style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -136,9 +141,7 @@
                                     <div class="row">
                                         <div class="col d-flex justify-content-between mt-2">
                                             <h3 style="margin-left: -3%">Committees and Performers</h3>
-                                            <div title="Edit Committtee"
-                                                style="border: none; background: none; margin-right:1%; cursor: pointer;"
-                                                data-bs-toggle="modal" data-bs-target="#editEventDetails">
+                                            <div title="Edit Committtee" id="view1" style="border: none; background: none; margin-right:1%; cursor: pointer;" onclick="loadEditCommittee()">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -150,6 +153,9 @@
                                                         d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
                                                     <path d="M16 5l3 3" />
                                                 </svg>
+                                            </div>
+                                            <div title="Edit Committtee" id="view2" style="border: none; background: none; margin-right:1%; cursor: pointer; display:none" onclick="loadEditCommittee2()">
+                                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>                                            
                                             </div>
                                         </div>
                                     </div>
@@ -160,165 +166,45 @@
                             <div class="card-body">
                                 <form id="committeeForm">
                                     @csrf
-                                    <input type="hidden" name="budget_id" value="{{ $budget->id }}">
-                                    <div class="mb-3">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Committee</th>
-                                                    <th>Person-in-Charge</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="committeeTable">
-
-                                                @foreach ($committees as $index => $committee)
-                                                    <tr>
-                                                        <td>
-                                                            <input type="hidden"
-                                                                name="committees[{{ $index }}][id]"
-                                                                value="{{ $committee->id }}"> <!-- Hidden ID field -->
-                                                            <input type="text" class="form-control"
-                                                                name="committees[{{ $index }}][name]"
-                                                                placeholder="Enter committee name"
-                                                                value="{{ $committee->name }}" required>
-                                                        </td>
-                                                        <td>
-                                                            <div class="person-in-charge-list">
-                                                                @foreach ($committee->person_in_charge as $personIndex => $person)
-                                                                    <input type="text"
-                                                                        class="form-control mb-2 person-in-charge-name"
-                                                                        name="committees[{{ $index }}][persons_in_charge][]"
-                                                                        placeholder="Enter head(s)"
-                                                                        value="{{ $person }}" required>
-                                                                @endforeach
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <button type="button" id="addpersonbtn"
-                                                                    class="btn btn-primary add-person-in-charge-btn col-6">Add
-                                                                    Another Person-in-Charge</button>
-                                                                &nbsp;
-                                                                <button type="button" id="removepersonbtn"
-                                                                    class="btn btn-danger remove-person-in-charge-btn col-6">Remove
-                                                                    Person-in-Charge</button>
-                                                            </div>
-                                                        </td>
-                                                        <td class="d-flex justify-content-center">
-                                                            <button type="button" id="removecommitteebtn"
-                                                                class="btn btn-danger remove-committee-btn col-12">Remove
-                                                                Committee</button>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-
-                                            </tbody>
-                                        </table>
-                                        <button type="button" class="btn btn-primary w-100" id="addCommitteeRow">Add
-                                            Committee</button>
-                                        <button type="button" id="savebtn"
-                                            style="background-color: #0065a0 !important; color: #ffffff"
-                                            onclick="submitForm()" class="btn w-100 mt-2">Save Committee</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-
-                        {{-- Add committees card --}}
-                        <div class="card">
-                            <div class="card-header">
-
-                                <div class="container mx-3" style="margin-bottom: -1%;">
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-between mt-2">
-                                            <h3 style="margin-left: -3%">Committee Members</h3>
-                                            <div title="Add Members"
-                                                style="border: none; background: none; margin-right:1%; cursor: pointer;"
-                                                data-bs-toggle="modal" data-bs-target="#editEventDetails">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path
-                                                        d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                                    <path
-                                                        d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                                    <path d="M16 5l3 3" />
-                                                </svg>
+                                    <div id="committeeTable" class="row border border-success p-2 rounded mb-2">
+                                        <div class="col-4 text-center">Committee</div>
+                                        <div class="col-4 text-center">Members</div>
+                                        <div class="col-4 text-center">Action</div>
+                                        <div class="col-12 mt-2">
+                                            <form action="" method="POST" id="addComitteeForm">
+                                                @csrf
+                                                <input type="text" name='budget_id' value="{{ $budget->id }}" hidden>
+                                            <div id="committeeTable2">
+                                            
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form id="committeemembers">
-                                    @csrf
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Committee Name</th>
-                                                <th>Members</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="committeeMembersTable">
-                                            @foreach ($committees as $committee)
-                                                <tr data-committee-id="{{ $committee->id }}">
-                                                    <td>{{ $committee->name }}</td>
-                                                    <td>
-                                                        <div class="member-inputs">
-                                                            @if (isset($committeeMembers[$committee->id]))
-                                                                @foreach ($committeeMembers[$committee->id] as $member)
-                                                                    <input type="hidden"
-                                                                        name="member_ids[{{ $committee->id }}][]"
-                                                                        value="{{ $member->id }}">
-                                                                    <input type="text" class="form-control mb-2"
-                                                                        placeholder="Enter member name"
-                                                                        value="{{ $member->member_name }}"
-                                                                        name="members[{{ $committee->id }}][]">
-                                                                @endforeach
-                                                            @else
-                                                                <input type="text" class="form-control mb-2"
-                                                                    placeholder="Enter member name"
-                                                                    name="members[{{ $committee->id }}][]">
-                                                            @endif
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary add-member-btn"
-                                                            data-committee-id="{{ $committee->id }}">Add
-                                                            Member</button>
-                                                        <button type="button"
-                                                            class="btn btn-danger remove-member-btn"
-                                                            data-committee-id="{{ $committee->id }}">Remove
-                                                            Member</button>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-
-                                        </tbody>
-                                    </table>
-                                    <!-- Hidden input to track removed members -->
-                                    <input type="hidden" id="removedMemberIds" name="removed_member_ids[]"
-                                        value="">
-
-                                    <button type="button" class="btn w-100"
-                                        style="background-color: #0065a0 !important; color: #ffffff"
-                                        onclick="submitCommitteeMembers()">Save Members</button>
+                                        <div id="formBtn">
+                                            <button type="button" class="btn btn-primary w-100" id="addCommitteeRow" onclick="addCommentteeField()">Add Committee</button>
+                                            <button type="button" style="background-color: #0065a0 !important; color: #ffffff" onclick="addComitteeData('committeeForm','{{route('budgetingProcess')}}','add')" class="btn w-100 mt-2">Save Committee</button>
+                                        </div>
+                                        <div id="formBtn2" style="display: none">
+                                            <button type="button" class="btn btn-primary w-100" id="" onclick="updateCommentteeField()">Update Committee</button>
+                                        </div>
+                                        </div>
                                 </form>
-
                             </div>
-
-
                         </div>
+                        
                         <a href="/Budgeting/Expense/{{ $budget->id }}">
                             <button class="btn btn-primary w-100">Proceed to Expense Setup & Additional
                                 Entries</button>
                         </a>
                     </div>
-
-
+                    <form action="" method="POST" id="getCommetteeDataForm" hidden>
+                        @csrf
+                        <input type="text" name="budget_id" id="" value="{{ $budget->id }}">
+                    </form>
+                    <form action="" method="POST" id="randomForm" hidden>
+                        @csrf
+                        <input type="text" name="data_id" id="data_id" value="">
+                    </form>
                 </div>
             </div>
         </div>

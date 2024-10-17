@@ -14,7 +14,8 @@ class CommitteeMember extends Model
     protected $fillable =
     [
         'committee_id',
-        'member_name'
+        'member_name',
+        'member_role'
     ];
 
     public function committee()

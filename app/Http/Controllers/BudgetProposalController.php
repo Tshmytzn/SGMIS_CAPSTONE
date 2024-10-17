@@ -88,4 +88,89 @@ class BudgetProposalController extends Controller
         return view('Admin.budgetexpense', compact('budget', 'event', 'committees'));
     }
 
+    public function budgetingProcess(request $request){
+        if($request->process=='add'){
+            $budget_id = $request->budget_id;
+
+            $committees = $request->input('committee');
+
+            foreach ($committees as $committee) {
+
+                $committeeName = $committee['name'];
+                $data = new Committee;
+                $data->budgeting_id = $budget_id;
+                $data->name = $committeeName;
+                $data->save();
+
+                if (isset($committee['members'])) {
+                    foreach ($committee['members'] as $member) {
+                        $memberName = $member['name'];
+                        $memberRole = $member['role'];
+
+                        $date2 =  new CommitteeMember;
+                        $date2->committee_id = $data->id;
+                        $date2->member_name = $memberName;
+                        $date2->member_role = $memberRole;
+                        $date2->save();
+                    }
+                }
+            }
+
+            return response()->json(['message' => 'SuccessFully Insert', 'reload' => 'loadMembers', 'status' => 'success']);
+        }
+        elseif($request->process=='get'){
+            $budget_id = $request->budget_id;
+
+            // Retrieve the committees for the given budget_id
+            $committees = Committee::where('budgeting_id', $budget_id)->get();
+
+            // Check if committees exist
+            if ($committees->isEmpty()) {
+                return response()->json([
+                    'message' => 'No committees found for the provided budget_id',
+                    'status' => 'error',
+                ], 404);
+            }
+
+            // For each committee, attach the related members
+            $committeesWithMembers = $committees->map(function ($committee) {
+                $members = CommitteeMember::where('committee_id', $committee->id)->get();
+                $committee->members = $members; // Add the members to the committee object
+                return $committee;
+            });
+
+            // Return the committees with their members nested
+            return response()->json([
+                'message' => 'Successfully retrieved data',
+                'data' => $committeesWithMembers,
+                'status' => 'success',
+            ]);
+        }else if($request->process=='update'){
+
+
+
+            return response()->json(['message' => 'SuccessFully Updated', 'reload' => 'loadMembers', 'status' => 'success']);
+        }else if($request->process == 'delete'){
+
+            $data = CommitteeMember::where('id',$request->data_id)->first();
+            $data->delete();
+
+            return response()->json(['message' => 'SuccessFully Deleted', 'reload' => 'loadEditCommittee2', 'status' => 'success']);
+      
+        } else if ($request->process == 'delete2') {
+
+            $data = Committee::where('id', $request->data_id)->first();
+            $data2 = CommitteeMember::where('id', $data->id)->get();
+            if($data2){
+                foreach ($data2 as $dat) {
+                    $dat->delete();
+                }
+            }
+            $data->delete();
+
+            return response()->json(['message' => 'SuccessFully Deleted', 'reload' => 'loadEditCommittee2', 'status' => 'success']);
+        }
+        
+    }
+
 }

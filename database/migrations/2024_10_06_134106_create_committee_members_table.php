@@ -16,7 +16,8 @@ class CreateCommitteeMembersTable extends Migration
         Schema::create('committee_members', function (Blueprint $table) {
             $table->id();
             $table->foreignId('committee_id')->constrained()->onDelete('cascade');
-            $table->string('member_name'); 
+            $table->string('member_name');
+            $table->string('member_role'); 
             $table->timestamps();
         });
     }

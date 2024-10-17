@@ -23,7 +23,6 @@ class Committee extends Model
      */
     protected $fillable = [
         'name',
-        'person_in_charge',
         'budgeting_id'
     ];
 

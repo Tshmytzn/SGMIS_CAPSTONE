@@ -196,7 +196,7 @@
                                         <div class="mb-3">
                                             <label for="submissionDate" class="form-label">Submission Date</label>
                                             <input type="date" class="form-control" id="submissionDate"
-                                                name="submissionDate" value="<?php echo date('Y-m-d'); ?>" readonly>
+                                                name="submissionDate" value="<?php date_default_timezone_set('Asia/Hong_Kong'); echo date('Y-m-d'); ?>" readonly>
                                         </div>
                                         <!-- Additional Notes -->
                                         <div class="mb-3">

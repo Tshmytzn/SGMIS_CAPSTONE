@@ -131,7 +131,7 @@ Route::post('Admin/saveResult', [ElectionController::class, 'saveResult'])->name
 
 // tish budgeting controller: post routes
 Route::post('admin/GetBudgetProposal', [BudgetProposalController::class, 'getBudgetProposal'])->name('getBudgetProposal');
-
+Route::post('admin/budgetingProcess', [BudgetProposalController::class, 'budgetingProcess'])->name('budgetingProcess');
 
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');

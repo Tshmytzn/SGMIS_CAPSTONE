@@ -1,281 +1,506 @@
 <script>
-    let committeeIndex = 0; // To track committee count
+    let i = 1; // Global counter for committee rows
 
-    // Function to add a new committee row
-    document.getElementById('addCommitteeRow').addEventListener('click', function() {
-        committeeIndex++;
-        const newRow = `
-        <tr>
-            <td>
-                <input type="text" class="form-control" name="committees[${committeeIndex}][name]" placeholder="Enter committee name" required>
-            </td>
-            <td>
-                <div class="person-in-charge-list">
-                    <input type="text" class="form-control mb-2 person-in-charge-name" name="committees[${committeeIndex}][persons_in_charge][]" placeholder="Enter head(s)" required>
+    function addCommentteeField() {
+        var commentteeField = document.getElementById("committeeTable2");
+
+        // Create a new div for the committee row
+        var committeeRow = document.createElement('div');
+        committeeRow.className = "row border p-2 rounded mb-3";
+        committeeRow.id = `committeeRow${i}`;
+
+        // Create the inner HTML structure
+        committeeRow.innerHTML = `
+        <div class="col-3">
+            <input type="text" class="form-control"
+                name="committee[${i}][name]"
+                placeholder="Enter committee name"
+                value="" required>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-primary add-person-in-charge-btn col-6">Add Another Person-in-Charge</button>&nbsp;
-                    <button type="button" class="btn btn-danger remove-person-in-charge-btn col-6">Remove Person-in-Charge</button>
+                <div class="col-6">
+                    <div id="committeeInput${i}">
+                        <div class="row mb-2">
+                        <div class="col-6">
+                    <input type="text" class="form-control" name="committee[${i}][members][${i}][name]" placeholder="Enter head(s)" required>
                 </div>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger remove-committee-btn col-12">Remove Committee</button>
-            </td>
-        </tr>`;
-        document.getElementById('committeeTable').insertAdjacentHTML('beforeend', newRow);
-    });
+                <div class="col-4">
+                    <select class="form-control" name="committee[${i}][members][${i}][role]">
+                        <option value="Head">Head</option>
+                        <option value="Member">Member</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-primary col-12" onclick="addcommitteeInput(${i})">Add Member</button>
+            </div>
+        </div>
+        <div class="col-3">
+            <button type="button" class="btn btn-danger col-12" onclick="removeCommittee('committeeRow${i}')">Remove Committee</button>
+        </div>
+    `;
 
-    // Event delegation for removing a committee row or person-in-charge input
-    document.getElementById('committeeTable').addEventListener('click', function(e) {
-        // Remove committee row
-        if (e.target.classList.contains('remove-committee-btn')) {
-            e.target.closest('tr').remove();
+        // Append the new committee row to the committee table
+        commentteeField.appendChild(committeeRow);
+        i++; // Increment the counter for the next row
+    }
+    let e = 2;
+
+    function addcommitteeInput(committeeIndex) {
+        // Locate the div where person-in-charge inputs will be added
+        var committeeInput = document.getElementById(`committeeInput${committeeIndex}`);
+
+        // Create a new div for the person input fields
+        var personInput = document.createElement('div');
+        personInput.className = "row mb-2";
+        personInput.id = `personInput${e}`;
+
+        // Create the inner HTML structure for person input
+        personInput.innerHTML = `
+        <div class="col-6">
+            <input type="text" class="form-control" name="committee[${committeeIndex}][members][${e}][name]" placeholder="Enter head(s)" required>
+        </div>
+        <div class="col-4">
+            <select class="form-control" name="committee[${committeeIndex}][members][${e}][role]">
+                <option value="Head">Head</option>
+                <option value="Member">Member</option>
+            </select>
+        </div>
+        <div class="col-2 text-center">
+            <button type="button" class="btn btn-danger" onclick="removecommitteeInput('personInput${e}')">
+                &nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-minus">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                    <path d="M9 12l6 0" />
+                </svg>
+            </button>
+        </div>
+    `;
+
+        // Append the new person input fields to the committee input div
+        committeeInput.appendChild(personInput);
+        e++;
+    }
+
+    function removecommitteeInput(committeeId) {
+        // Locate and remove the entire committee row
+        var element = document.getElementById(committeeId);
+        if (element) {
+            element.remove(); // Removes the entire committee row
+        } else {
+            console.log("Committee row not found.");
         }
+    }
 
-        // Remove person-in-charge input
-        if (e.target.classList.contains('remove-person-in-charge-btn')) {
-            const personInChargeList = e.target.closest('td').querySelector('.person-in-charge-list');
-            const inputs = personInChargeList.querySelectorAll('input');
-
-            // Check if there is more than one input
-            if (inputs.length > 1) {
-                inputs[inputs.length - 1].remove();
-            } else {
-                alert("At least one person-in-charge must be present.");
-            }
+    function removeCommittee(committeeId) {
+        // Locate and remove the entire committee row
+        var element = document.getElementById(committeeId);
+        if (element) {
+            element.remove(); // Removes the entire committee row
+        } else {
+            console.log("Committee row not found.");
         }
-    });
+    }
 
-    // Event delegation for adding another person-in-charge
-    document.getElementById('committeeTable').addEventListener('click', function(e) {
-        if (e.target.classList.contains('add-person-in-charge-btn')) {
-            const personInChargeList = e.target.closest('td').querySelector('.person-in-charge-list');
-            const currentCommitteeIndex = e.target.closest('tr').querySelector('input[name^="committees"]').name
-                .match(/\d+/)[0]; // Get current committee index
-            const newPersonInChargeInput =
-                `
-            <input type="text" class="form-control mb-2 person-in-charge-name" name="committees[${currentCommitteeIndex}][persons_in_charge][]" placeholder="Enter head(s)" required>`;
-            personInChargeList.insertAdjacentHTML('beforeend', newPersonInChargeInput);
-        }
-    });
+    function addComitteeData(formId, routeUrl, process) {
 
-    function submitForm() {
-        // Validate that all fields are filled
-        let allValid = true;
+        validateCommittees()
+        if (validateCommittees()) {
+            document.getElementById('adminloader').style.display = 'grid';
+            // Create a new FormData object from the form
+            var formElement = document.getElementById(formId);
+            var formData = new FormData(formElement);
 
-        // Variable to track if at least one person-in-charge is filled
-        let atLeastOnePersonInCharge = false;
+            // Append the CSRF token to the FormData
+            formData.append('_token', '{{ csrf_token() }}');
 
-        // Check each committee row
-        $('#committeeTable tr').each(function() {
-            const committeeName = $(this).find('input[placeholder="Enter committee name"]').val();
-            const personsInCharge = $(this).find('.person-in-charge-name').map(function() {
-                return $(this).val();
-            }).get();
+            // Send the AJAX request
+            $.ajax({
+                type: "POST",
+                url: routeUrl + '?process=' + process,
+                data: formData,
+                contentType: false, // Important for file uploads
+                processData: false, // Important for file uploads
+                success: function(response) {
+                    document.getElementById('adminloader').style.display = 'none';
+                    if (response.status == 'error') {
+                        alertify
+                            .alert("Warning", response.message, function() {
+                                alertify.message('OK');
+                            });
+                    } else {
 
-            // Validate committee name
-            if (!committeeName) {
-                alertify.error('Committee name is required.');
-                allValid = false;
-                return false; // Exit the .each() loop
-            }
+                        document.getElementById(formId).reset();
+                        $('#' + response.modal).modal('hide');
+                        alertify
+                            .alert("Message", response.message, function() {
+                                alertify.message('OK');
 
-            // Validate persons in charge
-            personsInCharge.forEach((person, index) => {
-                if (person) {
-                    atLeastOnePersonInCharge = true; // Mark if at least one is filled
-                } else {
-                    alertify.error(`Person-in-charge #${index + 1} is required.`);
-                    allValid = false; // Mark the form as invalid
+                            });
+                        if (response.reload && typeof window[response.reload] === 'function') {
+                            window[response.reload](); // Safe dynamic function call
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // You can also add custom error handling here if needed
                 }
             });
+        }
+    }
 
-            // If no persons in charge are filled, show an error
-            if (!atLeastOnePersonInCharge) {
-                alertify.error('At least one person-in-charge is required.');
-                allValid = false;
+    function validateCommittees() {
+        // Get all committee name inputs
+        let isValid;
+        const committeeNames = document.querySelectorAll("input[name^='committee'][name$='[name]']");
+        if (committeeNames.length > 0) {
+            isValid = true;
+        }
+        // Flag to track the validity of committee names
+        let emptyCommittees = []; // Array to store empty committee names
+
+        // Loop through each committee name input
+        committeeNames.forEach((input, index) => {
+            // Remove error class from all inputs before validation
+            input.classList.remove("input-error");
+
+            if (input.value.trim() === "") {
+                isValid = false; // Mark as invalid if any input is empty
+                emptyCommittees.push(`Committee ${index + 1}`); // Store the index of the empty input
+                input.classList.add("input-error"); // Add error class to highlight empty input
             }
         });
 
-        if (!allValid) {
-            return;
+        // If any committee names are empty, alert the user
+        if (!isValid) {
+            return false; // Prevent form submission
+        } else {
+            return true;
         }
-        alertify.confirm("Would you like to save the committee data and continue to the next section?", function(e) {
-            if (e) {
+    }
 
-                let formData = new FormData($('#committeeForm')[0]);
-                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+    function loadMembers() {
 
-                $("#committeeForm button").prop('disabled', true);
-                $("#committeeForm button").hide();
+        var formElement = document.getElementById('getCommetteeDataForm');
+        var formData = new FormData(formElement);
 
-                $.ajax({
-                    url: '{{ route('committees.store') }}',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        alertify.success('Committees saved successfully!');
-                        console.log(response);
-                        $('table thead tr th:nth-child(3)').hide();
-                        $('table tbody tr td:nth-child(3)').hide();
-                        location.reload();
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
 
-                    },
-                    error: function(xhr, status, error) {
-                        alertify.error('An error occurred: ' + xhr.responseText);
-                        console.log(xhr.responseText);
-                    }
-                });
-            } else {
-                alertify.error("Action canceled.");
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: "{{ route('budgetingProcess') }}" + '?process=get',
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                let g = 1;
+var committeeField = document.getElementById("committeeTable2");
+committeeField.innerHTML = ``;
+
+response.data.forEach(element => {
+
+    // Append committee row
+    committeeField.innerHTML += `
+        <div class="row border p-2 rounded mb-3">
+            <div class="col-3">
+                <input type="text" class="form-control"
+                    name=""
+                    placeholder="Enter committee name"
+                    value="${element.name}"  readonly>
+            </div>
+            <div class="col-6">
+                <div id="displayfield${g}">
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Append members to each committee
+    element.members.forEach(member => {
+        var displayField = document.getElementById("displayfield" + g); // No need for `${g}`
+        
+        displayField.innerHTML += `
+            <div class="row mb-2">
+                <div class="col-6">
+                    <input type="text" readonly class="form-control" name="" placeholder="Enter head(s)" value="${member.member_name}" required>
+                </div>
+                <div class="col-4">
+                    <input class="form-control" value="${member.member_role}" readonly>
+                </div>
+            </div>
+        `;
+    });
+
+    g++; // Increment g for each new committee
+});
+
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
             }
         });
     }
 
+    function loadEditCommittee(){
+        $('#formBtn').hide();
+        $('#formBtn2').show();
+
+        $('#view1').hide();
+        $('#view2').show();
+
+        var formElement = document.getElementById('getCommetteeDataForm');
+        var formData = new FormData(formElement);
+
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: "{{ route('budgetingProcess') }}" + '?process=get',
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+            let g = 1;  // Global counter for committees
+let committeeField = document.getElementById("committeeTable2");
+committeeField.innerHTML = ``;  // Clear the field before appending
+
+response.data.forEach(element => {
+    // Create committee row
+    let committeeRow = document.createElement('div');
+    committeeRow.classList.add('row', 'border', 'p-2', 'rounded', 'mb-3');
+
+    // Create input for committee ID (hidden)
+    committeeRow.innerHTML += `
+        <input value="${element.id}" type="hidden" name="committee[${g}][id]">  <!-- Include committee ID -->
+    `;
+
+    // Create input for committee name
+    let committeeNameCol = document.createElement('div');
+    committeeNameCol.classList.add('col-3');
+    let committeeNameInput = document.createElement('input');
+    committeeNameInput.type = 'text';
+    committeeNameInput.className = 'form-control';
+    committeeNameInput.name = `committee[${g}][name]`;  // Name with committee index
+    committeeNameInput.placeholder = 'Enter committee name';
+    committeeNameInput.value = element.name;
+    committeeNameInput.readOnly = true;  // Readonly
+    committeeNameCol.appendChild(committeeNameInput);
+
+    // Create column for members
+    let memberCol = document.createElement('div');
+    memberCol.classList.add('col-6');
+    let displayField = document.createElement('div');
+    displayField.id = `displayfield${g}`;  // Unique ID for display field
+    memberCol.appendChild(displayField);
+
+    let deleteC = document.createElement('div');
+    deleteC.classList.add('col-3');
+    let deleteMemC = document.createElement('button');
+        deleteMemC.type = 'button';
+        deleteMemC.className = 'btn btn-danger';
+        deleteMemC.innerHTML = 'Remove Committee'; 
+        deleteMemC.setAttribute('onclick', `deleteCom('${element.id}')`);
+    deleteC.appendChild(deleteMemC);
+    // Append columns to the committee row
+    committeeRow.appendChild(committeeNameCol);
+    committeeRow.appendChild(memberCol);
+    committeeRow.appendChild(deleteC);
+    committeeField.appendChild(committeeRow);
+    
+    // Counter for members within the current committee
+    let o = 1;  
+    element.members.forEach(member => {
+        // Create member row
+        let memberRow = document.createElement('div');
+        memberRow.classList.add('row', 'mb-2');
+
+        // Create input for member name
+        let memberNameCol = document.createElement('div');
+        memberNameCol.classList.add('col-6');
+        let memberNameInput = document.createElement('input');
+        memberNameInput.type = 'text';
+        memberNameInput.className = 'form-control';
+        memberNameInput.value = member.member_name;
+        memberNameInput.name = `committee[${g}][members][${o}][name]`;  // Name includes committee and member index
+        memberNameInput.placeholder = 'Enter head(s)';
+        memberNameInput.required = true;  // Make it required
+        memberNameCol.appendChild(memberNameInput);
+
+        // Create column for member role selection
+        let memberRoleCol = document.createElement('div');
+        memberRoleCol.classList.add('col-4');
+        let selectElement = document.createElement('select');
+        selectElement.className = 'form-control';
+        selectElement.name = `committee[${g}][members][${o}][role]`;  // Name includes committee and member index
+
+        // Create and append the options
+        let headOption = document.createElement('option');
+        headOption.value = 'Head';
+        headOption.textContent = 'Head';
+        let memberOption = document.createElement('option');
+        memberOption.value = 'Member';
+        memberOption.textContent = 'Member';
+
+        // Append options to the select
+        selectElement.appendChild(headOption);
+        selectElement.appendChild(memberOption);
+
+        // Set the value of the select element
+        selectElement.value = member.member_role;
+
+        // Create column for delete button
+        let divD = document.createElement('div');
+        divD.classList.add('col-2');
+        let deleteMem = document.createElement('button');
+        deleteMem.type = 'button';
+        deleteMem.className = 'btn btn-danger';
+        
+        // Add SVG inside the button
+        deleteMem.innerHTML = `
+            &nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M4 7l16 0" />
+                <path d="M10 11l0 6" />
+                <path d="M14 11l0 6" />
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+            </svg>
+        `;
+
+        deleteMem.setAttribute('onclick', `deleteMem('${member.id}')`);  // Passing committee and member index as arguments
+        
+        // Append the delete button to its column
+        divD.appendChild(deleteMem);
+
+        // Append select to member role column
+        memberRoleCol.appendChild(selectElement);
+        // Append columns to member row
+        memberRow.appendChild(memberNameCol);
+        memberRow.appendChild(memberRoleCol);
+        memberRow.appendChild(divD);
+        // Append member row to display field
+        displayField.appendChild(memberRow);
+
+        o++;  // Increment member counter
+    });
+
+    g++;  // Increment committee counter
+});
+
+
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
+
+    }
+    function deleteMem(id){
+
+        document.getElementById('data_id').value=id;
+            var formElement = document.getElementById('randomForm');
+            var formData = new FormData(formElement);
+            document.getElementById('adminloader').style.display = '';
+            // Append the CSRF token to the FormData
+            formData.append('_token', '{{ csrf_token() }}');
+
+            // Send the AJAX request
+            $.ajax({
+                type: "POST",
+                url: "{{ route('budgetingProcess') }}" + '?process=delete',
+                data: formData,
+                contentType: false, // Important for file uploads
+                processData: false, // Important for file uploads
+                success: function(response) {
+                    document.getElementById('adminloader').style.display = 'none';
+                    if (response.status == 'error') {
+                        alertify
+                            .alert("Warning", response.message, function() {
+                                alertify.message('OK');
+                            });
+                    } else {
+                        alertify
+                            .alert("Success", response.message, function() {
+                                alertify.message('OK');
+                            });
+                        $('#' + response.modal).modal('hide');
+                        alertify
+                            .alert("Message", response.message, function() {
+                                alertify.message('OK');
+
+                            });
+                        if (response.reload && typeof window[response.reload] === 'function') {
+                            window[response.reload](); // Safe dynamic function call
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // You can also add custom error handling here if needed
+                }
+            });
+    }
+    function deleteCom(id){
+
+        document.getElementById('data_id').value=id;
+            var formElement = document.getElementById('randomForm');
+            var formData = new FormData(formElement);
+            document.getElementById('adminloader').style.display = '';
+            // Append the CSRF token to the FormData
+            formData.append('_token', '{{ csrf_token() }}');
+
+            // Send the AJAX request
+            $.ajax({
+                type: "POST",
+                url: "{{ route('budgetingProcess') }}" + '?process=delete2',
+                data: formData,
+                contentType: false, // Important for file uploads
+                processData: false, // Important for file uploads
+                success: function(response) {
+                    document.getElementById('adminloader').style.display = 'none';
+                    if (response.status == 'error') {
+                        alertify
+                            .alert("Warning", response.message, function() {
+                                alertify.message('OK');
+                            });
+                    } else {
+                        alertify
+                            .alert("Success", response.message, function() {
+                                alertify.message('OK');
+                            });
+                        $('#' + response.modal).modal('hide');
+                        alertify
+                            .alert("Message", response.message, function() {
+                                alertify.message('OK');
+
+                            });
+                        if (response.reload && typeof window[response.reload] === 'function') {
+                            window[response.reload](); // Safe dynamic function call
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // You can also add custom error handling here if needed
+                }
+            });
+    }
+    function loadEditCommittee2(){
+        $('#formBtn').show();
+        $('#formBtn2').hide();
+
+        $('#view1').show();
+        $('#view2').hide();
+        loadMembers()
+    }
     $(document).ready(function() {
-        $("#committeeForm button").hide();
-        $("#committeeForm button").prop('disabled', true);
-
-        $("#committeemembers button").hide();
-        $("#committeemembers button").prop('disabled', true);
-        $('table thead tr th:nth-child(3)').hide();
-        $('table tbody tr td:nth-child(3)').hide();
-
-        $('div[title="Edit Committtee"]').on('click', function() {
-
-            $("#committeeForm button").prop('disabled', false); // Enable form buttons
-            $("#committeeForm button").show(); // Show form buttons
-            $('table thead tr th:nth-child(3)').show();
-            $('table tbody tr td:nth-child(3)').show();
-        });
-        $('div[title="Add Members"]').on('click', function() {
-
-            $("#committeemembers button").prop('disabled', false); // Enable form buttons
-            $("#committeemembers button").show(); // Show form buttons
-            $('table thead tr th:nth-child(3)').show();
-            $('table tbody tr td:nth-child(3)').show();
-        });
-
-        // Add new member input field dynamically
-        $('.add-member-btn').on('click', function() {
-            let committeeId = $(this).data('committee-id');
-            let row = $(`tr[data-committee-id="${committeeId}"]`);
-            let inputContainer = row.find('.member-inputs');
-
-            // Append a new input field for additional member
-            inputContainer.append(
-                `<input type="text" class="form-control mb-2" placeholder="Enter member name" name="members[${committeeId}][]">`
-            );
-        });
-
-        // Remove last added member input field
-        $('.remove-member-btn').on('click', function() {
-            let committeeId = $(this).data('committee-id');
-            let row = $(`tr[data-committee-id="${committeeId}"]`);
-            let inputContainer = row.find('.member-inputs');
-
-            if (inputContainer.find('input').length > 1) {
-                // Get the member_id of the last member input field
-                let lastInput = inputContainer.find('input:last');
-                let memberIdInput = inputContainer.find('input[type="hidden"]:last');
-                let memberId = memberIdInput.val();
-
-                // If the input has a member_id, track it for removal
-                if (memberId) {
-                    let removedMemberIds = $('#removedMemberIds').val();
-                    removedMemberIds += (removedMemberIds ? ',' : '') + memberId;
-                    $('#removedMemberIds').val(removedMemberIds);
-                }
-
-                // Remove the input field
-                lastInput.remove();
-                memberIdInput.remove();
-            } else {
-                alertify.error('At least one member is required.');
-            }
-        });
+        loadMembers()
     });
-
-
-    function submitCommitteeMembers() {
-        // Validate that all member fields are filled
-        let allValid = true;
-
-        // Iterate through each row in the committee members table
-        $('#committeeMembersTable tr').each(function() {
-            let atLeastOneMember = false; // Reset for each committee
-
-            const memberInputs = $(this).find('input[placeholder="Enter member name"]').map(function() {
-                return $(this).val();
-            }).get();
-
-            // Validate members
-            memberInputs.forEach((member, index) => {
-                if (member) {
-                    atLeastOneMember = true; // Mark if at least one member is provided
-                } else {
-                    alertify.error(`Member #${index + 1} is required.`);
-                    allValid = false; // Mark as invalid
-                }
-            });
-
-            // If no members are filled, show an error for the committee
-            if (!atLeastOneMember) {
-                alertify.error('At least one member is required for each committee.');
-                allValid = false;
-            }
-        });
-
-        if (!allValid) {
-            return; // Stop submission if validation fails
-        }
-
-        // Confirmation alert
-        alertify.confirm("Would you like to save the committee members and proceed?", function(e) {
-            if (e) {
-                // Proceed with form submission via AJAX
-                let formData = new FormData($('#committeemembers')[0]);
-                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-
-                formData.forEach((value, key) => {
-                    console.log(key + ": " + value);
-                });
-
-                // Disable buttons and hide them while processing
-                $("#committeemembers button").prop('disabled', true);
-                $("#committeemembers button").hide();
-                $('table thead tr th:nth-child(3)').hide();
-                $('table tbody tr td:nth-child(3)').hide();
-
-                // AJAX request to save committee members
-                $.ajax({
-                    url: '{{ route('committees.members') }}', // Adjust this URL to match your route
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        alertify.success('Members saved successfully!');
-                        console.log(response);
-
-                        // Hide the "Actions" column on success
-                        $('table thead tr th:nth-child(3)').hide(); // Hides the Actions header
-                        $('table tbody tr td:nth-child(3)').hide();
-
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        alertify.error('An error occurred: ' + xhr.responseText);
-                        console.log(xhr.responseText);
-                        $("#committeemembers button").prop('disabled', false); // Re-enable buttons
-                        $("#committeemembers button").show(); // Show buttons again
-                    }
-                });
-            } else {
-                alertify.error("Action canceled.");
-            }
-        });
-    }
 </script>
