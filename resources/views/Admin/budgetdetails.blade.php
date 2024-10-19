@@ -359,24 +359,35 @@
                                 <div class="modal-body">
                                     <form action="" method="POST" id="schedMealForm">
                                         @csrf
-                                        <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Morning</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="morning">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Morning</label>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="lunch">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Lunch</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="afternoon">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Afternoon</label>
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="dinner">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Dinner</label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Lunch</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Afternoon</label>
-                                        </div>
-                                        <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Dinner</label>
-                                        </div>
-                                        <input type="text" class="form-control" id="multiDatePicker" placeholder="Select multiple dates" />
+                                        <input type="text" class="form-control mb-2" id="multiDatePicker" placeholder="Select multiple dates" />
+                                        <button button class="btn btn-primary col-12">Display</button>
                                     </form>
+                                    <hr>
+                                    <div id="mealDateContainer">
+                                        
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"

@@ -13,5 +13,6 @@ class MealDate extends Model
     protected $fillable = [
         'committee_id',
         'meal_date',
+        'meal',
     ];
 }

@@ -207,7 +207,12 @@ class BudgetProposalController extends Controller
                 'afternoon' => 'required|max:255',
                 'dinner' => 'required|max:255',
             ]);
-
+            $b = BudgetMeal::where('budget_id', $request->budget_id)->get();
+            if(count($b) > 0){
+            foreach($b as $bb){
+                $bb->delete();
+            }
+            }
             foreach ($validatedData as $key => $value) {
                 $meal = new BudgetMeal();
                 $meal->budget_id = $request->budget_id;
@@ -216,7 +221,7 @@ class BudgetProposalController extends Controller
                 $meal->save();
             }
 
-            return response()->json(['message' => 'SuccessFully Deleted2', 'reload' => 'loadEditCommittee2', 'status' => 'success']);
+            return response()->json(['message' => 'Meal Budget SuccessFully Set', 'reload' => 'loadBudgetDataTable', 'status' => 'success']);
         }
         else if($request->process == 'get'){
 

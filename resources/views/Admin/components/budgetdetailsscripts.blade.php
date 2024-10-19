@@ -139,6 +139,7 @@
                             });
                         if (response.reload && typeof window[response.reload] === 'function') {
                             window[response.reload](); // Safe dynamic function call
+                            loadBudgetDataTable()
                         }
                     }
                 },
@@ -497,6 +498,7 @@
                         });
                     if (response.reload && typeof window[response.reload] === 'function') {
                         window[response.reload](); // Safe dynamic function call
+                        loadBudgetDataTable()
                     }
                 }
             },
@@ -683,6 +685,7 @@
                 console.log(response)
                 $('#committeeMealTable').DataTable({
                     data: response.data,
+                    destroy:true,
                     columns: [{
                             data: 'name'
                         },
@@ -737,6 +740,8 @@
         maxDate: bDateE.split(" ")[0], // Set your specific end date
         onClose: function(selectedDates) {
             console.log(selectedDates); // Log the selected dates
+            console.log('group')
+            
         }
     });
         $('#mealDataTable').DataTable();

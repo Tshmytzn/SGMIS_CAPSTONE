@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('committee_id')->nullable();
             $table->string('meal_date')->nullable();
+            $table->string('meal')->nullable();
             $table->timestamps();
         });
     }
