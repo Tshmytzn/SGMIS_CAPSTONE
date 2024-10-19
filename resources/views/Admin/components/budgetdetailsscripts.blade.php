@@ -654,6 +654,13 @@
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
+                document.getElementById('adminloader').style.display = 'none';
+                const parsedData = JSON.parse(xhr.responseText);
+                alertify
+                    .alert("Error", parsedData.message, function() {
+                        alertify.message('OK');
+
+                    });
                 // You can also add custom error handling here if needed
             }
         });
@@ -685,7 +692,7 @@
                 console.log(response)
                 $('#committeeMealTable').DataTable({
                     data: response.data,
-                    destroy:true,
+                    destroy: true,
                     columns: [{
                             data: 'name'
                         },
@@ -727,24 +734,105 @@
     function schedMeal(id) {
         console.log(id)
     }
-    
+
     $(document).ready(function() {
         loadMembers()
         loadBudgetDataTable()
         const bDateS = document.getElementById('bDateStart').value;
         const bDateE = document.getElementById('bDateEnd').value;
-        flatpickr("#multiDatePicker", {
-        mode: "multiple", // Enables multiple date selection
-        dateFormat: "Y-m-d", // Customize date format if needed
-        minDate: bDateS.split(" ")[0], // Set your specific start date
-        maxDate: bDateE.split(" ")[0], // Set your specific end date
-        onClose: function(selectedDates) {
-            console.log(selectedDates); // Log the selected dates
-            console.log('group')
-            
-        }
-    });
+        let datePicker;
+
+        datePicker = flatpickr("#multiDatePicker", {
+            mode: "multiple", // Enables multiple date selection
+            dateFormat: "Y-m-d", // Customize date format if needed
+            minDate: bDateS.split(" ")[0], // Set your specific start date
+            maxDate: bDateE.split(" ")[0], // Set your specific end date
+            onClose: function(selectedDates) {
+                console.log(selectedDates); // Log the selected dates
+                console.log('group')
+                const multidate = document.getElementById('multiDatePicker').value
+                console.log(multidate)
+                const form = document.getElementById('schedMealForm');
+
+                // Get all checkboxes within the form
+                const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+
+                // Filter to get only the checked checkboxes
+                const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+                // Get the values of the checked checkboxes
+                const checkedValues = checked.map(checkbox => checkbox.value);
+
+                const dataValue = multidate + ' / ' + checkedValues;
+                if (!multidate || checkedValues.length === 0) {
+                    document.getElementById('error_message_meal').style.display='';
+                    form.reset();
+                    datePicker.clear();
+                } else {
+                    document.getElementById('error_message_meal').style.display='none';
+                    const div = document.getElementById('mealDateContainer');
+                    const inputs = document.querySelectorAll('.mealDate');
+                    
+                    // Split the multidate into individual dates
+                    const multidateArray = multidate.split(','); // Example: ["2024-10-24", "2024-10-20"]
+                    
+                    multidateArray.forEach(date => {
+                        let exists = false;
+
+                        // Check if any input already contains this date
+                        inputs.forEach(input => {
+                            if (input.value.includes(date.trim())) {
+                                alertify
+                                .alert("Message", 'Date: '+date.trim()+' Already Added', function() {
+                                alertify.message('OK');
+
+                    });
+                                exists = true;
+                            }
+                        });
+
+                        if (!exists) {
+                            // Add new input only if the date doesn't exist
+                            const dataValue = date + ' / ' + checkedValues;
+                            div.innerHTML += `
+                            <input type="text" class="mealDate" name="mealDate[]" value="${dataValue}"> 
+                            `;
+                            const MealRow = document.getElementById('maelDateRow');
+                            const row = document.createElement('tr'); // Create a new table row
+                            row.innerHTML = `
+                                <td>${date}</td>
+                                <td>${checkedValues.join(', ')}</td>
+                                <td><button class="btn btn-danger remove-btn">Remove</button></td>
+                            `;
+                             MealRow.appendChild(row); // Append the new row to the table
+
+            // Add event listener to the remove button
+            const removeButton = row.querySelector('.remove-btn'); // Select the button in the current row
+            removeButton.addEventListener('click', function() {
+                // Remove the row containing this button
+                const dateToRemove = row.cells[0].innerText; // Get the date from the first cell
+
+                // Remove the corresponding input field with the same date
+                const inputs = document.querySelectorAll('.mealDate');
+                inputs.forEach(input => {
+                    if (input.value.includes(dateToRemove.trim())) {
+                        input.remove();
+                    }
+                });
+
+                // Remove the row from the table
+                row.remove();
+            });
+                        } else {
+                            console.log(`The date ${date} is already added.`);
+                        }
+                    });
+                    form.reset();
+                    datePicker.clear();
+                }
+            }
+        });
         $('#mealDataTable').DataTable();
-       
+
     });
 </script>

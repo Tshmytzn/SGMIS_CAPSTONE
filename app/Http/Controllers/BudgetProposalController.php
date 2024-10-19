@@ -202,10 +202,10 @@ class BudgetProposalController extends Controller
 
         if($request->process == 'add'){
             $validatedData = $request->validate([
-                'morning' => 'required|max:255',
-                'lunch' => 'required|max:255',
-                'afternoon' => 'required|max:255',
-                'dinner' => 'required|max:255',
+                'Morning' => 'required|max:255',
+                'Lunch' => 'required|max:255',
+                'Afternoon' => 'required|max:255',
+                'Dinner' => 'required|max:255',
             ]);
             $b = BudgetMeal::where('budget_id', $request->budget_id)->get();
             if(count($b) > 0){
@@ -221,7 +221,7 @@ class BudgetProposalController extends Controller
                 $meal->save();
             }
 
-            return response()->json(['message' => 'Meal Budget SuccessFully Set', 'reload' => 'loadBudgetDataTable', 'status' => 'success']);
+            return response()->json(['message' => 'Meal Budget SuccessFully Set', 'modal'=> 'exampleModal','reload' => 'loadBudgetDataTable', 'status' => 'success']);
         }
         else if($request->process == 'get'){
 

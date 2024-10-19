@@ -276,10 +276,10 @@
                                     <div class="card-body">
                                         @php
                                             $meal = \App\Models\BudgetMeal::where('budget_id', $budget->id)->get();
-                                            $meal1 = $meal->firstWhere('meal', 'morning');
-                                            $meal2 = $meal->firstWhere('meal', 'lunch');
-                                            $meal3 = $meal->firstWhere('meal', 'afternoon');
-                                            $meal4 = $meal->firstWhere('meal', 'dinner');
+                                            $meal1 = $meal->firstWhere('meal', 'Morning');
+                                            $meal2 = $meal->firstWhere('meal', 'Lunch');
+                                            $meal3 = $meal->firstWhere('meal', 'Afternoon');
+                                            $meal4 = $meal->firstWhere('meal', 'Dinner');
                                         @endphp
                                         <form action="" method="POST" id="mealForm">
                                             @csrf
@@ -296,38 +296,37 @@
                                                         <td>
                                                             <input type="text" hidden name="budget_id"
                                                                 value="{{ $budget->id }}">
-                                                            <input type="number" class="form-control" name="morning"
+                                                            <input type="number" class="form-control" name="Morning"
                                                                 placeholder="Enter price for morning snacks"
-                                                                min="0" step="0.01"
-                                                                value="{{ $meal1 ? ($meal1->price == '' ? '' : $meal1->price) : '' }}">
+                                                                min="0" 
+                                                                value="{{ $meal1 ? ($meal1->price == '' ? '0' : $meal1->price) : '0' }}">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Lunch</td>
                                                         <td>
-                                                            <input type="number" class="form-control" name="lunch"
+                                                            <input type="number" class="form-control" name="Lunch"
                                                                 placeholder="Enter price for lunch" min="0"
-                                                                step="0.01"
-                                                                value="{{ $meal2 ? ($meal2->price == '' ? '' : $meal2->price) : '' }}">
+                                                                
+                                                                value="{{ $meal2 ? ($meal2->price == '' ? '0' : $meal2->price) : '0' }}">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Afternoon Snacks</td>
                                                         <td>
                                                             <input type="number" class="form-control"
-                                                                name="afternoon"
+                                                                name="Afternoon"
                                                                 placeholder="Enter price for afternoon snacks"
-                                                                min="0" step="0.01"
-                                                                value="{{ $meal3 ? ($meal3->price == '' ? '' : $meal3->price) : '' }}">
+                                                                min="0"
+                                                                value="{{ $meal3 ? ($meal3->price == '' ? '0' : $meal3->price) : '0' }}">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Dinner</td>
                                                         <td>
-                                                            <input type="number" class="form-control" name="dinner"
+                                                            <input type="number" class="form-control" name="Dinner"
                                                                 placeholder="Enter price for dinner" min="0"
-                                                                step="0.01"
-                                                                value="{{ $meal4 ? ($meal4->price == '' ? '' : $meal4->price) : '' }}">
+                                                                value="{{ $meal4 ? ($meal4->price == '' ? '0' : $meal4->price) : '0' }}">
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -357,37 +356,52 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" method="POST" id="schedMealForm">
+                                    <form action="" id="schedMealForm">
                                         @csrf
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="morning">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Morning" onchange="runChecking()">
                                                 <label class="form-check-label" for="flexSwitchCheckDefault">Morning</label>
                                                 </div>
                                                 <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="lunch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Lunch">
                                                 <label class="form-check-label" for="flexSwitchCheckDefault">Lunch</label>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="afternoon">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Afternoon">
                                                 <label class="form-check-label" for="flexSwitchCheckDefault">Afternoon</label>
                                                 </div>
                                                 <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="dinner">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Dinner">
                                                 <label class="form-check-label" for="flexSwitchCheckDefault">Dinner</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <input type="text" class="form-control mb-2" id="multiDatePicker" placeholder="Select multiple dates" />
-                                        <button button class="btn btn-primary col-12">Display</button>
+                                        <div class="text-danger mb-4"id="error_message_meal" style="display: none">
+                                        Please choose meal before selecting a date
+                                        </div>                                    
                                     </form>
-                                    <hr>
                                     <div id="mealDateContainer">
                                         
                                     </div>
+                                    <div class="table-responsive">
+                                    <table class="table table-bordered table-hover" id="committeeMealTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Meal</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="maelDateRow">
+                                          
+                                        </tbody>
+                                    </table>
+                                </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
