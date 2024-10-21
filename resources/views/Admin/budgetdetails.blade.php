@@ -249,12 +249,21 @@
                                             <tr>
                                                 <th>Committee</th>
                                                 <th>Date</th>
+                                                <th>Budget</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          
+
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th> <!-- Footer for the price column -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -298,7 +307,7 @@
                                                                 value="{{ $budget->id }}">
                                                             <input type="number" class="form-control" name="Morning"
                                                                 placeholder="Enter price for morning snacks"
-                                                                min="0" 
+                                                                min="0"
                                                                 value="{{ $meal1 ? ($meal1->price == '' ? '0' : $meal1->price) : '0' }}">
                                                         </td>
                                                     </tr>
@@ -307,7 +316,7 @@
                                                         <td>
                                                             <input type="number" class="form-control" name="Lunch"
                                                                 placeholder="Enter price for lunch" min="0"
-                                                                
+
                                                                 value="{{ $meal2 ? ($meal2->price == '' ? '0' : $meal2->price) : '0' }}">
                                                         </td>
                                                     </tr>
@@ -361,7 +370,7 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Morning" onchange="runChecking()">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Morning">
                                                 <label class="form-check-label" for="flexSwitchCheckDefault">Morning</label>
                                                 </div>
                                                 <div class="form-check form-switch">
@@ -383,13 +392,16 @@
                                         <input type="text" class="form-control mb-2" id="multiDatePicker" placeholder="Select multiple dates" />
                                         <div class="text-danger mb-4"id="error_message_meal" style="display: none">
                                         Please choose meal before selecting a date
-                                        </div>                                    
+                                        </div>
                                     </form>
+                                    <form action="" method="POST" id="sched_meal_form" hidden>
+                                        <input type="text"name='committee_id' id="committee_id" hidden>
                                     <div id="mealDateContainer">
-                                        
+
                                     </div>
+                                    </form>
                                     <div class="table-responsive">
-                                    <table class="table table-bordered table-hover" id="committeeMealTable">
+                                    <table class="table table-bordered table-hover" id="committeeMealTable2">
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
@@ -398,7 +410,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="maelDateRow">
-                                          
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -407,7 +419,7 @@
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary"
-                                        onclick="submitData('mealForm',`{{ route('mealProcess') }}`,'add')">Save
+                                        onclick="submitData('sched_meal_form',`{{ route('mealProcess') }}`,'sched')">Save
                                         changes</button>
                                 </div>
                             </div>
@@ -433,6 +445,7 @@
                     @csrf
                     <input type="text" name="budget_id" id="" value="{{ $budget->id}}">
                 </form>
+                <input type="text" name="" id="temp_id"hidden>
             </div>
         </div>
     </div>

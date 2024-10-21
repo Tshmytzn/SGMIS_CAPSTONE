@@ -518,7 +518,6 @@
 
         // Check if there are any input elements
         if (inputs.length === 0) {
-            console.log("No input elements found. Defaulting to 0.");
             var h = 0;
         } else {
             var lastInputName = inputs[inputs.length - 1].getAttribute("name");
@@ -636,6 +635,19 @@
                         .alert("Warning", response.message, function() {
                             alertify.message('OK');
                         });
+                        const resetHtml = document.getElementById('mealDateContainer');
+                        if(resetHtml){
+                            resetHtml.innerHTML='';
+                        }
+
+                       const resetHtml2 = document.getElementById('maelDateRow');
+                       if(resetHtml2){
+                        resetHtml2.innerHTML='';
+                       }
+
+                        if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload]();
+                    }
                 } else {
                     alertify
                         .alert("Success", response.message, function() {
@@ -648,8 +660,17 @@
 
                         });
                     if (response.reload && typeof window[response.reload] === 'function') {
-                        window[response.reload](); // Safe dynamic function call
+                        window[response.reload]();
                     }
+                    const resetHtml = document.getElementById('mealDateContainer');
+                        if(resetHtml){
+                            resetHtml.innerHTML='';
+                        }
+
+                       const resetHtml2 = document.getElementById('maelDateRow');
+                       if(resetHtml2){
+                        resetHtml2.innerHTML='';
+                       }
                 }
             },
             error: function(xhr, status, error) {
@@ -689,29 +710,26 @@
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
-                console.log(response)
                 $('#committeeMealTable').DataTable({
                     data: response.data,
                     destroy: true,
-                    columns: [{
+                    columns: [
+                        {
                             data: 'name'
                         },
                         {
-                            data: null, // Use null to indicate that we will render this column manually
-                            render: function(data, row) {
-                                // Check if row.meals is an array and has elements
-                                if (Array.isArray(row.meals) && row.meals.length > 0) {
-                                    row.meals.forEach(item => {
-                                        console.log(item); // Log each meal item
-                                    });
-                                    return row.meals.join(
-                                        ', '
-                                    ); // Display the meals as a comma-separated string
-                                } else {
-                                    console.log('No Meals'); // Log when there are no meals
-                                    return 'No Meals'; // Display 'No Meals' in the table cell
+                            data: null, // This will render the meal data
+                            render: function(data, type, row) {
+                             // Check if meals is null or empty
+                                if (!row.meals || row.meals.length === 0) {
+                                    return 'No meals'; // Return 'No meals' if null or empty
                                 }
+                                // Concatenate meal_date and meal for display
+                                return row.meals.map(meal => `${meal.meal_date}: ${meal.meal}`).join('<br>'); // Use <br> for line breaks
                             }
+                        },
+                        {
+                            data:'price'
                         },
                         {
                             data: 'id',
@@ -720,7 +738,21 @@
                             }
                         },
 
-                    ]
+                    ],
+                    footerCallback: function(row, data, start, end, display) {
+                        var api = this.api();
+
+                        // Calculate the total price over all pages
+                        var total = api
+                            .column(2) // Index of the price column (third column, index starts at 0)
+                            .data()
+                            .reduce(function(a, b) {
+                                return parseFloat(a) + parseFloat(b);
+                            }, 0);
+
+                        // Update footer with the total
+                        $(api.column(2).footer()).html('Total: ' + total);
+                    }
                 });
 
             },
@@ -732,9 +764,53 @@
     }
 
     function schedMeal(id) {
-        console.log(id)
+        document.getElementById('committee_id').value=id;
+        document.getElementById('temp_id').value=id;
+        temp(id)
     }
+    function temp(id){
+        const data_id = document.getElementById('temp_id').value
+        autoloadCommitteeTable(data_id)
+        loadBudgetDataTable()
+    }
+    function autoloadCommitteeTable(id){
+        var formData = new FormData();
+        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('committee_id', id);
+        $.ajax({
+            type: "POST",
+            url: "{{ route('mealProcess') }}" + '?process=' + 'get_specific',
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                const data = response.data;
+                $('#committeeMealTable2').DataTable( {
+                    data: data[0].meals,
+                    destroy:true,
+                    columns: [
+                        { data: 'meal_date' },
+                        { data: 'meal' },
+                        {
+                            data: 'id',
+                            render: function(data) {
+                                return `<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#schedMealModal" onclick="removeSchedMeal('${data}')">Remove</button>`; // Handle nulls here
+                            }
+                         },
+                    ]
+                } );
 
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
+    }
+function removeSchedMeal(id){
+    document.getElementById('data_id').value=id;
+    submitData('randomForm',`{{ route('mealProcess') }}`,'remove_sched')
+}
     $(document).ready(function() {
         loadMembers()
         loadBudgetDataTable()
@@ -748,10 +824,8 @@
             minDate: bDateS.split(" ")[0], // Set your specific start date
             maxDate: bDateE.split(" ")[0], // Set your specific end date
             onClose: function(selectedDates) {
-                console.log(selectedDates); // Log the selected dates
                 console.log('group')
                 const multidate = document.getElementById('multiDatePicker').value
-                console.log(multidate)
                 const form = document.getElementById('schedMealForm');
 
                 // Get all checkboxes within the form
@@ -772,10 +846,10 @@
                     document.getElementById('error_message_meal').style.display='none';
                     const div = document.getElementById('mealDateContainer');
                     const inputs = document.querySelectorAll('.mealDate');
-                    
+
                     // Split the multidate into individual dates
                     const multidateArray = multidate.split(','); // Example: ["2024-10-24", "2024-10-20"]
-                    
+
                     multidateArray.forEach(date => {
                         let exists = false;
 
@@ -795,7 +869,7 @@
                             // Add new input only if the date doesn't exist
                             const dataValue = date + ' / ' + checkedValues;
                             div.innerHTML += `
-                            <input type="text" class="mealDate" name="mealDate[]" value="${dataValue}"> 
+                            <input type="text" class="mealDate" name="mealDate[]" value="${dataValue}">
                             `;
                             const MealRow = document.getElementById('maelDateRow');
                             const row = document.createElement('tr'); // Create a new table row

@@ -73,12 +73,12 @@ class BudgetProposalController extends Controller
         $budget = BudgetProposal::findOrFail($id);
         $event = SchoolEvents::where('event_id', $budget->eventid)->first();
         $committees = Committee::where('budgeting_id', $budget->id)->get();
-    
+
         $committeeMembers = CommitteeMember::whereIn('committee_id', $committees->pluck('id'))->get()->groupBy('committee_id');
-    
+
         return view('Admin.budgetdetails', compact('budget', 'event', 'committees', 'committeeMembers'));
     }
-    
+
 
     public function show2($id)
     {
@@ -187,7 +187,7 @@ class BudgetProposalController extends Controller
             $data->delete();
 
             return response()->json(['message' => 'SuccessFully Deleted', 'reload' => 'loadEditCommittee2', 'status' => 'success']);
-      
+
         } else if ($request->process == 'delete2') {
 
             $data = Committee::where('id', $request->data_id)->first();
@@ -230,17 +230,97 @@ class BudgetProposalController extends Controller
 
             foreach ($committees as $com) {
                 $meals = MealDate::where('committee_id', $com->id)->get();
-                
-                $data[] = [ 
+                $totalPrice = 0; // Initialize totalPrice for each committee
+
+                // Initialize an array to hold meal data
+                $mealData = [];
+
+                foreach ($meals as $mel) {
+                    // Explode the meal string into an array
+                    $mealsArray = explode(',', $mel->meal);
+
+                    // Trim whitespace from each meal
+                    $mealsArray = array_map('trim', $mealsArray);
+
+                    // Loop through each meal and calculate the total price
+                    foreach ($mealsArray as $meal) {
+                        $budgetmeal = BudgetMeal::where('meal', $meal)->first();
+
+                        // Check if budgetmeal exists before accessing the price
+                        if ($budgetmeal) {
+                            $totalPrice += $budgetmeal->price; // Add the price to totalPrice
+                        }
+                    }
+
+                    // Store each meal's data (optional)
+                    $mealData[] = [
+                        'id' => $mel->id,
+                        'meal_date' => $mel->meal_date,
+                        'meal' => $mel->meal,
+                        // Include additional fields if needed
+                    ];
+                }
+
+                // Add committee data to the $data array
+                $data[] = [
                     'id' => $com->id,
                     'name' => $com->name,
                     'budget_id' => $com->budgeting_id,
-                    'meals' => $meals, 
+                    'meals' => $mealData, // Store the meal data array
+                    'price' => $totalPrice, // Store the total price
                 ];
             }
 
             return response()->json(['message' => 'Successfully retrieved committees', 'data' => $data, 'status' => 'success']);
 
+        }
+        else if($request->process == 'get_specific'){
+
+            $committees = Committee::where('id', $request->committee_id)->first();
+            $data = [];
+                $meals = MealDate::where('committee_id', $committees->id)->get();
+
+                $data[] = [
+                    'id' => $committees->id,
+                    'name' => $committees->name,
+                    'budget_id' => $committees->budgeting_id,
+                    'meals' => $meals,
+                ];
+
+            return response()->json(['message' => 'Successfully retrieved committees', 'data' => $data, 'status' => 'success']);
+
+        }else if($request->process == 'remove_sched'){
+            $meals = MealDate::where('id', $request->data_id)->first();
+            $meals->delete();
+            return response()->json(['message' => 'Meal Date Successfully Deleted','reload'=>'loadBudgetDataTable', 'status' => 'success']);
+        }
+        else if($request->process == 'sched'){
+            $validatedData = $request->validate([
+                'mealDate.*' => 'required',
+            ]);
+            if(empty($request->input('mealDate'))){
+                return response()->json(['message' =>  'Date and Meal not set', 'status' => 'success']);
+            }
+            foreach ($request->input('mealDate') as $mealDateInput) {
+                [$date, $meals] = explode(' / ', $mealDateInput);
+                $checking=MealDate::where('committee_id',$request->committee_id)->where('meal_date',$date)->first();
+                if ($checking) {
+                    $errors[] = 'Date ' . $date . ' Already Added';
+                    continue; // Skip saving if there's an error, but keep looping
+                }
+                $mealArray = explode(',', $meals);
+                $mealString = implode(', ', $mealArray);
+                $data= new MealDate();
+                $data->committee_id = $request->committee_id;
+                $data->meal_date=$date;
+                $data->meal=$mealString;
+                $data->save();
+            }
+            if (!empty($errors)) {
+                $errorMessage = implode(', ', $errors);
+                return response()->json(['message' => $errorMessage,'reload'=>'temp', 'status' => 'error']);
+            }
+            return response()->json(['message' =>  'Meal Date Successfully Submit','reload'=>'temp', 'status' => 'success']);
         }
     }
 
