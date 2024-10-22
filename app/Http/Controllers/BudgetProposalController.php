@@ -10,6 +10,8 @@ use App\Models\SchoolEvents;
 use App\Models\Committee;
 use App\Models\CommitteeMember;
 use App\Models\MealDate;
+use App\Models\DateLength;
+use Carbon\Carbon;
 
 class BudgetProposalController extends Controller
 {
@@ -57,6 +59,29 @@ class BudgetProposalController extends Controller
     $data->submission_date = $request->submissionDate;
     $data->additional_notes = $request->additionalNotes;
     $data->save();
+
+            $startDate = Carbon::createFromFormat('Y-m-d', $request->budgetPeriodStart);
+            $endDate = Carbon::createFromFormat('Y-m-d', $request->budgetPeriodEnd);
+
+            // Initialize an array to store the days
+
+            // Loop through each day from the start date to the end date
+            $currentDate = $startDate->copy();
+            $dayCounter = 0;
+
+            while ($currentDate->lte($endDate)) {
+                
+                $dayCounter++;
+
+                $data2 = new DateLength();
+                $data2->budget_id =$data->id;
+                $data2->meal_date = $currentDate->toDateString();
+                $data2->date_length = 'Day ' . $dayCounter;
+                $data2->save();
+                
+                $currentDate->addDay();
+            }
+
 
     return response()->json(['message' => 'Budget Proposal Successfully Submitted','reload' => 'getBudgetingDetails','modal' => 'budgetProposalModal', 'status' => 'success']);
         } catch (\Illuminate\Validation\ValidationException $e) {
