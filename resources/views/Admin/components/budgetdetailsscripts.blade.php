@@ -710,6 +710,7 @@
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
+                console.log(response)
                 $('#committeeMealTable').DataTable({
                     data: response.data,
                     destroy: true,
@@ -810,6 +811,140 @@
 function removeSchedMeal(id){
     document.getElementById('data_id').value=id;
     submitData('randomForm',`{{ route('mealProcess') }}`,'remove_sched')
+}
+let indexCount = 1;
+function addOtherExpensesInput() {
+    const data = document.getElementById('otherExpensesInputs');
+    const newRow = document.createElement('div');
+    newRow.classList.add('row', 'mb-2');
+    
+    newRow.innerHTML = `
+        <div class="col-2">
+            <input type="number" min="1" value="1" class="form-control quantity" name="quantity[]" id="">
+        </div>
+        <div class="col-4">
+            <input type="text" class="form-control" placeholder="Enter description" name="description[]" id="">
+        </div>
+        <div class="col-2">
+            <input type="number" min="1" value="1" class="form-control price" name="price[]" id="">
+        </div>
+        <div class="col-2">
+            <input type="text" min="0" value="0" class="form-control total" name="total[]" id="" readonly>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-danger remove-btn">Remove</button>
+        </div>
+    `;
+    indexCount++;
+
+    // Add event listener to remove the row when "Remove" button is clicked
+    newRow.querySelector('.remove-btn').addEventListener('click', function() {
+        newRow.remove();
+    });
+
+    // Function to calculate and update the total
+    function updateTotal() {
+        const quantity = newRow.querySelector('.quantity').value;
+        const price = newRow.querySelector('.price').value;
+        const total = newRow.querySelector('.total');
+        total.value = (quantity * price).toFixed(2);  // Calculate total and set it
+    }
+
+    // Add event listeners for quantity and price inputs to auto-compute total
+    newRow.querySelector('.quantity').addEventListener('input', updateTotal);
+    newRow.querySelector('.price').addEventListener('input', updateTotal);
+
+    data.appendChild(newRow);
+}
+function validateInputs() {
+    const inputs = document.querySelectorAll('#otherExpensesInputs input');
+    let allValid = true;
+
+    inputs.forEach(input => {
+        if (input.value.trim() === '') {
+            input.style.borderColor = 'red'; // Set border to red if empty
+            allValid = false;
+        } else {
+            input.style.borderColor = ''; // Reset border if not empty
+        }
+    });
+    if(inputs){
+        return allValid;
+    }else{
+        return false;
+    }
+    
+}
+function submitOtherExpenses(id, route, process) {
+
+    if (validateInputs()) {
+        var formElement = document.getElementById(id);
+        var formData = new FormData(formElement);
+        document.getElementById('adminloader').style.display = '';
+        // Append the CSRF token to the FormData
+        formData.append('_token', '{{ csrf_token() }}');
+
+        // Send the AJAX request
+        $.ajax({
+            type: "POST",
+            url: route + '?process=' + process,
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+                document.getElementById('adminloader').style.display = 'none';
+                if (response.status == 'error') {
+                    alertify
+                        .alert("Warning", response.message, function() {
+                            alertify.message('OK');
+                        });
+                        const resetHtml = document.getElementById('mealDateContainer');
+                        if(resetHtml){
+                            resetHtml.innerHTML='';
+                        }
+
+                       const resetHtml2 = document.getElementById('maelDateRow');
+                       if(resetHtml2){
+                        resetHtml2.innerHTML='';
+                       }
+
+                        if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload]();
+                    }
+                } else {
+                    const data = document.getElementById('otherExpensesInputs');
+                    data.innerHTML=``;
+                    $('#' + response.modal).modal('hide');
+                    alertify
+                        .alert("Message", response.message, function() {
+                            alertify.message('OK');
+
+                        });
+                    if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload]();
+                    }
+                    const resetHtml = document.getElementById('mealDateContainer');
+                        if(resetHtml){
+                            resetHtml.innerHTML='';
+                        }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                document.getElementById('adminloader').style.display = 'none';
+                const parsedData = JSON.parse(xhr.responseText);
+                alertify
+                    .alert("Error", parsedData.message, function() {
+                        alertify.message('OK');
+
+                    });
+                // You can also add custom error handling here if needed
+            }
+        });
+    } else {
+
+    }
+    
 }
     $(document).ready(function() {
         loadMembers()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\BudgetMeal;
+use App\Models\OtherExpenses;
 use Illuminate\Http\Request;
 use App\Models\BudgetProposal;
 use App\Models\SchoolEvents;
@@ -347,6 +348,36 @@ class BudgetProposalController extends Controller
             }
             return response()->json(['message' =>  'Meal Date Successfully Submit','reload'=>'temp', 'status' => 'success']);
         }
+    }
+
+    public function otherExpensesProcess(request $request){
+        if($request->process == 'add'){
+
+            $quantities = $request->input('quantity');
+            $descriptions = $request->input('description');
+            $prices = $request->input('price');
+            $totals = $request->input('total');
+
+            // Loop through the inputs using the same index
+            foreach ($quantities as $index => $quantity) {
+                $description = $descriptions[$index];
+                $price = $prices[$index];
+                $total = $totals[$index];
+
+                $data= new OtherExpenses();
+                $data->budget_id=$request->budget_id;
+                $data->description=$description;
+                $data->quantity=$quantity;
+                $data->price=$price;
+                $data->total=$total;
+                $data->save();
+            }
+
+            return response()->json(['message' =>  'Other Successfully Added', 'status' => 'success']);
+        }
+
+        return response()->json(['message' =>  'Meal Date Successfully Submit', 'status' => 'success']);
+       
     }
 
 }

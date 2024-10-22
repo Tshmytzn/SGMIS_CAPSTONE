@@ -134,7 +134,7 @@ Route::post('Admin/saveResult', [ElectionController::class, 'saveResult'])->name
 Route::post('admin/GetBudgetProposal', [BudgetProposalController::class, 'getBudgetProposal'])->name('getBudgetProposal');
 Route::post('admin/budgetingProcess', [BudgetProposalController::class, 'budgetingProcess'])->name('budgetingProcess');
 Route::post('admin/mealProcess', [BudgetProposalController::class, 'mealProcess'])->name('mealProcess');
-
+Route::post('admin/otherExpensesProcess', [BudgetProposalController::class, 'otherExpensesProcess'])->name('otherExpensesProcess');
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
 Route::get('/admin/GetSectData', [DeparmentData::class,"GetSectData"])->name('GetSectData');

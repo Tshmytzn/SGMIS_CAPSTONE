@@ -271,6 +271,62 @@
                         </div>
                     </div>
 
+                    {{-- set meal expenses table --}}
+                    <div class="row row-deck row-cards mb-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="container mx-3" style="margin-bottom: -1%;">
+                                    <div class="row">
+                                        <div class="col d-flex justify-content-between mt-2">
+                                            <h3 style="margin-left: -3%">Other Expenses </h3>
+                                            <div style="border: none; background: none; margin-right:1%; cursor: pointer;"
+                                                data-bs-toggle="modal" data-bs-target="#otherExpensesModal">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                    <path
+                                                        d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                    <path d="M16 5l3 3" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover" id="otherExpensesTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Committee</th>
+                                                <th>Date</th>
+                                                <th>Budget</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th> <!-- Footer for the price column -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -420,6 +476,56 @@
                                         data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary"
                                         onclick="submitData('sched_meal_form',`{{ route('mealProcess') }}`,'sched')">Save
+                                        changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="otherExpensesModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Other Expenses</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row text-center mb-2">
+                                        <div class="col-12 mb-2">
+                                            <div class="row">
+                                        <div class="col-2">
+                                            <label for="">Quantity</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="">Description</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="">Price</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="">Total</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label for="">Action</label>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <form action="" method="POST" id="otherExpensesForm">
+                                            <input value="{{ $budget->id }}" name="budget_id" hidden>
+                                        <div class="col-12" id="otherExpensesInputs">
+                                            {{-- innerhtml --}}
+                                        </div>
+                                        </form>
+                                    </div>
+                                    <button class="col-12 btn btn-primary" onclick="addOtherExpensesInput()">Add Other Expenses</button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="submitOtherExpenses('otherExpensesForm',`{{ route('otherExpensesProcess') }}`,'add')">Save
                                         changes</button>
                                 </div>
                             </div>
