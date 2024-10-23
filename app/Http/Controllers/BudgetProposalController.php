@@ -300,6 +300,112 @@ class BudgetProposalController extends Controller
             return response()->json(['message' => 'Successfully retrieved committees', 'data' => $data, 'status' => 'success']);
 
         }
+        // else if ($request->process == 'get2') {
+
+        //     $committees = Committee::where('budgeting_id', $request->budget_id)->get();
+        //     $data = [];
+
+        //     foreach ($committees as $com) {
+        //         $meals = MealDate::where('committee_id', $com->id)->get();
+        //         $totalPrice = 0; // Initialize totalPrice for each committee
+
+        //         // Initialize an array to hold meal data
+        //         $mealData = [];
+
+        //         foreach ($meals as $mel) {
+        //             // Explode the meal string into an array
+        //             $mealsArray = explode(',', $mel->meal);
+
+        //             // Trim whitespace from each meal
+        //             $mealsArray = array_map('trim', $mealsArray);
+
+        //             // Loop through each meal and calculate the total price
+        //             foreach ($mealsArray as $meal) {
+        //                 $budgetmeal = BudgetMeal::where('meal', $meal)->first();
+
+        //                 // Check if budgetmeal exists before accessing the price
+        //                 if ($budgetmeal) {
+        //                     $totalPrice += $budgetmeal->price; // Add the price to totalPrice
+        //                 }
+        //             }
+
+        //             // Store each meal's data (optional)
+        //             $mealData[] = [
+        //                 'id' => $mel->id,
+        //                 'meal_date' => $mel->meal_date,
+        //                 'meal' => $mel->meal,
+        //                 // Include additional fields if needed
+        //             ];
+        //         }
+
+        //         // Get committee members
+        //         $members = CommitteeMember::where('committee_id', $com->id)->get();
+        //         $membersData = [];
+        //         foreach ($members as $mem) {
+        //             $membersData[] = $mem; // Add each member to the members array
+        //         }
+
+        //         // Add committee data to the $data array
+        //         $data[] = [
+        //             'id' => $com->id,
+        //             'name' => $com->name,
+        //             'budget_id' => $com->budgeting_id,
+        //             'meals' => $mealData, // Store the meal data array
+        //             'price' => $totalPrice, // Store the total price
+        //             'members' => $membersData // Store the members array
+        //         ];
+        //     }
+
+        //     return response()->json(['message' => 'Successfully retrieved committees', 'data' => $data, 'status' => 'success']);
+        // }
+        else if ($request->process == 'get2') {
+
+            $data=[];
+
+            $dateLength = DateLength::where('budget_id',$request->budget_id)->get();
+            $otherExpenses = OtherExpenses::where('budget_id',$request->budget_id)->get();
+            foreach ($dateLength as $dl) {
+
+                $mealDate= MealDate::where('meal_date',$dl->meal_date)->get();
+                $totalPrice = 0;
+                $committeeData=[];
+                foreach ($mealDate as $md) {
+                    $committees = Committee::where('id', $md->committee_id)->first();
+                    $members = CommitteeMember::where('committee_id', $committees->id)->get();
+                    $membersData = [];
+                    foreach ($members as $mem) {
+                    $membersData[] = $mem; 
+                    }
+                       
+                    $mealsArray = explode(',', $md->meal);
+                    $mealsArray = array_map('trim', $mealsArray);
+                    $pricePerMeal=[];
+                    foreach ($mealsArray as $meal) {
+                        $budgetmeal = BudgetMeal::where('meal', $meal)->first();
+                        if ($budgetmeal) {
+                            $pricePerMeal[] = 
+                            [
+                               'meal'=> $meal,
+                               'price'=> $budgetmeal->price,
+                            ]; 
+                        }
+                    }
+                    $committeeData[] = [
+                        'committee_name' => $committees->name,
+                        'committee_members' => $membersData,
+                        'meal' => $pricePerMeal,
+                    ];
+                }
+                $data[]=[
+                    'meal_date'=>$dl->meal_date,
+                    'date_length'=>$dl->date_length,
+                    'meal_date_data'=> $committeeData,
+                ];
+
+            }
+
+            return response()->json(['data' => $data,'data2'=>$otherExpenses, 'status' => 'success']);
+        }
         else if($request->process == 'get_specific'){
 
             $committees = Committee::where('id', $request->committee_id)->first();
@@ -373,10 +479,25 @@ class BudgetProposalController extends Controller
                 $data->save();
             }
 
-            return response()->json(['message' =>  'Other Successfully Added', 'status' => 'success']);
+            return response()->json(['message' =>  'Expenses Successfully Added', 'reload' => 'loadOtherExpensesTable', 'status' => 'success']);
+        }else if($request->process == 'get'){
+            $data = OtherExpenses::where('budget_id',$request->budget_id)->get();
+            return response()->json(['data' => $data, 'status' => 'success']);
+        }else if($request->process == 'update'){
+            $data = OtherExpenses::where('id', $request->id)->first();
+            $data->quantity=$request->quantity;
+            $data->price = $request->price;
+            $data->description = $request->description;
+            $data->total = $request->total;
+            $data->save();
+            return response()->json(['message' =>  'Expenses Successfully Updated', 'reload'=> 'loadOtherExpensesTable','status' => 'success']);
+        }else if($request->process=='delete')
+        {
+            $data = OtherExpenses::where('id', $request->data_id)->delete();
+            return response()->json(['message' =>  'Expenses Successfully Deleted', 'reload' => 'loadOtherExpensesTable', 'status' => 'success']);
+       
         }
-
-        return response()->json(['message' =>  'Meal Date Successfully Submit', 'status' => 'success']);
+        return response()->json(['message' =>  'Successfully Submit', 'status' => 'success']);
        
     }
 

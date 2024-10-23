@@ -303,20 +303,22 @@
                                     <table class="table table-bordered table-hover" id="otherExpensesTable">
                                         <thead>
                                             <tr>
-                                                <th>Committee</th>
-                                                <th>Date</th>
-                                                <th>Budget</th>
-                                                <th>Actions</th>
+                                                <th>Quantity</th>
+                                                <th>Description</th>
+                                                <th>Price</th>
+                                                <th>Total</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-
+                                        <tbody id="otherExpensesTableBody">
+                                           
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th> <!-- Footer for the price column -->
+                                                <th></th>
                                                 <th></th>
                                             </tr>
                                         </tfoot>
@@ -533,8 +535,7 @@
                     </div>
 
                     <a href="/Budgeting/Expense/{{ $budget->id }}">
-                        <button class="btn btn-primary w-100">Proceed to Expense Setup & Additional
-                            Entries</button>
+                        <button class="btn btn-primary w-100">Print Budget</button>
                     </a>
                 </div>
                 <input type="hidden" name="bDateStart" id="bDateStart" value="{{ $budget->budget_period_start }}">

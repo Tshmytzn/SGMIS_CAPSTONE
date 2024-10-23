@@ -4,179 +4,138 @@
 
 @include('Admin.components.header', ['title' => 'Budgeting Details'])
 @include('Admin.components.adminstyle')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+
+<style>
+    .input-error {
+        border: 2px solid red;
+        /* Adjust the border thickness and color */
+    }
+.members-list {
+    padding-left: 20px; /* Adjust to control space between list number and text */
+    margin: 5px 0; /* Optional: Adjust spacing around the list */
+}
+
+.members-list li {
+    padding-left: 5px; /* Reduce space between number and member name */
+    margin-bottom: 2px; /* Control space between list items */
+    list-style-position: inside; /* Ensure the number is closer to the text */
+}
+ @media print {
+            /* Hide the print button when printing */
+            #download {
+                display: none;
+            }
+            /* Optional: Adjust styles for print */
+            body {
+                margin: 0; /* Remove margins for a cleaner print */
+            }
+        }
+</style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'Budgetingdetails'])
+        
 
         <div class="page-wrapper">
 
             <!-- Page header -->
-            <div class="page-header d-print-none">
-                <div class="container-xl">
-                    <div class="row g-2 align-items-center">
-                        <div class="col">
-
-                            <!-- Page pre-title -->
-                            <div class="page-pretitle">
-                                Budgeting Details
-                            </div>
-                            <h2 class="page-title">
-                                Expenses
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    <div class="row row-deck row-cards">
 
-                        <!-- Set Meal Budget Table -->
-                        <div class="card-body">
-                            <h2 class="m-3">Set Meal Budget</h2>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Expense Type</th>
-                                        <th>Set Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Morning Snacks</td>
-                                        <td>
-                                            <input type="number" class="form-control" name="budget[morning_snacks]"
-                                                placeholder="Enter price for morning snacks" min="0"
-                                                step="0.01">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lunch</td>
-                                        <td>
-                                            <input type="number" class="form-control" name="budget[lunch]"
-                                                placeholder="Enter price for lunch" min="0" step="0.01">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Afternoon Snacks</td>
-                                        <td>
-                                            <input type="number" class="form-control" name="budget[afternoon_snacks]"
-                                                placeholder="Enter price for afternoon snacks" min="0"
-                                                step="0.01">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dinner</td>
-                                        <td>
-                                            <input type="number" class="form-control" name="budget[dinner]"
-                                                placeholder="Enter price for dinner" min="0" step="0.01">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="submit" class="btn btn-primary w-100">Save Meal Budget</button>
-                        </div>
+                    {{-- set meal expenses table --}}
+                    <div class="row row-deck row-cards mb-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="container mx-3" style="margin-bottom: -1%;">
+                                    <div class="row">
+                                        <div class="col d-flex justify-content-between mt-2">
+                                            <h3 style="margin-left: -3%">Meal Expenses </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                        {{-- set meal expenses table --}}
-                        <div class="card-body">
-                            <h2 class="m-3"> Meal Expenses </h2>
-                            <form id="committeemembers">
-                                @csrf
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Committee Name</th>
-                                            <th>Set Expense Type</th>
-                                            <th>Total Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="committeeMembersTable">
-                                        @foreach ($committees as $committee)
-                                            <tr data-committee-id="{{ $committee->id }}">
-                                                <td>{{ $committee->name }}</td>
-                                                <td>
-                                                    <div class="member-check">
-                                                        <label><input type="checkbox"
-                                                                name="members[{{ $committee->id }}][snacks][]"
-                                                                value="morning_snacks"> Morning Snacks</label><br>
-                                                        <label><input type="checkbox"
-                                                                name="members[{{ $committee->id }}][snacks][]"
-                                                                value="lunch"> Lunch</label><br>
-                                                        <label><input type="checkbox"
-                                                                name="members[{{ $committee->id }}][snacks][]"
-                                                                value="afternoon_snacks"> Afternoon Snacks</label><br>
-                                                        <label><input type="checkbox"
-                                                                name="members[{{ $committee->id }}][snacks][]"
-                                                                value="dinner"> Dinner</label>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control total-amount" name="" placeholder="Total" readonly>
-                                                </td>
+                            <div class="card-body">
+                                <div class="table">
+                                    <table class="table table-bordered table-hover" id="committeeMealTable">
+                                        <thead>
+                                            <tr>
+                                                <th>NO.</th>
+                                                <th>QTY</th>
+                                                <th>DESCIPTION</th>
+                                                <th>UNIT PRICE</th>
+                                                <th>AMOUNT</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <button type="button" class="btn btn-primary w-100"
-                                    onclick="submitCommitteeMembers()">Save Meal Expenses</button>
-                            </form>
-                        </div>
+                                        </thead>
+                                        <tbody id="committeeMealTableBody" style="text-align: center;">
+                                           
+                                        </tbody>
+                                        <tbody id="committeeMealTableBody2" style="text-align: center;">
 
-                        {{-- other expenses table --}}
-                        <div class="card-body">
-                            <h2 class="m-3">Other Expenses</h2>
-                            <table class="table table-bordered" id="additional-expenses-table">
-                                <thead>
-                                    <tr>
-                                        <th>Quantity</th>
-                                        <th>Description</th>
-                                        <th>Unit Price</th>
-                                        <th>Total Amount</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="number" class="form-control qty" name="additional_expenses[0][quantity]" placeholder="Enter quantity" min="0" step="1" oninput="calculateTotal(this)">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="additional_expenses[0][description]" placeholder="Enter description">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control unit-price" name="additional_expenses[0][unit_price]" placeholder="Enter unit price" min="0" step="0.01" oninput="calculateTotal(this)">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control total-amount" name="additional_expenses[0][total_amount]" placeholder="Total" readonly>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger remove-expense-btn" onclick="removeExpenseRow(this)">Remove</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-primary" onclick="addExpenseRow()">Add Expense</button>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                         </div>
-
                     </div>
+
+                    {{-- set meal expenses table --}}
+                    <div class="row row-deck row-cards mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table">
+                                    <table class="table table-bordered table-hover">
+                                        <tbody id="committeeMealTableBody3" style="text-align: center;">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                   
+                    <a>
+                        <button class="btn btn-primary w-100" id="download">Print Budget</button>
+                    </a>
                 </div>
-            </div>
-
-            @include('Admin.components.footer')
-
+                <input type="hidden" name="bDateStart" id="bDateStart" value="{{ $budget->budget_period_start }}">
+                <input type="hidden" name="bDateEnd" id="bDateEnd" value="{{ $budget->budget_period_end }}">
+                <form action="" method="POST" id="getCommetteeDataForm" hidden>
+                    @csrf
+                    <input type="text" name="budget_id" id="" value="{{ $budget->id }}">
+                </form>
+                <form action="" method="POST" id="randomForm" hidden>
+                    @csrf
+                    <input type="text" name="data_id" id="data_id" value="">
+                </form>
+                <form action="" method="POST" id="getBudgetDateForm" hidden>
+                    @csrf
+                    <input type="text" name="budget_id" id="" value="{{ $budget->id}}">
+                </form>
+                <input type="text" name="" id="temp_id"hidden>
+            
         </div>
     </div>
-    @include('Admin.components.budgetexpensescripts')
-    @include('Admin.components.scripts')
 
+    @include('Admin.components.footer')
+
+    </div>
+
+    @include('Admin.components.scripts')
+    @include('Admin.components.budgetExpensesscript')
+    @include('Admin.components.budgetmodals')
 </body>
 
 </html>

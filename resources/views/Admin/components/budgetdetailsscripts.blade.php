@@ -710,7 +710,6 @@
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
-                console.log(response)
                 $('#committeeMealTable').DataTable({
                     data: response.data,
                     destroy: true,
@@ -946,6 +945,119 @@ function submitOtherExpenses(id, route, process) {
     }
     
 }
+function loadOtherExpensesTable() {
+    var formElement = document.getElementById('getCommetteeDataForm');
+    var formData = new FormData(formElement);
+
+    // Send the AJAX request
+    $.ajax({
+        type: "POST",
+        url: `{{ route('otherExpensesProcess') }}` + '?process=get',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            const form = document.getElementById('otherExpensesTableBody');
+            const route = `{{ route('otherExpensesProcess') }}`;
+            form.innerHTML = ''; // Clear previous table contents
+            response.data.forEach(element => {
+                form.innerHTML += `
+                    <tr data-id="${element.id}">
+                        <td><input name="quantity" class="form-control quantity" value='${element.quantity}' data-price='${element.price}' oninput="calculateTotal(this)"></td>
+                        <td><input name='description' class="form-control" value='${element.description}' readonly></td>
+                        <td><input name='price' class="form-control price" value='${element.price}' oninput="calculateTotal(this)"></td>
+                        <td><input name='total' class="form-control total" value='${element.total}' readonly></td>
+                        <td>
+                            <button class="btn btn-success update-btn" data-id="${element.id}">Update</button>
+                            <button class="btn btn-danger" onclick="deleteOtherExpenses('${element.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Add event listener to all update buttons
+            document.querySelectorAll('.update-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    submitData2(id, route, 'update');
+                });
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alertify.alert("Error", "An error occurred.", function() {
+                alertify.message('OK');
+            });
+        }
+    });
+}
+function deleteOtherExpenses(id){
+document.getElementById('data_id').value=id;
+submitData('randomForm',`{{ route('otherExpensesProcess') }}`,'delete');
+}
+
+function submitData2(id, route, process) {
+    document.getElementById('adminloader').style.display = '';
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    const formData = new FormData();
+    
+    // Collect data from the row
+    formData.append('id', id);
+    formData.append('quantity', row.querySelector('input[name="quantity"]').value);
+    formData.append('description', row.querySelector('input[name="description"]').value);
+    formData.append('price', row.querySelector('input[name="price"]').value);
+    formData.append('total', row.querySelector('input[name="total"]').value);
+
+    // Append CSRF token
+    formData.append('_token', '{{ csrf_token() }}');
+
+    // Send the AJAX request
+    $.ajax({
+        type: "POST",
+        url: route + '?process=' + process,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            document.getElementById('adminloader').style.display = 'none';
+                if (response.status == 'error') {
+                    alertify
+                        .alert("Warning", response.message, function() {
+                            alertify.message('OK');
+                        });
+                } else {
+                    alertify
+                        .alert("Success", response.message, function() {
+                            alertify.message('OK');
+                        });
+                    if (response.reload && typeof window[response.reload] === 'function') {
+                        window[response.reload]();
+                    }
+                    
+                }
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alertify.alert("Error", "An error occurred.", function() {
+                alertify.message('OK');
+            });
+        }
+    });
+}
+
+function calculateTotal(input) {
+    const row = input.closest('tr');
+    const quantityInput = row.querySelector('.quantity');
+    const priceInput = row.querySelector('.price');
+    const totalInput = row.querySelector('.total');
+
+    const quantity = parseFloat(quantityInput.value) || 0;
+    const price = parseFloat(priceInput.value) || 0;
+
+    const total = quantity * price;
+    totalInput.value = total.toFixed(2); // Update total field
+}
+
     $(document).ready(function() {
         loadMembers()
         loadBudgetDataTable()
@@ -959,7 +1071,6 @@ function submitOtherExpenses(id, route, process) {
             minDate: bDateS.split(" ")[0], // Set your specific start date
             maxDate: bDateE.split(" ")[0], // Set your specific end date
             onClose: function(selectedDates) {
-                console.log('group')
                 const multidate = document.getElementById('multiDatePicker').value
                 const form = document.getElementById('schedMealForm');
 
@@ -1042,6 +1153,6 @@ function submitOtherExpenses(id, route, process) {
             }
         });
         $('#mealDataTable').DataTable();
-
+        loadOtherExpensesTable()
     });
 </script>
