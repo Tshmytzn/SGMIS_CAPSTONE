@@ -16,7 +16,9 @@ class Attendance extends Model
       'start',
       'end',
       'time_in',
+      'in_proof',
       'time_out',
+      'out_proof',
       'status',
     ];
 }

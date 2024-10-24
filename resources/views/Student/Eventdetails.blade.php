@@ -196,22 +196,24 @@
                                     @csrf
                                     <input type="text" name="eact_id" id="event_id">
                                     <input type="text" name="process" id="" value="add">
+                                    <input type="hidden" id="photo-input" name="photo">
                                 </form>
                                 <form action="" id="attendanceUpdateForm" method="post" hidden>
                                     @csrf
                                     <input type="text" name="eact_id" id="event_id2">
                                     <input type="text" name="process" id="" value="update">
+                                    <input type="hidden" id="photo-input2" name="photo">
                                 </form>
                                 <div class="text-danger text-center mt-4" id="warning_label" style="display: none"> Your Attendance is Already Recorded</div>
                             </div>
-                            <div class="modal-footer">
-                                <h1>Camera Capture and Save Image</h1>
+                            <div class="modal-footer justify-content-center align-item-center text-center">
+                                <h1>Proof of Attendance</h1>
 
     <!-- Video stream -->
     <video id="camera-stream" autoplay playsinline style="width: 100%; max-width: 600px;"></video>
 
     <!-- Capture button -->
-    <button id="captureBtn">Capture Photo</button>
+    <button id="captureBtn" class="btn btn-primary">Capture Proof</button>
 
     <!-- Canvas to hold the photo -->
     <canvas id="canvas" style="display: none;"></canvas>
@@ -220,7 +222,7 @@
     <img id="photo-preview" alt="Captured Photo" style="display: none; width: 100%; max-width: 600px;">
 
     <!-- Hidden input field to store base64 image data -->
-    <input type="hidden" id="photo-input" name="photo">
+    
 
                                 <button type="button"  class="btn btn-primary w-100" data-bs-dismiss="modal" style="display: none" id="attend" onclick="dynamicFunction('attendanceForm',`{{route('Attendance')}}`)">Time
                                     In</button>
@@ -234,45 +236,7 @@
             </div>
         </div>
         <script>
-           const video = document.getElementById('camera-stream');
-        const canvas = document.getElementById('canvas');
-        const photoPreview = document.getElementById('photo-preview');
-        const photoInput = document.getElementById('photo-input');
-        const captureBtn = document.getElementById('captureBtn');
-
-        // Get the camera feed
-        async function startCamera() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                video.srcObject = stream;
-            } catch (error) {
-                console.error("Error accessing the camera: ", error);
-            }
-        }
-
-        // Capture photo and put it into the canvas
-        captureBtn.addEventListener('click', () => {
-            // Set the canvas size to match the video stream
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-
-            // Draw the current frame from the video on the canvas
-            const context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            // Get the image as a data URL (base64 string)
-            const dataURL = canvas.toDataURL('image/png');
-
-            // Display the captured image in the photo preview
-            photoPreview.src = dataURL;
-            photoPreview.style.display = 'block';
-
-            // Put the data URL into the hidden input field
-            photoInput.value = dataURL;
-        });
-
-        // Start the camera when the page loads
-        startCamera();
+       
         </script>
         @include('Student.components.footer')
         @include('Student.components.scripts')

@@ -14,7 +14,7 @@ use App\Models\Course;
 use App\Models\Section;
 use App\Models\StudentAccounts;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Storage;
 class StudentAttendance extends Controller
 {
     public function getVenueByID(Request $request) {
@@ -69,11 +69,28 @@ class StudentAttendance extends Controller
             }else if($newTime < $currentTime){
                 return response()->json(['message' => 'Time in ended', 'status' => 'error']);
             }
+
+            $imageData = $request->input('photo');
+
+            // Remove the "data:image/png;base64," part of the base64 string
+            $imageParts = explode(";base64,", $imageData);
+            $imageType = explode("image/", $imageParts[0])[1]; // Extract the image type (e.g., 'png', 'jpeg')
+            $imageBase64 = base64_decode($imageParts[1]); // Decode the base64 image
+
+            $fileName = uniqid() . '.' . $imageType;
+
+            // Define the file path where the image will be saved
+            $filePath = public_path('student_attendance/') . $fileName;
+
+            // Save the decoded image to the file path
+            file_put_contents($filePath, $imageBase64);
+
             $data = new Attendance;
             $data->eact_id = $request->eact_id;
             $data->student_id = session('student_id');
             $data->start = '1';
             $data->time_in = $currentTime12;
+            $data->in_proof = $fileName;
             $data->save();
             return response()->json(['message' => 'Attendance has been recorded','status'=>'success'], 200);
             }else if($request->process=='update'){
@@ -96,10 +113,27 @@ class StudentAttendance extends Controller
             else if ($newTime < $currentTime) {
                 return response()->json(['message' => 'Event Ended', 'status' => 'error']);
             }
+
+            $imageData = $request->input('photo');
+
+            // Remove the "data:image/png;base64," part of the base64 string
+            $imageParts = explode(";base64,", $imageData);
+            $imageType = explode("image/", $imageParts[0])[1]; // Extract the image type (e.g., 'png', 'jpeg')
+            $imageBase64 = base64_decode($imageParts[1]); // Decode the base64 image
+
+            $fileName = uniqid() . '.' . $imageType;
+
+            // Define the file path where the image will be saved
+            $filePath = public_path('student_attendance/') . $fileName;
+
+            // Save the decoded image to the file path
+            file_put_contents($filePath, $imageBase64);
+
             $data = Attendance::where('eact_id',$request->eact_id)->where('student_id',session('student_id'))->first();
             $data->update([
                 'end' => '1',
                 'time_out' => $currentTime12,
+                'out_proof' => $fileName,
             ]);
             return response()->json(['message' => 'Attendance has been updated','status'=>'success']);
         }

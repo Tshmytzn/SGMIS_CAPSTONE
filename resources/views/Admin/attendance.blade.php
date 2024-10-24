@@ -107,7 +107,7 @@
                             @include('Admin.components.Lloading',['load_ID' => 'lineLoading5'])
                             <div class="card mt-2 mb-4"  id="containerTable">
                                 <div class="card-body">
-                                    <table class="table table-hover" id="attendanceTable">
+                                    <table class="table table-hover" id="attendanceTable" style="text-align: center;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Event Name</th>
@@ -130,6 +130,32 @@
 
                     </div>
                 </div>
+            </div>
+
+            <div class="modal fade" id="proofModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Proof Images</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body justify-content-center align-item-center text-center">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="myImage">Time In</label>
+                            <img id="myImage" src="default.jpg" class="rounded img-fluid" alt="Image">
+                        </div>
+                        <div class="col-6">
+                            <label for="myImage">Time Out</label>
+                             <img id="myImage2" src="default.jpg" class="img-fluid" alt="Image">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
             </div>
 
             @include('Admin.components.footer')

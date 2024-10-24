@@ -241,8 +241,11 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="card-body">
+                            @php
+                             $CHECKING = \App\Models\BudgetMeal::where('budget_id', $budget->id)->count();
+                            @endphp
+                            @if ($CHECKING>0)
+                                <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover" id="committeeMealTable">
                                         <thead>
@@ -267,7 +270,8 @@
                                     </table>
                                 </div>
                             </div>
-
+                            @endif
+                            
                         </div>
                     </div>
 

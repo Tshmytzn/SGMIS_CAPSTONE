@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('start')->nullable();
             $table->string('end')->nullable();
             $table->string('time_in')->nullable();
+            $table->string('in_proof')->nullable();
             $table->string(column: 'time_out')->nullable();
+            $table->string('out_proof')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

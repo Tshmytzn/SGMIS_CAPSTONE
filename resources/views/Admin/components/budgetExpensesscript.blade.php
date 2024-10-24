@@ -43,7 +43,7 @@ response.data.forEach(element => {
 
         // Insert the table row with committee information
         com.innerHTML += `
-            <tr style="background-color: yellow;">
+            <tr class="tryellow">
                 <td>${no}</td>
                 <td></td>
                 <td>${committee.committee_name}<br>${memberNames}</td>
@@ -139,11 +139,11 @@ summa+=`<tr>
 // Calculate grand total and display it
 grandTotal += subtotal; // Include subtotal in grand total
 com.innerHTML += `
-    <tr style="background-color: lightgreen;">
+    <tr class="trgreeen">
         <td colspan="5"><strong>Overall Total: ${grandTotal.toFixed(2)}</strong></td>
     </tr>
 `;
-summa+=`<tr style="background-color: lightgreen;">
+summa+=`<tr class="trgreeen">
         <td>Overall Total</td>
         <td>${grandTotal.toFixed(2)}</td>
         </tr>`

@@ -163,7 +163,8 @@ function attendance(id) {
 
 let map;
 function mapping() {
-  
+    startCamera();
+    document.getElementById('photo-preview').style.display='none';
     var div = document.getElementById('mapLoading');
     var div2 = document.getElementById('map');
     div2.innerHTML = ``;
@@ -252,5 +253,61 @@ function mapping() {
         }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
     
 }
+        const video = document.getElementById('camera-stream');
+        const canvas = document.getElementById('canvas');
+        const photoPreview = document.getElementById('photo-preview');
+        const photoInput = document.getElementById('photo-input');
+        const captureBtn = document.getElementById('captureBtn');
+        const photoInput2 = document.getElementById('photo-input2');
+        // Get the camera feed
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (error) {
+                console.error("Error accessing the camera: ", error);
+            }
+        }
 
+        // Capture photo and put it into the canvas
+        captureBtn.addEventListener('click', () => {
+            // Set the canvas size to match the video stream
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Draw the current frame from the video on the canvas
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Get the image as a data URL (base64 string)
+            const dataURL = canvas.toDataURL('image/png');
+
+            // Display the captured image in the photo preview
+            photoPreview.src = dataURL;
+            photoPreview.style.display = 'block';
+
+            // Put the data URL into the hidden input field
+            photoInput.value = dataURL;
+            photoInput2.value = dataURL;
+        });
+
+        // Start the camera when the page loads
+setInterval(() => {
+    var photoInputValue = document.getElementById('photo-input').value;
+    var attendButton = document.getElementById('attend');
+
+    if (photoInputValue === "") {
+        attendButton.disabled = true; // Disable if photo-input is empty
+    } else {
+        attendButton.disabled = false; // Enable if photo-input has a value
+    }
+    var photoInputValue = document.getElementById('photo-input2').value;
+    var attendButton2 = document.getElementById('attendOut');
+
+    if (photoInputValue === "") {
+        attendButton2.disabled = true; // Disable if photo-input is empty
+    } else {
+        attendButton2.disabled = false; // Enable if photo-input has a value
+    }
+}, 1000);    
 </script>

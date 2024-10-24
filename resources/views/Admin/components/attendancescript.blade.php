@@ -133,6 +133,16 @@
                             },
                             title: 'Attendance Status'
                         },
+                        {
+                            data: null,
+                            render: function(data) {
+                                return `<button onclick="viewProof('${data.attendance.in_proof}','${data.attendance.out_proof}')" class="btn btn-info w-75" data-bs-toggle="modal" data-bs-target="#proofModal">&nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-zoom-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M14 3.072a8 8 0 0 1 2.617 11.424l4.944 4.943a1.5 1.5 0 0 1 -2.008 2.225l-.114 -.103l-4.943 -4.944a8 8 0 0 1 -12.49 -6.332l-.006 -.285l.005 -.285a8 8 0 0 1 11.995 -6.643zm-.293 4.22a1 1 0 0 0 -1.414 0l-3.293 3.294l-1.293 -1.293l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
+</svg></button>`;
+                            },
+                            title: 'Proof'
+                        },
                     ],
                     paging: true,
                     searching: true, // Disable the default search bar
@@ -151,6 +161,19 @@
         });
 
     }
+function viewProof(inImage, outImage) {
+    
+    const imgElement = document.getElementById('myImage');
+    imgElement.src = 'student_attendance/' + (inImage === 'null' ? 'absent.jpg' : inImage);
+    imgElement.width = 200;  // Set the width in pixels
+    imgElement.height = 200; // Set the height in pixels
+    // Assign the new image source to the second image element
+    const imgElement2 = document.getElementById('myImage2');
+    imgElement2.src = 'student_attendance/' + (outImage === 'null' ? 'absent.jpg' : outImage);
+    imgElement2.width = 200;  // Set the width in pixels
+    imgElement2.height = 200; // Set the height in pixels
+}
+
 
     $(document).ready(function() {
         $('#containerTable').hide();

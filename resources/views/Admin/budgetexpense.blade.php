@@ -24,15 +24,31 @@
     margin-bottom: 2px; /* Control space between list items */
     list-style-position: inside; /* Ensure the number is closer to the text */
 }
+.tryellow {
+        background-color: lightyellow !important;
+    }
+
+    .trgreeen {
+        background-color: lightgreen !important;
+    }  
+    * {
+        color-adjust: exact; /* Attempt to print colors as they are shown */
+    }
  @media print {
             /* Hide the print button when printing */
             #download {
                 display: none;
             }
-            /* Optional: Adjust styles for print */
-            body {
-                margin: 0; /* Remove margins for a cleaner print */
-            }
+.tryellow {
+        background-color: lightyellow !important;
+    }
+
+    .trgreeen {
+        background-color: lightgreen !important;
+    }
+                * {
+        color-adjust: exact; /* For browsers that support this, ensures colors are printed as they appear on screen */
+    }
         }
 </style>
 <body>
