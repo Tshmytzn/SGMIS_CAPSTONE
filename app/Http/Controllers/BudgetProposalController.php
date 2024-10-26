@@ -300,64 +300,6 @@ class BudgetProposalController extends Controller
             return response()->json(['message' => 'Successfully retrieved committees', 'data' => $data, 'status' => 'success']);
 
         }
-        // else if ($request->process == 'get2') {
-
-        //     $committees = Committee::where('budgeting_id', $request->budget_id)->get();
-        //     $data = [];
-
-        //     foreach ($committees as $com) {
-        //         $meals = MealDate::where('committee_id', $com->id)->get();
-        //         $totalPrice = 0; // Initialize totalPrice for each committee
-
-        //         // Initialize an array to hold meal data
-        //         $mealData = [];
-
-        //         foreach ($meals as $mel) {
-        //             // Explode the meal string into an array
-        //             $mealsArray = explode(',', $mel->meal);
-
-        //             // Trim whitespace from each meal
-        //             $mealsArray = array_map('trim', $mealsArray);
-
-        //             // Loop through each meal and calculate the total price
-        //             foreach ($mealsArray as $meal) {
-        //                 $budgetmeal = BudgetMeal::where('meal', $meal)->first();
-
-        //                 // Check if budgetmeal exists before accessing the price
-        //                 if ($budgetmeal) {
-        //                     $totalPrice += $budgetmeal->price; // Add the price to totalPrice
-        //                 }
-        //             }
-
-        //             // Store each meal's data (optional)
-        //             $mealData[] = [
-        //                 'id' => $mel->id,
-        //                 'meal_date' => $mel->meal_date,
-        //                 'meal' => $mel->meal,
-        //                 // Include additional fields if needed
-        //             ];
-        //         }
-
-        //         // Get committee members
-        //         $members = CommitteeMember::where('committee_id', $com->id)->get();
-        //         $membersData = [];
-        //         foreach ($members as $mem) {
-        //             $membersData[] = $mem; // Add each member to the members array
-        //         }
-
-        //         // Add committee data to the $data array
-        //         $data[] = [
-        //             'id' => $com->id,
-        //             'name' => $com->name,
-        //             'budget_id' => $com->budgeting_id,
-        //             'meals' => $mealData, // Store the meal data array
-        //             'price' => $totalPrice, // Store the total price
-        //             'members' => $membersData // Store the members array
-        //         ];
-        //     }
-
-        //     return response()->json(['message' => 'Successfully retrieved committees', 'data' => $data, 'status' => 'success']);
-        // }
         else if ($request->process == 'get2') {
 
             $data=[];
@@ -499,6 +441,12 @@ class BudgetProposalController extends Controller
         }
         return response()->json(['message' =>  'Successfully Submit', 'status' => 'success']);
        
+    }
+    public function saveBudgetTotal(request $request){
+        $data = BudgetProposal::where('id',$request->id)->first();
+        $data->total_budget=$request->total;
+        $data->save();
+        return response()->json(['message' =>  'Successfully Submit', 'status' => 'success']);
     }
 
 }

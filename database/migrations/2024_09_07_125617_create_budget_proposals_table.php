@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('proposed_by');
             $table->date('submission_date');
             $table->text('additional_notes')->nullable();
+            $table->string('total_budget')->nullable();
             $table->timestamps();
         });
     }

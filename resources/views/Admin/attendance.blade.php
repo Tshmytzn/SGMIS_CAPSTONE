@@ -133,7 +133,7 @@
             </div>
 
             <div class="modal fade" id="proofModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Proof Images</h5>
@@ -143,11 +143,11 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="myImage">Time In</label>
-                            <img id="myImage" src="default.jpg" class="rounded img-fluid" alt="Image">
+                            <img id="myImage" src="default.jpg" class="rounded mx-auto d-block" alt="Image">
                         </div>
                         <div class="col-6">
                             <label for="myImage">Time Out</label>
-                             <img id="myImage2" src="default.jpg" class="img-fluid" alt="Image">
+                             <img id="myImage2" src="default.jpg" class="rounded mx-auto d-block" alt="Image">
                         </div>
                     </div>
                 </div>

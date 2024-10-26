@@ -123,7 +123,7 @@
 
                    
                     <a>
-                        <button class="btn btn-primary w-100" id="download">Print Budget</button>
+                        <button class="btn btn-primary w-100" id="download" onclick="saveTotal('{{ $budget->id }}')">Print & Save Budget</button>
                     </a>
                 </div>
                 <input type="hidden" name="bDateStart" id="bDateStart" value="{{ $budget->budget_period_start }}">

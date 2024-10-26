@@ -22,6 +22,7 @@ class BudgetProposal extends Model
         'proposed_by',
         'submission_date',
         'additional_notes',
+        'total_budget',
     ];
 
     protected $casts = [

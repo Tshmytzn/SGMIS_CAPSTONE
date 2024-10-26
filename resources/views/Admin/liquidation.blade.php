@@ -3,7 +3,8 @@
 <html lang="en">
 
 @include('Admin.components.header', ['title' => 'Liquidation'])
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -70,7 +71,7 @@
                             available for the final defense. See you there!
                         </p>
                         <div class="empty-action">
-                            <a href="./." class="btn btn-primary">
+                            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#liquidation">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -86,6 +87,37 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="liquidation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Liquidition</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                     <div class="row">
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="liquidition_name">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" name="liquidition_name">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" name="liquidition_name">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="yearPicker" class="form-control" placeholder="Select Year">
+                        </div>
+                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
             @include('Admin.components.footer')
 
         </div>
@@ -93,7 +125,21 @@
 
 
     @include('Admin.components.scripts')
-
+    <script>
+   document.addEventListener("DOMContentLoaded", function() {
+        flatpickr("#yearPicker", {
+            dateFormat: "Y", // Display only the year
+            minDate: "1900", // Set minimum year
+            maxDate: "2100", // Set maximum year
+            onReady: function(selectedDates, dateStr, instance) {
+                instance.currentYearElement.click(); // Open the calendar in year selection mode
+            },
+            onChange: function(selectedDates, dateStr, instance) {
+                instance.close(); // Close calendar after selecting a year
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>

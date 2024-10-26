@@ -164,14 +164,10 @@
 function viewProof(inImage, outImage) {
     
     const imgElement = document.getElementById('myImage');
-    imgElement.src = 'student_attendance/' + (inImage === 'null' ? 'absent.jpg' : inImage);
-    imgElement.width = 200;  // Set the width in pixels
-    imgElement.height = 200; // Set the height in pixels
+    imgElement.src = 'student_attendance/' + (inImage === 'null'||'' ? 'absent.jpg' : inImage);
     // Assign the new image source to the second image element
     const imgElement2 = document.getElementById('myImage2');
-    imgElement2.src = 'student_attendance/' + (outImage === 'null' ? 'absent.jpg' : outImage);
-    imgElement2.width = 200;  // Set the width in pixels
-    imgElement2.height = 200; // Set the height in pixels
+    imgElement2.src = 'student_attendance/' + (outImage === 'null'||'' ? 'absent.jpg' : outImage);
 }
 
 

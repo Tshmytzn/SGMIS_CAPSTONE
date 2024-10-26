@@ -539,7 +539,7 @@
                     </div>
 
                     <a href="/Budgeting/Expense/{{ $budget->id }}">
-                        <button class="btn btn-primary w-100">Print Budget</button>
+                        <button class="btn btn-primary w-100">View Budget Summary</button>
                     </a>
                 </div>
                 <input type="hidden" name="bDateStart" id="bDateStart" value="{{ $budget->budget_period_start }}">
