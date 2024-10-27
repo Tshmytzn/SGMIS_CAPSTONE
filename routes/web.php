@@ -15,6 +15,7 @@ use App\Http\Controllers\BudgetProposalController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\StudentAdmin;
+use App\Http\Controllers\LiquidationController;
 ;
 /*
 |--------------------------------------------------------------------------
@@ -128,6 +129,14 @@ Route::post('Admin/Candidate', [ElectionController::class,'Candidate'])->name('C
 Route::post('Admin/Attendance', [StudentAttendance::class, 'Attendance'])->name('Attendance');
 Route::post('Admin/Vote', [ElectionController::class, 'vote'])->name('vote');
 Route::post('Admin/saveResult', [ElectionController::class, 'saveResult'])->name('saveResult');
+Route::post('Admin/saveLiquidation', [LiquidationController::class, 'saveLiquidation'])->name('saveLiquidation');
+Route::get('Admin/getAllLiquidationData', [LiquidationController::class, 'getAllLiquidationData'])->name('getAllLiquidationData');
+Route::post('Admin/deleteLiquidation', [LiquidationController::class, 'deleteLiquidation'])->name('deleteLiquidation');
+Route::post('Admin/liquidationDetailsData', [LiquidationController::class, 'liquidationDetailsData'])->name('liquidationDetailsData');
+// liquidationView
+Route::get('/Liquidation/Details', action: function () {
+    return view('admin.liquidationdetails');
+})->name('liquidationdetails');
 
 
 // tish budgeting controller: post routes

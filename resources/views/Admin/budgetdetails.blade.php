@@ -245,6 +245,10 @@
                              $CHECKING = \App\Models\BudgetMeal::where('budget_id', $budget->id)->count();
                             @endphp
                             @if ($CHECKING>0)
+                            
+                            @else
+                            <h3 class="text-danger text-center col-12"> insert budget first</h3>
+                            @endif
                                 <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover" id="committeeMealTable">
@@ -270,8 +274,7 @@
                                     </table>
                                 </div>
                             </div>
-                            @endif
-                            
+
                         </div>
                     </div>
 
@@ -315,7 +318,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="otherExpensesTableBody">
-                                           
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
