@@ -130,6 +130,46 @@ class LiquidationController extends Controller
                    ->where('liquidation.id', $request->id)
                    ->first();
                    return response()->json(['data' => $data,'message' => 'The request is approved.']);
+
+            case 'getBudgetLiq':
+                    $check = LiquidationSummary::where('liquidation_id',$request->Lid)->first();
+                    $data =  LiquidationBreakdown::where('group_by', $check->id)->get();
+                   return response()->json(['data'=>$data, 'message' => 'The request is approved.']);  
+                   
+            case 'insertOtherSummary':
+                    // Validate the incoming request
+                    $request->validate([
+                        'date' => 'required|array',
+                        'supplier' => 'required|array',
+                        'items' => 'required|array',
+                        'amount' => 'required|array',
+                        'invoice_or_no' => 'required|array',
+                        'liquidation_title' => 'required|string',
+                        'liquidation_id' => 'required|string',
+                        'total_expenses' => 'required|string',
+                    ]);
+                    $datas = new LiquidationSummary;
+                    $datas->liquidation_id = $request->liquidation_id;
+                    $datas->name=$request->liquidation_title;
+                    $datas->total = $request->total_expenses;
+                    $datas->save();
+
+                    // Loop through the date array and create a new LiquidationBreakdown for each entry
+                    foreach ($request->date as $index => $date) {
+                        if (isset($request->supplier[$index])) {
+                            $breakdown = new LiquidationBreakdown();
+                            $breakdown->liquidation_id = $request->liquidation_id;
+                            $breakdown->group_by = $datas->id;
+                            $breakdown->bdate = $date;  // Assign the date
+                            $breakdown->supplier = $request->supplier[$index];
+                            $breakdown->item = $request->items[$index]; // Assign the supplier
+                            $breakdown->invoice = $request->invoice_or_no[$index];
+                            $breakdown->total = $request->amount[$index];
+                            $breakdown->save();  // Save the instance to the database
+                        }
+                    }
+
+                    return response()->json(['message' => 'Data inserted successfully!']);
         }
 
     }

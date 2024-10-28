@@ -189,39 +189,12 @@
                                     </tfoot>
                                 </table>
                                 </div>
-                                <button class="btn btn-primary col-12" onclick="saveBudgeting()">Save</button>
+                                <button class="btn btn-primary col-12" id="svebudgetButton" onclick="saveBudgeting()">Save</button>
                             </div>
 
                             <div id="generateTable" class="mb-4">
 
-                                <div class="col-12 border mb-6">
-                                    <div class="card-header">
-                                        Committee And Additional Expenses
-                                      </div>
-                                    <div class="table-responsive">
-                                    <table class="table table-bordered table-hover text-center">
-                                        <thead>
-                                            <tr>
-                                                <th>DATE</th>
-                                                <th>SUPPLIER</th>
-                                                <th>ITEMS</th>
-                                                <th>INVOICE / OR NO.</th>
-                                                <th>AMOUNT</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="">
-                                            <input type="text" name="summary_total" id="summary_total"  value="">
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="4" class="text-right"><strong>TOTAL EXPENSES:</strong></td>
-                                                <td id="budgetTotal"></td> <!-- This can be calculated dynamically if needed -->
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                    </div>
-                                    <button class="btn btn-primary col-12">Save</button>
-                                </div>
+                                
 
                             </div>
 
