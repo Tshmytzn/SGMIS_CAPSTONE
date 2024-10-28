@@ -145,7 +145,7 @@
                                             <th>Expenses</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id='summaryBody'>
                                         <tr>
                                             <td id="CommitteDateAll"></td>
                                             <td>Committee And Additional Expenses</td>
@@ -155,7 +155,7 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="2" class="text-right"><strong>TOTAL EXPENSES:</strong></td>
-                                            <td>1000</td> <!-- This can be calculated dynamically if needed -->
+                                            <td id="totalSummary"></td> <!-- This can be calculated dynamically if needed -->
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -190,6 +190,10 @@
                                 </table>
                                 </div>
                                 <button class="btn btn-primary col-12" id="svebudgetButton" onclick="saveBudgeting()">Save</button>
+                            </div>
+
+                            <div id="generateSaveTable" class="mb-4">
+
                             </div>
 
                             <div id="generateTable" class="mb-4">

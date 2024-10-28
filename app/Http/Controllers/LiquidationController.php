@@ -170,6 +170,18 @@ class LiquidationController extends Controller
                     }
 
                     return response()->json(['message' => 'Data inserted successfully!']);
+            case 'getSaveTable':
+                $data1 = LiquidationSummary::where('liquidation_id', $request->liquidation_id)->get();
+                $data = [];
+                foreach ($data1 as $dat) {
+                    $data2 = LiquidationBreakdown::where('group_by', $dat->id)->get();
+                    $data[] = [
+                        'data1' => $dat,
+                        'data2' => $data2,
+                    ];
+                }
+                return response()->json(['data' => $data, 'message' => 'Data inserted successfully!']);
+        
         }
 
     }

@@ -412,7 +412,9 @@ function generateTable() {
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
-                console.log(response);
+                const div = document.getElementById('generateTable');
+                div.innerHTML = ``;
+                getSaveTable();
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
@@ -493,8 +495,120 @@ function updateTotal(tableId) {
     budgetTotalCell.innerText = total.toFixed(2); // Display the total with two decimal places
     totalExpensesInput.value = total.toFixed(2); // Set the total in the hidden input for submission
 }
+function getSaveTable(){
+    const formData = new FormData();
+    const ID = document.getElementById('liquidation_id').value;
+        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('liquidation_id', ID);
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('liquidationDetailsData') }}" + '?process=' + 'getSaveTable',
+            data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
+            success: function(response) {
+
+            let summaryBody = document.getElementById('summaryBody');
+            let totalSummary = document.getElementById('totalSummary');
+            let htmlContents = '';  
+            let grandTotal = 0;  // Initialize a variable to accumulate the total
+
+            response.data.forEach(element => {
+                // Convert element.data1.total to a number and add it to grandTotal
+                const itemTotal = parseFloat(element.data1.total) || 0; // Handle potential NaN values
+                grandTotal += itemTotal;
+
+                htmlContents += `
+                    <tr>
+                        <td>${allDateStart} - ${allDateEnd}</td>
+                        <td>${element.data1.name}</td>
+                        <td>${itemTotal.toFixed(2)}</td>    
+                    </tr>
+                `;
+            });
+
+            // Insert the accumulated rows into summaryBody
+            summaryBody.innerHTML = htmlContents;
+
+            // Display the grand total in the totalSummary element
+            totalSummary.textContent = grandTotal.toFixed(2);  
+
+            const filteredData = response.data.filter(item => item.data1.name !== "Committee And Additional Expenses");
+            let tableHtml = document.getElementById('generateSaveTable');
+            let htmlContent = ''; // Store all HTML content here first
+
+            filteredData.forEach(element => {
+                let totalExpenses = 0; // Initialize total expenses for each table
+
+                htmlContent += `
+                    <div class="col-12 border mb-6">
+                        <div class="card-header">
+                            ${element.data1.name}
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>DATE</th>
+                                        <th>SUPPLIER</th>
+                                        <th>ITEMS</th>
+                                        <th>INVOICE / OR NO.</th>
+                                        <th>AMOUNT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+                
+                element.data2.forEach(value => {
+                    // Sum the numbers in the total string
+                    const itemTotal = value.total
+                        .split(',')              // Split the string by commas
+                        .map(num => parseFloat(num) || 0) // Convert each part to a number
+                        .reduce((sum, num) => sum + num, 0); // Sum the numbers
+
+                    totalExpenses += itemTotal;
+
+                    htmlContent += `
+                        <tr>
+                            <td>${value.bdate}</td>
+                            <td>${value.supplier}</td>
+                            <td>${value.item.split(',').join('<br>')}</td>
+                            <td>${value.invoice}</td>
+                            <td>${value.total.split(',').join('<br>')}</td>
+                        </tr>
+                    `;
+                });
+
+                // Insert totalExpenses in the table footer
+                htmlContent += `
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-right"><strong>TOTAL EXPENSES:</strong></td>
+                                        <td>${totalExpenses.toFixed(2)}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Add all HTML at once
+            tableHtml.innerHTML = htmlContent;
+
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                // You can also add custom error handling here if needed
+            }
+        });
+}
+
     $(document).ready(function() {
         getLiquidationData();
-        getLiquidationEvent()
+        getLiquidationEvent();
+        getSaveTable()
     });
 </script>
