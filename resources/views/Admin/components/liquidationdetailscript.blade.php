@@ -42,7 +42,7 @@
                 allDateStart=response.data.event_start
                 allDateEnd=response.data.event_end
 
-                document.getElementById('CommitteDateAll').textContent=response.data.event_start+'-'+response.data.event_end
+                // document.getElementById('CommitteDateAll').textContent=response.data.event_start+'-'+response.data.event_end
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
@@ -255,6 +255,14 @@
         }
     });
 }
+
+function removeDiv(id) {
+    // Remove the specific div by ID
+    const divToRemove = document.getElementById(id);
+    if (divToRemove) {
+        divToRemove.remove();
+    }
+}
 let otherAutoIn = 1; // Initialize the row counter
 
 function generateTable() {
@@ -289,10 +297,11 @@ function generateTable() {
                             </tr>
                         </tfoot>
                     </table>
-                    <button type="button" class="btn btn-primary" id="addFieldBtn_${tableId}">Add Field</button>
+                    <button type="button" class="btn btn-warning col-12 mb-2" id="addFieldBtn_${tableId}">Add Field</button>
                 </div>
                 <input type="hidden" name="total_expenses" id="totalExpenses_${tableId}" value="0">
                 <button type="submit" class="btn btn-primary col-12">Save</button>
+                <button onclick="removeDiv('${tableId}Form')" class="btn btn-danger col-12">Remove</button>
             </div>
         </form>
     `;
@@ -495,6 +504,7 @@ function updateTotal(tableId) {
     budgetTotalCell.innerText = total.toFixed(2); // Display the total with two decimal places
     totalExpensesInput.value = total.toFixed(2); // Set the total in the hidden input for submission
 }
+
 function getSaveTable(){
     const formData = new FormData();
     const ID = document.getElementById('liquidation_id').value;
@@ -537,14 +547,18 @@ function getSaveTable(){
             const filteredData = response.data.filter(item => item.data1.name !== "Committee And Additional Expenses");
             let tableHtml = document.getElementById('generateSaveTable');
             let htmlContent = ''; // Store all HTML content here first
-
+            let idAuto = 0;
             filteredData.forEach(element => {
                 let totalExpenses = 0; // Initialize total expenses for each table
 
+                const elementJson = JSON.stringify(element).replace(/"/g, '&quot;');
+                const tableId = `xtable_${idAuto}`; // Unique ID for each table
+
                 htmlContent += `
-                    <div class="col-12 border mb-6">
-                        <div class="card-header">
+                    <div class="col-12 border mb-6" id="${tableId}">
+                        <div class="card-header position-relative">
                             ${element.data1.name}
+                            <button type="button" class="btn btn-primary position-absolute top-0 end-0 m-2" onclick="editTableData('${elementJson}','${tableId}')">Edit</button>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover text-center">
@@ -593,6 +607,7 @@ function getSaveTable(){
                         </div>
                     </div>
                 `;
+                idAuto++;
             });
 
             // Add all HTML at once
@@ -605,10 +620,124 @@ function getSaveTable(){
             }
         });
 }
+function editTableData(data, id) {
+    // Check if `data` is a string, and parse it if so
+    if (typeof data === "string") {
+        data = JSON.parse(data);
+    }
+
+    let div = ``;
+
+    // Input for the title
+    div += `
+    <form id="${id}_E">
+        <div class="card-header position-relative">
+            <input name="liquidation_title" class="form-control" value="${data.data1.name}">
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>DATE</th>
+                        <th>SUPPLIER</th>
+                        <th>ITEMS</th>
+                        <th>INVOICE / OR NO.</th>
+                        <th>AMOUNT</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    data.data2.forEach(value => {
+        // Split the total string into an array
+        const amounts = value.total.split(',').map(num => num.trim());
+
+        // Create input fields for each amount
+        const amountInputs = amounts.map((amount, index) => `
+            <input type="number" name="amount[${index}][]" class="form-control" value="${amount}">
+        `).join('');
+
+        // Split the items string into an array
+        const items = value.item.split(',').map(item => item.trim());
+
+        // Create input fields for each item
+        const itemInputs = items.map((item, index) => `
+            <input type="text" name="item[${index}][]" class="form-control" value="${item}">
+        `).join('');
+
+        div += `
+            <tr>
+                <td><input type="date" name="bdate[]" class="form-control" value="${value.bdate}"></td>
+                <td><input type="text" name="supplier[]" class="form-control" value="${value.supplier}"></td>
+                <td>${itemInputs}</td>
+                <td><input type="text" name="invoice[]" class="form-control" value="${value.invoice}"></td>
+                <td>${amountInputs}</td>
+            </tr>
+        `;
+    });
+
+    // Handle total expenses input
+    const totalAmounts = data.data1.total.split(',').map(num => num.trim());
+    const totalInputs = totalAmounts.map((total, index) => `
+        <input type="text" name="total_expenses[${index}][]" class="form-control" value="${total}">
+    `).join('');
+
+    div += `
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-right"><strong>TOTAL EXPENSES:</strong></td>
+                        <td>${totalInputs}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button type="button" class="btn btn-primary col-12 mb-2" onclick="saveEditedTable('${id}_E')">Save</button>
+            <button type="button" class="btn btn-danger col-12" onclick="getSaveTable()">Cancel</button>
+        </div>
+    </form>
+    `;
+
+    document.getElementById(id).innerHTML = div;
+
+    console.log("Full Data:", data);
+}
+
+function saveEditedTable(formId) {
+    const form = document.getElementById(formId);
+
+    // Check if the form exists
+    if (!form) {
+        console.error('Form not found');
+        return;
+    }
+
+    const formData = new FormData(form);
+    const data = {};
+
+    formData.forEach((value, key) => {
+        // If the key already exists in the data object, convert it to an array
+        if (data[key]) {
+            // Check if it's already an array
+            if (!Array.isArray(data[key])) {
+                data[key] = [data[key]];
+            }
+            data[key].push(value); // Add the new value to the array
+        } else {
+            data[key] = value; // Otherwise, add the key-value pair
+        }
+    });
+
+    const json = JSON.stringify(data);
+    console.log("Serialized Form Data as JSON:", json);
+
+    // Here you can handle the JSON data (e.g., send it to a server)
+}
+
+
 
     $(document).ready(function() {
-        getLiquidationData();
         getLiquidationEvent();
-        getSaveTable()
+        getLiquidationData();
+        getSaveTable();
     });
 </script>

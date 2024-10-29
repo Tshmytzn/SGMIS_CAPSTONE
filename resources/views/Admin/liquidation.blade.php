@@ -55,16 +55,17 @@
                         </div>
 
 
+                        <div class="row mt-2" id="displayLiquidation">
+                        </div>
+
+
                     </div>
                 </div>
             </div>
 
 
-
-            <div class="row" id="displayLiquidation">
-
-
-              </div>
+            
+            
 
             <div class="modal fade" id="liquidation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -222,7 +223,7 @@ function getLiquidationData(){
                 if (data.length > 0) {
                 data.forEach(element => {
                     rowHtml.innerHTML +=`
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                     <div class="card">
                         <div class="card-body">
                         <h5 class="card-title">${element.liquidation_name} - ${element.event_name}</h5>

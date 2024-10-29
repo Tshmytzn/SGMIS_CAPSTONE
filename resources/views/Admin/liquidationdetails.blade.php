@@ -146,11 +146,11 @@
                                         </tr>
                                     </thead>
                                     <tbody id='summaryBody'>
-                                        <tr>
+                                        {{-- <tr>
                                             <td id="CommitteDateAll"></td>
                                             <td>Committee And Additional Expenses</td>
                                             <td id="committeTotL"></td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                     <tfoot>
                                         <tr>
