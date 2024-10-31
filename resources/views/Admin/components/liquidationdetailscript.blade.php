@@ -648,38 +648,41 @@ function editTableData(data, id) {
                 <tbody>
     `;
 
+    // Counter for group numbers
+    let groupCounter = 1;
+
     data.data2.forEach(value => {
-        // Split the total string into an array
+        // Split the total string and items string into arrays
         const amounts = value.total.split(',').map(num => num.trim());
-
-        // Create input fields for each amount
-        const amountInputs = amounts.map((amount, index) => `
-            <input type="number" name="amount[${index}][]" class="form-control" value="${amount}">
-        `).join('');
-
-        // Split the items string into an array
         const items = value.item.split(',').map(item => item.trim());
 
-        // Create input fields for each item
+        // Create input fields for each amount, with the unique `group[n]` in the name
+        const amountInputs = amounts.map((amount, index) => `
+            <input type="number" name="group[${groupCounter}][amount][${index}]" class="form-control" value="${amount}">
+        `).join('');
+
+        // Create input fields for each item, with the unique `group[n]` in the name
         const itemInputs = items.map((item, index) => `
-            <input type="text" name="item[${index}][]" class="form-control" value="${item}">
+            <input type="text" name="group[${groupCounter}][item][${index}]" class="form-control" value="${item}">
         `).join('');
 
         div += `
             <tr>
-                <td><input type="date" name="bdate[]" class="form-control" value="${value.bdate}"></td>
-                <td><input type="text" name="supplier[]" class="form-control" value="${value.supplier}"></td>
+                <td><input type="date" name="group[${groupCounter}][bdate]" class="form-control" value="${value.bdate}"></td>
+                <td><input type="text" name="group[${groupCounter}][supplier]" class="form-control" value="${value.supplier}"></td>
                 <td>${itemInputs}</td>
-                <td><input type="text" name="invoice[]" class="form-control" value="${value.invoice}"></td>
+                <td><input type="text" name="group[${groupCounter}][invoice]" class="form-control" value="${value.invoice}"></td>
                 <td>${amountInputs}</td>
             </tr>
         `;
+
+        groupCounter++;
     });
 
     // Handle total expenses input
     const totalAmounts = data.data1.total.split(',').map(num => num.trim());
     const totalInputs = totalAmounts.map((total, index) => `
-        <input type="text" name="total_expenses[${index}][]" class="form-control" value="${total}">
+        <input type="text" name="total_expenses[${index}]" class="form-control" value="${total}">
     `).join('');
 
     div += `
