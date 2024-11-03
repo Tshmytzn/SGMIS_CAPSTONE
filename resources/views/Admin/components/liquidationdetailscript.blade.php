@@ -335,6 +335,7 @@
         success: function(response) {
             getBudgetData();
             getSaveTable();
+            getLiquidationAllTotal()
         },
         error: function(xhr, status, error) {
             console.error(xhr.responseText);
@@ -513,6 +514,7 @@ function generateTable() {
                 const div = document.getElementById('generateTable');
                 div.innerHTML = ``;
                 getSaveTable();
+                getLiquidationAllTotal();
             },
             error: function(xhr, status, error) {
         const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";
