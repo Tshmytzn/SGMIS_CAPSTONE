@@ -137,6 +137,9 @@ Route::post('Admin/liquidationDetailsData', [LiquidationController::class, 'liqu
 Route::get('/Liquidation/Details', action: function () {
     return view('admin.liquidationdetails');
 })->name('liquidationdetails');
+Route::get('/Liquidation/Details/Print', action: function () {
+    return view('admin.liquidationdetailsprint');
+})->name('liquidationdetailsprint');
 
 
 // tish budgeting controller: post routes

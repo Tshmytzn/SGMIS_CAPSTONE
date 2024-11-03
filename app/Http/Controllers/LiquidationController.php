@@ -14,6 +14,7 @@ use App\Models\MealDate;
 use App\Models\DateLength;
 use App\Models\LiquidationBreakdown;
 use App\Models\LiquidationSummary;
+use App\Models\FundAndDisbursement;
 
 class LiquidationController extends Controller
 {
@@ -181,7 +182,112 @@ class LiquidationController extends Controller
                     ];
                 }
                 return response()->json(['data' => $data, 'message' => 'Data inserted successfully!']);
-        
+            
+            case 'updateOtherSummary':
+
+                // Validate the incoming request
+                $request->validate([
+                    'liquidation_title' => 'required|string',
+                    'total_expenses' => 'required',
+                    'group' => 'required|array',
+                    'group.*.bdate' => 'required|date',
+                    'group.*.supplier' => 'required|string',
+                    'group.*.item' => 'required|array',
+                    'group.*.invoice' => 'required|string',
+                    'group.*.amount' => 'required|array',
+                    'liquidation_id' => 'required|integer'  // Ensures liquidation_id is provided
+                ]);
+
+                // Find the existing LiquidationSummary record
+                $datas = LiquidationSummary::find($request->dataID);
+                if (!$datas) {
+                    return response()->json(['error' => 'Liquidation Summary not found.'], 404);
+                }
+
+                // Update LiquidationSummary record
+                $datas->name = $request->liquidation_title;
+                $datas->total = is_array($request->total_expenses) ? $request->total_expenses[0] : $request->total_expenses;
+                $datas->save();
+
+                // Delete existing LiquidationBreakdown records associated with this group
+                LiquidationBreakdown::where('group_by', $request->dataID)->delete();
+
+                // Loop through each 'group' entry to create LiquidationBreakdown records
+                foreach ($request->input('group') as $groupData) {
+                    foreach ($groupData['item'] as $index => $item) {
+                        $breakdown = new LiquidationBreakdown();
+                        $breakdown->liquidation_id = $request->liquidation_id;
+                        $breakdown->group_by = $datas->id;
+                        $breakdown->bdate = $groupData['bdate'];
+                        $breakdown->supplier = $groupData['supplier'];
+                        $breakdown->item = $item;
+                        $breakdown->invoice = $groupData['invoice'];
+                        $breakdown->total = $groupData['amount'][$index];
+                        $breakdown->save();
+                    }
+                }
+
+                return response()->json(['message' => 'Data successfully updated!']);
+
+            case 'deleteRow':
+                $data = LiquidationBreakdown::find($request->dataID);
+                $data->delete();
+                if ($data) {
+                    $data2 = LiquidationBreakdown::where('group_by', $data->group_by)->get();
+                    
+                    if ($data2->isNotEmpty()) {
+                        // Calculate total using the sum method
+                        $amount = $data2->sum('total');
+                        $datas = LiquidationSummary::find($data->group_by);
+
+                        if ($datas) {
+                            $datas->total = $amount;
+                            $datas->save();
+                        }
+                    }
+                    
+                }
+
+                return response()->json(['data'=> $datas,'message' => 'Data successfully deleted!']);
+            case 'deleteSummaryRecord':
+                $data = LiquidationSummary::find($request->dataID);
+                $data2 = LiquidationBreakdown::where('group_by',$data->id)->delete();
+                $data->delete();
+                return response()->json(['message' => 'Data successfully deleted!']);
+            case 'getBudgetingData':
+                $data = LiquidationSummary::where('name', 'Committee And Additional Expenses')->first();
+                $budgetingData = LiquidationBreakdown::where('group_by', $data->id)->get();
+                return response()->json(['data' => $budgetingData]);
+            case 'updateBudgetingDataC':
+                  foreach($request->budgetingID as $index =>$item){
+                    $data = LiquidationBreakdown::where('id',$item)->first();
+                    $data->supplier=$request->supplier[$index];
+                    $data->invoice = $request->invoice[$index];
+                    $data->save();
+                  }
+                return response()->json(['message' => 'Data successfully updated!']);
+            case 'getAllLiquidationTotal':
+                $total = LiquidationSummary::where('liquidation_id', $request->liquidation_id)->sum('total');
+                return response()->json(['data' => $total]);
+            case 'saveFund':
+                $check = FundAndDisbursement::where('liquidation_id',$request->liquidation_id)->first();
+                if($check){
+                    $check->delete();
+                }
+                $data = new FundAndDisbursement();
+                $data->liquidation_id = $request->liquidation_id;
+                $data->coh = $request->coh;
+                $data->cob = $request->cob;
+                $data->tbb = $request->tbb;
+                $data->te = $request->te;
+                $data->eb = $request->eb;
+                $data->coh2 = $request->coh2;
+                $data->cob2 = $request->cob2;
+                $data->save();
+                return response()->json(['message' => 'STATEMENT OF SOURCE OF FUND AND DISBURSEMENT SUCCESSFULLY SAVED']);
+            case 'getFund':
+                $check = FundAndDisbursement::where('liquidation_id', $request->liquidation_id)->first();
+                return response()->json(['data' => $check]);
         }
 
     }

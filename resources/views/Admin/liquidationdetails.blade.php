@@ -52,6 +52,8 @@
                     <div class="card">
                         <div class="card-body">
 
+                            <form action="" id="saveFundForm" method="POST">
+                                @csrf
                             <div class="col-12 border mb-6">
                                 <div class="card-header">
                                     STATEMENT OF SOURCE OF FUND AND DISBURSEMENT
@@ -69,7 +71,7 @@
                                                 <td>Cash on Hand</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center"  step="0.01" min="0" value="0" name="" id="">
+                                                        <input type="number" class="form-control w-75 text-center" id="coh" oninput="calculateResult()" step="0.01" min="0" value="0" name="coh">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -77,7 +79,7 @@
                                                 <td>Cash on Bank</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center" name="" id="" step="0.01" min="0" value="0">
+                                                        <input type="number" class="form-control w-75 text-center" id="cob" oninput="calculateResult()" name="cob"  step="0.01" min="0" value="0">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -85,7 +87,7 @@
                                                 <td>Total Beginning Balance</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center" name="" id="" step="0.01" min="0" value="0">
+                                                        <input type="number" class="form-control w-75 text-center" name="tbb" oninput="calculateResult2()" id="tbb" readonly step="0.01" min="0" value="0">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -93,7 +95,7 @@
                                                 <td>Total Expenses</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center" name="" id="" step="0.01" min="0" value="0">
+                                                        <input type="number" class="form-control w-75 text-center" name="te"  oninput="calculateResult2()" id="te" readonly step="0.01" min="0" value="0">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -101,7 +103,7 @@
                                                 <td>Ending Balance</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center" name="" id="" step="0.01" min="0" value="0">
+                                                        <input type="number" class="form-control w-75 text-center" name="eb" id="eb" step="0.01" min="0" value="0" readonly>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -114,22 +116,24 @@
                                                 <td>Cash on Hand</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center" name="" id="" step="0.01" min="0" value="0">
+                                                        <input type="number" class="form-control w-75 text-center" name="coh2" oninput="checkAndRestrictInput()" id="coh2" step="0.01" min="0" value="0">
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Cash on Hand</td>
+                                                <td>Cash on Bank</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center" name="" id="" step="0.01" min="0" value="0">
+                                                        <input type="number" class="form-control w-75 text-center" name="cob2" oninput="checkAndRestrictInput()" id="cob2" step="0.01" min="0" value="0">
                                                     </div>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <button type="button" class="btn btn-primary col-12" onclick="saveFundAndDis()">Save</button>
                                 </div>
                             </div>
+                            </form>
 
                             <div class="col-12 border mb-6">
                                 <div class="card-header">
@@ -162,9 +166,13 @@
                                 </div>
                             </div>
 
+                            <form id="updateBudgetData">
+                                @csrf
                             <div class="col-12 border mb-6">
-                                <div class="card-header">
+                                <div class="card-header position-relative">
                                     Committee And Additional Expenses
+                                    <button type="button" class="btn btn-primary position-absolute top-0 end-0 m-2" onclick="editBudgetingTable()">Edit</button>
+                        
                                   </div>
                                 <div class="table-responsive">
                                 <table class="table table-bordered table-hover text-center">
@@ -179,7 +187,7 @@
                                     </thead>
                                     <tbody id="preloadTableCommittee">
                                         <input type="text" name="liquidation_id" hidden value="{{ $liquidation_id }}">
-                                        <input type="text" name="summary_total" id="summary_total" hidden value="">
+                                        <input type="text" name="summary_total" id="summary_total" hidden>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -189,9 +197,10 @@
                                     </tfoot>
                                 </table>
                                 </div>
-                                <button class="btn btn-primary col-12" id="svebudgetButton" onclick="saveBudgeting()">Save</button>
+                                <button type="button" class="btn btn-primary col-12" id="updateBudgetingData" onclick="updateBudgetingDataF()" style="display: none;">Update</button>
+                                <button type="button" class="btn btn-primary col-12" id="svebudgetButton" onclick="saveBudgeting()">Save</button>
                             </div>
-
+                            </form>
                             <div id="generateSaveTable" class="mb-4">
 
                             </div>
@@ -202,8 +211,10 @@
 
                             </div>
 
-                            <button class="btn btn-primary col-12" onclick="generateTable()">Add Table</button>
+                            <button class="btn btn-primary col-12 mb-4" onclick="generateTable()">Add Table</button>
 
+                            <a href="{{route('liquidationdetailsprint')}}?liquidation_id={{ $liquidation_id }}"><button class="btn btn-primary col-12" >Print</button></a>
+                            
                         </div>
                     </div>
                 </div>
