@@ -4,6 +4,7 @@
 
 @include('Admin.components.header', ['title' => 'Election'])
 @include('Admin.components.adminstyle')
+
 <style>
     .fade-card {
             opacity: 0;
@@ -126,6 +127,7 @@
                 </div>
             </div>
         </div>
+
         <form action="" id="updateElectionForm" method="POST" hidden>
             @csrf
             <input type="text" name="status" id="" value="2">
@@ -164,16 +166,15 @@
                                     </div>
 
                                     <hr class="my-4">
-                                    <h3 for="Voting Period">Voting Period</h3>
                                     <div class="row">
                                         <div class="col-6">
-                                            <label for="voting_start_date" class="form-label">Start Date</label>
-                                            <input type="datetime-local" name="voting_start_date"
+                                            <label for="voting_start_date" class="form-label">Start From</label>
+                                            <input type="date" name="voting_start_date"
                                                 id="voting_start_date" class="form-control">
                                         </div>
                                         <div class="col-6">
-                                            <label for="voting_end_date" class="form-label">End Date</label>
-                                            <input type="datetime-local" name="voting_end_date" id="voting_end_date"
+                                            <label for="voting_end_date" class="form-label">End To</label>
+                                            <input type="date" name="voting_end_date" id="voting_end_date"
                                                 class="form-control">
                                         </div>
                                     </div>

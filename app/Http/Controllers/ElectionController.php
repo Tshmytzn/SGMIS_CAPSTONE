@@ -14,6 +14,7 @@ use App\Models\Section;
 use Carbon\Carbon;
 use Carbon\CarbonTimeZone;
 use App\Models\ElectionResult;
+use App\Models\ElectionMaterials;
 
 class ElectionController extends Controller
 {
@@ -486,6 +487,56 @@ class ElectionController extends Controller
 
 
         return response()->json(['data' => 'result', 'status' => 'success']);
+    }
+    public function UploadElectionMaterialFiles(Request $request){
+        $request->validate([
+            'file' => 'required|file|max:20480', // Max file size of 20 MB (20480 KB)
+        ]);
+
+        // Get the uploaded file from the request
+        $file = $request->file('file');
+
+        // Ensure the 'id' is present in the request
+        $id = $request->input('id');
+        if (!$id) {
+            return response()->json(['message' => 'ID is required'], 400); // Return an error if 'id' is missing
+        }
+
+        // Define a new filename with a timestamp to avoid overwriting
+        $newImageName = $id . '_' . $file->getClientOriginalName();
+
+        // Move the file to the public/election_materials directory
+        $file->move(public_path('election_materials'), $newImageName);
+        
+        $save = new ElectionMaterials();
+        $save->election_id = $id;
+        $save->file_name = $newImageName;
+        $save->save();
+        // Return a JSON response with the file path and success message
+        return response()->json([
+            'path' => 'election_materials/' . $newImageName, // Update to reflect the correct directory
+            'message' => 'File uploaded successfully!'
+        ], 200);
+
+    }
+    public function GetMaterials(request $request){
+
+        $data =  ElectionMaterials::where('election_id',$request->id)->get();
+        return response()->json(['data' => $data, 'status' => 'success']);
+    }
+
+    public function DeleteMaterials(request $request)
+    {
+
+        $data =  ElectionMaterials::where('id',  $request->id)->first();
+
+        $oldImagePath = public_path('election_materials/' . $data->file_name);
+
+        unlink($oldImagePath);
+
+        $data->delete();
+
+        return response()->json(['status' => 'success']);
     }
 
 }

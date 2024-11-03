@@ -55,6 +55,9 @@ Route::get('/landing', function () { return view('Admin.landing'); })->name('lan
 Route::get('/Attendance', function () { return view('Admin.attendance'); })->name('ViewAttendance');
 Route::get('/Liquidation', function () { return view('Admin.liquidation'); })->name('Liquidation');
 Route::get('/Election', function () { return view('Admin.election'); })->name('Election');
+Route::get('/Election/Materials', function () {
+    return view('Admin.electionmaterials');
+})->name('ElectionMaterials');
 Route::get('/Edit/Election', function () { return view('Admin.addelectiondetails'); })->name('Editelection');
 Route::get('/Party/Candidates', function () { return view('Admin.party_candidates'); })->name('partycandidates');
 Route::get('/Election/Results', function () { return view('Admin.viewelectionresults'); })->name('viewelectionresults');
@@ -140,7 +143,9 @@ Route::get('/Liquidation/Details', action: function () {
 Route::get('/Liquidation/Details/Print', action: function () {
     return view('admin.liquidationdetailsprint');
 })->name('liquidationdetailsprint');
-
+Route::post('Admin/UploadElectionMaterialFiles', [ElectionController::class, 'UploadElectionMaterialFiles'])->name('UploadElectionMaterialFiles');
+Route::get('Admin/GetMaterials', [ElectionController::class, 'GetMaterials'])->name('GetMaterials');
+Route::post('Admin/DeleteMaterials', [ElectionController::class, 'DeleteMaterials'])->name('DeleteMaterials');
 
 // tish budgeting controller: post routes
 Route::post('admin/GetBudgetProposal', [BudgetProposalController::class, 'getBudgetProposal'])->name('getBudgetProposal');
