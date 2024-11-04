@@ -195,7 +195,7 @@ public function EditDeptPicInfo(Request $request){
     $check = StudentAccounts::where('school_id', $request->studentid)->first();  
     if($check){
         return response()->json(['status' => 'exist']);
-    }else if($request->studentid == ''|| $request->firstname == ''|| $request->middlename == ''|| $request->lastname== ''|| $request->selectdepartment== ''|| $request->selectcourse== ''|| $request->selectsection== ''){
+    }else if($request->studentid == ''|| $request->firstname == ''|| $request->lastname== ''|| $request->selectdepartment== ''|| $request->selectcourse== ''|| $request->selectsection== ''){
         return response()->json(['status' => 'empty']);
     }else{
         $pass = Hash::make($request->studentid);
@@ -233,7 +233,7 @@ public function EditDeptPicInfo(Request $request){
     $check = StudentAccounts::where('school_id',!$request->editstudentschoolid)->first();  
     if($check){
         return response()->json(['status' => 'exist']);
-    }else if($request->editstudentschoolid == ''|| $request->editfirstname == ''|| $request->editmiddlename == ''|| $request->editlastname== ''){
+    }else if($request->editstudentschoolid == ''|| $request->editfirstname == ''|| $request->editlastname== ''){
         return response()->json(['status' => 'empty']);
     }else{
          $update = StudentAccounts::where('student_id', $request->EditStudentID)->first();

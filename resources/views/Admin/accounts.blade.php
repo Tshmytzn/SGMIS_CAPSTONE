@@ -285,7 +285,7 @@
                 <div class="row g-2">
                   <div class="col-md-12">
                     <label for="studentid" class="form-label">Student ID</label>
-                    <input type="number" class="form-control" id="studentid" name="studentid" placeholder="Student ID">
+                    <input type="number" class="form-control" id="studentid" name="studentid" placeholder="Student ID" oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);">
                   </div>
                   {{-- <div class="col-md-4">
                     <label for="inputState" class="form-label">Year Level</label>
@@ -372,7 +372,7 @@
                         <div class="row g-2">
                           <div class="col-md-6">
                             <label for="studentid" class="form-label">Student ID</label>
-                            <input type="number" class="form-control" id="editstudentschoolid" name="editstudentschoolid" placeholder="Student ID">
+                            <input type="number" class="form-control" id="editstudentschoolid" name="editstudentschoolid" placeholder="Student ID" oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);">
                           </div>
                            <div class="col-md-6">
                             <label for="" class="form-label">Student Password</label>

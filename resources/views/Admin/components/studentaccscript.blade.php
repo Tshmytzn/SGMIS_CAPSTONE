@@ -1,14 +1,14 @@
 <script>
     function GetDeptDataSavestudent() {
         const dept = document.getElementById('selectdepartment').value;
-        document.getElementById('lineLoading').style.display=''
+        document.getElementById('lineLoading').style.display = ''
         $('#selectcourse').hide();
         console.log(dept);
         $.ajax({
             type: "GET",
             url: "{{ route('GetDeptData') }}?dept_id=" + dept,
             success: function(response) {
-                document.getElementById('lineLoading').style.display='none'
+                document.getElementById('lineLoading').style.display = 'none'
                 $('#selectcourse').show();
                 $('#selectcourse').empty();
                 $('#selectcourse').append('<option>Select Course</option>');
@@ -22,39 +22,42 @@
             }
         });
     }
-    function GetSectData() {
-    const crs = document.getElementById('selectcourse').value;
-    const yearLevel = document.getElementById('selectYearLevel').value;
-    document.getElementById('lineLoading2').style.display=''
-    $('#selectsection').hide();
 
-    $.ajax({
-        type: "GET",
-        url: "{{ route('GetSectData') }}",
-        data: {
-            course_id: crs,
-            year_level: yearLevel,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(response) {
-            document.getElementById('lineLoading2').style.display='none'
-            $('#selectsection').show();
-            $('#selectsection').empty();
-            if(response.data.length>0){
-                response.data.forEach(function(course) {
-                $('#selectsection').append('<option value="' + course.sect_id + '">' + course.sect_name + '</option>');
-            });
-            }else{
-                $('#selectsection').append('<option disabled selected>No Section Available</option>');
+    function GetSectData() {
+        const crs = document.getElementById('selectcourse').value;
+        const yearLevel = document.getElementById('selectYearLevel').value;
+        document.getElementById('lineLoading2').style.display = ''
+        $('#selectsection').hide();
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('GetSectData') }}",
+            data: {
+                course_id: crs,
+                year_level: yearLevel,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                document.getElementById('lineLoading2').style.display = 'none'
+                $('#selectsection').show();
+                $('#selectsection').empty();
+                if (response.data.length > 0) {
+                    response.data.forEach(function(course) {
+                        $('#selectsection').append('<option value="' + course.sect_id + '">' +
+                            course.sect_name + '</option>');
+                    });
+                } else {
+                    $('#selectsection').append('<option disabled selected>No Section Available</option>');
+                }
+
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
             }
-            
-        },
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-        }
-    });
-}
-function SaveStudent() {
+        });
+    }
+
+    function SaveStudent() {
         var formData = $("form#SaveStudentForm").serialize();
         $.ajax({
             type: "POST",
@@ -77,7 +80,7 @@ function SaveStudent() {
                         });
                 } else if (response.status == 'empty') {
                     alertify
-                        .alert("Warning", "Enter Student Name First!", function() {
+                        .alert("Warning", "Please Fill In All Fields!", function() {
                             alertify.message('OK');
                         });
                 }
@@ -87,6 +90,7 @@ function SaveStudent() {
             }
         });
     }
+
     function GetStudentData(id) {
         if (typeof id === 'undefined') {
             document.getElementById('yearTitle').textContent = 'All Year Level';
@@ -104,7 +108,12 @@ function SaveStudent() {
                         data: 'student_firstname'
                     },
                     {
-                        data: 'student_middlename'
+                        data: 'student_middlename',
+                        render: function(data, type, row) {
+                            return data ? data :
+                            ''; 
+                        
+                        }
                     },
                     {
                         data: 'student_lastname'
@@ -172,6 +181,7 @@ function SaveStudent() {
             });
         }
     }
+
     function editStudentinfo(id, sch_id, sf, sm, sl, se, yl, sc_n) {
         console.log(sc_n);
         document.getElementById('EditStudentID').value = id;
@@ -182,6 +192,7 @@ function SaveStudent() {
         document.getElementById('editstudentschoolid').value = sch_id;
         document.getElementById('EditModalTitle').textContent = yl + ' - ' + sc_n;
     }
+
     function EditStudent() {
         var formData = $("form#EditStudentForm").serialize();
         $.ajax({
@@ -191,7 +202,7 @@ function SaveStudent() {
             success: function(response) {
                 if (response.status == 'success') {
                     alertify
-                        .alert("Message", "Student Successfully Edited", function() {
+                        .alert("Message", "Student Account Successfully Updated", function() {
                             alertify.message('OK');
                             clearFormInputs('EditStudentForm');
                             GetStudentData();
@@ -205,7 +216,7 @@ function SaveStudent() {
                         });
                 } else if (response.status == 'empty') {
                     alertify
-                        .alert("Warning", "Enter Student Name First!", function() {
+                        .alert("Warning", "Please Fill In All Fields!", function() {
                             alertify.message('OK');
                         });
                 }
@@ -215,6 +226,7 @@ function SaveStudent() {
             }
         });
     }
+
     function closeModal() {
         var modalElements = document.getElementsByClassName('modal');
         for (var i = 0; i < modalElements.length; i++) {
@@ -226,6 +238,7 @@ function SaveStudent() {
             }
         }
     }
+
     function clearFormInputs(formId) {
         var form = document.getElementById(formId);
         var inputs = form.getElementsByTagName('input');
@@ -241,12 +254,13 @@ function SaveStudent() {
         }
 
     }
+
     function selectSect(id, name, year) {
         document.getElementById('selectSectId').value = id + ',' + name + ',' + year;
         GetStudentData(id);
-        document.getElementById('yeardropdown').textContent= year  + ' - ' + name;
+        document.getElementById('yeardropdown').textContent = year + ' - ' + name;
     }
-     $(document).ready(function() {
+    $(document).ready(function() {
         GetStudentData()
 
     });
