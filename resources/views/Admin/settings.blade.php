@@ -497,6 +497,10 @@
                       <select name="studentposition" class="form-select" id="studentposition">
                         <option value="USG PRESIDENT">USG PRESIDENT</option>
                         <option value="USG SECRETARY">USG SECRETARY</option>
+                        <option value="USG SECRETARY">USG BUDGET&FINANCE</option>
+                        <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
+                        <option value="USG SECRETARY">USG SENATE SECRETARY</option>
+
                       </select>         
                   </div>
 
