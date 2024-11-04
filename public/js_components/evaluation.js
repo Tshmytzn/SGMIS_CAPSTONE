@@ -38,7 +38,7 @@ function VerifyCreateEvalForm(route, evalForm, viewEval, images, deleteEval, emp
   }
 
   if (validity === 2) {
-    CreateEvalForm(route, evalForm, viewEval, images, deleteEval, empty);
+    CreateEvalForm(route, evalForm, viewEval, images, deleteEval, empty, 'admin');
   }
 
 }
@@ -76,6 +76,7 @@ function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty, whe
 
   const route = evalForm + "?eval_id=" + eval_id;
   const list = document.getElementById('eval_list');
+  console.log(where);
   $.ajax({
     type: "GET",
     url: route,
@@ -89,7 +90,7 @@ function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty, whe
                     <div class="img-responsive img-responsive-21x9 card-img-top";
                     href="${viewEval}?eval_id=${eval_id}";
                     style="background-image: url('${images}/${res.event.event_pic}')">
-                </div>                            
+                </div>
                     <div class="card-body" href="${viewEval}" >
                         <h3 class="card-title">${res.eval.eval_name}(${res.event.event_name})</h3>
                         <p class="text-muted">${res.eval.eval_description}
@@ -97,7 +98,7 @@ function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty, whe
                     </div>
                 </a>
                     <div class="d-flex">
-                      ${where === 'admin' ? `  <a href="${viewEval}?eval_id=${eval_id}" 
+                      ${where === 'admin' ? `  <a href="${viewEval}?eval_id=${eval_id}"
                       class="card-btn">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -114,7 +115,7 @@ function AddEvalForm(evalForm, eval_id, viewEval, images, deleteEval, empty, whe
                   <a href="#" onclick="DeleteEvalForm('${deleteEval}', '${res.eval.eval_id}', '${empty}')"
                       class="card-btn">
                       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                       Delete</a>` : `<a href="${viewEval}?eval_id=${eval_id}" 
+                       Delete</a>` : `<a href="${viewEval}?eval_id=${eval_id}"
                        class="card-btn">
                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -333,11 +334,11 @@ function LoadEvalQuestion(route, deleteQuestion, updateQuestion, getEvalQuestion
     success: res => {
       list.innerHTML = '';
       if(res.question.length > 0){
-        
+
       res.question.forEach(q => {
         list.innerHTML += `<tr class="alltrquestions" id="question_list${q.eq_num}-${q.eq_id}">
          <td id="qnum${q.eq_num}" scope="row">${q.eq_num}</td>
-        
+
          <td id="question_content${q.eq_num}">
           ${q.eq_question}
          </td>
@@ -348,7 +349,7 @@ function LoadEvalQuestion(route, deleteQuestion, updateQuestion, getEvalQuestion
          <button class="btn btn-outline-primary me-2" onclick="ChangeUpdateDataQuestion('${updateQuestion}', '${q.eq_id}', '${q.eq_num}', '${getEvalQuestion}', '${deleteQuestion}')">Edit</button>
          <button class="btn btn-outline-danger" onclick="SubmitDeleteQuestion('${deleteQuestion}', '${q.eq_id}')">Delete</button>
          </td>
-     
+
      </tr>`
       });
     }else{
@@ -370,7 +371,7 @@ function LoadEvalQuestion(route, deleteQuestion, updateQuestion, getEvalQuestion
         document.getElementById('saveChanges').style.display = 'none';
         document.getElementById('discardChanges').style.display = 'none';
       }
-   
+
     }, error: xhr => {
       console.log(xhr.responseText);
     }
@@ -416,9 +417,9 @@ function EvalQuestionSwitchNum() {
     }
 
     document.getElementById('allnewplace').value = dataUpdate;
-    
+
     SubmitSwitchNumQuestion(route);
-  
+
 }
 function SubmitSwitchNumQuestion(route){
   document.getElementById('mainLoader').style.display = 'flex';
@@ -446,13 +447,13 @@ function SubmitSwitchNumQuestion(route){
 
 function SubmitDeleteQuestion(route, id){
   alertify.confirm('Delete Question', 'Are you sure do you want to delete this question?',
-   function(){ 
+   function(){
   document.getElementById('delete_eq_id').value = id;
   document.getElementById('mainLoader').style.display = 'flex';
   DeleteQuestion(route);
     }
   , function(){ console.log('cancel')});
-  
+
 }
 
 function DeleteQuestion(route){
@@ -469,7 +470,7 @@ function DeleteQuestion(route){
         SaveSwitchNumQuestion(document.getElementById('updateNumbering').value);
       },100);
 
-      
+
       document.getElementById('mainLoader').style.display = 'none';
       alertify.set('notifier', 'position', 'top-right');
       alertify.warning('Question Deleted');
@@ -497,19 +498,19 @@ function ChangeUpdateDataQuestion(route, id, q_num, getQuestion, deleteQuestion)
       </td>
       <td id="question_scale${q_num}">
       <select id="eval_form_scale${q_num}" class="form-control">
-      <option ${res.question.eq_scale === 1 ? 'selected' : ''} value="1">Likert Scale(1-5) Strongly Disagree-Strongly Agree</option>   
+      <option ${res.question.eq_scale === 1 ? 'selected' : ''} value="1">Likert Scale(1-5) Strongly Disagree-Strongly Agree</option>
       <option ${res.question.eq_scale === 2 ? 'selected' : ''} value="2">Rating Scale(1-5) Poor-Excellent</option>
       <option ${res.question.eq_scale === 3 ? 'selected' : ''} value="3">Performance Scale(1-5) Needs Improvement-Excellent</option>
-      <option ${res.question.eq_scale === 4 ? 'selected' : ''} value="4">Close Ended (Yes/No)</option>  
-      <option ${res.question.eq_scale === 5 ? 'selected' : ''} value="5">Open Ended (Describe)</option> 
+      <option ${res.question.eq_scale === 4 ? 'selected' : ''} value="4">Close Ended (Yes/No)</option>
+      <option ${res.question.eq_scale === 5 ? 'selected' : ''} value="5">Open Ended (Describe)</option>
       </select>
       <label style="display:none" id="eval_form_scale_e${q_num}" class="text-sm text-danger" for="eval_form_scale${q_num}">(No Selected Scale in this field)</label>
       </td>
       <td id="question_action${q_num}">
-      <button class="btn btn-outline-primary me-2 m-auto" 
+      <button class="btn btn-outline-primary me-2 m-auto"
       onclick="SubmitUpdateQuestion('${route}', '${q_num}', '${id}', '${getQuestion}', '${deleteQuestion}')">
       Update</button>
-      <button class="btn btn-outline-danger me-2 m-auto" 
+      <button class="btn btn-outline-danger me-2 m-auto"
       onclick="DiscardUpdate('${q_num}','${id}', '${res.question.eq_question}', '${res.question.eq_scale}', '${getQuestion}', '${deleteQuestion}', '${route}')">
       Discard</button>
       </td>
@@ -540,7 +541,7 @@ function UpdateQuestion(route, q_num, id, getQuestion,deleteQuestion){
       if(res.status === 'success'){
         const trData = document.getElementById(`question_list${q_num}-${id}`);
         trData.innerHTML = `<td id="qnum${q_num}" scope="row">${q_num}</td>
-        
+
         <td id="question_content${q_num}">
          ${res.question}
         </td>
@@ -566,7 +567,7 @@ function DiscardUpdate(q_num, id, question, scale, getQuestion, deleteQuestion, 
  const trData = document.getElementById(`question_list${q_num}-${id}`);
 
  trData.innerHTML = ` <td id="qnum${q_num}" scope="row">${q_num}</td>
-        
+
  <td id="question_content${q_num}">
   ${question}
  </td>
@@ -613,12 +614,12 @@ function LoadEvaluateQuestion(route){
     url: route,
     dataType: "json",
     success: res=>{
-     
-      if(res.eval_status){  
+
+      if(res.eval_status){
         const container = document.getElementById('container');
 
         container.innerHTML = `<div class="w-100 h-100 min-vh-100">
-        
+            
         </div>`
       }else{
         res.question.forEach(data=>{
@@ -723,7 +724,7 @@ function LoadEvaluateQuestion(route){
               </svg>
                   No</span>
               </label>
-    
+
             </div>
            </div>
     `
@@ -735,7 +736,7 @@ function LoadEvaluateQuestion(route){
           }
         });
       }
-       
+
     },error: xhr=>{
       console.log(xhr.responseText);
     }
@@ -746,26 +747,191 @@ function SubmitEvaluationStudent(){
   document.getElementById('questionList').requestSubmit();
 }
 
+const questionList = document.getElementById('questionList');
+if(questionList){
+questionList.addEventListener('submit', e => {
+    e.preventDefault();
 
-document.getElementById('questionList').addEventListener('submit', e => {
-  e.preventDefault();
+    document.getElementById('mainLoader').style.display = 'flex';
+    $.ajax({
+      type:"POST",
+      data: $('form#questionList').serialize(),
+      url: "/Student/Evaluation/Evaluate/SaveResult",
+      success: res=>{
 
-  document.getElementById('mainLoader').style.display = 'flex';
-  $.ajax({
-    type:"POST",
-    data: $('form#questionList').serialize(),
-    url: "/Student/Evaluation/Evaluate/SaveResult",
-    success: res=>{
-  
-     if(res.status === 'success'){
-      document.getElementById('mainLoader').style.display = 'none';
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.success('Evaluation Result Submitted');
-     }
-    }, error: xhr=>{
-      console.log(xhr.responseText);
-    }
+       if(res.status === 'success'){
+        document.getElementById('mainLoader').style.display = 'none';
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Evaluation Result Submitted');
+       }
+      }, error: xhr=>{
+        console.log(xhr.responseText);
+      }
+    });
+
   });
 
-});
+}
 
+function LoadEvaluationResults(id){
+
+    $.ajax({
+        type:"GET",
+        url: '/Student/Evaluation/Evaluate/Results?eval_id='+id,
+        dataType: "json",
+        success: res=>{
+            const evaluationResult = document.getElementById('evaluationResultCharts');
+            evaluationResult.innerHTML = '';
+            console.log(res.data);
+            res.data.forEach(d=> {
+                const scaleType = chooseScale(d.eq_scale);
+                const chartId = `resultChart${d.res_id}`;
+                evaluationResult.innerHTML += `<div class="container mt-4 border p-4 rounded">
+                       <p>${d.eq_question}(${scaleType[0]})</p>
+                       <div id="${chartId}"></div>
+                    </div>`;
+
+                switch(scaleType[1]){
+                    case 'bar':
+                        loadBarChart('','', chartId )
+                        break;
+                    case 'pie':
+                        loadPieChart('', chartId )
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }, error: xhr=> console.log(xhr.responseText)
+    });
+}
+
+function chooseScale(scale){
+    switch(scale){
+        case "1":
+            return ['Likert Scale(1-5) Strongly Disagree-Strongly Agree', 'bar'];
+        case "2":
+            return ['Rating Scale(1-5) Poor-Excellent', 'bar']
+        case "3":
+            return ['Performance Scale(1-5) Needs Improvement-Excellent', 'bar']
+        case "4":
+            return ['Close Ended (Yes/No)', 'pie'];
+        case "5":
+            return ['Open Ended (Describe)', 'table'];
+        default:
+            return ['No Valid Value', 'null'];
+    }
+}
+
+function loadBarChart(rate, data, id){
+    window.ApexCharts && (new ApexCharts(document.getElementById(id), {
+        chart: {
+            type: "bar",
+            fontFamily: 'inherit',
+            height: 240,
+            parentHeightOffset: 0,
+            toolbar: {
+                show: false,
+            },
+            animations: {
+                enabled: false
+            },
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: '50%',
+            }
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        fill: {
+            opacity: 1,
+        },
+        series: [{
+            name: "Tasks completion",
+            data: [155, 65, 465, 265, 225, 325, 80]
+        }],
+        tooltip: {
+            theme: 'dark'
+        },
+        grid: {
+            padding: {
+                top: -20,
+                right: 0,
+                left: -4,
+                bottom: -4
+            },
+            strokeDashArray: 4,
+        },
+        xaxis: {
+            labels: {
+                padding: 0,
+            },
+            tooltip: {
+                enabled: false
+            },
+            axisBorder: {
+                show: false,
+            },
+            type: 'datetime',
+        },
+        yaxis: {
+            labels: {
+                padding: 4
+            },
+        },
+        labels: [
+            '2020-06-20', '2020-06-21', '2020-06-22', '2020-06-23', '2020-06-24', '2020-06-25', '2020-06-26'
+        ],
+        colors: [tabler.getColor("primary")],
+        legend: {
+            show: false,
+        },
+    })).render();
+}
+
+function loadPieChart(data, id){
+    window.ApexCharts && (new ApexCharts(document.getElementById(id), {
+        chart: {
+            type: "donut",
+            fontFamily: 'inherit',
+            height: 240,
+            sparkline: {
+                enabled: true
+            },
+            animations: {
+                enabled: false
+            },
+        },
+        fill: {
+            opacity: 1,
+        },
+        series: [44, 55, 12, 2],
+        labels: ["Yes", "No"],
+        tooltip: {
+            theme: 'dark'
+        },
+        grid: {
+            strokeDashArray: 4,
+        },
+        colors: [tabler.getColor("primary"), tabler.getColor("primary", 0.8), tabler.getColor("primary", 0.6), tabler.getColor("gray-300")],
+        legend: {
+            show: true,
+            position: 'bottom',
+            offsetY: 12,
+            markers: {
+                width: 10,
+                height: 10,
+                radius: 100,
+            },
+            itemMargin: {
+                horizontal: 8,
+                vertical: 8
+            },
+        },
+        tooltip: {
+            fillSeriesColor: false
+        },
+    })).render();
+}

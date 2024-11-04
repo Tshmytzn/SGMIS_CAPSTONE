@@ -13,6 +13,7 @@ class EvalResult extends Model
     protected $fillable = [
       'student_id',
       'eq_id',
+      'eval_id',
       'res_value'
     ];
 }

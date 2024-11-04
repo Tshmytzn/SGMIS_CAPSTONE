@@ -7,7 +7,7 @@
 @php
     $eval = App\Models\Evaluation::where('eval_id', $eval_id)->first();
     $event = App\Models\SchoolEvents::where('event_id', $eval->event_id)->first();
-    $question = App\Models\EvalQuestion::where('eval_id', $eval_id)->orderBy('eq_num', 'asc')->get();   
+    $question = App\Models\EvalQuestion::where('eval_id', $eval_id)->orderBy('eq_num', 'asc')->get();
     $num = 1;
 @endphp
   <body >
@@ -48,9 +48,10 @@
             </div>
              <form id="questionList" class="mt-4">
                @csrf
-               <input type="hidden" name="student_id" value="{{session('student_id')}}"> 
+               <input type="hidden" name="student_id" value="{{session('student_id')}}">
+               <input type="hidden" name="eval_id" value="{{ $eval_id }}">
              </form>
-           
+
           </div>
         </div>
       </div>
@@ -59,8 +60,8 @@
     @include('Student.components.scripts')
     <script>
       window.onload = function (){
-        LoadEvaluateQuestion("{{ route('loadQuestionEvaluate') }}?eval_id={{ $eval_id }}");
-       
+        LoadEvaluateQuestion("{{ route('loadQuestionEvaluate') }}?eval_id={{ $eval_id }}&student_id={{ session('student_id') }}");
+
       }
     </script>
   </body>

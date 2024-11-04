@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('res_id');
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('student_id')->on('student_accounts');
+            $table->unsignedBigInteger('eval_id');
+            $table->foreign('eval_id')->references('eval_id')->on('evaluation');
             $table->unsignedBigInteger('eq_id');
             $table->foreign('eq_id')->references('eq_id')->on('eval_question');
             $table->string('res_value');

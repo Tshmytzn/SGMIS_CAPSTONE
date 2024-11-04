@@ -15,7 +15,7 @@ class EvaluationController extends Controller
         $check = Evaluation::where('event_id', $req->event_id)->first();
         if($check){
             return response()->json([
-                'status'=>'failed', 
+                'status'=>'failed',
                 'eval_id'=>'none',
             ]);
         }else{
@@ -24,13 +24,13 @@ class EvaluationController extends Controller
             $eval->eval_description = $req->evaldesc;
             $eval->event_id = $req->event_id;
             $eval->save();
-    
+
             return response()->json([
-                'status'=>'success', 
+                'status'=>'success',
                 'eval_id'=>$eval->eval_id,
             ]);
         }
-       
+
     }
 
     public function GetEvalForm(Request $req){
@@ -51,7 +51,7 @@ class EvaluationController extends Controller
         }
         $eval = Evaluation::where('eval_id', $req->eval_id)->first();
         $eval->delete();
-        
+
         return response()->json(['status'=>'success']);
     }
 
@@ -85,7 +85,7 @@ class EvaluationController extends Controller
        }
 
        return response()->json(['status'=> 'success']);
-       
+
     }
 
     public function DeleteEvalQuestion(Request $req){
@@ -112,16 +112,16 @@ class EvaluationController extends Controller
 
     public function GetEvalQuestion(Request $req){
         $eval = EvalQuestion::where('eq_id', $req->q_id)->first();
-        
+
         return response()->json(['question'=> $eval]);
     }
 
     public function LoadQuestionEvaluate(Request $req){
        $question = EvalQuestion::where('eval_id', $req->eval_id)->orderBy('eq_num', 'asc')->get();
-    
+
        $evaluateStatus = false;
        foreach($question as $q){
-        $result = EvalResult::where('eq_id', $q->eq_id)->first();
+        $result = EvalResult::where('eq_id', $q->eq_id)->where('student_id', $req->student_id)->first();
         if($result){
             $evaluateStatus = true;
         }
@@ -132,13 +132,17 @@ class EvaluationController extends Controller
 
     public function EvaluationSaveResult(Request $request){
     $input = $request->all();
-    
+
     $quest_id= [];
     $val = [];
     foreach ($input as $key => $value) {
       if($key === 'student_id'){
           $student_id = $value;
-      }else if($key != '_token'){
+
+      }else if($key === 'eval_id'){
+        $eval_id = $value;
+    }
+      else if($key != '_token'){
         $id = preg_replace('/\D/', '', $key);
         array_push($quest_id, $id);
         array_push($val, $value);
@@ -146,18 +150,25 @@ class EvaluationController extends Controller
     }
 
     for($i = 0; $i < count($quest_id); $i++){
-        $res = EvalResult::where('eq_id', $quest_id[$i])->first();
+        $res = EvalResult::where('eq_id', $quest_id[$i])->where('student_id', $request->student_id)->first();
         if($res){
            $res->update(['res_value'=>$val[$i]]);
         }else{
         $quest = new EvalResult();
         $quest->student_id = $student_id;
         $quest->eq_id = $quest_id[$i];
+        $quest->eval_id = $eval_id;
         $quest->res_value = $val[$i];
-        $quest->save(); 
-        }    
+        $quest->save();
+        }
     }
 
     return response()->json(['status'=>'success']);
+   }
+
+   public function LoadEvaluationResult(Request $req){
+        // $evalResult =
+
+        // return response()->json(['data'=> $result]);
    }
 }
