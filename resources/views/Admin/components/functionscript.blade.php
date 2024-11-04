@@ -555,6 +555,22 @@
     }
    
     function SaveSection() {
+
+        let isValid = true;
+        $("form#addsectionform :input").each(function() {
+            if ($(this).val() === null || $(this).val() === '') {
+                isValid = false;
+                return false; 
+            }
+        });
+
+        if (!isValid) {
+            alertify.alert("Warning", "Please Fill in All fields!", function() {
+                alertify.message('OK');
+            });
+            return; 
+        }
+
         document.getElementById('adminloader').style.display = 'grid';
         var formData = $("form#addsectionform").serialize();
         $.ajax({
@@ -587,7 +603,7 @@
                 } else if (response.status == 'empty') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Warning", "Fill All Field!", function() {
+                        .alert("Warning", "Please Fill In All Fields!", function() {
                             alertify.message('OK');
                         });
                 }
