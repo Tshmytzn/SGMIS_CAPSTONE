@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('com_id');
              $table->integer('event_id');
              $table->string('com_name',150)->nullable();
+             $table->integer('random_id')->nullable();
             $table->timestamps();
         });
     }

@@ -4,9 +4,47 @@
 
 @include('Admin.components.header', ['title' => 'Admin Dashboard'])
 
-<link rel="stylesheet" type="text/css" href="css/evo-calendar.royal-navy.css"/>
-<link rel="stylesheet" type="text/css" href="css/evo-calendar.css"/>
+<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/common@6.1.15/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth', // Set the initial view to month
+        events: [] // Start with an empty events array
+    });
+
+    // AJAX request to fetch events
+    $.ajax({
+        url: `{{route('getAllEvent')}}`, // Placeholder API URL
+        method: 'GET',
+        success: function(data) {
+            console.log(data); // Log the response data for debugging
+
+            // Loop through the data and format it for FullCalendar
+            var events = data.event.map(function(event) {
+                return {
+                    title: event.event_name, // Set the title from event_name
+                    start: event.event_start, // Start date
+                    end: event.event_end ? moment(event.event_end).add(1, 'days').format('YYYY-MM-DD') : null, // Adjust end date
+                    description: event.event_description // Additional data (optional)
+                };
+            });
+
+            // Add events to the calendar
+            calendar.addEventSource(events);
+            calendar.render(); // Render the calendar with events
+        },
+        error: function(xhr, status, error) {
+            $('#result').html('<p>Error loading data: ' + error + '</p>');
+        }
+    });
+});
+
+    </script>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 

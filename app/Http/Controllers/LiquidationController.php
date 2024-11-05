@@ -15,6 +15,9 @@ use App\Models\DateLength;
 use App\Models\LiquidationBreakdown;
 use App\Models\LiquidationSummary;
 use App\Models\FundAndDisbursement;
+use App\Models\CompendiumFile;
+use App\Models\Compendium;
+use Illuminate\Support\Facades\File;
 
 class LiquidationController extends Controller
 {
@@ -290,5 +293,66 @@ class LiquidationController extends Controller
                 return response()->json(['data' => $check]);
         }
 
+    }
+    public function saveLiquidationDoc(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'pdf' => 'required|file|mimes:pdf|max:102400', // Validate the uploaded PDF
+            'l_id' => 'required|integer' // Validate the liquidation ID
+        ]);
+
+        $getdata = Liquidation::findOrFail($request->l_id); // Using findOrFail for better error handling
+
+        $check = Compendium::where('event_id', $getdata->event_id)->first();
+        if($check){
+            return response()->json(['message' => 'Data already added']);
+        }
+        $randomNumber = $this->generateUniqueRandomNumber();
+        // Create a new Compendium entry
+        $data = new Compendium;
+        $data->event_id = $getdata->event_id;
+        $data->com_name = $getdata->liquidation_name;
+        $data->random_id = $randomNumber;
+        $data->save();
+
+        // Handle the uploaded PDF file
+        if ($request->hasFile('pdf')) {
+            $pdfFile = $request->file('pdf'); // Retrieve the uploaded file
+            $finalName = $data->com_id . '.' .$getdata->liquidation_name.'.'.$pdfFile->getClientOriginalExtension(); // Use the original extension
+            $path = public_path('compendium_file/' . $finalName);
+
+            // Move the uploaded file to the designated path
+            $pdfFile->move(public_path('compendium_file'), $finalName);
+
+            // Save file information to CompendiumFile table
+            $data2 = new CompendiumFile;
+            $data2->com_id = $data->com_id;
+            $data2->file_name = $finalName;
+            $data2->save();
+        }
+
+        return response()->json(['message' => 'Data successfully added!']);
+    }
+
+    public function generateUniqueRandomNumber()
+    {
+        do {
+            // Generate a random 6-digit number
+            $randomNumber = $this->generateRandomNumber();
+
+            // Check if this number already exists in the database
+            $checking = Compendium::where('random_id', $randomNumber)->first();
+        } while ($checking); // Repeat if the number already exists
+
+        return $randomNumber; // Return the unique random number
+    }
+    public function generateRandomNumber()
+    {
+        // Generate a random 6-digit number
+        $randomNumber = random_int(100000, 999999);
+
+        // Return the random number directly
+        return $randomNumber;
     }
 }

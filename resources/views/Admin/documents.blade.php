@@ -97,7 +97,7 @@
                        <option>Select Event</option>
                      @php
                           $currentDate = date('Y-m-d');
-                          $event = App\Models\SchoolEvents::where('event_start','>',$currentDate)->get();
+                          $event = App\Models\SchoolEvents::All();
                       @endphp
 
                       @foreach ($event as $eve)
@@ -178,13 +178,39 @@
             }
         });
     }
+    function closeModal() {
+        var modalElements = document.getElementsByClassName('modal');
+        for (var i = 0; i < modalElements.length; i++) {
+            if (modalElements[i].classList.contains('show')) {
+                var closeButton = modalElements[i].querySelector('[data-bs-dismiss="modal"]');
+                if (closeButton) {
+                    closeButton.click();
+                }
+            }
+        }
+    }
+    function clearFormInputs(formId) {
+        var form = document.getElementById(formId);
+        var inputs = form.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            // Check if the input type is not 'hidden' and its name is not '_token'
+            if (inputs[i].type !== 'hidden' && inputs[i].name !== '_token') {
+                inputs[i].value = '';
+            }
+        }
+        var textareas = form.getElementsByTagName('textarea');
+        for (var i = 0; i < textareas.length; i++) {
+            textareas[i].value = '';
+        }
 
+    }
     function GetAllCompendium() {
       document.getElementById('lineLoading').style.display = '';
     $.ajax({
         type: "GET",
         url: "{{ route('GetAllCompendium') }}",
         success: function(response) {
+          
             // Check if the response is empty
             document.getElementById('lineLoading').style.display = 'none';
             if (response.data.length === 0) {
@@ -224,8 +250,18 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pinned"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" /><path d="M12 16l0 5" /><path d="M8 4l8 0" /></svg>
                             </div>
                             <div class="card-body">
-                                <h3 class="card-title">${event.event_name}</h3>
-                                <h4>${event.com_name}</h4>
+                              <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4 class="card-title">${event.event_name}</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <h4 class="card-title">#${event.random_id}</h4>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <h3>${event.com_name}</h3>
                                 <p class="text-muted">${event.event_description}</p>
                             </div>
                             <!-- Card footer -->

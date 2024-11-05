@@ -143,6 +143,9 @@ Route::get('/Liquidation/Details', action: function () {
 Route::get('/Liquidation/Details/Print', action: function () {
     return view('admin.liquidationdetailsprint');
 })->name('liquidationdetailsprint');
+Route::post('Admin/saveLiquidationDoc', [LiquidationController::class, 'saveLiquidationDoc'])->name('saveLiquidationDoc');
+
+
 Route::post('Admin/UploadElectionMaterialFiles', [ElectionController::class, 'UploadElectionMaterialFiles'])->name('UploadElectionMaterialFiles');
 Route::get('Admin/GetMaterials', [ElectionController::class, 'GetMaterials'])->name('GetMaterials');
 Route::post('Admin/DeleteMaterials', [ElectionController::class, 'DeleteMaterials'])->name('DeleteMaterials');

@@ -91,7 +91,7 @@
                             </a>
                             <div class="dropdown-menu">
                          @foreach ($sections as $section)
-                             @if ($section->year_level == 'First Year')
+                             @if ($section->year_level == '1')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                             @endif
                          @endforeach
@@ -106,7 +106,7 @@
                             </a>
                             <div class="dropdown-menu">
                               @foreach ($sections as $section)
-                              @if ($section->year_level == 'Second Year')
+                              @if ($section->year_level == '2')
                               <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                             @endif
                           @endforeach
@@ -121,7 +121,7 @@
 
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
-                             @if ($section->year_level == 'Third Year')
+                             @if ($section->year_level == '3')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
@@ -137,7 +137,7 @@
                         </a>
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
-                             @if ($section->year_level == 'Fourth Year')
+                             @if ($section->year_level == '4')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
@@ -152,7 +152,7 @@
                         </a>
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
-                             @if ($section->year_level == 'Fifth Year')
+                             @if ($section->year_level == '5')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach

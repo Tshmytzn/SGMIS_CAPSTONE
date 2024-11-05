@@ -24,7 +24,7 @@ return new class extends Migration
 
         // Now inserting the dummy data for sections
         $courses = DB::table('course')->get();  // Fetch all courses with course_id from 'course' table
-        $year_levels = ['First Year', 'Second Year', 'Third Year', 'Fourth Year'];
+        $year_levels = ['1', '2', '3', '4'];
         $sections = ['A', 'B', 'C'];  // Adjust based on the number of sections
         $sectionData = [];
         $now = now();

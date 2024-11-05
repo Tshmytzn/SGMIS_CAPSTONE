@@ -392,11 +392,11 @@
                           <label for="yearlevel" class="form-label">Year Level</label>
                           <select id="selectyear" name="selectyear" class="form-select" required>
                           <option value="null">Select Year Level</option>
-                          <option value="First Year">First Year</option>
-                          <option value="Second Year">Second Year</option>
-                          <option value="Third Year">Third Year</option>
-                          <option value="Fourth Year">Fourth Year</option>
-                          <option value="Fifth Year">Fifth Year</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
                         </select>
                       </div>
                           <div class="col-12">

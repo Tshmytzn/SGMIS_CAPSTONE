@@ -13,6 +13,6 @@ class Compendium extends Model
     protected $fillable = [
       'event_id',
       'com_name',
- 
+      'random_id'
     ];
 }

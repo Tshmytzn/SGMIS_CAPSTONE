@@ -27,12 +27,16 @@
             }
         }
 </style>
+ <!-- Load jsPDF and html2canvas from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+@include('Admin.components.adminstyle')
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     @php
     $liquidation_id = $_GET['liquidation_id'];
 @endphp
-    <div class="page">
+    <div class="page" id="content">
         <div class="page-wrapper">
 
             <!-- Page header -->
@@ -223,13 +227,92 @@
     @include('Admin.components.scripts')
     @include('Admin.components.liquidationdetailscript')
     <script>
-         document.getElementById('download').addEventListener('click', () => {
-        window.print();
+    //      document.getElementById('download').addEventListener('click', () => {
+    //     window.print();
+    // });
+
+document.getElementById('download').addEventListener('click', () => {
+    // Show loading indicator and hide download button
+    document.getElementById('adminloader').style.display = 'grid';
+    const downloadButton = document.getElementById('download');
+    downloadButton.style.display = 'none';
+
+    // Capture the content and generate PDF
+    html2canvas(document.getElementById('content'), { 
+        scale: 1.5, // Set scale to 1.5 for decent quality
+        useCORS: true // Enable cross-origin images
+    }).then(canvas => {
+        const { jsPDF } = window.jspdf; // Ensure jsPDF is available from the window object
+        const pdf = new jsPDF('p', 'mm', 'a4'); // Portrait orientation, mm unit, A4 size
+
+        const imgData = canvas.toDataURL('image/png', 0.7); // Set image quality to 0.7
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+
+        // Get the PDF page width and height
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        // Calculate dimensions and scale for the image to fit PDF
+        const widthRatio = pdfWidth / imgWidth;
+        const newHeight = imgHeight * widthRatio; // Maintain aspect ratio
+        let y = 0; // Start position for the image on the first page
+
+        // Add image page by page
+        while (y < newHeight) {
+            pdf.addImage(imgData, 'PNG', 0, -y, pdfWidth, newHeight); // Add image at negative y to get the visible area
+            y += pdfHeight; // Move down for the next page
+            
+            // If there's more content to render, add a new page
+            if (y < newHeight) {
+                pdf.addPage();
+            }
+        }
+
+        // Create a Blob from the PDF and prepare FormData
+        const pdfBlob = pdf.output('blob');
+        const formData = new FormData();
+
+        // Get liquidation ID from input
+        const l_id = document.getElementById('liquidation_id').value;
+        formData.append('pdf', pdfBlob, 'document.pdf'); // Append PDF Blob
+        formData.append('l_id', l_id); // Append liquidation ID
+
+        // Append CSRF token directly using Blade syntax
+        formData.append('_token', '{{ csrf_token() }}'); // This will be rendered on the server-side
+
+        // Submit the form via AJAX
+        $.ajax({
+            type: "POST",
+            url: "{{ route('saveLiquidationDoc') }}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log('PDF saved successfully:', response);
+                 // Print the document after saving
+            },
+            error: function(xhr, status, error) {
+                console.error('Error saving PDF:', xhr.responseText);
+            },
+            complete: function() {
+                // Hide loading indicator and show button again
+                document.getElementById('adminloader').style.display = 'none';
+                window.print();
+                downloadButton.style.display = 'block';
+                
+            }
+        });
+    }).catch(err => {
+        console.error('Error generating PDF:', err);
+        document.getElementById('adminloader').style.display = 'none'; // Hide loader if error occurs
+        downloadButton.style.display = 'block'; // Show button if error occurs
     });
+});
 
     const inputs = document.querySelectorAll('.form-control');
             inputs.forEach(input => {
-                input.disabled = true; // Set the disabled property to true
+                input.readOnly  = true; // Set the disabled property to true
             });
     </script>
 </body>
