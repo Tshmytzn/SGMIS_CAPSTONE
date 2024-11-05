@@ -106,7 +106,6 @@
                 document.getElementById('lineLoading5').style.display='none'
                 $('#containerTable').show();
                 const data = response.data;
-                console.log(data)
                 // Initialize DataTable and store the instance in a variable
                 const table = $('#attendanceTable').DataTable({
                     destroy: true,
@@ -170,6 +169,33 @@ function viewProof(inImage, outImage) {
     imgElement2.src = 'student_attendance/' + (outImage === 'null'||'' ? 'absent.jpg' : outImage);
 }
 
+function printTable() {
+  var table = document.getElementById("attendanceTable");
+
+  // Check if the table exists
+  if (table) {
+    // Clone the table so we don't modify the original one
+    var clonedTable = table.cloneNode(true);
+
+    // Exclude the third column (index 2) from both header and body rows
+    var headerCells = clonedTable.querySelectorAll("th:nth-child(9), td:nth-child(9)");
+    headerCells.forEach(function(cell) {
+      cell.style.display = "none";
+    });
+
+    var printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>Print Table</title>');
+    printWindow.document.write('<style>table { width: 100%; border-collapse: collapse; }');
+    printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(clonedTable.outerHTML); // Insert the modified (cloned) table
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  } else {
+    console.error("Table with id 'myTable' not found.");
+  }
+}
 
     $(document).ready(function() {
         $('#containerTable').hide();
