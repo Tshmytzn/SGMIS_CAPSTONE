@@ -998,11 +998,6 @@ function DisplayAddForm() {
     });
   }
 
-
-  const refreshResult = document.getElementById('refreshResult');
-
-  if(refreshResult){
-    refreshResult.addEventListener('click', () => {
-        window.location.reload();
-    });
-  }
+function refreshEvaluation(){
+    window.location.reload();
+}
