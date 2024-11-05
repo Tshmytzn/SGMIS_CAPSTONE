@@ -45,7 +45,7 @@ $questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->cou
                 <div class="container-xl">
                     <div class="row row-deck row-cards">
 
-                       
+
                             <div class="display-flex justify-content-end col-12 gap-2">
 
                                 <a href="{{ route('ViewEvaluations') }}?eval_id={{ $eval_id }}" class="btn btn-outline-secondary" >
@@ -63,19 +63,19 @@ $questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->cou
                                       </svg> Refresh
                                 </button>
                             </div>
-             
 
-                      
+
+
                     </div>
 
                 </div>
 
-                <div id="questionCharts">
-                    <div class="container mt-4">
-                        <p>1. This is the questionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                    </div>
-                    
+                <div  id="evaluationResultCharts">
+
                 </div>
+
+
+
             </div>
 
             @include('Admin.components.footer')
@@ -85,11 +85,12 @@ $questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->cou
 
 
     @include('Admin.components.scripts')
-
+    <script src="/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062" defer></script>
     <script>
-        window.load = () => {
-            LoadChartQuestions();
-        }
+ window.onload = () => {
+    LoadEvaluationResults('{{ $eval_id }}');
+ }
+
     </script>
 </body>
 

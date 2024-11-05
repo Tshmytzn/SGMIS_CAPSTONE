@@ -18,6 +18,7 @@ function RandId($length) {
     for ($i = 0; $i < $length; $i++) {
         $randomID .= $characters[rand(0, $charactersLength - 1)];
     }
-    
+
     return $randomID;
 }
+

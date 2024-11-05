@@ -101,6 +101,7 @@ Route::get('Admin/Evaluation/getAllEval',[EvaluationController::class,'GetAllEva
 Route::get('Admin/Evaluation/getAllEvalQuestion',[EvaluationController::class,'GetAllEvalQuestion'] )->name('getAllEvalQuestion');
 Route::get('Admin/Evaluation/GetEvalQuestion',[EvaluationController::class,'GetEvalQuestion'] )->name('getEvalQuestion');
 Route::get('Student/Evaluation/Evaluate/LoadQuestion',[EvaluationController::class,'LoadQuestionEvaluate'] )->name('loadQuestionEvaluate');
+Route::get('Student/Evaluation/Evaluate/Results',[EvaluationController::class,'LoadEvaluationResult']);
 // jpubas route post
 Route::post('Admin/SaveDepartment',[DeparmentData::class,'SaveDepartment'] )->name('SaveDepartment');
 Route::post('Admin/SaveCourse',[DeparmentData::class,'SaveCourse'] )->name('SaveCourse');

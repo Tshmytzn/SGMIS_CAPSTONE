@@ -15,7 +15,7 @@ class EvaluationController extends Controller
         $check = Evaluation::where('event_id', $req->event_id)->first();
         if($check){
             return response()->json([
-                'status'=>'failed', 
+                'status'=>'failed',
                 'eval_id'=>'none',
             ]);
         }else{
@@ -24,13 +24,13 @@ class EvaluationController extends Controller
             $eval->eval_description = $req->evaldesc;
             $eval->event_id = $req->event_id;
             $eval->save();
-    
+
             return response()->json([
-                'status'=>'success', 
+                'status'=>'success',
                 'eval_id'=>$eval->eval_id,
             ]);
         }
-       
+
     }
 
     public function GetEvalForm(Request $req){
@@ -51,7 +51,7 @@ class EvaluationController extends Controller
         }
         $eval = Evaluation::where('eval_id', $req->eval_id)->first();
         $eval->delete();
-        
+
         return response()->json(['status'=>'success']);
     }
 
@@ -85,7 +85,7 @@ class EvaluationController extends Controller
        }
 
        return response()->json(['status'=> 'success']);
-       
+
     }
 
     public function DeleteEvalQuestion(Request $req){
@@ -112,16 +112,16 @@ class EvaluationController extends Controller
 
     public function GetEvalQuestion(Request $req){
         $eval = EvalQuestion::where('eq_id', $req->q_id)->first();
-        
+
         return response()->json(['question'=> $eval]);
     }
 
     public function LoadQuestionEvaluate(Request $req){
        $question = EvalQuestion::where('eval_id', $req->eval_id)->orderBy('eq_num', 'asc')->get();
-    
+
        $evaluateStatus = false;
        foreach($question as $q){
-        $result = EvalResult::where('eq_id', $q->eq_id)->first();
+        $result = EvalResult::where('eq_id', $q->eq_id)->where('student_id', session('student_id'))->first();
         if($result){
             $evaluateStatus = true;
         }
@@ -132,7 +132,7 @@ class EvaluationController extends Controller
 
     public function EvaluationSaveResult(Request $request){
     $input = $request->all();
-    
+
     $quest_id= [];
     $val = [];
     foreach ($input as $key => $value) {
@@ -146,7 +146,7 @@ class EvaluationController extends Controller
     }
 
     for($i = 0; $i < count($quest_id); $i++){
-        $res = EvalResult::where('eq_id', $quest_id[$i])->first();
+        $res = EvalResult::where('eq_id', $quest_id[$i])->where('student_id', session('student_id'))->first();
         if($res){
            $res->update(['res_value'=>$val[$i]]);
         }else{
@@ -154,10 +154,38 @@ class EvaluationController extends Controller
         $quest->student_id = $student_id;
         $quest->eq_id = $quest_id[$i];
         $quest->res_value = $val[$i];
-        $quest->save(); 
-        }    
+        $quest->save();
+        }
     }
 
     return response()->json(['status'=>'success']);
+   }
+
+   public function LoadEvaluationResult(Request $req){
+        $result = EvalQuestion::where('eval_id', $req->eval_id)->get();
+
+        foreach($result as $res){
+            switch($res->eq_scale){
+                case "5":
+                    $evaluation = EvalResult::where('eq_id', $res->eq_id)->join('student_accounts', 'student_accounts.student_id', '=', 'evaluation_result.student_id')->get();
+                    $res->eval_data = $evaluation;
+                    break;
+                case "4":
+                    $eval_yes = EvalResult::where('eq_id', $res->eq_id)->where('res_value', 'yes')->get()->count();
+                    $eval_no = EvalResult::where('eq_id', $req->eq_id)->where('res_value', 'no')->get()->count();
+                    $res->eval_data = [$eval_yes, $eval_no];
+                    break;
+                default:
+                    $eval_result = [];
+                    for($i = 1; $i <= 5; $i++){
+                        $data = EvalResult::where('eq_id', $res->eq_id)->where('res_value', $i)->get()->count();
+                        $eval_result[] = $data;
+                    }
+                    $res->eval_data = $eval_result;
+                    break;
+
+            }
+        }
+        return response()->json(['data'=> $result]);
    }
 }
