@@ -618,8 +618,9 @@ function DisplayAddForm() {
         if(res.eval_status){
           const container = document.getElementById('container');
 
-          container.innerHTML = `<div class="w-100 h-100 min-vh-100">
-
+          container.innerHTML = `<div class="w-100 d-flex justify-content-center text-center gap-4 align-items-center flex-column ">
+                <img src="/dist/img/evaluated.svg" alt="already evaluated image" class="w-25" />
+                <h1>You already evaluated</h1>
           </div>`
         }else{
           res.question.forEach(data=>{
@@ -763,6 +764,7 @@ function DisplayAddForm() {
           document.getElementById('mainLoader').style.display = 'none';
           alertify.set('notifier', 'position', 'top-right');
           alertify.success('Evaluation Result Submitted');
+          window.location.reload();
          }
         }, error: xhr=>{
           console.log(xhr.responseText);
@@ -827,6 +829,8 @@ function DisplayAddForm() {
 
                 numCount++;
             });
+
+            document.getElementById('mainLoader').style.display = 'none';
           }, error: xhr=> console.log(xhr.responseText)
       });
   }
@@ -998,6 +1002,7 @@ function DisplayAddForm() {
     });
   }
 
-function refreshEvaluation(){
-    window.location.reload();
+function refreshEvaluation(id){
+     document.getElementById('mainLoader').style.display = 'flex';
+  LoadEvaluationResults(id);
 }

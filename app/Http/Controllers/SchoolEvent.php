@@ -297,4 +297,23 @@ class SchoolEvent extends Controller
         $venue->delete();
         return response()->json(['message'=>'Venue Successfully Deleted','status' => 'success']);
      }
+
+     public function PublishEvent(Request $req){
+        $event = SchoolEvents::where('event_id', $req->eventId)->first();
+
+        if($event->event_status == 1){
+            $status = 0;
+            $message = "Event is successfully Unpublished";
+            $publish = "Unpublish";
+        }else{
+            $status = 1;
+            $message = "Event is successfully Published";
+            $publish = 'Publish';
+        }
+        $event->update([
+            'event_status' => $status
+        ]);
+
+        return response()->json(['success'=> true, 'status'=> $publish, 'message'=> $message]);
+     }
 }
