@@ -448,5 +448,22 @@ class BudgetProposalController extends Controller
         $data->save();
         return response()->json(['message' =>  'Successfully Submit', 'status' => 'success']);
     }
+    public function updatebudgetinginfo(request $request) {
 
+        $budget = BudgetProposal::where('id', $request->id)->first();
+        $budget->title = $request->proposalTitle;
+        $budget->eventid = $request->budgetEvent;
+        $budget->project_proponent = $request->projectproponent;
+        $budget->project_participant = $request->projectparticipant;
+        $budget->budget_period_start = $request->budgetPeriodStart;
+        $budget->budget_period_end = $request->budgetPeriodEnd;
+        $budget->funding_source = $request->fundingSource;
+        $budget->proposed_by = $request->proposedBy;
+        $budget->submission_date = $request->submissionDate;
+        $budget->additional_notes = $request->additionalNotes;
+        $budget->save();
+
+        $event = SchoolEvents::where('event_id', $budget->eventid)->first();
+        return redirect()->route('viewbudget', ['id' => $budget->id]);
+    }
 }

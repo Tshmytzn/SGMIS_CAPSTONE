@@ -44,7 +44,7 @@
 
                                                     <form action="" method="POST" id="Studentdetailsform"> @csrf
 
-                                                 <span class="avatar avatar-xl"><img src="dept_image/{{ $StudentAcc->student_pic }}"
+                                                 <span class="avatar avatar-xl"><img src="/student_images/{{ $StudentAcc->student_pic }}"
                                                             alt="" id="studentpicture"></span>
                                                     </div>
                                                     <div class="col-auto">
@@ -127,14 +127,8 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="POST" id="UpdateAdminPassForm">
+                            <form action="" method="POST" id="UpdateStudentPassForm">
                                 @csrf
-
-                                <div class="mb-3">
-                                    <label class="form-label">Old Password</label>
-                                    <input type="Password" class="form-control" name="oldpass" id="oldpass"
-                                        placeholder="Enter Old Password">
-                                </div>
                                 <div class="mb-3">
                                     <label class="form-label">New Password</label>
                                     <input type="Password" class="form-control" name="newpass" id="newpass"
@@ -151,7 +145,7 @@
                             <a href="#" class="btn btn-danger" data-bs-dismiss="modal">
                                 Cancel
                             </a>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            <button type="button" class="btn btn-primary" onclick="ChangePass()">
                                 Update
                             </button>
                         </div>
@@ -166,9 +160,9 @@
                 <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
-                            <form action=""  id="Studentimageform" method="POST">
+                            <form action="{{route('UpdateStudentimage')}}"  id="Studentimageform" method="POST"  enctype="multipart/form-data">
+                                @csrf
                                 <div class="modal-title">Upload Profile Picture</div>
-                                <img src="" alt="">
                                 <input type="file" class="form-control" name="updatestudentpic" id="updatestudentpic">
                         </div>
                         <div class="modal-footer">
@@ -179,7 +173,7 @@
                                             Cancel
                                         </a></div>
                                     <div class="col">
-                                        <button type="button" onclick="UpdateStudentimage()" class="btn btn-success w-100"
+                                        <button type="submit" onclick="UpdateStudentimage()" class="btn btn-success w-100"
                                             data-bs-dismiss="modal">
                                             Save Changes
                                         </button></div>

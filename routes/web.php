@@ -161,7 +161,7 @@ Route::post('admin/budgetingProcess', [BudgetProposalController::class, 'budgeti
 Route::post('admin/mealProcess', [BudgetProposalController::class, 'mealProcess'])->name('mealProcess');
 Route::post('admin/otherExpensesProcess', [BudgetProposalController::class, 'otherExpensesProcess'])->name('otherExpensesProcess');
 Route::post('admin/saveBudgetTotal', [BudgetProposalController::class, 'saveBudgetTotal'])->name('saveBudgetTotal');
-
+Route::post('admin/updatebudgetinginfo', [BudgetProposalController::class, 'updatebudgetinginfo'])->name('updatebudgetinginfo');
 
 // jpubas route get
 Route::get('/admin/GetDeptData', [DeparmentData::class,"GetDeptData"])->name('GetDeptData');
@@ -204,7 +204,8 @@ Route::get('/Student/Election', function () { return view('Student.electionvote'
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
 Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');
 Route::post('Student/UpdateStudentDetails', [StudentData::class,'UpdateStudentDetails'])->name('UpdateStudentDetails');
-
+Route::post('Student/UpdateStudentimage', [StudentData::class, 'UpdateStudentimage'])->name('UpdateStudentimage');
+Route::post('Student/updatestudentPass', [StudentData::class, 'updatestudentPass'])->name('updatestudentPass');
 
 
 // student Admin

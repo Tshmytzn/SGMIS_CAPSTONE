@@ -112,7 +112,7 @@
                         <p class="empty-subtitle text-muted">
                         Looks like there are no budget proposals at the moment. Once proposals are submitted, you can review them here.                        </p>
                         <div class="empty-action">
-                            <a href="{{ route('Budgeting') }}" class="btn btn-primary">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#budgetProposalModal">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -122,7 +122,7 @@
                                     <path d="M5 12l14 0" />
                                 </svg>
                                 Stay tuned!
-                            </a>
+                            </button>
                         </div>
                     </div>
                     `;
