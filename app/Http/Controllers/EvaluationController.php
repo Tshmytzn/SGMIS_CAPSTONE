@@ -172,7 +172,7 @@ class EvaluationController extends Controller
                     break;
                 case "4":
                     $eval_yes = EvalResult::where('eq_id', $res->eq_id)->where('res_value', 'yes')->get()->count();
-                    $eval_no = EvalResult::where('eq_id', $req->eq_id)->where('res_value', 'no')->get()->count();
+                    $eval_no = EvalResult::where('eq_id', $res->eq_id)->where('res_value', 'no')->get()->count();
                     $res->eval_data = [$eval_yes, $eval_no];
                     break;
                 default:
