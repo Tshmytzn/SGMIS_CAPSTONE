@@ -246,8 +246,8 @@ class BudgetProposalController extends Controller
                 $meal->price = $value; // The corresponding value (meal name, etc.)
                 $meal->save();
             }
-
-            return response()->json(['message' => 'Meal Budget SuccessFully Set', 'modal'=> 'exampleModal','reload' => 'loadBudgetDataTable', 'status' => 'success']);
+            $budget = BudgetProposal::where('id', $request->budget_id)->first();
+            return response()->json(['message' => 'Meal Budget SuccessFully Set','budget_id'=> $request->budget_id, 'modal'=> 'exampleModal','reload' => 'loadBudgetDataTable', 'status' => 'success']);
         }
         else if($request->process == 'get'){
 

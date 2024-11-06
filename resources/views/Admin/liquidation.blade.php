@@ -264,7 +264,7 @@ function getLiquidationData(){
                                     <path d="M12 5l0 14" />
                                     <path d="M5 12l14 0" />
                                 </svg>
-                                Stay tuned!
+                                Add Liquidation!
                             </a>
                         </div>
                     </div>

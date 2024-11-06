@@ -121,6 +121,7 @@ Route::post('/admin/SetStudentAdmin', [AdminData::class,"SetStudentAdmin"])->nam
 Route::post('Admin/EditDeptPicInfo',[DeparmentData::class,'EditDeptPicInfo'] )->name('EditDeptPicInfo');
 Route::post('Admin/EditStudentAdminPosition',[AdminData::class,'EditStudentAdminPosition'] )->name('EditStudentAdminPosition');
 Route::post('Admin/DemoteAdmin',[AdminData::class,'DemoteAdmin'] )->name('DemoteAdmin');
+Route::post('Admin/EnableAdmin', [AdminData::class, 'EnableAdmin'])->name('EnableAdmin');
 Route::post('Admin/DemoteStudentAdmin',[AdminData::class,'DemoteStudentAdmin'] )->name('DemoteStudentAdmin');
 Route::post('Admin/AddCompendium',[CompendiumData::class,'AddCompendium'] )->name('AddCompendium');
 Route::post('Admin/UploadCompendiumFile', [CompendiumData::class,'UploadCompendiumFile'])->name('UploadCompendiumFile');

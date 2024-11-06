@@ -82,7 +82,7 @@ class AdminData extends Controller
         $add->admin_username = $request->administratoruser;
         $add->admin_password = Hash::make($request->administratorpass);
         $add->admin_type = 'Super Admin';
-        $add->admin_pic = 'default.jpg';
+        $add->admin_pic = 'default.png';
         $add->save();
         return response()->json(['status' => 'success']);
         }
@@ -90,7 +90,7 @@ class AdminData extends Controller
 
     }
     public function GetAdministratorData(){
-        $check = Admin::where('admin_type','Super Admin')->get();
+        $check = Admin::where('admin_id','!=',session('admin_id'))->get();
 
         return response()->json(['data' => $check]);
     }
@@ -194,9 +194,17 @@ foreach ($departments as $department) {
     public function DemoteAdmin(Request $request){
         $data = Admin::where('admin_id',$request->demoteadminid)->first();
         $data->update([
-            'admin_type'=>'Demoted',
+            'admin_type'=>'Disabled',
         ]);
             return response()->json(['status' => 'success']);
+    }
+    public function EnableAdmin(Request $request)
+    {
+        $data = Admin::where('admin_id', $request->demoteadminid)->first();
+        $data->update([
+            'admin_type' => 'Super Admin',
+        ]);
+        return response()->json(['status' => 'success']);
     }
     public function DemoteStudentAdmin(Request $request){
         $data = StudentAccounts::where('student_id',$request->demotestudentid)->first();
