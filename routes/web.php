@@ -150,6 +150,10 @@ Route::post('Admin/saveLiquidationDoc', [LiquidationController::class, 'saveLiqu
 Route::post('Admin/UploadElectionMaterialFiles', [ElectionController::class, 'UploadElectionMaterialFiles'])->name('UploadElectionMaterialFiles');
 Route::get('Admin/GetMaterials', [ElectionController::class, 'GetMaterials'])->name('GetMaterials');
 Route::post('Admin/DeleteMaterials', [ElectionController::class, 'DeleteMaterials'])->name('DeleteMaterials');
+Route::post('Admin/AddElectedOfficer', [ElectionController::class, 'AddElectedOfficer'])->name('AddElectedOfficer');
+Route::post('Admin/getElectedOfficer', [ElectionController::class, 'getElectedOfficer'])->name('getElectedOfficer');
+Route::post('Admin/updateElectedOfficer', [ElectionController::class, 'updateElectedOfficer'])->name('updateElectedOfficer');
+Route::post('Admin/deleteElectedOfficer', [ElectionController::class, 'deleteElectedOfficer'])->name('deleteElectedOfficer');
 
 // tish budgeting controller: post routes
 Route::post('admin/GetBudgetProposal', [BudgetProposalController::class, 'getBudgetProposal'])->name('getBudgetProposal');

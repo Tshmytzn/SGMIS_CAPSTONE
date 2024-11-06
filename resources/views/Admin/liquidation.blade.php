@@ -96,7 +96,7 @@
                             </select>
                         </div>
                         <div class="col-4">
-                            <Label>Seminster</Label>
+                            <Label>Semester</Label>
                             <input type="text" class="form-control" name="semester" placeholder="Enter Semister">
                         </div>
                         <div class="col-4">

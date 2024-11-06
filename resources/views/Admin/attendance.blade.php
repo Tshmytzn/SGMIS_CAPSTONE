@@ -126,7 +126,7 @@
                                     </table>
                                 </div>
                             </div>
-
+                            <button onclick="printTable()" class="btn btn-success">Print Table</button>
 
                     </div>
                 </div>

@@ -252,10 +252,37 @@
                                               <path d="M5 21v-7" />
                                           </svg> </span>
                                       <span class="nav-link-title">
-                                          Election
+                                          Campaign Materials
                                       </span>
                                   </a>
                               </li>
+
+                              <li class="nav-item {{ $active == 'Budgeting' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('Budgeting') }}">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                        <span
+                                            class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-coins">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path
+                                                    d="M9 14c0 1.657 2.686 3 6 3s6 -1.343 6 -3s-2.686 -3 -6 -3s-6 1.343 -6 3z" />
+                                                <path d="M9 14v4c0 1.656 2.686 3 6 3s6 -1.344 6 -3v-4" />
+                                                <path
+                                                    d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z" />
+                                                <path d="M3 6v10c0 .888 .772 1.45 2 2" />
+                                                <path d="M3 11c0 .888 .772 1.45 2 2" />
+                                            </svg>
+                                        </span>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Budgeting
+                                    </span>
+                                </a>
+                            </li>
 
                               <li class="nav-item dropdown">
                                   <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown"
@@ -329,32 +356,6 @@
                                           </svg> </span>
                                       <span class="nav-link-title">
                                           Evaluations
-                                      </span>
-                                  </a>
-                              </li>
-                              <li class="nav-item {{ $active == 'Budgeting' ? 'active' : '' }}">
-                                  <a class="nav-link" href="{{ route('Budgeting') }}">
-                                      <span
-                                          class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
-                                          <span
-                                              class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                  class="icon icon-tabler icons-tabler-outline icon-tabler-coins">
-                                                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                  <path
-                                                      d="M9 14c0 1.657 2.686 3 6 3s6 -1.343 6 -3s-2.686 -3 -6 -3s-6 1.343 -6 3z" />
-                                                  <path d="M9 14v4c0 1.656 2.686 3 6 3s6 -1.344 6 -3v-4" />
-                                                  <path
-                                                      d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z" />
-                                                  <path d="M3 6v10c0 .888 .772 1.45 2 2" />
-                                                  <path d="M3 11c0 .888 .772 1.45 2 2" />
-                                              </svg>
-                                          </span>
-                                      </span>
-                                      <span class="nav-link-title">
-                                          Budgeting
                                       </span>
                                   </a>
                               </li>

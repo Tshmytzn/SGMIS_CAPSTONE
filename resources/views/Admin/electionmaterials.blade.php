@@ -22,7 +22,9 @@
     </style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
-
+      @php
+    $elect_id = $_GET['elect_id'];
+@endphp
     <div class="page">
 
         @include('Admin.components.nav', ['active' => 'Election'])
@@ -40,7 +42,7 @@
                                 Overview
                             </div>
                             <h2 class="page-title">
-                                Election Materials
+                                Campaign Materials
                             </h2>
                         </div>
 
@@ -54,15 +56,35 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    <form action="{{route('UploadElectionMaterialFiles')}}"
-      class="dropzone"
-      id="my-awesome-dropzone"></form>  
+
+                    <div class="">
+                        <div class="d-flex mb-2">
+                            <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Elected Officers</button>
+                        </div>
+                                <table class="table table-bordered table-hover text-center" id="Candidates">
+                                    <thead>
+                                        <tr>
+                                            <th>DATE</th>
+                                            <th>POSITION</th>
+                                            <th>NAME</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+
+                                    </tbody>
+                                </table>
+                                </div>
+
+                     
                     @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
                     <div class="row row-deck row-cards mt-4" id="cards">
 
 
                     </div>
-
+                    <form action="{{route('UploadElectionMaterialFiles')}}"
+      class="dropzone"
+      id="my-awesome-dropzone"></form> 
                     {{-- This is a no search results illustration --}}
                     {{-- <div class="empty">
                     <div class="empty-img"><img src="./static/illustrations/undraw_voting_nvu7.svg" height="128" alt="">
@@ -85,46 +107,30 @@
         {{-- Modal --}}
 
         {{-- Create Election Modal --}}
-        <div class="modal modal-blur fade" id="createelection" data-bs-backdrop="static" data-bs-keyboard="false"
+        <div class="modal modal-blur fade" id="addOfficerModal" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Create Election Form</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Officer</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="row g-3" id="createelect" method="POST">
+                        <form class="row g-3" id="addOfficerForm" method="POST">
                             @csrf
                             <div class="row g-2">
-                                <div class="col-12">
-
-                                    <div class="mb-2">
-                                        <label for="firstname" class="form-label">Election Title</label>
-                                        <input name="election_name" class="form-control" id="election_name" placeholder="Student Government Elections SY-0000">
+                                <input type="text" name="id" value="{{$elect_id}}" hidden>
+                                    <div class="mb-2 col-6">
+                                        <label for="firstname" class="form-label">Position</label>
+                                        <input name="position" class="form-control" id="" placeholder="Enter Officer Position">
                                     </div>
 
-                                    <div class="mb-2">
-                                        <label for="election_desc" class="form-label">Election Description(optional)</label>
-                                        <textarea name="election_desc" id="election_desc" class="form-control"
-                                            placeholder="Enter brief overview of the election, and other notes..."></textarea>
+                                    <div class="mb-2 col-6">
+                                        <label for="firstname" class="form-label">Full Name</label>
+                                        <input name="name" class="form-control" id="" placeholder="Enter Officer Fullname">
                                     </div>
 
-                                    <hr class="my-4">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="voting_start_date" class="form-label">Start From</label>
-                                            <input type="date" name="voting_start_date"
-                                                id="voting_start_date" class="form-control">
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="voting_end_date" class="form-label">End To</label>
-                                            <input type="date" name="voting_end_date" id="voting_end_date"
-                                                class="form-control">
-                                        </div>
-                                    </div>
-
-                                </div>
+                            </div>
                         </form>
 
                     </div>
@@ -132,15 +138,50 @@
                         <button type="button" id="closeEvalForm" class="btn btn-danger"
                             data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary"
-                            onclick="dynamicFuction('createelect','{{route('createElection')}}')">Save</button>
+                            onclick="addOfficer()">Save</button>
                     </div>
                 </div>
             </div>
         </div>
         {{-- Create Election modal --}}
+        <div class="modal modal-blur fade" id="updateOfficerModal" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header text-white" style="background-color: #3E8A34;">
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Officer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row g-3" id="updateOfficerForm" method="POST">
+                            @csrf
+                            <div class="row g-2">
+                                <input type="text" name="up_id" id="up_id" value=" " hidden>
+                                    <div class="mb-2 col-6">
+                                        <label for="firstname" class="form-label">Position</label>
+                                        <input name="position" class="form-control" id="up_position" placeholder="Enter Officer Position">
+                                    </div>
 
+                                    <div class="mb-2 col-6">
+                                        <label for="firstname" class="form-label">Full Name</label>
+                                        <input name="name" class="form-control" id="up_name" placeholder="Enter Officer Fullname">
+                                    </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeEvalForm" class="btn btn-danger"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="updateOfficer()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {{-- Modal --}}
-
+        <input type="text" name="id" id="election_id" value="{{$elect_id}}" hidden>
     </div>
     </div>
 
@@ -185,7 +226,6 @@
     url: `{{route('GetMaterials')}}?id=` + id, // URL to your API endpoint
     method: 'GET',
     success: function(data) {
-        console.log(data);
         document.getElementById('lineLoading').style.display='none';
         const previewContainer = $('#preview-container'); // Assume you have a container for previews
         previewContainer.empty(); // Clear previous content
@@ -306,7 +346,115 @@ alertify.confirm("Warning","Are you sure you want to delete this file?",
 
 
     }
+    function addOfficer(){
+
+         var formData = $("form#addOfficerForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('AddElectedOfficer') }}",
+            data: formData,
+            success: function(response) {
+                alertify.success(response.message);
+                $("form#addOfficerForm")[0].reset();
+                $('#addOfficerModal').modal('hide');
+                getOfficerData();
+         },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+        function updateOfficer(){
+
+        var formData = $("form#updateOfficerForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('updateElectedOfficer') }}",
+            data: formData,
+            success: function(response) {
+                alertify.success(response.message);
+                $('#updateOfficerModal').modal('hide');
+                getOfficerData();
+         },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    function getOfficerData(){
+        const election_id = document.getElementById('election_id').value;
+        const formData = new FormData();
+        formData.append('id', election_id);
+        formData.append('_token', '{{ csrf_token() }}');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('getElectedOfficer') }}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                let data = response.data;
+                $('#Candidates').DataTable( {
+                    data: data,
+                    destroy: true,
+                    columns: [
+                        { data: 'batch_date' },
+                        { data: 'position' },
+                        { data: 'name' },
+                        {
+                            data: null, // No specific data source
+                            render: function (data, type, row) {
+                                return `<button class="btn btn-primary btn-sm edit-btn" data-bs-toggle="modal" data-bs-target="#updateOfficerModal" onclick="toModal('${row.id}','${row.position}','${row.name}')">Edit</button>
+                                        <button class="btn btn-danger btn-sm edit-btn" onclick="deleteData('${row.id}')">Remove</button>
+                                `;
+                            },
+                            orderable: false, // Prevent sorting on the action column
+                            searchable: false // Prevent searching on the action column
+                        }
+                    ],
+                } );
+         },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    function toModal(id,position,name){
+        document.getElementById('up_id').value=id;
+        document.getElementById('up_position').value=position
+        document.getElementById('up_name').value=name
+    }
+    function deleteData(id){
+        alertify.confirm("Warning","Are you sure you want to delete this data?",
+    function(){
+
+        var formData =  new FormData();
+        formData.append('id', id);
+        formData.append('_token', '{{ csrf_token() }}');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('deleteElectedOfficer') }}",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                alertify.success(response.message);
+                getOfficerData();
+         },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+
+          },
+    function(){
+        alertify.error('Cancel');
+    });
+    }
     $(document).ready(function() {
+        getOfficerData();
        getMaterials(); 
          });
 </script>
