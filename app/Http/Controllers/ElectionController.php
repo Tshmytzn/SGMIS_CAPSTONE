@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonTimeZone;
 use App\Models\ElectionResult;
 use App\Models\ElectionMaterials;
+use App\Models\ElectionBatchMember;
 
 class ElectionController extends Controller
 {
@@ -539,4 +540,32 @@ class ElectionController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public Function AddElectedOfficer(request $request){
+        $currentDate = Carbon::now('Asia/Hong_Kong');
+        $data = new ElectionBatchMember();
+        $data->election_id = $request->id;
+        $data->batch_date = $currentDate->toDateString();
+        $data->name = $request->name;
+        $data->position = $request->position;
+        $data->save();
+
+        return response()->json(['status' => 'success','message'=>'Officer Successfully Recorded']);
+    }
+
+    public function getElectedOfficer(request $request){
+        $data = ElectionBatchMember::where('election_id',$request->id)->get();
+        return response()->json(['status' => 'success', 'data' => $data]);
+    }
+    public function updateElectedOfficer(request $request){
+        $data = ElectionBatchMember::where('id', $request->up_id)->first();
+        $data->position = $request->position;
+        $data->name = $request->name;
+        $data->save();
+        return response()->json(['status' => 'success', 'message' => 'Officer Successfully Updated']);
+    }
+    public function deleteElectedOfficer(request $request){
+        $data = ElectionBatchMember::where('id', $request->id)->first();
+        $data->delete();
+        return response()->json(['status' => 'success', 'message' => 'Officer Successfully Delete']);
+    }
 }
