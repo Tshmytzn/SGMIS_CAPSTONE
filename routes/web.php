@@ -78,6 +78,7 @@ Route::post('Admin/Event/UpdateActivity',[SchoolEvent::class,'UpdateEventActivit
 Route::post('Admin/Event/UploadProgramme',[SchoolEvent::class,'UploadProgrammeImages'] )->name('uploadProgrammeImages');
 Route::post('Admin/Event/AddDept',[SchoolEvent::class,'AddDeptEvent'] )->name('AddDeptEvent');
 Route::post('Admin/Event/RemoveDept',[SchoolEvent::class,'RemoveDeptEvent'] )->name('RemoveDeptEvent');
+Route::post('Admin/Event/PublishEvent',[SchoolEvent::class,'PublishEvent'] );
 Route::post('Admin/Event/DeleteProgramme',[SchoolEvent::class,'RemoveProgramme'] )->name('removeProgramme');
 Route::post('Admin/Evaluation/CreateEvalForm',[EvaluationController::class,'CreateEvalForm'] )->name('createEvalForm');
 Route::post('Admin/Evaluation/DeleteEvalForm',[EvaluationController::class,'DeleteEvalForm'] )->name('deleteEvalForm');

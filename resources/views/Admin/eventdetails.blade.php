@@ -30,16 +30,26 @@
         <div class="page-header d-print-none">
           <div class="container-xl">
             <div class="row g-2 align-items-center">
-              <div class="col">
+              <div class="col d-flex justify-content-between w-100">
                 <!-- Page pre-title -->
+               <div>
                 <div class="page-pretitle">
-                  Overview
+                    Overview
+                  </div>
+                  <h1 class="page-title">
+                    Event Details
+                  </h1>
                 </div>
-                <h1 class="page-title">
-                  Event Details
-                </h1>
-              </div>
 
+                <button onclick="publishEvent('{{ $event_id }}', this)" id="publishEventBtn" class="btn btn-primary d-none"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mood-happy">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                    <path d="M9 9l.01 0" />
+                    <path d="M15 9l.01 0" />
+                    <path d="M8 13a4 4 0 1 0 8 0h-8" />
+                  </svg> Publish Event </button>
+
+               </div>
 
         <!-- Page body -->
         <div class="page-body">
@@ -433,7 +443,7 @@
       </div>
     </div>
 
-    
+
     <div class="modal modal-blur fade" id="addActivity" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -550,6 +560,13 @@
       @csrf
       <input type="hidden" name="act_id" id="delete_act_id">
     </form>
+
+    <form method="POST" id="publishEventForm">
+        @csrf
+        <input type="hidden" id="publishEventId" name="eventId">
+    </form>
+
+    <input type="hidden" id="publishStatusHolder">
 
     {{-- Other Forms --}}
 <input type="hidden" value="{{ route('AddDeptEvent') }}" id="addDeptRoute">
