@@ -41,8 +41,12 @@ class SchoolEvent extends Controller
         return response()->json(['status'=>'success', 'ev_id'=>$event->event_id]);
     }
 
-    public function GetAllEvents(){
-        $event = SchoolEvents::all();
+    public function GetAllEvents(Request $req){
+        if($req->where == 'admin'){
+            $event = SchoolEvents::all();
+        }else{
+            $event = SchoolEvents::where('event_status', 1)->get();
+        }
 
         return response()->json(['event'=>$event]);
     }
