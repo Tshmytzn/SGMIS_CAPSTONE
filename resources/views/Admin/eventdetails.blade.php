@@ -208,7 +208,7 @@
                    @endphp
                    @foreach ($dept as $d)
                    @php
-                       $eventDept = App\Models\EventDepartment::where('dept_id', $d->dept_id)->first();
+                       $eventDept = App\Models\EventDepartment::where('dept_id', $d->dept_id)->where('event_id', $event_id)->first();
                    @endphp
                    <option {{ $eventDept ? 'selected' : '' }} value="{{ $d->dept_id }}">{{ $d->dept_name }}</option>
                    @endforeach
