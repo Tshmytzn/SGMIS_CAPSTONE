@@ -74,13 +74,13 @@
                             <div class="datagrid">
 
 
-                                <div class="datagrid-item">
+                                {{-- <div class="datagrid-item">
                                     <div class="datagrid-title">Associated Event</div>
                                     <div class="datagrid-content">
                                         <!-- Display event name or fallback if event is not found -->
                                         {{ $event ? $event->event_name : 'No associated event found' }}
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <!-- Project Proponent -->
@@ -93,6 +93,16 @@
                                 <div class="datagrid-item">
                                     <div class="datagrid-title">Project Participant</div>
                                     <div class="datagrid-content">{{ $budget->project_participant }}</div>
+                                </div>
+
+                                <div class="datagrid-item">
+                                        <div class="datagrid-title">Theme</div>
+                                        <div class="datagrid-content">{{ $budget->theme }}</div>
+                                </div>
+
+                                <div class="datagrid-item">
+                                        <div class="datagrid-title">Location</div>
+                                        <div class="datagrid-content">{{ $budget->location }}</div>
                                 </div>
 
                                 <!-- Budget Period Start -->
@@ -113,11 +123,25 @@
                                     <div class="datagrid-content">{{ $budget->funding_source }}</div>
                                 </div>
 
+                                
+
+                                <div class="datagrid-item">
+                                        <div class="datagrid-title">Contact Person</div>
+                                        <div class="datagrid-content">{{ $budget->contact_person }}</div>
+                                </div>
+
+                                
+
+                                <div class="datagrid-item">
+                                        <div class="datagrid-title">Objective</div>
+                                        <div class="datagrid-content">{{ $budget->objective }}</div>
+                                </div>
                                 <!-- Proposed By -->
-                                {{-- <div class="datagrid-item">
+                                <div class="datagrid-item">
                                         <div class="datagrid-title">Proposed By</div>
                                         <div class="datagrid-content">{{ $budget->proposed_by }}</div>
-                                    </div> --}}
+                                    </div>
+                                
 
                                 <!-- Submission Date -->
                                 <div class="datagrid-item">

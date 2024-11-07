@@ -24,6 +24,10 @@ return new class extends Migration
             $table->date('submission_date');
             $table->text('additional_notes')->nullable();
             $table->string('total_budget')->nullable();
+            $table->string('theme')->nullable();
+            $table->string('contact_person')->nullable();
+            $table->string('location')->nullable();
+            $table->string('objective')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
+                console.log(response)
                 const com = document.getElementById('committeeMealTableBody');
                 let no = 1;
                 let summa = ''
@@ -158,7 +159,7 @@
     </tr>`
                 summary.innerHTML += summa;
 
-            saveTotal("<?php echo $budget->id; ?>")
+            // saveTotal("<?php echo $budget->id; ?>")
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
@@ -170,28 +171,28 @@
         window.print();
     });
 
-    function saveTotal(id) {
-        var formData = new FormData();
-        // Append the CSRF token to the FormData
-        formData.append('_token', '{{ csrf_token() }}');
-        formData.append('id', id);
-        formData.append('total', allTotal);
-        // Send the AJAX request
-        $.ajax({
-            type: "POST",
-            url: "{{ route('saveBudgetTotal') }}",
-            data: formData,
-            contentType: false, // Important for file uploads
-            processData: false, // Important for file uploads
-            success: function(response) {
-                console.log(response)
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-                // You can also add custom error handling here if needed
-            }
-        });
-    }
+    // function saveTotal(id) {
+    //     var formData = new FormData();
+    //     // Append the CSRF token to the FormData
+    //     formData.append('_token', '{{ csrf_token() }}');
+    //     formData.append('id', id);
+    //     formData.append('total', allTotal);
+    //     // Send the AJAX request
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "{{ route('saveBudgetTotal') }}",
+    //         data: formData,
+    //         contentType: false, // Important for file uploads
+    //         processData: false, // Important for file uploads
+    //         success: function(response) {
+    //             console.log(response)
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error(xhr.responseText);
+    //             // You can also add custom error handling here if needed
+    //         }
+    //     });
+    // }
     $(document).ready(function() {
         loadBudgetDataTable()
     });

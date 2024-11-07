@@ -56,13 +56,17 @@
         }
 
         var formElement = document.getElementById(formId);
-        var formData = $(formElement).serialize();
+        var formData = new FormData(formElement); // Create a FormData object from the form element
+        formData.append('_token', '{{ csrf_token() }}'); 
 
         $.ajax({
             type: "POST",
             url: '{{ route('getBudgetProposal') }}',
             data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
             success: function(response) {
+                location.reload();
                 if (response.status == 'error') {
                     alertify.alert("Warning", response.message, function() {
                         alertify.message('OK');

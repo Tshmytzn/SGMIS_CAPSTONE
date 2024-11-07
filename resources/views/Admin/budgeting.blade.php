@@ -95,6 +95,11 @@
                                             href="#proposal-details" role="tab" aria-controls="proposal-details"
                                             aria-selected="true">Proposal Details</a>
                                     </li>
+                                     <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="submission-info-tab" data-bs-toggle="tab"
+                                            href="#event-info" role="tab" aria-controls="submission-info"
+                                            aria-selected="false">Event Information</a>
+                                    </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="submission-info-tab" data-bs-toggle="tab"
                                             href="#submission-info" role="tab" aria-controls="submission-info"
@@ -107,32 +112,38 @@
                                     <div class="tab-pane fade show active" id="proposal-details" role="tabpanel"
                                         aria-labelledby="proposal-details-tab">
                                         <!-- Proposal Title -->
-                                        <div class="mb-3">
-                                            <label for="proposalTitle" class="form-label">Proposal Title</label>
+                                        <div class="row">
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Title</label>
                                             <input type="text" class="form-control" id="proposalTitle"
                                                 name="proposalTitle" placeholder="Enter proposal title" required>
                                         </div>
-                                        <!-- Event Related -->
-                                        <div class="mb-3">
-                                            <div class="col-12">
-                                                <label for="budgetEvent" class="form-label">Associated Event</label>
-                                                <select name="budgetEvent" class="form-select" id="budgetEvent" onchange="updateEventDetails()">
-                                                    <option selected disabled>Select Event</option>
-                                                    @php
-                                                        $currentDate = date('Y-m-d');
-                                                        $events = App\Models\SchoolEvents::where('event_start', '>', $currentDate)->get();
-                                                    @endphp
-                                            
-                                                    @foreach ($events as $eve)
-                                                        <option value="{{ $eve->event_id }}" data-start="{{ $eve->event_start }}" data-end="{{ $eve->event_end }}">
-                                                            {{ $eve->event_name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Objective</label>
+                                            <input type="text" class="form-control" id="proposalTitle"
+                                                name="objective" placeholder="Enter proposal title" required>
                                         </div>
-
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Theme</label>
+                                            <input type="text" class="form-control" id="proposalTitle"
+                                                name="theme" placeholder="Enter proposal title" required>
+                                        </div>
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Location</label>
+                                            <input type="text" class="form-control" id="proposalTitle"
+                                                name="location" placeholder="Enter proposal title" required>
+                                        </div>
+                                        </div>
+                                        
+                                        <!-- Event Related -->
                                         <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label for="projectparticipant" class="form-label">Aligned
+                                                    SDG</label>
+                                                <input type="text" class="form-control" id="projectparticipant"
+                                                    name="projectparticipant" placeholder="Enter project participant"
+                                                    required>
+                                            </div>
                                             <!-- Project Proponent -->
                                             <div class="col-6 mb-3">
                                                 <label for="projectproponent" class="form-label">Project
@@ -143,31 +154,19 @@
                                             </div>
                                             <!-- Project Participant -->
                                             <div class="col-6 mb-3">
-                                                <label for="projectparticipant" class="form-label">Project
-                                                    Participant</label>
+                                                <label for="projectparticipant" class="form-label">Budget
+                                                    Allocated</label>
                                                 <input type="text" class="form-control" id="projectparticipant"
-                                                    name="projectparticipant" placeholder="Enter project participant"
+                                                    name="allocated" placeholder="Enter project participant"
                                                     required>
                                             </div>
-                                        </div>
-                                        <!-- Budget Period -->
-                                        <div class="row">
-                                            <div class="col-4 mb-3">
-                                                <label for="budgetPeriodStart" class="form-label">Budget Period
-                                                    Start</label>
-                                                <input type="text" class="form-control" id="budgetPeriodStart"
-                                                    name="budgetPeriodStart" readonly>
-                                            </div>
-                                            <div class="col-4 mb-3">
-                                                <label for="budgetPeriodEnd" class="form-label">Budget Period
-                                                    End</label>
-                                                <input type="text" class="form-control" id="budgetPeriodEnd"
-                                                    name="budgetPeriodEnd" readonly>
-                                            </div>
-                                            <div class="col-4 mb-3">
-                                                <label for="BudgetDays" class="form-label">Number Of Days</label>
-                                                <input type="text" class="form-control" id="BudgetDays"
-                                                    name="BudgetDays" readonly>
+                                            <!-- Project Proponent -->
+                                            <div class="col-6 mb-3">
+                                                <label for="projectproponent" class="form-label">Contact
+                                                    Person</label>
+                                                <input type="text" class="form-control" id="projectproponent"
+                                                    name="contactperson" placeholder="Enter project proponent"
+                                                    required>
                                             </div>
                                         </div>
                                         <!-- Allocated Funds -->
@@ -176,6 +175,32 @@
                                             <input type="text" class="form-control" id="fundingSource"
                                                 placeholder="Enter funding source" name="fundingSource" required>
                                         </div>
+                                    </div>
+
+
+                                    <div class="tab-pane fade" id="event-info" role="tabpanel"
+                                        aria-labelledby="submission-info-tab">
+
+                                        <div class="row">
+                                             <div class="col-12 mb-3">
+                                                <label for="BudgetDays" class="form-label">Project Image</label>
+                                                <input type="file" class="form-control" id="BudgetDays"
+                                                    name="project_image" >
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <label for="budgetPeriodStart" class="form-label">Budget Period
+                                                    Start</label>
+                                                <input type="date" class="form-control" id="budgetPeriodStart"
+                                                    name="budgetPeriodStart" >
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <label for="budgetPeriodEnd" class="form-label">Budget Period
+                                                    End</label>
+                                                <input type="date" class="form-control" id="budgetPeriodEnd"
+                                                    name="budgetPeriodEnd" >
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                     <!-- Submission Information -->

@@ -36,7 +36,6 @@ class BudgetProposalController extends Controller
 
     $request->validate([
         'proposalTitle' => 'required|string|max:255',
-        'budgetEvent' => 'required|exists:school_event,event_id',
         'projectproponent' => 'required|string|max:255',
         'projectparticipant' => 'required|string|max:255',
         'budgetPeriodStart' => 'required|date',
@@ -46,11 +45,26 @@ class BudgetProposalController extends Controller
         'submissionDate' => 'required|date',
         'additionalNotes' => 'nullable|string',
     ]);
+            $file = $request->file('project_image');
 
+            $newImageName = $request->proposalTitle.$request->budgetPeriodStart. '_' . $file->getClientOriginalName();
+
+            // Move the file to the public/election_materials directory
+            $file->move(public_path('event_images'), $newImageName);
+
+            $ev = new SchoolEvents;
+            $ev->event_name = $request->proposalTitle;
+            $ev->event_description = $request->objective;
+            $ev->event_start = $request->budgetPeriodStart;
+            $ev->event_pic = $newImageName;
+            $ev->event_end = $request->budgetPeriodEnd;
+            $ev->event_facilitator = $request->projectproponent;
+            $ev->admin_id = session('admin_id');
+            $ev->save();
 
     $data = new BudgetProposal;
     $data->title = $request->proposalTitle;
-    $data->eventid = $request->budgetEvent;
+    $data->eventid = $ev->event_id;
     $data->project_proponent = $request->projectproponent;
     $data->project_participant = $request->projectparticipant;
     $data->budget_period_start = $request->budgetPeriodStart;
@@ -59,6 +73,11 @@ class BudgetProposalController extends Controller
     $data->proposed_by = $request->proposedBy;
     $data->submission_date = $request->submissionDate;
     $data->additional_notes = $request->additionalNotes;
+    $data->objective = $request->objective;
+    $data->theme = $request->theme;
+    $data->location = $request->location;
+    $data->contact_person = $request->contactperson;
+    $data->total_budget = $request->allocated;
     $data->save();
 
             $startDate = Carbon::createFromFormat('Y-m-d', $request->budgetPeriodStart);

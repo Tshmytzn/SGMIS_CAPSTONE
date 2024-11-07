@@ -219,7 +219,7 @@
                 </div>
             </div>
 
-            <div class="modal modal-blur fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+            {{-- <div class="modal modal-blur fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
                     <div class="modal-header text-white" style="background-color: #3E8A34;">
@@ -280,7 +280,7 @@
                   </form>
                   </div>
                 </div>
-              </div>
+              </div> --}}
 
             @include('Admin.components.footer')
 
@@ -297,15 +297,15 @@ document.addEventListener('DOMContentLoaded', function() {
         theme: 'Royal Navy', 
         calendarEvents: [ ]
     });
-    $('#calendar2').on('selectDate', function(event, newDate, oldDate) {
-            let elements = document.getElementsByClassName("event-list");
-            for (let element of elements) {
-                // Check if the button already exists
-                if (!element.querySelector('.btn-primary')) {
-                    element.innerHTML += `<button class="btn btn-primary col-12" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Event</button>`;
-                }
-            }
-});
+//     $('#calendar2').on('selectDate', function(event, newDate, oldDate) {
+//             let elements = document.getElementsByClassName("event-list");
+//             for (let element of elements) {
+//                 // Check if the button already exists
+//                 if (!element.querySelector('.btn-primary')) {
+//                     element.innerHTML += `<button class="btn btn-primary col-12" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Event</button>`;
+//                 }
+//             }
+// });
     // AJAX request to fetch additional events
     displayEv();
    

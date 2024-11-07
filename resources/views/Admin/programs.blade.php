@@ -51,13 +51,13 @@
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs">
                       <li class="nav-item">
-                        <a href="#departments" class="nav-link active" data-bs-toggle="tab">Departments</a>
+                        <a href="#departments" class="nav-link active" data-bs-toggle="tab">Colleges</a>
                       </li>
                       <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="tab">Courses</a>
+                        <a href="#courses" class="nav-link" data-bs-toggle="tab">Program</a>
                       </li>
                       <li class="nav-item">
-                        <a href="#sections" class="nav-link" data-bs-toggle="tab">Sections</a>
+                        <a href="#sections" class="nav-link" data-bs-toggle="tab">Class</a>
                       </li>
                     </ul>
                   </div>
@@ -74,7 +74,7 @@
                                   <div style="margin-left: -30px;">
                                     <h3>Carlos Hilado Memorial State of University Departments </h3>
                                   </div>
-                                  <button class="btn" type="button" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Department</button>
+                                  <button class="btn" type="button" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Colleges</button>
                               </div>
                           </div>
                       </div>
@@ -106,7 +106,7 @@
                                     <div style="margin-left: -20px;">
                                       <h3>Carlos Hilado Memorial State of University Courses </h3>
                                     </div>
-                                    <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Course</button>
+                                    <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Program</button>
                                 </div>
                             </div>
                           </div>
@@ -141,7 +141,7 @@
                                       <div style="margin-left: -20px;">
                                         <h3>Carlos Hilado Memorial State of University Courses </h3>
                                       </div>
-                                      <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Section</button>
+                                      <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Class</button>
                                   </div>
                               </div>
                             </div>
@@ -182,7 +182,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Department</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Add Colleges</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -215,7 +215,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Edit Department</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Colleges</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -283,7 +283,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Course</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Add Program</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -324,7 +324,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Course</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Program</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -366,7 +366,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Add Section</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Class</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -422,7 +422,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Section</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Class</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">

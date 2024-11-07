@@ -29,7 +29,7 @@
                                 Overview
                             </div>
                             <h2 class="page-title">
-                                Compendium Name
+                                Document Files
                             </h2>
                         </div>
 
