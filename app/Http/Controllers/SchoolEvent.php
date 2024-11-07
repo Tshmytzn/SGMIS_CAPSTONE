@@ -13,6 +13,8 @@ use App\Models\Course;
 use App\Models\EvalQuestion;
 use App\Models\Evaluation;
 use App\Models\EventLocation;
+use App\Models\StudentAccounts;
+use App\Models\Section;
 
 class SchoolEvent extends Controller
 {
@@ -45,7 +47,14 @@ class SchoolEvent extends Controller
         if($req->where == 'admin'){
             $event = SchoolEvents::all();
         }else{
-            $event = SchoolEvents::where('event_status', 1)->get();
+
+            $student = StudentAccounts::where('student_id', session('student_id'))->first();
+            $section = Section::where('sect_id', $student->sect_id)->first();
+            $course = Course::where('course_id', $section->course_id)->first();
+            $department = Department::where('dept_id', $course->dept_id)->first();
+
+            $event = SchoolEvents::where('event_status', 1)->join('event_departments', 'event_departments.event_id', '=', 'school_event.event_id')->where('event_departments.dept_id', $department->dept_id)->get();
+
         }
 
         return response()->json(['event'=>$event]);
