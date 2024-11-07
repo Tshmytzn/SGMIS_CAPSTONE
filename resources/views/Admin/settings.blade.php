@@ -32,6 +32,9 @@
                       <li class="nav-item">
                         <a class="nav-link" id="studentadmins-tab" data-bs-toggle="pill" href="#studentadmins"><h3>Student Admins</h3></a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="studentadmins-tab" data-bs-toggle="pill" href="#setsemestertab"><h3>Set Semester</h3></a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -260,6 +263,45 @@
 
                         </div>
                       </div>
+
+                      <div class="tab-pane fade" id="setsemestertab">
+    @php
+      $data = App\Models\SetSemester::first();
+    @endphp
+    <form action="{{ route('UpdateSemester') }}" method="POST">
+        @csrf
+        <div class="row">
+            <!-- First Semester -->
+            <div class="col-12 d-flex justify-content-center align-items-center mb-4">
+                <h1>First Semester</h1>
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="first_start">Start</label>
+                <input class="form-control" type="date" id="first_start" name="first_start" value="{{ $data->first_start ?? '' }}">
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="first_end">End</label>
+                <input class="form-control" type="date" id="first_end" name="first_end" value="{{ $data->first_end ?? '' }}">
+            </div>
+
+            <!-- Second Semester -->
+            <div class="col-12 d-flex justify-content-center align-items-center mb-4">
+                <h1>Second Semester</h1>
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="second_start">Start</label>
+                <input class="form-control" type="date" id="second_start" name="second_start" value="{{ $data->second_start ?? '' }}">
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="second_end">End</label>
+                <input class="form-control" type="date" id="second_end" name="second_end" value="{{ $data->second_end ?? '' }}">
+            </div>
+        </div>
+        <button type="submit" class="col-12 btn btn-primary">Update</button>
+    </form>
+</div>
+
+
                     </div>
                   </div>
 

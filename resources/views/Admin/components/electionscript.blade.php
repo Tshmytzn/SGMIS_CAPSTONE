@@ -6,6 +6,20 @@
         // Serialize the form data
         var formData = $("form#" + formId).serialize();
 
+const form = document.getElementById(formId);  
+  const inputs = form.querySelectorAll('input, textarea, select');  
+
+  for (let input of inputs) {
+    if (input.id !== 'election_desc' && !input.value.trim()) {  
+      console.log('empty');
+      document.getElementById('adminloader').style.display = 'none';
+      alertify
+                        .alert("Warning", 'Fields is empty!', function() {
+                            alertify.message('OK');
+                        });
+    }
+  }
+
         // Send the AJAX request
         $.ajax({
             type: "POST",

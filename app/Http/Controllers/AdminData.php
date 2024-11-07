@@ -9,6 +9,7 @@ use App\Models\StudentAccounts;
 use App\Models\Department;
 use App\Models\Course;
 use App\Models\Section;
+use App\Models\SetSemester;
 use Illuminate\Support\Facades\Hash;
 
 class AdminData extends Controller
@@ -213,5 +214,19 @@ foreach ($departments as $department) {
             'student_position'=>null,
         ]);
             return response()->json(['status' => 'success']);
+    }
+    public function UpdateSemester(Request $request){
+
+        SetSemester::query()->delete();
+
+        $data = new SetSemester;
+        $data->first_start = $request->first_start;
+        $data->first_end = $request->first_end;
+        $data->second_start = $request->second_start;
+        $data->second_end = $request->second_end;
+        $data->save();
+
+        return redirect()->route('Settings');
+
     }
 }

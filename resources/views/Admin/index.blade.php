@@ -197,7 +197,21 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="card">
-                                <div id="calendar"></div>
+                              <div class="col-12 row d-flex text-center m-2">
+                                @php
+                                  $data = App\Models\SetSemester::first();
+                                @endphp
+                                <div class="col-6">
+                                  <input type="text" name="" id="fstart" value="{{$data->first_start}}" hidden>
+                                  <input type="text" name="" id="fend" value="{{$data->first_end}}" hidden>
+                                  <button class="btn btn-info" onclick="getFirtSem()">First Sem</button>
+                                </div>
+                                <div class="col-6">
+                                  <input type="text" name="" id="sstart" value="{{$data->second_start}}" hidden>
+                                  <input type="text" name="" id="send" value="{{$data->second_end}}" hidden>
+                                  <button class="btn btn-info" onclick="getSecondSem()">Second Sem</button>
+                                </div>
+                              </div>
                                 <div id="calendar2"></div>
                             </div>
                         </div>
@@ -293,33 +307,81 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 });
     // AJAX request to fetch additional events
+    displayEv();
+   
+});
+function getFirtSem() {
+    const start = document.getElementById('fstart').value;
+    const end = document.getElementById('fend').value;
+    displayEv(start, end);
+}
+
+function getSecondSem() {
+    const start = document.getElementById('sstart').value;
+    const end = document.getElementById('send').value;
+    displayEv(start, end);
+}
+
+function displayEv(startD, endD) {
     $.ajax({
         url: `{{route('getAllEvent')}}`, // Replace with actual route
         method: 'GET',
         success: function(data) {
-            console.log(data); // Log response for debugging
+            // Destroy the existing calendar before reinitializing
+            $('#calendar2').evoCalendar('destroy');
 
-            // Loop through the data and format it for Evo Calendar
-            data.event.forEach(function(event) {
-                // Use Evo Calendar's addCalendarEvent method
-                $('#calendar2').evoCalendar('addCalendarEvent', {
-                    id: event.event_id,
-                    badge: `${event.event_start} - ${moment(event.event_end).add(1, 'days').format('YYYY-MM-DD')}`,
-                    name: event.event_name,
-                    date: [event.event_start, moment(event.event_end).add(1, 'days').format('YYYY-MM-DD')], 
-                    description: event.event_description,
-                    type: "event", // Define event type as needed
-                    color: "#63d867" // Optional: define color or leave default
-                });
+            // Define the date range
+            const startDate = moment(startD);
+            const endDate = moment(endD);
+
+            // Filter events based on the range, but include events with empty start or end date
+            const filteredEvents = data.event.filter(function(event) {
+                // Check if both start and end dates are empty
+                if (!startD && !endD) {
+                    return true; // Include all events if no start or end date is provided
+                }
+
+                // Check if event start or end date is missing
+                if (!event.event_start || !event.event_end) {
+                    return true; // Include event if start or end date is missing
+                }
+
+                // Convert event start and end to moment objects (subtract 1 day from start date)
+                const eventStart = moment(event.event_start).format('YYYY-MM-DD');
+                const eventEnd = moment(event.event_end).format('YYYY-MM-DD'); // Keep end date as is
+
+                // Filter events that are within the specified date range
+                return moment(eventStart).isBetween(startDate, endDate, 'days', '[]') || moment(eventEnd).isBetween(startDate, endDate, 'days', '[]');
             });
-            
+
+            // Initialize the calendar with filtered events
+            $('#calendar2').evoCalendar({
+    theme: 'Royal Navy',
+    calendarEvents: filteredEvents.map(event => ({
+        id: event.event_id,
+        badge: `${event.event_start} - ${event.event_end}`, // Adjust display if necessary
+        name: event.event_name,
+        // Subtract 1 day from the start date to fix calendar rendering
+        date: [moment(event.event_start).subtract(1, 'days').format('YYYY-MM-DD'), event.event_end], 
+        description: event.event_description,
+        type: "event", // Define event type as needed
+        color: "#63d867" // Optional: define color or leave default
+    }))
+});
+
+
+            // Force the calendar to show the correct range if needed
+            const calendar = $('#calendar2').evoCalendar('getCalendar'); // Get the calendar instance
+            calendar.showMonth(startDate.month() + 1);  // Set the month view to the one of the start date
+
         },
         error: function(xhr, status, error) {
             $('#result').html('<p>Error loading data: ' + error + '</p>');
         }
     });
-   
-});
+}
+
+
 function VerifyFormEvent(route, events, images, deleteEvent, eventDetails, meth) {
   const evname = document.getElementById('ev_name');
   const ev_pic = document.getElementById('ev_pic');
