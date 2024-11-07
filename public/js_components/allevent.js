@@ -258,7 +258,7 @@ function SaveEvent(route, events, images, deleteEvent, eventDetails) {
 
 function LoadEvents(route, imageRoute, deleteEvent, eventDetails, where) {
     $.ajax({
-        url: route,
+        url: route + '?where=' + where,
         type: "GET",
         dataType: "json",
         success: function (response) {
@@ -339,15 +339,15 @@ function LoadEvents(route, imageRoute, deleteEvent, eventDetails, where) {
         </div>
         <p class="empty-title">No events found</p>
         <p class="empty-subtitle text-muted">
-          Try adding event by clicking the add button below
+                ${where == 'admin' ? ' Try adding event by clicking the add button below' : 'Opps there is no event that is currently published'}
         </p>
-        <div class="empty-action">
+        ${where === 'admin' ? `<div class="empty-action">
           <button data-bs-toggle="modal" data-bs-target="#modal-report" class="btn btn-primary">
 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
             Add Event
           </button>
-        </div>
+        </div>` : ''}
     </div>`;
             }
         },
@@ -1361,7 +1361,7 @@ function publishEvent(id, element){
             success: res=> {
                 document.getElementById('mainLoader').style.display = 'none';
                 alertify.set('notifier','position', 'top-right');
-               
+
                 if(res.status == 'Publish'){
                     element.classList.remove('btn', 'btn-primary');
                     element.classList.add('btn', 'btn-danger');
@@ -1389,7 +1389,7 @@ function publishEvent(id, element){
                   </svg> Publish Event`
                 }
 
-           
+
             }, error: xhr=> console.log(xhr.responseText)
         })
     },
