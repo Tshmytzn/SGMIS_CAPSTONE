@@ -113,6 +113,7 @@ Route::post('/admin/EditSectionInfo', [DeparmentData::class,"EditSectionInfo"])-
 Route::post('/admin/SaveStudent', [DeparmentData::class,"SaveStudent"])->name('SaveStudent');
 Route::post('/admin/EditStudent', [DeparmentData::class,"EditStudent"])->name('EditStudent');
 Route::post('/admin/EditAdminInfo', [AdminData::class,"EditAdminInfo"])->name('EditAdminInfo');
+Route::post('/admin/UpdateSemester', [AdminData::class, "UpdateSemester"])->name('UpdateSemester');
 Route::post('/admin/ChangeAdminPic', [AdminData::class,"ChangeAdminPic"])->name('ChangeAdminPic');
 Route::post('/admin/ChangeAdminPass', [AdminData::class,"ChangeAdminPass"])->name('ChangeAdminPass');
 Route::post('/admin/AddAdministrator', [AdminData::class,"AddAdministrator"])->name('AddAdministrator');
