@@ -98,7 +98,7 @@
             ]
         });
     }
-
+ 
     function editDeptData(id, name, image) {
         document.getElementById('EditDeptId').value = id;
         document.getElementById('EditDeptName').value = name;
