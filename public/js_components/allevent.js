@@ -517,6 +517,11 @@ function EventDetailsLoad(Route, eventImage) {
             AssVal('dept_event_id', data.event_id);
             AssVal('publishStatusHolder', data.event_status);
 
+            const addActDate = document.getElementById('act_date');
+
+            addActDate.min = data.event_start;
+            addActDate.max = data.event_end;
+
             const publishButton = document.getElementById('publishEventBtn');
             publishButton.classList.remove('d-none');
             if(data.event_status == 1){
