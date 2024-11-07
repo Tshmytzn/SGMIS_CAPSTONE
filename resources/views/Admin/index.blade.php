@@ -202,13 +202,13 @@
                                   $data = App\Models\SetSemester::first();
                                 @endphp
                                 <div class="col-6">
-                                  <input type="text" name="" id="fstart" value="{{$data->first_start}}" hidden>
-                                  <input type="text" name="" id="fend" value="{{$data->first_end}}" hidden>
+                                  <input type="text" name="" id="fstart" value="{{$data->first_start ?? ''}}" hidden>
+                                  <input type="text" name="" id="fend" value="{{$data->first_end ?? ''}}" hidden>
                                   <button class="btn btn-info" onclick="getFirtSem()">First Sem</button>
                                 </div>
                                 <div class="col-6">
-                                  <input type="text" name="" id="sstart" value="{{$data->second_start}}" hidden>
-                                  <input type="text" name="" id="send" value="{{$data->second_end}}" hidden>
+                                  <input type="text" name="" id="sstart" value="{{$data->second_start ?? ''}}" hidden>
+                                  <input type="text" name="" id="send" value="{{$data->second_end ?? ''}}" hidden>
                                   <button class="btn btn-info" onclick="getSecondSem()">Second Sem</button>
                                 </div>
                               </div>
