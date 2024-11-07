@@ -221,8 +221,17 @@
                             <div class="card-header">
                                 <div class="container mx-3" style="margin-bottom: -1%;">
                                     <div class="row">
+                                        
                                         <div class="col d-flex justify-content-between mt-2">
                                             <h3 style="margin-left: -3%">Meal Expenses </h3>
+                                                 @php
+                             $CHECKING = \App\Models\BudgetMeal::where('budget_id', $budget->id)->count();
+                            @endphp
+                            @if ($CHECKING>0)
+                            
+                            @else
+                            <h3 class="text-danger text-center"> SET MEAL BUDGET FIRST</h3>
+                            @endif
                                             <div style="border: none; background: none; margin-right:1%; cursor: pointer;"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -241,14 +250,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @php
-                             $CHECKING = \App\Models\BudgetMeal::where('budget_id', $budget->id)->count();
-                            @endphp
-                            @if ($CHECKING>0)
                             
-                            @else
-                            <h3 class="text-danger text-center col-12"> insert budget first</h3>
-                            @endif
                                 <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover" id="committeeMealTable">

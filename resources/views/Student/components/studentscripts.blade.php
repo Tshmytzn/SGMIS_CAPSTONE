@@ -39,6 +39,42 @@
     });
 }
 
+function ChangePass() {
+    // Get the password input fields
+    const first = document.getElementById('newpass');
+    const second = document.getElementById('repass');
+
+    // Check if the passwords match or if any of the fields are empty
+    if (first.value === second.value && first.value !== '' && second.value !== '') {
+        // Serialize the form data
+        const formData = $("form#UpdateStudentPassForm").serialize();
+
+        // Send the data via AJAX
+        $.ajax({
+            type: "POST",
+            url: "{{ route('updatestudentPass') }}",  // Assuming the route is correct
+            data: formData,
+            success: function(response) {
+                $('#updatepassword').modal('hide');
+                alertify.success('Password updated successfully');
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                alertify.alert("Message", "An error occurred while processing your request. Please try again.", function() {
+                    alertify.message('OK');
+                });
+                console.error(xhr.responseText);
+            }
+        });
+    } else {
+        // If passwords do not match or are empty, apply red border
+        first.style.border = "2px solid red";
+        second.style.border = "2px solid red";
+        alertify.error('Passwords do not match or are empty');
+    }
+}
+
+
 
     function UpdateStudentDetails() {
         var formData = $("form#Studentdetailsform").serialize();

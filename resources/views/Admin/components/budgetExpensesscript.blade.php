@@ -158,7 +158,7 @@
     </tr>`
                 summary.innerHTML += summa;
 
-
+            saveTotal("<?php echo $budget->id; ?>")
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
@@ -171,7 +171,6 @@
     });
 
     function saveTotal(id) {
-        console.log(allTotal)
         var formData = new FormData();
         // Append the CSRF token to the FormData
         formData.append('_token', '{{ csrf_token() }}');

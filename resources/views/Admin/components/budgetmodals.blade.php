@@ -2,12 +2,13 @@
 <div class="modal fade" id="budgetProposalUpdate" tabindex="-1" aria-labelledby="budgetProposalModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <form method="POST" id="" action="{{route('updatebudgetinginfo')}}">
             <div class="modal-header">
                 <h5 class="modal-title" id="budgetProposalModalLabel">Update Budget Proposal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" id="UpdatebudgetProposalForm">
+                
                     @csrf
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" id="modalTab" role="tablist">
@@ -24,6 +25,7 @@
                         <div class="tab-pane fade show active" id="proposal-details" role="tabpanel" aria-labelledby="proposal-details-tab">
                             <!-- Proposal Title -->
                             <div class="mb-3">
+                                <input type="text" name="id" value="{{$budget->id}}" hidden>
                                 <label for="proposalTitle" class="form-label">Proposal Title</label>
                                 <input type="text" class="form-control" id="proposalTitle" name="proposalTitle" value="{{ $budget->title }}" placeholder="Enter proposal title" required>
                             </div>
@@ -38,7 +40,7 @@
                                             $event = App\Models\SchoolEvents::where('event_start', '>', $currentDate)->get();
                                         @endphp
                                         @foreach ($event as $eve)
-                                            <option value="{{ $eve->event_id }}" {{ $eve->event_id == $budget->event_id ? 'selected' : '' }}>{{ $eve->event_name }}</option>
+                                            <option value="{{ $eve->event_id }}" {{ $eve->event_id === $budget->event_id ? 'selected' : '' }}>{{ $eve->event_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,12 +97,13 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="UpdateBudgetProposal('UpdatebudgetProposalForm')">Submit Proposal</button>
+                <button type="submit" class="btn btn-primary" >Submit Proposal</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

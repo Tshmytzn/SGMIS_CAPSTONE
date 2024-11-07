@@ -649,6 +649,10 @@
                         window[response.reload]();
                     }
                 } else {
+                    if(response.budget_id){
+                        const url = `/Budgeting/Details/${response.budget_id}`;
+                        window.location.href = url;
+                    }
                     alertify
                         .alert("Success", response.message, function() {
                             alertify.message('OK');

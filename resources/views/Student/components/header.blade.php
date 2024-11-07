@@ -137,9 +137,9 @@
                             </div>
                             <div class="row">
                                 <div class="col text-start">
-                                    <button onclick="window.location.href='{{ route('EventDashboard') }}'"
+                                    <a href="{{ route('accountsettings') }}"
                                         class="btn btn-success btn-block" style="width: 120px"
-                                        data-bs-dismiss="modal">Edit Profile</button>
+                                        >Edit Profile</a>
                                 </div>
                                 <div class="col text-end ">
                                     <form method="POST" action="{{ route('LogoutStudent') }}">

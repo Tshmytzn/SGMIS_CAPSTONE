@@ -479,7 +479,7 @@
                     } else if (response.status == 'empty') {
                         document.getElementById('adminloader').style.display = 'none';
                         alertify
-                            .alert("Warning", "Enter Department Name First!", function() {
+                            .alert("Warning", "Department Name Required!", function() {
                                 alertify.message('OK');
                             });
                     }
@@ -524,7 +524,7 @@
                 } else if (response.status == 'empty') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Warning", "Enter Course Name First!", function() {
+                        .alert("Warning", "Course Name Required!", function() {
                             alertify.message('OK');
                         });
                 }
@@ -830,8 +830,8 @@
 
                 document.getElementById("adminCard").innerHTML = "";
                 response.data.forEach(function(Data) {
-
-                    var div = document.createElement("div");
+                    if(Data.admin_type == 'Super Admin'){
+                        var div = document.createElement("div");
                     div.setAttribute("id", "administrators-card");
                     div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
 
@@ -862,12 +862,47 @@
                         <path d="M16 11l-4 4l-4 -4"/>
                         <path d="M3 12a9 9 0 0 0 18 0"/>
                     </svg>
-                    &nbsp; Demote
+                    &nbsp; Disable
                 </a>
             </div>
         </div>
     `;
                     document.getElementById("adminCard").appendChild(div);
+                    }else{
+                        var div = document.createElement("div");
+                    div.setAttribute("id", "administrators-card");
+                    div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
+
+                    div.innerHTML = `
+        <div class="card">
+            <div class="card-body p-4 text-center">
+                <span class="avatar avatar-xl mb-3 rounded" ><img src="dept_image/${Data.admin_pic}" alt="">  </span>
+                <h3 class="m-0 mb-1">${Data.admin_name}</h3>
+                <div class="text-muted"></div>
+                <div class="mt-3">
+                    <span class="badge bg-green-lt">${Data.admin_type}</span>
+                </div>
+            </div>
+            <div class="d-flex">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editadmin" class="card-btn" onclick="EditAdministrator('${Data.admin_id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
+                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
+                        <path d="M16 5l3 3"/>
+                    </svg>
+                    &nbsp; Edit
+                </a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#Enablemodal" class="card-btn" onclick="EnableAdministrator('${Data.admin_id}')">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-dashed-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.56 3.69a9 9 0 0 0 -2.92 1.95" /><path d="M3.69 8.56a9 9 0 0 0 -.69 3.44" /><path d="M3.69 15.44a9 9 0 0 0 1.95 2.92" /><path d="M8.56 20.31a9 9 0 0 0 3.44 .69" /><path d="M15.44 20.31a9 9 0 0 0 2.92 -1.95" /><path d="M20.31 15.44a9 9 0 0 0 .69 -3.44" /><path d="M20.31 8.56a9 9 0 0 0 -1.95 -2.92" /><path d="M15.44 3.69a9 9 0 0 0 -3.44 -.69" /><path d="M9 12l2 2l4 -4" /></svg>
+                    &nbsp; Enable
+                </a>
+            </div>
+        </div>
+    `;
+                    document.getElementById("adminCard").appendChild(div);
+                    }
+                    
                     runCardAnimation();
                 });
 
@@ -881,7 +916,50 @@
     function DemoteAdministrator(id) {
         document.getElementById('demoteadminid').value = id;
     }
+    function EnableAdministrator(id) {
+        document.getElementById('enableadminid').value = id;
+    }
+    function enableAdmin() {
+        document.getElementById('adminloader').style.display = 'grid';
+        var formData = $("form#enableadminform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('EnableAdmin') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display = 'none';
+                    closeModal();
+                    GetAdministratorData();
+                    alertify
+                        .alert("Message", "Admin Successfully Enabled", function() {
 
+                            alertify.message('OK');
+                            clearFormInputs('enableadminform');
+
+
+                            // reloadElementById('editsectionform');
+
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display = 'none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display = 'none';
+                    alertify
+                        .alert("Warning", "Select Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
     function DemoteAdmin() {
         document.getElementById('adminloader').style.display = 'grid';
         var formData = $("form#demoteadminform").serialize();
@@ -895,7 +973,7 @@
                     closeModal();
                     GetAdministratorData();
                     alertify
-                        .alert("Message", "Admin Successfully Demoted", function() {
+                        .alert("Message", "Admin Successfully Disabled", function() {
 
                             alertify.message('OK');
                             clearFormInputs('demoteadminform');
