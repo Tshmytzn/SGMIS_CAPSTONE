@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\SetSemester;
 use Illuminate\Http\Request;
 use App\Models\SchoolEvents;
 use App\Models\EventActivities;
@@ -15,7 +16,7 @@ use App\Models\Evaluation;
 use App\Models\EventLocation;
 use App\Models\StudentAccounts;
 use App\Models\Section;
-
+use App\Models\Liquidation;
 class SchoolEvent extends Controller
 {
     public function SaveEvent(Request $req){
@@ -313,6 +314,30 @@ class SchoolEvent extends Controller
 
      public function PublishEvent(Request $req){
         $event = SchoolEvents::where('event_id', $req->eventId)->first();
+
+        $semester = SetSemester::first();
+
+        if (($event->event_start >= $semester->first_start && $event->event_start <= $semester->first_end) &&
+            ($event->event_end >= $semester->first_start && $event->event_end <= $semester->first_end)
+        ) {
+            // Event is within the first semester
+            $result = '1st Sem';
+        }
+        // Else, check if event is within the second semester
+        elseif (($event->event_start >= $semester->second_start && $event->event_start <= $semester->second_end) &&
+            ($event->event_end >= $semester->second_start && $event->event_end <= $semester->second_end)
+        ) {
+            // Event is within the second semester
+            $result = '2nd Sem';
+        }
+
+        $data = new Liquidation;
+        $data->event_id = $event->event_id;
+        $data->liquidation_name = $event->event_name.' Liquidation';
+        $data->semester = $result;
+        $data->date_from = $event->event_start;
+        $data->date_to = $event->event_end;
+        $data->Save();
 
         if($event->event_status == 1){
             $status = 0;

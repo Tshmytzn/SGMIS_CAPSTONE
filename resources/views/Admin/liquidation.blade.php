@@ -34,7 +34,7 @@
                             <div class="d-flex">
                                 <div class="me-3">
                                     <div class="input-icon">
-                                        <input type="text" value="" class="form-control" placeholder="Search…">
+                                        {{-- <input type="text" value="" class="form-control" placeholder="Search…">
                                         <span class="input-icon-addon">
                                             <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
@@ -45,11 +45,11 @@
                                                 <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                                 <path d="M21 21l-6 -6" />
                                             </svg>
-                                        </span>
+                                        </span> --}}
                                     </div>
                                 </div>
-                                <button class="btn" style="background-color: #DF7026; color: white;"
-                                    data-bs-toggle="modal" data-bs-target="#liquidation"> Create Liquidation </button>
+                                {{-- <button class="btn" style="background-color: #DF7026; color: white;"
+                                    data-bs-toggle="modal" data-bs-target="#liquidation"> Create Liquidation </button> --}}
 
                             </div>
                         </div>
@@ -232,9 +232,7 @@ function getLiquidationData(){
                             <div class='col-6'>
                                 <a href="/Liquidation/Details?liquidation_id=${element.id}" class="btn btn-primary">View</a>
                             </div>
-                            <div class='col-6'>
-                                <button class="btn btn-danger" onclick="deleteLiquidation(${element.id})">Delete</button>
-                            </div>
+                            
                         </div>
                         </div>
                     </div>
@@ -249,23 +247,12 @@ function getLiquidationData(){
                         <div class="empty-img"><img src="./static/illustrations/undraw_under_construction_-46-pa.svg"
                                 height="128" alt="">
                         </div>
-                        <p class="empty-title">Feature Coming Soon!</p>
+                        <p class="empty-title">No Liquidation Data Found!</p>
                         <p class="empty-subtitle text-muted">
-                            This feature is not yet ready for the pre-oral defense stage. Stay tuned as it will be
-                            available for the final defense. See you there!
+                            
                         </p>
                         <div class="empty-action">
-                            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#liquidation">
-                                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 5l0 14" />
-                                    <path d="M5 12l14 0" />
-                                </svg>
-                                Add Liquidation!
-                            </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -280,7 +267,20 @@ function getLiquidationData(){
             }
         });
 }
-
+// <div class='col-6'>
+//                                 <button class="btn btn-danger" onclick="deleteLiquidation(${element.id})">Delete</button>
+//                             </div>
+// <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#liquidation">
+//                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+//                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+//                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+//                                     stroke-linecap="round" stroke-linejoin="round">
+//                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+//                                     <path d="M12 5l0 14" />
+//                                     <path d="M5 12l14 0" />
+//                                 </svg>
+//                                 Add Liquidation!
+//                             </a>
 document.addEventListener("DOMContentLoaded", function() {
     getLiquidationData()
         flatpickr("#yearPicker", {

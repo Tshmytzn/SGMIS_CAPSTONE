@@ -49,7 +49,7 @@
                         <div class="col-lg-12" style="height: 100vh; display: flex; flex-direction: column;">
                             <div class="card" style="flex: 1; display: flex; flex-direction: column;">
                                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                                    <h3 class="card-title">Upload Compendium</h3>
+                                    <h3 class="card-title">Upload Documents</h3>
                                     <form class="dropzone" id="dropzone-multiple"
                                         action="{{ route('UploadCompendiumFile') }}" autocomplete="off" novalidate
                                         style="flex: 1; display: flex; flex-direction: column; justify-content: center;">

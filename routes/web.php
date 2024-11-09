@@ -209,7 +209,7 @@ Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('Log
 Route::post('Student/UpdateStudentDetails', [StudentData::class,'UpdateStudentDetails'])->name('UpdateStudentDetails');
 Route::post('Student/UpdateStudentimage', [StudentData::class, 'UpdateStudentimage'])->name('UpdateStudentimage');
 Route::post('Student/updatestudentPass', [StudentData::class, 'updatestudentPass'])->name('updatestudentPass');
-
+Route::get('Student/getStudentListData', [StudentData::class, 'getStudentListData'])->name('getStudentListData');
 
 // student Admin
 Route::get('/Student_Admin/Login', function () {

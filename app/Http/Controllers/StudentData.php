@@ -70,4 +70,9 @@ class StudentData extends Controller
       ]);
       return response()->json(['status'=>'success']);
   }
+
+  public function getStudentListData(){
+    $data = StudentAccounts::all();
+    return response()->json(['data' => $data]);
+  }
 }

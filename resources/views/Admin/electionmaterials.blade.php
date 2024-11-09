@@ -109,7 +109,7 @@
         {{-- Create Election Modal --}}
         <div class="modal modal-blur fade" id="addOfficerModal" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                     <div class="modal-header text-white" style="background-color: #3E8A34;">
                         <h5 class="modal-title" id="staticBackdropLabel">Add Officer</h5>
@@ -120,14 +120,33 @@
                             @csrf
                             <div class="row g-2">
                                 <input type="text" name="id" value="{{$elect_id}}" hidden>
+                                <table class="table table-bordered table-hover text-center" id="StudentListTable" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Student ID</th>
+                                            <th>Full Name</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+
+                                    </tbody>
+                                </table>
                                     <div class="mb-2 col-6">
                                         <label for="firstname" class="form-label">Position</label>
-                                        <input name="position" class="form-control" id="" placeholder="Enter Officer Position">
+                                        <select name="position" class="form-select" id="">
+                                            <option value="USG PRESIDENT">USG PRESIDENT</option>
+                                            <option value="USG SECRETARY">USG SECRETARY</option>
+                                            <option value="USG SECRETARY">USG BUDGET&FINANCE</option>
+                                            <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
+                                            <option value="USG SECRETARY">USG SENATE SECRETARY</option>
+
+                                        </select> 
                                     </div>
 
                                     <div class="mb-2 col-6">
                                         <label for="firstname" class="form-label">Full Name</label>
-                                        <input name="name" class="form-control" id="" placeholder="Enter Officer Fullname">
+                                        <input name="name" class="form-control" id="studentFullName" placeholder="Enter Officer Fullname">
                                     </div>
 
                             </div>
@@ -157,9 +176,27 @@
                             @csrf
                             <div class="row g-2">
                                 <input type="text" name="up_id" id="up_id" value=" " hidden>
+                                <table class="table table-bordered table-hover text-center" id="StudentListTable2" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Student ID</th>
+                                            <th>Full Name</th>
+                                            <th>ACTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+
+                                    </tbody>
+                                </table>
                                     <div class="mb-2 col-6">
                                         <label for="firstname" class="form-label">Position</label>
-                                        <input name="position" class="form-control" id="up_position" placeholder="Enter Officer Position">
+                                        <select name="position" class="form-select" id="up_position">
+                                            <option value="USG PRESIDENT">USG PRESIDENT</option>
+                                            <option value="USG SECRETARY">USG SECRETARY</option>
+                                            <option value="USG SECRETARY">USG BUDGET&FINANCE</option>
+                                            <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
+                                            <option value="USG SECRETARY">USG SENATE SECRETARY</option>
+                                        </select>
                                     </div>
 
                                     <div class="mb-2 col-6">
@@ -453,7 +490,72 @@ alertify.confirm("Warning","Are you sure you want to delete this file?",
         alertify.error('Cancel');
     });
     }
+
+function getStudentList() {
+    $.ajax({
+        url: `{{ route('getStudentListData') }}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+
+            $('#StudentListTable').DataTable( {
+                data: response.data,
+                 pageLength: 5,
+                columns: [
+                    { data: 'school_id' },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return row.student_firstname + ' ' + row.student_lastname;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<button type="button" class="btn btn-primary" onclick="SelectStudent(`' +
+                                row.student_firstname + '`,`' + row.student_lastname + '`)">Select</button>';
+                        }
+                    }
+                ]
+            } );
+
+            $('#StudentListTable2').DataTable( {
+                data: response.data,
+                 pageLength: 5,
+                columns: [
+                    { data: 'school_id' },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return row.student_firstname + ' ' + row.student_lastname;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<button type="button" class="btn btn-primary" onclick="SelectStudent2(`' +
+                                row.student_firstname + '`,`' + row.student_lastname + '`)">Select</button>';
+                        }
+                    }
+                ]
+            } );
+
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error:', error);
+            console.error('Status:', status);
+            console.error('Response Text:', xhr.responseText);
+        }
+    });
+}
+function SelectStudent(first,last){
+    document.getElementById('studentFullName').value=first+' '+last;
+}
+function SelectStudent2(first,last){
+    document.getElementById('up_name').value=first+' '+last;
+}
     $(document).ready(function() {
+        getStudentList();
         getOfficerData();
        getMaterials(); 
          });

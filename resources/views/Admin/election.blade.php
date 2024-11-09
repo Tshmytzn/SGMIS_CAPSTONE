@@ -38,7 +38,7 @@
                                 Overview
                             </div>
                             <h2 class="page-title">
-                                Election
+                                Campaign Material
                             </h2>
                         </div>
 
@@ -62,7 +62,7 @@
                                 </div>
 
                                 <button class="btn" style="background-color: #DF7026; color: white;"
-                                    data-bs-toggle="modal" data-bs-target="#createelection">Create New Election
+                                    data-bs-toggle="modal" data-bs-target="#createelection">Create New Campaign Material
                                 </button>
 
                             </div>
@@ -145,7 +145,7 @@
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Create Election Form</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Create Campaign Material Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -155,14 +155,14 @@
                                 <div class="col-12">
 
                                     <div class="mb-2">
-                                        <label for="firstname" class="form-label">Election Title</label>
-                                        <input name="election_name" class="form-control" id="election_name" placeholder="Student Government Elections SY-0000">
+                                        <label for="firstname" class="form-label">Campaign Material Title</label>
+                                        <input name="election_name" class="form-control" id="election_name" placeholder=" Enter Campaign Material Title">
                                     </div>
 
                                     <div class="mb-2">
-                                        <label for="election_desc" class="form-label">Election Description(optional)</label>
+                                        <label for="election_desc" class="form-label">Campaign Material Description(optional)</label>
                                         <textarea name="election_desc" id="election_desc" class="form-control"
-                                            placeholder="Enter brief overview of the election, and other notes..."></textarea>
+                                            placeholder="Enter brief overview of the campaign material, and other notes..."></textarea>
                                     </div>
 
                                     <hr class="my-4">

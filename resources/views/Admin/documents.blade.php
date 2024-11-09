@@ -110,8 +110,8 @@
 
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Compendium Name</label>
-                    <input type="text" class="form-control" name="compendiumname" id="compendiumname" placeholder="Compendium Name">
+                    <label for="firstname" class="form-label">Document Name</label>
+                    <input type="text" class="form-control" name="compendiumname" id="compendiumname" placeholder="Document Name">
                   </div>
                 </div>
                 </form>
@@ -152,7 +152,7 @@
                     // GetAllStudentAdminData();
 
                     alertify
-                        .alert("Message", " Compendium Successfully Added", function() {
+                        .alert("Message", " Document Successfully Added", function() {
 
                             alertify.message('OK');
                             clearFormInputs('uploadcompform');

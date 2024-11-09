@@ -32,7 +32,7 @@
                             <div class="d-flex">
                                 <div class="me-3">
                                     <div class="input-icon">
-                                        <input type="text" value="" class="form-control" placeholder="Search…">
+                                        {{-- <input type="text" value="" class="form-control" placeholder="Search…">
                                         <span class="input-icon-addon">
                                             <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
@@ -43,12 +43,12 @@
                                                 <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                                 <path d="M21 21l-6 -6" />
                                             </svg>
-                                        </span>
+                                        </span> --}}
                                     </div>
                                 </div>
-                                <button class="btn" style="background-color: #DF7026; color: white;"
+                                {{-- <button class="btn" style="background-color: #DF7026; color: white;"
                                     data-bs-toggle="modal" data-bs-target="#budgetProposalModal"> Create Budgeting
-                                    Proposal</button>
+                                    Proposal</button> --}}
 
                             </div>
                         </div>
