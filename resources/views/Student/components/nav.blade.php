@@ -79,7 +79,7 @@
                                     <path d="M5 21v-7" />
                                 </svg> </span>
                             <span class="nav-link-title">
-                                Election
+                                Campaign Materials
                             </span>
                         </a>
                     </li>

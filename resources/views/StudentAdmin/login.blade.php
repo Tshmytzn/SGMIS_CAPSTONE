@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-footer">
-                      <button id="loginButton" type="button" onclick="AdminLogin2('{{route('StudentAdminLogin')}}', '{{route('studentAdminDashboard')}}')" class="btn btn-primary w-100">Sign in</button>
+                      <button id="loginButton" type="button" onclick="AdminLogin('{{route('adminLogin')}}', '{{route('AdminDashboard')}}')" class="btn btn-primary w-100">Sign in</button>
                     </div>
                   </form>
                 </div>
@@ -65,35 +65,8 @@
         }
 
         document.addEventListener('keydown', EnterLogin);
-  function AdminLogin2(route, dashboard) {
-  document.getElementById("mainLoader").style.display = "flex";
-  const formData = $("form#admin_login").serialize();
-
-  $.ajax({
-    type: "POST",
-    url: route,
-    data: formData,
-    success: (r) => {
-
-      alertify.set('notifier', 'position', 'bottom-left');
-      if (r.status === "success") {
-        window.location.href = '/Student_Admin/Dashboard';
-      } else if (r.status === "incorrect") {
-        document.getElementById("mainLoader").style.display = "none";
-        alertify.error('Incorrect Password').dismissOthers();
-      } else {
-        document.getElementById("mainLoader").style.display = "none";
-        alertify.error('Username Not Found').dismissOthers();
-      }
-
-    },
-    error: (xhr) => {
-      console.log(xhr.responseText);
-    },
-  });
-}
     </script>
-    @include('StudentAdmin.components.scripts')
+    @include('Admin.components.scripts')
 
   </body>
 </html>

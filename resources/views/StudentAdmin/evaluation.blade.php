@@ -2,15 +2,15 @@
 
 <html lang="en">
 
-@include('StudentAdmin.components.header', ['title' => 'Evaluation'])
+@include('Admin.components.header', ['title' => 'Evaluation'])
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     <script src="{{ asset('./js_components/evaluation.js') }}"></script>
     <div class="page">
 
-        @include('StudentAdmin.components.nav', ['active' => 'Evaluation'])
-        @include('StudentAdmin.components.loading')
+        @include('Admin.components.nav', ['active' => 'Evaluation'])
+        @include('Admin.components.loading')
         <div class="page-wrapper">
 
             <!-- Page header -->
@@ -60,100 +60,109 @@
 
             <!-- Page body -->
             <div class="page-body">
-                <div class="container-xl" >
+                <div class="container-xl">
                     <div class="row row-deck row-cards" id="eval_list">
 
-                    <div class="col-md-12 col-lg-12 col-sm-12 " id="loading-eval">
-                        <div class="container container-slim  d-flex justify-content-center flex-column">
-                          <div class="text-center">
-                            <div class="mb-3">
-                              <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logoicon.png" height="36" alt=""></a>
-                            </div>
-                            <div class="text-muted mb-3">Loading Evaluation Forms</div>
-                            <div class="progress progress-sm">
-                              <div class="progress-bar progress-bar-indeterminate"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                       
-
-                    </div>
-                </div>
-            </div>
-
-            {{-- Modal --}}
-            {{-- Create Evaluation Modal --}}
-            <div class="modal modal-blur fade" id="createevaluation" data-bs-backdrop="static"
-                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header text-white" style="background-color: #3E8A34;">
-                            <h5 class="modal-title" id="staticBackdropLabel">Create Evaluation Form</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="row g-3" id="createeval" method="POST" >
-                                @csrf
-                                <div class="row g-2">
-                                    <div class="col-12">
-                                        @php
-                                         $currentDate = Carbon\Carbon::now();
-
-                                         $event = App\Models\SchoolEvents::where('event_start', '>', $currentDate)->get();
-                                        @endphp
-                                        <label for="firstname" class="form-label">Associated Event</label>
-                                        <select name="event_id"  class="form-select" onchange="DisplayAddForm()">
-                                            @if (count($event) > 0)
-                                                <option selected disables>--------Select Event--------</option>
-                                                @foreach ($event as $ev)
-                                                    <option value="{{ $ev->event_id }}">{{ $ev->event_name }}</option>
-                                                @endforeach
-                                            @else
-                                                <option selected disables>No Event Created Yet</option>
-                                            @endif
-
-
-
-                                        </select>
+                        <div class="col-md-12 col-lg-12 col-sm-12 " id="loading-eval">
+                            <div class="container container-slim  d-flex justify-content-center flex-column">
+                                <div class="text-center">
+                                    <div class="mb-3">
+                                        <a href="." class="navbar-brand navbar-brand-autodark"><img
+                                                src="./static/logoicon.png" height="36" alt=""></a>
                                     </div>
-                                    <div class="col-12 mt-4" id="eval_name_div" style="display: none">
-                                        <label for="evalname" class="form-label">Evaluation Name <span class="text-danger" style="display: none" id="eval_name_e">(Please fill this field)</span></label>
-                                        <input type="text" class="form-control" name="evalname" id="evalname"
-                                            placeholder="Evaluation Name">
+                                    <div class="text-muted mb-3">Loading Evaluation Forms</div>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar progress-bar-indeterminate"></div>
                                     </div>
-                                    <div class="col-12" id="eval_description_div" style="display: none">
-                                        <label for="evaldesc" class="form-label">Evaluation Description  <span class="text-danger" style="display: none" id="eval_description_e">(Please fill this field)</span></label>
-                                        <textarea class="form-control" name="evaldesc" id="evaldesc" placeholder="Add Short Description here..."
-                                            cols="10" rows="2"></textarea>
-                                    </div>
-               
                                 </div>
-                            </form>
+                            </div>
+                        </div>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="closeEvalForm" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="VerifyCreateEvalForm('{{ route('createEvalForm') }}', '{{ route('getEvalForm') }}', '{{ route('ViewEvaluations') }}', '{{ asset('event_images') }}', '{{ route('deleteEvalForm') }}', '{{ asset('./static/illustrations/reading.svg') }}','admin')">Save</button>
-                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal --}}
+        {{-- Create Evaluation Modal --}}
+        <div class="modal modal-blur fade" id="createevaluation" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header text-white" style="background-color: #3E8A34;">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create Evaluation Form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row g-3" id="createeval" method="POST">
+                            @csrf
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    @php
+                                        $currentDate = Carbon\Carbon::now();
+
+                                        $event = App\Models\SchoolEvents::where(
+                                            'event_start',
+                                            '>',
+                                            $currentDate,
+                                        )->get();
+                                    @endphp
+                                    <label for="firstname" class="form-label">Associated Event</label>
+                                    <select name="event_id" class="form-select" onchange="DisplayAddForm()">
+                                        @if (count($event) > 0)
+                                            <option selected disables>--------Select Event--------</option>
+                                            @foreach ($event as $ev)
+                                                <option value="{{ $ev->event_id }}">{{ $ev->event_name }}</option>
+                                            @endforeach
+                                        @else
+                                            <option selected disables>No Event Created Yet</option>
+                                        @endif
+
+
+
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-4" id="eval_name_div" style="display: none">
+                                    <label for="evalname" class="form-label">Evaluation Name <span class="text-danger"
+                                            style="display: none" id="eval_name_e">(Please fill this
+                                            field)</span></label>
+                                    <input type="text" class="form-control" name="evalname" id="evalname"
+                                        placeholder="Evaluation Name">
+                                </div>
+                                <div class="col-12" id="eval_description_div" style="display: none">
+                                    <label for="evaldesc" class="form-label">Evaluation Description <span
+                                            class="text-danger" style="display: none" id="eval_description_e">(Please
+                                            fill this field)</span></label>
+                                    <textarea class="form-control" name="evaldesc" id="evaldesc" placeholder="Add Short Description here..."
+                                        cols="10" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeEvalForm" class="btn btn-danger"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="VerifyCreateEvalForm('{{ route('createEvalForm') }}', '{{ route('getEvalForm') }}', '{{ route('ViewEvaluations') }}', '{{ asset('event_images') }}', '{{ route('deleteEvalForm') }}', '{{ asset('./static/illustrations/reading.svg') }}','admin')">Save</button>
                     </div>
                 </div>
             </div>
-            {{-- Create Evaluation modal --}}
-
-         
-            {{-- Modal --}}
-
-
-            @include('Admin.components.footer')
-
         </div>
+        {{-- Create Evaluation modal --}}
+
+
+        {{-- Modal --}}
+
+
+        @include('Admin.components.footer')
+
+    </div>
     </div>
 
-    <form id="deleteEvalForm" >@csrf <input type="hidden" name="eval_id" id="delete_eval_id"></form>
+    <form id="deleteEvalForm">@csrf <input type="hidden" name="eval_id" id="delete_eval_id"></form>
 
     <script>
         var getAllEvalRoute = "{{ route('getAllEvalForm') }}";
@@ -162,11 +171,11 @@
         var viewEval = "{{ route('ViewEvaluations') }}";
         var evalImage = "{{ asset('event_images') }}";
         var deleteEval = "{{ route('deleteEvalForm') }}"
-        window.onload= ()=>{
-        LoadEvaluationForm(getAllEvalRoute, emptyPlaceholder, evalForm, viewEval, evalImage, deleteEval, 'admin');
+        window.onload = () => {
+            LoadEvaluationForm(getAllEvalRoute, emptyPlaceholder, evalForm, viewEval, evalImage, deleteEval, 'admin');
         }
     </script>
-    @include('StudentAdmin.components.scripts')
+    @include('Admin.components.scripts')
 
 
 </body>

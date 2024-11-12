@@ -1,6 +1,4 @@
 <script>
-
-
     function getQueryParam(param) {
         let urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
@@ -27,11 +25,11 @@
             processData: false,
             success: function(response) {
                 const data = response.data
-                document.getElementById('partyGroup').textContent=data.party_name
+                document.getElementById('partyGroup').textContent = data.party_name
                 document.getElementById('partyCover').style.backgroundImage = "url('/party_image/" + data
                     .party_picture + "')"
-                    getCandi();
-                    getCandi2()
+                getCandi();
+                getCandi2()
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error: " + textStatus + " " + errorThrown);
@@ -41,7 +39,7 @@
 
     function getCandi() {
         // Show the loader
-        
+
         document.getElementById('cardload').style.display = '';
         document.getElementById('cards').style.display = 'none';
         console.log(party_id)
@@ -50,7 +48,7 @@
         // Append the CSRF token to the FormData
         formData.append('party_id', party_id);
         formData.append('method', 'get');
-        formData.append('group_of','1');
+        formData.append('group_of', '1');
         formData.append('_token', '{{ csrf_token() }}');
 
         $.ajax({
@@ -135,7 +133,7 @@
                         // Append the card HTML to the container
                         cardsContainer.innerHTML += cardHtml;
                     });
-                      cardsContainer.innerHTML += `
+                    cardsContainer.innerHTML += `
             <div class="col-md-6 col-lg-3 fade-card"   data-bs-toggle="modal" data-bs-target="#addCandi"> <!-- Fixed height -->
                 <div class="card card-link card-link-pop " style="height: 100%;"> <!-- Full height for the card -->
                   <div style="width: 100%; height: 100%; border: 2px dashed #000; padding: 2px; box-sizing: border-box;"> <!-- Dashed border and padding -->
@@ -180,7 +178,7 @@
         // Append the CSRF token to the FormData
         formData.append('party_id', party_id);
         formData.append('method', 'get');
-        formData.append('group_of','2');
+        formData.append('group_of', '2');
         formData.append('_token', '{{ csrf_token() }}');
 
         $.ajax({
@@ -264,7 +262,7 @@
                         // Append the card HTML to the container
                         cardsContainer.innerHTML += cardHtml;
                     });
-                      cardsContainer.innerHTML += `
+                    cardsContainer.innerHTML += `
             <div class="col-md-6 col-lg-3 fade-card"  data-bs-toggle="modal" data-bs-target="#addCandi2" onclick="groupBy('2')"> <!-- Fixed height -->
                 <div class="card card-link card-link-pop " style="height: 100%;"> <!-- Full height for the card -->
                   <div style="width: 100%; height: 100%; border: 2px dashed #000; padding: 2px; box-sizing: border-box;"> <!-- Dashed border and padding -->
@@ -307,7 +305,7 @@
         // Append the CSRF token to the FormData
         formData.append('party_id', party_id);
         formData.append('method', 'get');
-        formData.append('group_of','3');
+        formData.append('group_of', '3');
         formData.append('_token', '{{ csrf_token() }}');
 
         $.ajax({
@@ -391,7 +389,7 @@
                         // Append the card HTML to the container
                         cardsContainer.innerHTML += cardHtml;
                     });
-                      cardsContainer.innerHTML += `
+                    cardsContainer.innerHTML += `
             <div class="col-md-6 col-lg-3 fade-card"  data-bs-toggle="modal" data-bs-target="#addCandi2" onclick="groupBy('3')"> <!-- Fixed height -->
                 <div class="card card-link card-link-pop " style="height: 100%;"> <!-- Full height for the card -->
                   <div style="width: 100%; height: 100%; border: 2px dashed #000; padding: 2px; box-sizing: border-box;"> <!-- Dashed border and padding -->
@@ -426,12 +424,12 @@
     }
 
     function groupBy(num) {
-    document.getElementById('groupBy').value = num;
+        document.getElementById('groupBy').value = num;
 
-    const select = document.getElementById('selectP'); // Moved this outside the if-else block
+        const select = document.getElementById('selectP'); // Moved this outside the if-else block
 
-    if (num == 2) {
-        select.innerHTML = `
+        if (num == 2) {
+            select.innerHTML = `
             <label for="student_position" class="form-label">Position</label>
             <select name="student_position" class="form-control" id="student_position">
                 <option value="" disabled selected>Select Position</option>
@@ -440,22 +438,23 @@
 
             </select>
         `;
-    } else {
-        select.innerHTML = `
+        } else {
+            select.innerHTML = `
             <label for="student_position" class="form-label" >Representative</label>
             <input type="text" class="form-control" name="student_position" value="Representative" id="student_position" readOnly>
         `;
+        }
     }
-}
 
 
-    function updatePic(pic,id){
-        document.getElementById('candi_id').value=id
-       document.getElementById('stud_pic').src = '/student_images/'+pic;
+    function updatePic(pic, id) {
+        document.getElementById('candi_id').value = id
+        document.getElementById('stud_pic').src = '/student_images/' + pic;
     }
-    function deleteCanid(id){
-        document.getElementById('student_m').value=id
-        dynamicFunction('deleteMemberform',"{{ route('Candidate') }}")
+
+    function deleteCanid(id) {
+        document.getElementById('student_m').value = id
+        dynamicFunction('deleteMemberform', "{{ route('Candidate') }}")
     }
 
     function GetAllStudentData() {
@@ -482,7 +481,8 @@
                     data: null,
                     render: function(data, type, row) {
                         const fullname = row.student_firstname + ' ' + row.student_lastname;
-                        return '<button type="button" class="btn btn-warning btn-sm" onclick="SelectStudent(`' + row
+                        return '<button type="button" class="btn btn-warning btn-sm" onclick="SelectStudent(`' +
+                            row
                             .student_id + '`,`' + fullname + '`,`' + row.school_id +
                             '`)">Select</button>';
                     }
@@ -490,52 +490,67 @@
             ],
         });
     }
+
     function GetAllStudentData2() {
-    $('#SelectStundentTable2').DataTable({
-        pageLength: 2,
-        scrollCollapse: true,
-        destroy: true,
-        ajax: {
-            url: '{{ route('GetAllStudentData') }}?dept=dept', // Ensure this route is correct
-            type: 'GET',
-            dataSrc: 'data', // Make sure 'data' is the correct key
-            error: function(xhr, error, thrown) {
-                console.log('AJAX Error: ', thrown);
-            }
-        },
-        columns: [
-            // { data: 'student_firstname'+' '+'student_lastname', title: ' Name' },
-            {
+        $('#SelectStundentTable2').DataTable({
+            pageLength: 2,
+            scrollCollapse: true,
+            destroy: true,
+            ajax: {
+                url: '{{ route('GetAllStudentData') }}?dept=dept', // Ensure this route is correct
+                type: 'GET',
+                dataSrc: 'data', // Make sure 'data' is the correct key
+                error: function(xhr, error, thrown) {
+                    console.log('AJAX Error: ', thrown);
+                }
+            },
+            columns: [
+                // { data: 'student_firstname'+' '+'student_lastname', title: ' Name' },
+                {
                     data: null,
                     render: function(data, type, row) {
                         return row.student_firstname + ' ' + row.student_lastname;
                     }
                 },
-            { data: 'school_id', title: 'School ID' },
-            { data: 'dept_name', title: 'Department' },
-            { data: 'course_name', title: 'Course' },
-            { data: 'year_level', title: 'Section' },
-            {
+                {
+                    data: 'school_id',
+                    title: 'School ID'
+                },
+                {
+                    data: 'dept_name',
+                    title: 'Department'
+                },
+                {
+                    data: 'course_name',
+                    title: 'Course'
+                },
+                {
+                    data: 'year_level',
+                    title: 'Section'
+                },
+                {
                     data: null,
                     render: function(data, type, row) {
                         const fullname = row.student_firstname + ' ' + row.student_lastname;
-                        return '<button type="button" class="btn btn-warning btn-sm" onclick="SelectStudent(`' + row
+                        return '<button type="button" class="btn btn-warning btn-sm" onclick="SelectStudent(`' +
+                            row
                             .student_id + '`,`' + fullname + '`,`' + row.school_id +
                             '`)">Select</button>';
-                    }, title: 'Action'
+                    },
+                    title: 'Action'
                 },
-        ],
-    });
-}
+            ],
+        });
+    }
 
 
-    function SelectStudent(id,name){
-        document.getElementById('party_id').value=party_id
-        document.getElementById('student_id').value=id
-        document.getElementById('student_name').value=name
-        document.getElementById('party_id2').value=party_id
-        document.getElementById('student_id2').value=id
-        document.getElementById('student_name2').value=name
+    function SelectStudent(id, name) {
+        document.getElementById('party_id').value = party_id
+        document.getElementById('student_id').value = id
+        document.getElementById('student_name').value = name
+        document.getElementById('party_id2').value = party_id
+        document.getElementById('student_id2').value = id
+        document.getElementById('student_name2').value = name
 
     }
 
@@ -584,7 +599,7 @@
         });
     }
 
-        $(document).ready(function() {
+    $(document).ready(function() {
         getParty()
         GetAllStudentData()
         GetAllStudentData2()

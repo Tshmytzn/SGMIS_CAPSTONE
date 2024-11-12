@@ -2,14 +2,14 @@
 
 <html lang="en">
 
-@include('StudentAdmin.components.header', ['title' => 'Budgeting'])
+@include('Admin.components.header', ['title' => 'Budgeting'])
 
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
 
-        @include('StudentAdmin.components.nav', ['active' => 'Budgeting'])
+        @include('Admin.components.nav', ['active' => 'Budgeting'])
 
         <div class="page-wrapper">
 
@@ -32,7 +32,7 @@
                             <div class="d-flex">
                                 <div class="me-3">
                                     <div class="input-icon">
-                                        <input type="text" value="" class="form-control" placeholder="Search…">
+                                        {{-- <input type="text" value="" class="form-control" placeholder="Search…">
                                         <span class="input-icon-addon">
                                             <!-- Download SVG icon from http://tabler-icons.io/i/search -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
@@ -43,12 +43,12 @@
                                                 <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                                 <path d="M21 21l-6 -6" />
                                             </svg>
-                                        </span>
+                                        </span> --}}
                                     </div>
                                 </div>
-                                <button class="btn" style="background-color: #DF7026; color: white;"
+                                {{-- <button class="btn" style="background-color: #DF7026; color: white;"
                                     data-bs-toggle="modal" data-bs-target="#budgetProposalModal"> Create Budgeting
-                                    Proposal</button>
+                                    Proposal</button> --}}
 
                             </div>
                         </div>
@@ -58,78 +58,11 @@
             </div>
 
 
-
-
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl d-flex flex-column justify-content-center" id="">
                     <div class="row row-deck row-cards" id="budgetingcard">
                     </div>
-                        {{-- <div class="card">
-                            <div class="card card-stacked "></div>
-                            <div class="img-responsive img-responsive-21x9 card-img-top"
-                                style="background-image: url(./static/photos/home-office-desk-with-macbook-iphone-calendar-watch-and-organizer.jpg)">
-                            </div>
-                            <div class="card-body">
-
-                                <h3 class="card-title text-center">Budgeting Proposal #1</h3>
-                            </div>
-                            <div class="d-flex">
-                                <a href="#" class="card-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                        <path
-                                            d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                        <path d="M16 5l3 3" />
-                                    </svg>
-                                    Edit
-                                </a>
-                                <a href="#" class="card-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M4 7l16 0" />
-                                        <path d="M10 11l0 6" />
-                                        <path d="M14 11l0 6" />
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                    </svg>
-                                    Delete
-                                </a>
-
-                            </div>
-                        </div> --}}
-                   
-
-                    {{-- <div class="empty">
-                        <div class="empty-img"><img src="./static/illustrations/undraw_under_construction_-46-pa.svg"
-                                height="128" alt="">
-                        </div>
-                        <p class="empty-title">Feature Coming Soon!</p>
-                        <p class="empty-subtitle text-muted">
-                            This feature is not yet ready for the pre-oral defense stage. Stay tuned as it will be
-                            available for the final defense. See you there!
-                        </p>
-                        <div class="empty-action">
-                            <a href="./." class="btn btn-primary">
-                                <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 5l0 14" />
-                                    <path d="M5 12l14 0" />
-                                </svg>
-                                Stay tuned!
-                            </a>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
 
@@ -139,7 +72,7 @@
                 <input type="text" name="process" value="delete" id="process">
 
             </form>
-            @include('StudentAdmin.components.footer')
+            @include('Admin.components.footer')
 
             {{-- Modals --}}
             <div class="modal fade" id="budgetProposalModal" tabindex="-1" aria-labelledby="budgetProposalModalLabel"
@@ -162,6 +95,11 @@
                                             href="#proposal-details" role="tab" aria-controls="proposal-details"
                                             aria-selected="true">Proposal Details</a>
                                     </li>
+                                     <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="submission-info-tab" data-bs-toggle="tab"
+                                            href="#event-info" role="tab" aria-controls="submission-info"
+                                            aria-selected="false">Event Information</a>
+                                    </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="submission-info-tab" data-bs-toggle="tab"
                                             href="#submission-info" role="tab" aria-controls="submission-info"
@@ -174,33 +112,38 @@
                                     <div class="tab-pane fade show active" id="proposal-details" role="tabpanel"
                                         aria-labelledby="proposal-details-tab">
                                         <!-- Proposal Title -->
-                                        <div class="mb-3">
-                                            <label for="proposalTitle" class="form-label">Proposal Title</label>
+                                        <div class="row">
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Title</label>
                                             <input type="text" class="form-control" id="proposalTitle"
                                                 name="proposalTitle" placeholder="Enter proposal title" required>
                                         </div>
-                                        <!-- Event Related -->
-                                        <div class="mb-3">
-
-                                            <div class="col-12">
-
-                                                <label for="budgetEvent" class="form-label">Associated Event</label>
-                                                <select name="budgetEvent" class="form-select" id="budgetEvent">
-                                                    <option selected disabled>Select Event</option>
-
-                                                    @php
-                                                    $currentDate = date('Y-m-d');
-                                                    $event = App\Models\SchoolEvents::where('event_start','>',$currentDate)->get();
-                                                    @endphp
-
-                                                    @foreach ($event as $eve)
-                                                        <option value="{{ $eve->event_id }}">{{ $eve->event_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Objective</label>
+                                            <input type="text" class="form-control" id="proposalTitle"
+                                                name="objective" placeholder="Enter proposal title" required>
                                         </div>
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Theme</label>
+                                            <input type="text" class="form-control" id="proposalTitle"
+                                                name="theme" placeholder="Enter proposal title" required>
+                                        </div>
+                                        <div class="mb-3 col-6">
+                                            <label for="proposalTitle" class="form-label">Project Location</label>
+                                            <input type="text" class="form-control" id="proposalTitle"
+                                                name="location" placeholder="Enter proposal title" required>
+                                        </div>
+                                        </div>
+                                        
+                                        <!-- Event Related -->
                                         <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label for="projectparticipant" class="form-label">Aligned
+                                                    SDG</label>
+                                                <input type="text" class="form-control" id="projectparticipant"
+                                                    name="projectparticipant" placeholder="Enter project participant"
+                                                    required>
+                                            </div>
                                             <!-- Project Proponent -->
                                             <div class="col-6 mb-3">
                                                 <label for="projectproponent" class="form-label">Project
@@ -211,26 +154,19 @@
                                             </div>
                                             <!-- Project Participant -->
                                             <div class="col-6 mb-3">
-                                                <label for="projectparticipant" class="form-label">Project
-                                                    Participant</label>
+                                                <label for="projectparticipant" class="form-label">Budget
+                                                    Allocated</label>
                                                 <input type="text" class="form-control" id="projectparticipant"
-                                                    name="projectparticipant" placeholder="Enter project participant"
+                                                    name="allocated" placeholder="Enter project participant"
                                                     required>
                                             </div>
-                                        </div>
-                                        <!-- Budget Period -->
-                                        <div class="row">
+                                            <!-- Project Proponent -->
                                             <div class="col-6 mb-3">
-                                                <label for="budgetPeriodStart" class="form-label">Budget Period
-                                                    Start</label>
-                                                <input type="datetime-local" class="form-control"
-                                                    id="budgetPeriodStart" name="budgetPeriodStart" required>
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <label for="budgetPeriodEnd" class="form-label">Budget Period
-                                                    End</label>
-                                                <input type="datetime-local" class="form-control"
-                                                    id="budgetPeriodEnd" name="budgetPeriodEnd" required>
+                                                <label for="projectproponent" class="form-label">Contact
+                                                    Person</label>
+                                                <input type="text" class="form-control" id="projectproponent"
+                                                    name="contactperson" placeholder="Enter project proponent"
+                                                    required>
                                             </div>
                                         </div>
                                         <!-- Allocated Funds -->
@@ -241,25 +177,51 @@
                                         </div>
                                     </div>
 
+
+                                    <div class="tab-pane fade" id="event-info" role="tabpanel"
+                                        aria-labelledby="submission-info-tab">
+
+                                        <div class="row">
+                                             <div class="col-12 mb-3">
+                                                <label for="BudgetDays" class="form-label">Project Image</label>
+                                                <input type="file" class="form-control" id="BudgetDays"
+                                                    name="project_image" >
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <label for="budgetPeriodStart" class="form-label">Budget Period
+                                                    Start</label>
+                                                <input type="date" class="form-control" id="budgetPeriodStart"
+                                                    name="budgetPeriodStart" >
+                                            </div>
+                                            <div class="col-4 mb-3">
+                                                <label for="budgetPeriodEnd" class="form-label">Budget Period
+                                                    End</label>
+                                                <input type="date" class="form-control" id="budgetPeriodEnd"
+                                                    name="budgetPeriodEnd" >
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     <!-- Submission Information -->
                                     <div class="tab-pane fade" id="submission-info" role="tabpanel"
                                         aria-labelledby="submission-info-tab">
 
                                         @php
-                                        $admin = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
+                                            $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
                                         @endphp
 
                                         <!-- Proposed By -->
                                         <div class="mb-3">
                                             <label for="proposedBy" class="form-label">Proposed By</label>
                                             <input type="text" class="form-control" id="proposedBy"
-                                                name="proposedBy" value="{{ $admin->student_firstname}}" readonly>
+                                                name="proposedBy" value="{{ $admin->admin_name }}" readonly>
                                         </div>
                                         <!-- Submission Date -->
                                         <div class="mb-3">
                                             <label for="submissionDate" class="form-label">Submission Date</label>
                                             <input type="date" class="form-control" id="submissionDate"
-                                                name="submissionDate" value="<?php echo date('Y-m-d'); ?>" readonly>
+                                                name="submissionDate" value="<?php date_default_timezone_set('Asia/Hong_Kong'); echo date('Y-m-d'); ?>" readonly>
                                         </div>
                                         <!-- Additional Notes -->
                                         <div class="mb-3">
@@ -287,8 +249,8 @@
     </div>
 
 
-    @include('StudentAdmin.components.scripts')
-    @include('StudentAdmin.components.budgetingscripts')
+    @include('Admin.components.scripts')
+    @include('Admin.components.budgetingscripts')
 </body>
 
 </html>

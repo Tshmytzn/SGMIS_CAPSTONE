@@ -1,12 +1,14 @@
 <!doctype html>
 
 <html lang="en">
-@include('StudentAdmin.components.header', ['title' => 'Attendance'])
-
+@include('Admin.components.header', ['title' => 'Attendance'])
+<style>
+    .dataTables_filter, .dataTables_info { display: none; }
+</style>
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     <div class="page">
-        @include('StudentAdmin.components.nav', ['active' => 'Attendance'])
+        @include('Admin.components.nav', ['active' => 'Attendance'])
         <div class="page-wrapper">
 
             <!-- Page header -->
@@ -36,7 +38,7 @@
                             <div class="row bg-success">
                                 <div class="col-12 mb-3">
                                     <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-                                        <form action="./" method="get" autocomplete="off" novalidate>
+                                    
                                             <div class="input-icon mt-2 ">
                                                 <span class="input-icon-addon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon"
@@ -48,175 +50,122 @@
                                                         <path d="M21 21l-6 -6" />
                                                     </svg>
                                                 </span>
-                                                <input type="text" value="" class="form-control"
-                                                    placeholder="Search…" aria-label="Search in table">
+                                                <input type="text" id="customSearchInput" class="form-control" placeholder="Search…" aria-label="Search in table">
+
                                             </div>
-                                        </form>
                                     </div>
                                 </div>
 
-                                <div class="col-3 mb-3">
+                                <div class="col-2 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Events </h4>
-                                    <select class="form-select" name="" id="">
-                                        <option value=""> Select Event </option>
-                                        <option value=""> Event 1 </option>
-                                        <option value=""> Event 2 </option>
+                                    <select class="form-select" name="" id="EventId" onchange="getAct()">
+                                        <option value="" selected> Select Event </option>
+                                        @php
+                                            $events = \App\Models\SchoolEvents::all();
+                                        @endphp
+                                        @foreach ($events as $event)
+                                        <option value="{{ $event->event_id }}">{{ $event->event_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-3 mb-3">
+                                    <h4 class="mb-2 ms-2 text-white" for=""> Activities </h4>
+                                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading'])
+                                    <select class="form-select" name="" id="ActId" onchange="getCourse()">
+                                        <option value="" selected> Select Activity </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-3 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Department </h4>
-                                    <select class="form-select" name="" id="">
+                                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading2'])
+                                    <select class="form-select" name="" id="DeptId" onchange="getCourse()">
                                         <option value=""> Select Department </option>
-                                        <option value=""> Department 1 </option>
-                                        <option value=""> Department 2 </option>
                                     </select>
                                 </div>
 
 
-                                <div class="col-3">
+                                <div class="col-2 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Course </h4>
-                                    <select class="form-select" name="" id="">
+                                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading3'])
+                                    <select class="form-select" name="" id="CourseId" onchange="getSection()">
                                         <option value=""> Select Course </option>
-                                        <option value=""> Course 1 </option>
-                                        <option value=""> Course 2 </option>
                                     </select>
                                 </div>
 
 
-                                <div class="col-3">
+                                <div class="col-2 mb-3">
                                     <h4 class="mb-2 ms-2 text-white" for=""> Section </h4>
-                                    <select class="form-select" name="" id="">
+                                     @include('Admin.components.Lloading',['load_ID' => 'lineLoading4'])
+                                    <select class="form-select" name="" id="SectionId" onchange="attendanceTable()">
                                         <option value=""> Select Section </option>
-                                        <option value=""> Section 1 </option>
-                                        <option value=""> Section 2 </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-
-                            <div class="card mt-2 mb-4">
+                            @include('Admin.components.Lloading',['load_ID' => 'lineLoading5'])
+                            <div class="card mt-2 mb-4"  id="containerTable">
                                 <div class="card-body">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" id="attendanceTable" style="text-align: center;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Event Name</th>
+                                                <th scope="col">Activity</th>
                                                 <th scope="col">Department</th>
                                                 <th scope="col">Course</th>
                                                 <th scope="col">Section</th>
-                                                <th scope="col">Student Name</th>
                                                 <th scope="col">Student ID</th>
+                                                <th scope="col">Student Name</th>
                                                 <th scope="col">Attendance Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Tisha May Tizon </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> John Paul Ubas </td>
-                                                <td> 20201428 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Rheyan John Blanco </td>
-                                                <td> 20201420 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> Hazel Mae Santiago </td>
-                                                <td> 20201424 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year B </td>
-                                                <td> Jeah Lou Huelar </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-danger"> Incomplete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Tisha May Tizon </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> John Paul Ubas </td>
-                                                <td> 20201428 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year A </td>
-                                                <td> Rheyan John Blanco </td>
-                                                <td> 20201420 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year D </td>
-                                                <td> Hazel Mae Santiago </td>
-                                                <td> 20201424 </td>
-                                                <td class="alert alert-success"> Complete </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Uweek </td>
-                                                <td> College of Engineering </td>
-                                                <td> BSIS </td>
-                                                <td> Fourth Year B </td>
-                                                <td> Jeah Lou Huelar </td>
-                                                <td> 20201422 </td>
-                                                <td class="alert alert-danger"> Incomplete </td>
-                                            </tr>
+                                           
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-
+                            <button onclick="printTable()" class="btn btn-success">Print Table</button>
 
                     </div>
                 </div>
             </div>
 
-            @include('StudentAdmin.components.footer')
+            <div class="modal fade" id="proofModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Proof Images</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body justify-content-center align-item-center text-center">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="myImage">Time In</label>
+                            <img id="myImage" src="default.jpg" class="rounded mx-auto d-block" alt="Image">
+                        </div>
+                        <div class="col-6">
+                            <label for="myImage">Time Out</label>
+                             <img id="myImage2" src="default.jpg" class="rounded mx-auto d-block" alt="Image">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            @include('Admin.components.footer')
 
         </div>
     </div>
 
 
-    @include('StudentAdmin.components.scripts')
+    @include('Admin.components.scripts')
+    @include('Admin.components.attendancescript')
 
 </body>
 

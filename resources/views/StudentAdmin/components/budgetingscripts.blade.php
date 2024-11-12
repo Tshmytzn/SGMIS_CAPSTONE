@@ -1,4 +1,25 @@
 <script>
+    function updateEventDetails() {
+        const selectElement = document.getElementById('budgetEvent');
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+        // Get start and end dates from data attributes
+        const startDate = selectedOption.getAttribute('data-start');
+        const endDate = selectedOption.getAttribute('data-end');
+
+        // Set values in the respective input fields
+        document.getElementById('budgetPeriodStart').value = startDate;
+        document.getElementById('budgetPeriodEnd').value = endDate;
+
+        // Calculate number of days
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDiff = end - start;
+        const numberOfDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
+
+        document.getElementById('BudgetDays').value = numberOfDays + ' Days';
+    }
+
     function validateForm(formId) {
         let isValid = true;
         let errorMessage = "Please fill out the following fields:\n";
@@ -8,7 +29,7 @@
         $(formElement).find('input[required], textarea[required], select[required]').each(function() {
             if ($(this).val().trim() === '') {
                 isValid = false;
-                errorMessage += "- " + $(this).prev('label').text() + "\n"; // Get label text
+                errorMessage += "- " + $(this).prev('label').text() + "\n";
             }
         });
 
@@ -35,13 +56,17 @@
         }
 
         var formElement = document.getElementById(formId);
-        var formData = $(formElement).serialize();
+        var formData = new FormData(formElement); // Create a FormData object from the form element
+        formData.append('_token', '{{ csrf_token() }}'); 
 
         $.ajax({
             type: "POST",
             url: '{{ route('getBudgetProposal') }}',
             data: formData,
+            contentType: false, // Important for file uploads
+            processData: false, // Important for file uploads
             success: function(response) {
+                location.reload();
                 if (response.status == 'error') {
                     alertify.alert("Warning", response.message, function() {
                         alertify.message('OK');
@@ -91,7 +116,7 @@
                         <p class="empty-subtitle text-muted">
                         Looks like there are no budget proposals at the moment. Once proposals are submitted, you can review them here.                        </p>
                         <div class="empty-action">
-                            <a href="{{ route('Budgeting') }}" class="btn btn-primary">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#budgetProposalModal">
                                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -101,7 +126,7 @@
                                     <path d="M5 12l14 0" />
                                 </svg>
                                 Stay tuned!
-                            </a>
+                            </button>
                         </div>
                     </div>
                     `;
@@ -111,17 +136,18 @@
                     response.data.forEach(function(item, index) {
                         budgetcard.innerHTML += `
                 <div class="col-md-6 col-lg-3">
-                <div class="card">
-                            <div class="card card-stacked "></div>
-                            <div class="img-responsive img-responsive-21x9 card-img-top"
-                                style="background-image: url(./static/photos/undraw_data_re_80ws.svg)">
+                    <div class="card">
+                        <div class="card card-stacked "></div>
+                            <div class="img-responsive img-responsive-21x10 card-img-top m-0 "
+                                style="background-image: url(./static/photos/Statistics.svg); background-size: cover; background-position: center;">
                             </div>
-                            <div class="card-body">
 
-                                <h3 class="card-title text-center">${item.title}</h3>
+                            <div class="card-body p-0 m-0">
+
+                                <h3 class="card-title text-center mb-2">${item.title}</h3>
                             </div>
                             <div class="d-flex">
-                                <a href="#" class="card-btn">
+                                <a href="/Budgeting/Details/${item.id}" class="card-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -134,20 +160,7 @@
                                     </svg>
                                     Edit
                                 </a>
-                                <a href="#" onclick="deleteBudgetProposal('${item.id}')" class="card-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M4 7l16 0" />
-                                        <path d="M10 11l0 6" />
-                                        <path d="M14 11l0 6" />
-                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                    </svg>
-                                    Delete
-                                </a>
+                                
 
                             </div>
                         </div>
@@ -163,7 +176,20 @@
             }
         });
     }
-
+// <a href="#" onclick="deleteBudgetProposal('${item.id}')" class="card-btn">
+//                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+//                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+//                                         stroke-linecap="round" stroke-linejoin="round"
+//                                         class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+//                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+//                                         <path d="M4 7l16 0" />
+//                                         <path d="M10 11l0 6" />
+//                                         <path d="M14 11l0 6" />
+//                                         <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+//                                         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+//                                     </svg>
+//                                     Delete
+//                                 </a>
     function BudgetProposal(formId) {
 
 
@@ -198,25 +224,24 @@
 
 
     function deleteBudgetProposal(id) {
-    alertify.confirm(
-        'Delete Budget Proposal', 
-        'Are you sure you want to delete this budget proposal?', 
-        function() {
+        alertify.confirm(
+            'Delete Budget Proposal',
+            'Are you sure you want to delete this budget proposal?',
+            function() {
 
-            console.log(id);
-            document.getElementById('budget_id').value = id;
-            BudgetProposal('deleteBudgetProposalForm');
-        }, 
-        function() {
+                console.log(id);
+                document.getElementById('budget_id').value = id;
+                BudgetProposal('deleteBudgetProposalForm');
+            },
+            function() {
 
-            alertify.error('Deletion Cancelled');
-        }
-    );
-}
+                alertify.error('Deletion Cancelled');
+            }
+        );
+    }
 
 
     $(document).ready(function() {
-
         getBudgetingDetails()
     });
 </script>

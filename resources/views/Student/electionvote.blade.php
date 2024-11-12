@@ -1,341 +1,315 @@
 <!doctype html>
+
 <html lang="en">
-@include('Admin.components.adminstyle')
+
 @include('Student.components.head', ['title' => 'Election'])
 @include('Student.components.header')
 @include('Student.components.nav')
 
 <style>
-    /* Styling for container */
-    .position-relative {
-        position: relative;
-    }
+    .fade-card {
+            opacity: 0;
+            transform: scale(0.5); /* Make it slightly smaller */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
 
-    /* Card styling */
-    .card-link {
-        text-decoration: none;
-        color: inherit;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-    }
-
-    .card-link:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Initially hide the dropdown cards */
-    .dropdown-card {
-        display: none;
-        width: 100%;
-        opacity: 0;
-        transform: translateY(-20px);
-        /* Start from above */
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        /* Smooth transition */
-    }
-
-    .dropdown-card.show {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Style for the submit button */
-    .submit-button-container {
-        text-align: center;
-        margin-top: 20px;
-        display: none;
-        /* Initially hidden */
-    }
-
-    .submit-button-container .btn {
-        border-radius: 20px;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-
-    .submit-button-container .btn:hover {
-        background-color: #0056b3;
-    }
-</style>
-
-
+        /* Pop-up animation */
+        .fade-card.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
 <body>
+    <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
-       <div class="empty" id="sub_body">
-                    <div class="empty-img"><img src="{{ asset('./static/illustrations/undraw_voting_nvu7.svg') }}" height="128" alt="">
-                    </div>
-                    <p class="empty-title" id="notifT">No Available Election</p>
-                    <p class="empty-subtitle text-secondary" id="notif">
-                      No elections are open for voting at this time.
-                    </p>
-                  </div>
-    <div class="page" id="main_body">
+    <div class="page">
+
+
         <div class="page-wrapper">
+
             <!-- Page header -->
             <div class="page-header d-print-none">
                 <div class="container-xl">
                     <div class="row g-2 align-items-center">
                         <div class="col">
-                            <h2 class="page-title">Election</h2>
+
+                            <!-- Page pre-title -->
+                            <div class="page-pretitle">
+                                Overview
+                            </div>
+                            <h2 class="page-title">
+                                Campaign Material
+                            </h2>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>
+
+
+
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
+                    @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
+                    <div class="row row-deck row-cards" id="cards">
 
-                    <div class="container mt-5">
-                        <div class="accordion" id="accordionExample">
-                            <!-- First Item -->
-                            <form action="" id="votingForm" method="post">
-                                @csrf
-                            
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" id="button1" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="getCandi('1','1','President')">
-                                        <div class="d-flex justify-content-between w-100 px-1">
-                                        <span >PRESIDENT</span>
-                                        <span id="canLabel1"></span>
-                                        </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <input type="text" name="candi_id1" id="candi_id1" hidden>
-                                        <input type="text" name="party_id1" id="party_id1" hidden>
-                                        @include('Admin.components.lineLoading', ['loadID' => 'cardload1'])
-                                        <div class="row row-cards" id="cards1">
+                        {{-- <div class="col-md-6 col-lg-3">
+                            <div class="card card-stacked">
+                              <div class="card-status-start bg-success"></div>
+                              <div class="ribbon bg-green">Ongoing</div>
+                                <div class="card-body">
+                                    <h3 class="card-title"> Elections SY-2024 </h3>
+                                    <hr class="my-4 mt-1">
 
-                                            
+                                    <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                        Architecto at consectetur culpa ducimus eum fuga fugiat, ipsa iusto, modi
+                                        nostrum recusandae reiciendis saepe.</p>
+                                </div>
+                                <div class="card-footer card-footer-transparent" >
+                                    <a href="{{route('Editelection')}}"class="btn btn-outline-green"
+                                        style="display: flex; align-items: center; justify-content: center;">
+                                        Update Details <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-edit"
+                                            style="margin-left: 8px;">
 
-                                        </div>
-
-                                    </div>
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                            <path
+                                                d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                            <path d="M16 5l3 3" />
+                                        </svg></a>
                                 </div>
                             </div>
+                        </div> --}}
 
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" id="button2" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onclick="getCandi('2','1','Vice President')">
-                                        
-                                        <div class="d-flex justify-content-between w-100 px-1">
-                                        <span >VICE PRESIDENT</span>
-                                        <span id="canLabel2"></span>
-                                        </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <input type="text" name="candi_id2" id="candi_id2" hidden>
-                                        <input type="text" name="party_id2" id="party_id2" hidden>
-                                        @include('Admin.components.lineLoading', ['loadID' => 'cardload2'])
-                                        <div class="row row-cards" id="cards2">
-
-                                            
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- SENATORS -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" id="button3" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree" onclick="getCandi('3','1','Senator')">
-                                   
-                                        <div class="d-flex justify-content-between w-100 px-1">
-                                        <span >SENATOR</span>
-                                        <span id="canLabel3"></span>
-                                        </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <input type="text" name="candi_id3" id="candi_id3" hidden>
-                                        <input type="text" name="party_id3" id="party_id3" hidden>
-                                        @include('Admin.components.lineLoading', ['loadID' => 'cardload3'])
-                                        <div class="row row-cards" id="cards3">
-
-                                            
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- GOVERNOR -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFour">
-                                    <button class="accordion-button collapsed" id="button4" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                        aria-expanded="false" aria-controls="collapseFour" onclick="getCandi('4','2','Governor')">
-                                   
-                                        <div class="d-flex justify-content-between w-100 px-1">
-                                        <span >GOVERNORS</span>
-                                        <span id="canLabel4"></span>
-                                        </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseFour" class="accordion-collapse collapse"
-                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <input type="text" name="candi_id4" id="candi_id4" hidden>
-                                        <input type="text" name="party_id4" id="party_id4" hidden>
-                                        @include('Admin.components.lineLoading', ['loadID' => 'cardload4'])
-                                        <div class="row row-cards" id="cards4">
-
-                                            
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- VICE GOVERNOR -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFive">
-                                    <button class="accordion-button collapsed" id="button5" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseFive"
-                                        aria-expanded="false" aria-controls="collapseFive" onclick="getCandi('5','2','Vice Governor')">
-                                       
-                                        <div class="d-flex justify-content-between w-100 px-1">
-                                        <span >VICE GOVERNOR</span>
-                                        <span id="canLabel5"></span>
-                                        </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseFive" class="accordion-collapse collapse"
-                                    aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <input type="text" name="candi_id5" id="candi_id5" hidden>
-                                        <input type="text" name="party_id5" id="party_id5" hidden>
-                                        @include('Admin.components.lineLoading', ['loadID' => 'cardload5'])
-                                        <div class="row row-cards" id="cards5">
-
-                                            
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- BSIS REPRESENTATIVE -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingSix">
-                                    <button class="accordion-button collapsed" id="button6" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false"
-                                        aria-controls="collapseSix" onclick="getCandi('6','3','Representative')">
-                                        <div class="d-flex justify-content-between w-100 px-1">
-                                        <span >BSIS REPRESENTATIVE</span>
-                                        <span id="canLabel6"></span>
-                                        </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseSix" class="accordion-collapse collapse"
-                                    aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <input type="text" name="candi_id6" id="candi_id6" hidden>
-                                        <input type="text" name="party_id6" id="party_id6" hidden>
-                                        @include('Admin.components.lineLoading', ['loadID' => 'cardload6'])
-                                        <div class="row row-cards" id="cards6">
-
-                                            
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            </form>
-                        </div>
-                        <div class="text-center mt-4 col-12">
-                            <Button class="btn btn-primary col-12" type="button" onclick="verify()"> Submit Vote</Button>
-                        </div>
                     </div>
+
+                    {{-- This is a no search results illustration --}}
+                    {{-- <div class="empty">
+                    <div class="empty-img"><img src="./static/illustrations/undraw_voting_nvu7.svg" height="128" alt="">
+                    </div>
+                    <p class="empty-title">No Election Results Available</p>
+                    <p class="empty-subtitle text-secondary">
+                      Try adjusting your filters or search criteria to find specific election results or candidates.
+                    </p>
+                  </div> --}}
 
                 </div>
             </div>
         </div>
+
+        <form action="" id="updateElectionForm" method="POST" hidden>
+            @csrf
+            <input type="text" name="status" id="" value="2">
+            <input type="text" name="elect_id" id="elect_id">
+            <input type="text" name="method" id="" value="update">
+        </form>
+
+        @include('Admin.components.footer')
+
+        {{-- Modal --}}
+
+        {{-- Create Election Modal --}}
+        <div class="modal modal-blur fade" id="createelection" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header text-white" style="background-color: #3E8A34;">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create Campaign Material Form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row g-3" id="createelect" method="POST">
+                            @csrf
+                            <div class="row g-2">
+                                <div class="col-12">
+
+                                    <div class="mb-2">
+                                        <label for="firstname" class="form-label">Campaign Material Title</label>
+                                        <input name="election_name" class="form-control" id="election_name" placeholder=" Enter Campaign Material Title">
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label for="election_desc" class="form-label">Campaign Material Description(optional)</label>
+                                        <textarea name="election_desc" id="election_desc" class="form-control"
+                                            placeholder="Enter brief overview of the campaign material, and other notes..."></textarea>
+                                    </div>
+
+                                    <hr class="my-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="voting_start_date" class="form-label">Start From</label>
+                                            <input type="date" name="voting_start_date"
+                                                id="voting_start_date" class="form-control">
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="voting_end_date" class="form-label">End To</label>
+                                            <input type="date" name="voting_end_date" id="voting_end_date"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+
+                                </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeEvalForm" class="btn btn-danger"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="dynamicFuction('createelect','{{route('createElection')}}')">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- Create Election modal --}}
+
+        {{-- Modal --}}
+
     </div>
-<?php
-    use Carbon\Carbon;
-    $election = App\Models\Election::where('elect_status','1')->first();
-    
-    if(!$election){
-   ?>
-   <script>
-    document.getElementById('sub_body').style.display = '';
-    document.getElementById('main_body').style.display='none'
-   </script>
-   <?php
-    }else{
-    
-    $vote = App\Models\ElectionVote::where('elect_id',$election->elect_id)->where('student_id',session('student_id'))->first();
-    if($vote){
-    $start = '';
-    $end = '';
-        // $url = route('StudentDashboard');
-        // header("Location: " . $url);
-        // exit();
-        ?>
-        <script>
-            console.log('q')
-            document.getElementById('sub_body').style.display = '';
-            document.getElementById('notifT').textContent = 'Vote Submitted'
-            document.getElementById('notif').textContent = 'Your vote has been submitted and recorded.'
-            document.getElementById('main_body').style.display='none'
-        </script>
-        <?php
-    }else{
-    $start = $election->elect_start;
-    $end = $election->elect_end;
-    }  
-        ?>
-        <script>
-    const startDate = new Date('{{$start}}');
-    console.log(startDate)
-    const endDate = new Date("{{$end}}");
-    const currentDate = new Date();
-     if (currentDate >= startDate) {
-         if (currentDate >= endDate) {
-           document.getElementById('sub_body').style.display = '';
-        document.getElementById('main_body').style.display='none'
-         }else {
-        document.getElementById('sub_body').style.display = 'none';
-        document.getElementById('main_body').style.display=''               
-        }
-     }else {
-         document.getElementById('sub_body').style.display = '';
-        document.getElementById('main_body').style.display='none'  
-     }
-</script>
-        <?php
-    }
-    
-?>
+    </div>
 
     @include('Student.components.footer')
     @include('Student.components.scripts')
-    @include('Student.components.electionvotescript')
+    <script>
+        function dynamicFuction(formId, routeUrl) {
+            // Show the loader
+            document.getElementById('adminloader').style.display = 'grid';
+
+            // Serialize the form data
+            var formData = $("form#" + formId).serialize();
+
+    const form = document.getElementById(formId);
+      const inputs = form.querySelectorAll('input, textarea, select');
+
+      for (let input of inputs) {
+        if (input.id !== 'election_desc' && !input.value.trim()) {
+          console.log('empty');
+          document.getElementById('adminloader').style.display = 'none';
+          alertify
+                            .alert("Warning", 'Fields is empty!', function() {
+                                alertify.message('OK');
+                            });
+        }
+      }
+
+            // Send the AJAX request
+            $.ajax({
+                type: "POST",
+                url: routeUrl,
+                data: formData,
+                success: function(response) {
+                    document.getElementById('adminloader').style.display = 'none';
+                    if (response.status == 'error') {
+                        alertify
+                            .alert("Warning", response.message, function() {
+                                alertify.message('OK');
+                            });
+                    } else if (response.status == 'update') {
+
+                    } else {
+                        getElection()
+                        document.getElementById(formId).reset();
+                        $('#' + response.modal).modal('hide');
+
+                        alertify
+                            .alert("Message", response.message, function() {
+                                alertify.message('OK');
+                            });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // You can also add custom error handling here if needed
+                }
+            });
+        }
+        $(document).ready(function() {
+            getElection()
+        });
+        // function autoSubmit(id){
+        //     document.getElementById('elect_id').value=id;
+        //     dynamicFuction('updateElectionForm', "{{ route('createElection') }}")
+        // }
+
+        function getElection() {
+            document.getElementById('lineLoading').style.display = '';
+            var cardsContainer = document.getElementById('cards');
+            cardsContainer.innerHTML = '';
+            $.ajax({
+                url: "{{ route('getElection') }}",
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    document.getElementById('lineLoading').style.display = 'none';
+                    // Clear previous content
+                    cardsContainer.innerHTML = '';
+                    if (response.data.length === 0) {
+                        // No data available
+                        cardsContainer.innerHTML = `<div class="empty">
+                        <div class="empty-img"><img src="{{ asset('./static/illustrations/undraw_voting_nvu7.svg') }}" height="128" alt="">
+                        </div>
+                        <p class="empty-title">No Party Results Available</p>
+                        <p class="empty-subtitle text-secondary">
+                          Try adjusting your filters or search criteria to find specific election results.
+                        </p>
+                      </div>`;
+                    } else {
+                        // Iterate through the data array and create card elements
+                        response.data.forEach(function(item, index) {
+                            const startDate = new Date(item.elect_start);
+                            const endDate = new Date(item.elect_end);
+                            const currentDate = new Date();
+
+                            let status;
+                            let color;
+                            let stats;
+                            let see;
+                            var cardHtml = `
+                                    <div class="col-md-6 col-lg-3 fade-card" id="card-${index}">
+                                        <div class="card card-stacked">
+                                            <div class="card-status-start bg-success"></div>
+                                            <div class="card-body">
+                                                <h3 class="card-title">${item.elect_name}</h3>
+                                                <hr class="my-4 mt-1">
+                                                <p class="text-secondary">${item.elect_description || 'No description available.'}</p>
+                                                <p class="text-secondary"><strong>From:</strong> ${new Date(item.elect_start).toLocaleString()}</p>
+                                                <p class="text-secondary"><strong>To:</strong> ${new Date(item.elect_end).toLocaleString()}</p>
+                                            </div>
+                                            <div class="card-footer card-footer-transparent" >
+                                                <a href="{{ route('viewelectionmaterials') }}?elect_id=${item.elect_id}" class="btn btn-outline-green col-12"
+                                                    style="align-items: center; justify-content: center; ">
+                                                    View
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            // Append the card HTML to the container
+                            cardsContainer.innerHTML += cardHtml;
+                        });
+                    }
+
+                    // Pop up cards one by one
+                    $('.fade-card').each(function(index) {
+                        var $card = $(this);
+                        setTimeout(function() {
+                            $card.addClass('show'); // Add class to trigger the CSS transition
+                        }, index * 100); // 300ms delay between each card
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error: " + textStatus + " " + errorThrown);
+                }
+            });
+        }
+    </script>
 
 </body>
 
