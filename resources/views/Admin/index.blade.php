@@ -324,7 +324,7 @@ function getSecondSem() {
 
 function displayEv(startD, endD) {
     $.ajax({
-        url: `{{route('getAllEvent')}}`, // Replace with actual route
+        url: `{{route('getAllEvent')}}?where=admin`, // Replace with actual route
         method: 'GET',
         success: function(data) {
             // Destroy the existing calendar before reinitializing
