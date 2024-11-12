@@ -5,6 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB; // For data insertion
 use Illuminate\Support\Facades\Hash; // For password hashing
+use Illuminate\Support\Str; // For UUID generation
+
 return new class extends Migration
 {
     /**
@@ -13,9 +15,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin', function (Blueprint $table) {
-            $table->id('admin_id');
+            $table->uuid('admin_id')->primary();
             $table->string('admin_name', 100)->nullable();
-            $table->string('admin_school_id',50)->nullable();
+            $table->string('admin_school_id', 50)->nullable();
             $table->string('admin_username', 100)->nullable();
             $table->string('admin_password', 60);
             $table->string('admin_type', 50)->nullable();
@@ -25,6 +27,7 @@ return new class extends Migration
 
         DB::table('admin')->insert([
             [
+                'admin_id' => Str::uuid(),
                 'admin_name' => 'Admin',
                 'admin_school_id' => '000000001',
                 'admin_username' => 'Admin',

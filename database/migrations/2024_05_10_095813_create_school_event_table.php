@@ -22,8 +22,7 @@ return new class extends Migration
             $table->string('event_facilitator', 150);
             $table->string('event_programme', 700)->nullable();
             $table->integer('event_status')->default(0);
-            $table->unsignedBigInteger('admin_id'); 
-            $table->foreign('admin_id')->references('admin_id')->on('admin');
+            $table->string('admin_id'); 
             $table->timestamps();
         });
 
