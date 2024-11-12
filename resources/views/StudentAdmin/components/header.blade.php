@@ -40,7 +40,7 @@
         }
          .folder {
             width: 300px;
-            height: 300px;
+            height: 200px;
             margin: 0 auto;
             position: relative;
             border-radius: 6px;
@@ -77,8 +77,5 @@
             top: -50px;
             left: 0;
         }
-         * {
-        color-adjust: exact; /* Attempt to print colors as they are shown */
-    }
     </style>
 </head>

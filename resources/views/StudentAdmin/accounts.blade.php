@@ -91,7 +91,7 @@
                             </a>
                             <div class="dropdown-menu">
                          @foreach ($sections as $section)
-                             @if ($section->year_level == '1')
+                             @if ($section->year_level == 'First Year')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                             @endif
                          @endforeach
@@ -106,7 +106,7 @@
                             </a>
                             <div class="dropdown-menu">
                               @foreach ($sections as $section)
-                              @if ($section->year_level == '2')
+                              @if ($section->year_level == 'Second Year')
                               <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                             @endif
                           @endforeach
@@ -121,7 +121,7 @@
 
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
-                             @if ($section->year_level == '3')
+                             @if ($section->year_level == 'Third Year')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
@@ -137,7 +137,7 @@
                         </a>
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
-                             @if ($section->year_level == '4')
+                             @if ($section->year_level == 'Fourth Year')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
@@ -152,7 +152,7 @@
                         </a>
                         <div class="dropdown-menu">
                           @foreach ($sections as $section)
-                             @if ($section->year_level == '5')
+                             @if ($section->year_level == 'Fifth Year')
                              <button class="dropdown-item" onclick="selectSect(`{{$section->sect_id}}`,`{{$section->sect_name}}`,`{{$section->year_level}}`)">{{$section->sect_name}}</button>
                              @endif
                          @endforeach
@@ -225,7 +225,6 @@
                   </div>
                   <div class="col-12">
                     <label for="firstname" class="form-label">Courses</label>
-                    @include('Admin.components.Lloading',['load_ID' => 'lineLoading'])
                     <select class="form-select" name="selectcourse" id="selectcourse">
                       <option>Select Course</option>                     
                   </select>                  
@@ -243,7 +242,6 @@
               </div>
                 <div class="col-12">
                   <label for="firstname" class="form-label">Section</label>
-                  @include('Admin.components.Lloading',['load_ID' => 'lineLoading2'])
                   <select class="form-select" name="selectsection" id="selectsection">                       
                 </select>                  
               </div>
@@ -285,7 +283,7 @@
                 <div class="row g-2">
                   <div class="col-md-12">
                     <label for="studentid" class="form-label">Student ID</label>
-                    <input type="number" class="form-control" id="studentid" name="studentid" placeholder="Student ID" oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);">
+                    <input type="number" class="form-control" id="studentid" name="studentid" placeholder="Student ID">
                   </div>
                   {{-- <div class="col-md-4">
                     <label for="inputState" class="form-label">Year Level</label>
@@ -372,7 +370,7 @@
                         <div class="row g-2">
                           <div class="col-md-6">
                             <label for="studentid" class="form-label">Student ID</label>
-                            <input type="number" class="form-control" id="editstudentschoolid" name="editstudentschoolid" placeholder="Student ID" oninput="if(this.value.length > 8) this.value = this.value.slice(0, 8);">
+                            <input type="number" class="form-control" id="editstudentschoolid" name="editstudentschoolid" placeholder="Student ID">
                           </div>
                            <div class="col-md-6">
                             <label for="" class="form-label">Student Password</label>
@@ -398,7 +396,7 @@
     </div>
 
 @include('Admin.components.scripts')
-@include('Admin.components.studentaccscript')
+@include('Admin.components.functionscript')
 
   </body>
 </html>

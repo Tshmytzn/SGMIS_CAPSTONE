@@ -51,13 +51,13 @@
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs">
                       <li class="nav-item">
-                        <a href="#departments" class="nav-link active" data-bs-toggle="tab">Colleges</a>
+                        <a href="#departments" class="nav-link active" data-bs-toggle="tab">Departments</a>
                       </li>
                       <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="tab">Program</a>
+                        <a href="#courses" class="nav-link" data-bs-toggle="tab">Courses</a>
                       </li>
                       <li class="nav-item">
-                        <a href="#sections" class="nav-link" data-bs-toggle="tab">Class</a>
+                        <a href="#sections" class="nav-link" data-bs-toggle="tab">Sections</a>
                       </li>
                     </ul>
                   </div>
@@ -72,9 +72,9 @@
                           <div class="row">
                               <div class="col d-flex justify-content-between mt-2 ">
                                   <div style="margin-left: -30px;">
-                                    <h3>Carlos Hilado Memorial State of University Colleges </h3>
+                                    <h3>Carlos Hilado Memorial State of University Departments </h3>
                                   </div>
-                                  <button class="btn" type="button" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Colleges</button>
+                                  <button class="btn" type="button" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Department</button>
                               </div>
                           </div>
                       </div>
@@ -106,7 +106,7 @@
                                     <div style="margin-left: -20px;">
                                       <h3>Carlos Hilado Memorial State of University Courses </h3>
                                     </div>
-                                    <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Program</button>
+                                    <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Course</button>
                                 </div>
                             </div>
                           </div>
@@ -115,8 +115,8 @@
                                <table id="GetCourseTable" class="table" style="width:100%">
                               <thead>
                                   <tr>
-                                      <th>Colleges</th>
-                                       <th>Program</th>
+                                      <th>Department</th>
+                                       <th>Course</th>
                                       <th>Action</th>
                                   </tr>
                               </thead>
@@ -141,7 +141,7 @@
                                       <div style="margin-left: -20px;">
                                         <h3>Carlos Hilado Memorial State of University Courses </h3>
                                       </div>
-                                      <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Class</button>
+                                      <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Section</button>
                                   </div>
                               </div>
                             </div>
@@ -150,9 +150,9 @@
                              <table id="GetSectionTable" class="table" style="width:100%">
                               <thead>
                                   <tr>
-                                    <th>Colleges</th>
-                                    <th>Program</th>
-                                    <th>Class</th>
+                                    <th>Department</th>
+                                    <th>Course</th>
+                                    <th>Year & Section</th>
                                     <th>Actions</th>
                                   </tr>
                               </thead>
@@ -182,7 +182,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Colleges</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Add Department</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -190,12 +190,12 @@
                 <form class="row g-3" id="adddepartmentform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Colleges Image</label>
-                    <input type="file" class="form-control" name="departmentimage" id="departmentimage" placeholder="Colleges Name">
+                    <label for="firstname" class="form-label">Department Image</label>
+                    <input type="file" class="form-control" name="departmentimage" id="departmentimage" placeholder="Department Name">
                   </div>
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Colleges Name</label>
-                    <input type="text" class="form-control" name="department" id="department" placeholder="Colleges Name">
+                    <label for="firstname" class="form-label">Department Name</label>
+                    <input type="text" class="form-control" name="department" id="department" placeholder="Department Name">
                   </div>
                 </div>
                 </form>
@@ -215,7 +215,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Edit Colleges</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Department</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -223,16 +223,16 @@
                 <form class="row g-3" id="editdeptform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="" class="form-label">Colleges Image</label>
+                    <label for="" class="form-label">Department Image</label>
                     <img src="" alt="" id="deptImage" width="50%">
                      <label for="" class="btn" data-bs-toggle="modal" data-bs-target="#editdepartmentpic" onclick="editdeptpic()">
                             Change Image
                         </label>
                   </div>
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Colleges Name</label>
+                    <label for="firstname" class="form-label">Department Name</label>
                     <input type="hidden" name="EditDeptId" id="EditDeptId">
-                    <input type="text" class="form-control" id="EditDeptName" name="EditDeptName" placeholder="Colleges Name">
+                    <input type="text" class="form-control" id="EditDeptName" name="EditDeptName" placeholder="Department Name">
                   </div>
                 </div>
 
@@ -251,7 +251,7 @@
           <div class="modal-dialog modal-sm">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Edit Colleges Picture</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Department Picture</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -259,7 +259,7 @@
                 <form class="row g-3" id="editdeptpicform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="" class="form-label">Colleges Image</label>
+                    <label for="" class="form-label">Department Image</label>
                     <input type="hidden" name="deptpicid" id="deptpicid">
                      <label for="avatar-upload" class="btn">
                             Change Image
@@ -283,7 +283,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Program</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Add Course</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -291,7 +291,7 @@
                 <form class="row g-3" id="addcourseform" method="POST">@csrf
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Colleges</label>
+                    <label for="firstname" class="form-label">Department</label>
                     <select class="form-select" name="selectedDept" id="selectedDept">
                       @php
                         $dept = App\Models\Department::all();
@@ -302,8 +302,8 @@
                     </select>
                   </div>
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Program Name</label>
-                    <input type="text" class="form-control" name="coursename" id="coursename" placeholder="Program Name">
+                    <label for="firstname" class="form-label">Course Name</label>
+                    <input type="text" class="form-control" name="coursename" id="coursename" placeholder="Course Name">
                   </div>
                 </div>
 
@@ -324,7 +324,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Program</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Course</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -332,7 +332,7 @@
                         <form class="row g-3" id="editcourseform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
-                            <label for="firstname" class="form-label">Colleges</label>
+                            <label for="firstname" class="form-label">Department</label>
                             <input type="hidden" name="editcourseid" id="editcourseid">
                             <select id="editcoursedept" name="editcoursedept" class="form-select">
                              @php
@@ -366,7 +366,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Add Class</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Section</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -374,9 +374,9 @@
                         <form class="row g-3" id="addsectionform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
-                            <label for="firstname" class="form-label">Colleges</label>
+                            <label for="firstname" class="form-label">Department</label>
                             <select class="form-select" name="selectdepartment" id="selectdepartment" onchange="GetDeptData()">
-                              <option>Select Colleges</option>
+                              <option>Select Department</option>
                               @foreach ($dept as $dep)
                       <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
                       @endforeach
@@ -392,11 +392,11 @@
                           <label for="yearlevel" class="form-label">Year Level</label>
                           <select id="selectyear" name="selectyear" class="form-select" required>
                           <option value="null">Select Year Level</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
+                          <option value="First Year">First Year</option>
+                          <option value="Second Year">Second Year</option>
+                          <option value="Third Year">Third Year</option>
+                          <option value="Fourth Year">Fourth Year</option>
+                          <option value="Fifth Year">Fifth Year</option>
                         </select>
                       </div>
                           <div class="col-12">
@@ -422,7 +422,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Class</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Section</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -430,7 +430,7 @@
                         <form class="row g-3" id="editsectionform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
-                            <label for="firstname" class="form-label">Colleges</label>
+                            <label for="firstname" class="form-label">Department</label>
                             <input type="hidden" name="editsectionid" id="editsectionid">
                             <select id="editsectiondept" name="editsectiondept" class="form-select" onchange="GetDeptData2()">
                             @foreach ($dept as $dep)
@@ -448,11 +448,11 @@
                           <label for="yearlevel" class="form-label">Year Level</label>
                           <select class="form-select" id="editsectionyear" name="editsectionyear">
                           <option>Select Year Level</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
+                          <option value="First Year">First Year</option>
+                          <option value="Second Year">Second Year</option>
+                          <option value="Third Year">Third Year</option>
+                          <option value="Fourth Year">Fourth Year</option>
+                          <option value="Fifth Year">Fifth Year</option>
                         </select>
                       </div>
                           <div class="col-12">

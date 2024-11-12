@@ -1,8 +1,8 @@
 <script>
    $(document).ready(function() {
-
+    
     $('#eventSettings').on('shown.bs.modal', function () {
-
+     GetVenue()
     refreshLocation();
     if (map) {
         setTimeout(function() {
@@ -10,8 +10,8 @@
         }, 10); // Give it a small delay to ensure the modal is fully open
     }
 });
-});
-function GetVenue(method)
+}); 
+function GetVenue()
 {
     $('#Venuetable').DataTable({
             destroy: true,
@@ -28,7 +28,7 @@ function GetVenue(method)
                     data: null,
                     render: function(data, type, row) {
                         return `
-                        <button class="btn btn-primary" onclick="selectVenue(${data.l_id},'${data.location_name}','${method}')">Select</button>
+                        <button class="btn btn-primary" onclick="selectVenue(${data.l_id},'${data.location_name}')">Select</button>
                         <button class="btn btn-primary" onclick="initMap(${data.latitude}, ${data.longitude}, '${data.location_name}', '${data.l_id}', ${data.lrange})">Update</button>
                         <button class="btn btn-danger" onclick="deleteVenue('${data.l_id}')">Delete</button>
                     `;
@@ -37,22 +37,11 @@ function GetVenue(method)
             ]
         });
 }
-function selectVenue(id,name,method){
-    console.log(method)
-    if(method==='update'){
-        console.log('1')
-        document.getElementById('act_venue3').value=id;
-        document.getElementById('act_venue4').value=name;
-        $('#eventSettings').modal('hide');
-        $('#editAct').modal('show');
-    }else{
-        console.log('2')
-        document.getElementById('act_venue').value=id;
+function selectVenue(id,name){
+document.getElementById('act_venue').value=id;
 document.getElementById('act_venue2').value=name;
 $('#eventSettings').modal('hide');
 $('#addActivity').modal('show');
-    }
-
 }
 
 
@@ -65,7 +54,7 @@ function deleteVenue(id){
   function(){
     alertify.error('Cancel');
   });
-
+    
 }
 
 
@@ -197,7 +186,7 @@ refreshLocation();
     function dynamicFuction(formId, routeUrl) {
     // Show the loader
     document.getElementById('adminloader').style.display = 'grid';
-
+    
     // Serialize the form data
     var formData = $("form#" + formId).serialize();
 

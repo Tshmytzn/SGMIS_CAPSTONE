@@ -2,9 +2,8 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Election'])
-@include('Admin.components.adminstyle')
-
+@include('StudentAdmin.components.header', ['title' => 'Election'])
+@include('StudentAdmin.components.adminstyle')
 <style>
     .fade-card {
             opacity: 0;
@@ -23,7 +22,7 @@
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'Election'])
+        @include('StudentAdmin.components.nav', ['active' => 'Election'])
 
         <div class="page-wrapper">
 
@@ -38,7 +37,7 @@
                                 Overview
                             </div>
                             <h2 class="page-title">
-                                Campaign Material
+                                Election
                             </h2>
                         </div>
 
@@ -62,7 +61,7 @@
                                 </div>
 
                                 <button class="btn" style="background-color: #DF7026; color: white;"
-                                    data-bs-toggle="modal" data-bs-target="#createelection">Create New Campaign Material
+                                    data-bs-toggle="modal" data-bs-target="#createelection">Create New Election
                                 </button>
 
                             </div>
@@ -78,7 +77,7 @@
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                    @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
+                    @include('StudentAdmin.components.lineLoading',['loadID' => 'lineLoading'])
                     <div class="row row-deck row-cards" id="cards">
 
                         {{-- <div class="col-md-6 col-lg-3">
@@ -128,16 +127,10 @@
             </div>
         </div>
 
-        <form action="" id="updateElectionForm" method="POST" hidden>
-            @csrf
-            <input type="text" name="status" id="" value="2">
-            <input type="text" name="elect_id" id="elect_id">
-            <input type="text" name="method" id="" value="update">
-        </form>
-
-        @include('Admin.components.footer')
+        @include('StudentAdmin.components.footer')
 
         {{-- Modal --}}
+
 
         {{-- Create Election Modal --}}
         <div class="modal modal-blur fade" id="createelection" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -145,7 +138,7 @@
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Create Campaign Material Form</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Create Election Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -155,26 +148,27 @@
                                 <div class="col-12">
 
                                     <div class="mb-2">
-                                        <label for="firstname" class="form-label">Campaign Material Title</label>
-                                        <input name="election_name" class="form-control" id="election_name" placeholder=" Enter Campaign Material Title">
+                                        <label for="firstname" class="form-label">Election Title</label>
+                                        <input name="election_name" class="form-control" id="election_name" placeholder="Student Government Elections SY-0000">
                                     </div>
 
                                     <div class="mb-2">
-                                        <label for="election_desc" class="form-label">Campaign Material Description(optional)</label>
+                                        <label for="election_desc" class="form-label">Election Description(optional)</label>
                                         <textarea name="election_desc" id="election_desc" class="form-control"
-                                            placeholder="Enter brief overview of the campaign material, and other notes..."></textarea>
+                                            placeholder="Enter brief overview of the election, and other notes..."></textarea>
                                     </div>
 
                                     <hr class="my-4">
+                                    <h3 for="Voting Period">Voting Period</h3>
                                     <div class="row">
                                         <div class="col-6">
-                                            <label for="voting_start_date" class="form-label">Start From</label>
-                                            <input type="date" name="voting_start_date"
+                                            <label for="voting_start_date" class="form-label">Start Date</label>
+                                            <input type="datetime-local" name="voting_start_date"
                                                 id="voting_start_date" class="form-control">
                                         </div>
                                         <div class="col-6">
-                                            <label for="voting_end_date" class="form-label">End To</label>
-                                            <input type="date" name="voting_end_date" id="voting_end_date"
+                                            <label for="voting_end_date" class="form-label">End Date</label>
+                                            <input type="datetime-local" name="voting_end_date" id="voting_end_date"
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -200,8 +194,8 @@
     </div>
 
 
-    @include('Admin.components.scripts')
-    @include('admin.components.electionscript')
+    @include('StudentAdmin.components.scripts')
+    @include('StudentAdmin.components.electionscript')
 </body>
 
 </html>

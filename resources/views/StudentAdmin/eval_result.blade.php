@@ -45,7 +45,7 @@ $questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->cou
                 <div class="container-xl">
                     <div class="row row-deck row-cards">
 
-
+                       
                             <div class="display-flex justify-content-end col-12 gap-2">
 
                                 <a href="{{ route('ViewEvaluations') }}?eval_id={{ $eval_id }}" class="btn btn-outline-secondary" >
@@ -56,26 +56,26 @@ $questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->cou
                                         <path d="M18 15v-6" />
                                       </svg> Back
                                 </a>
-                                <button class="btn btn-outline-info" onclick="refreshEvaluation('{{$eval_id}}')">
+                                <button class="btn btn-outline-info" id="addQuestionBtn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-rotate-clockwise">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
                                       </svg> Refresh
                                 </button>
                             </div>
+             
 
-
-
+                      
                     </div>
 
                 </div>
 
-                <div  id="evaluationResultCharts">
-
+                <div id="questionCharts">
+                    <div class="container mt-4">
+                        <p>1. This is the questionaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                    </div>
+                    
                 </div>
-
-
-
             </div>
 
             @include('Admin.components.footer')
@@ -85,12 +85,11 @@ $questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->cou
 
 
     @include('Admin.components.scripts')
-    <script src="/dist/libs/apexcharts/dist/apexcharts.min.js?1684106062" defer></script>
-    <script>
- window.onload = () => {
-    LoadEvaluationResults('{{ $eval_id }}');
- }
 
+    <script>
+        window.load = () => {
+            LoadChartQuestions();
+        }
     </script>
 </body>
 

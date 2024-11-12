@@ -2,20 +2,15 @@
 
 <html lang="en">
 
-@include('Admin.components.header', ['title' => 'Election Results'])
-@include('Admin.components.adminstyle')
-<style>
-    .fade-card {
-    height: 400px; /* Set your desired height */
-    overflow: hidden; /* Hide overflow if the content exceeds the height */
-}
-</style>
+@include('StudentAdmin.components.header', ['title' => 'Election Results'])
+@include('StudentAdmin.components.adminstyle')
+
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
 
-        @include('Admin.components.nav', ['active' => 'electionresults'])
+        @include('StudentAdmin.components.nav', ['active' => 'electionresults'])
 
         <div class="page-wrapper">
 
@@ -38,15 +33,12 @@
                     </div>
                 </div>
             </div>
+
             <!-- Page body -->
             <div class="page-body">
                 <div class="container-xl">
-                     @include('Admin.components.lineLoading',['loadID' => 'cardload'])
-                    <div class="row row-cards p-4 mb-2" id="cards" style="display: none">
 
-                    </div> 
-                @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
-                  <table class="table table-hover table-bordered" id="table_id" style="display: none">
+                  <table class="table table-hover table-bordered">
                         <thead  class="text-center">
                             <tr>
                                 <th scope="col">Position</th>
@@ -55,49 +47,37 @@
                                 <th scope="col">Votes</th>
                             </tr>
                         </thead>
-                        <tbody  class="text-center" id="president">
+                        <tbody  class="text-center">
                             <tr class="table-success">      
                                 <td colspan="4">President</td>
                             </tr>
-                        </tbody>
-                        <tbody class="text-center" id="vicepresident">
-                            <tr class="table-success">      
-                                <td colspan="4">Vice President</td>
+                            <tr>
+                                <td>President</td>
+                                <td>Jane Smith</td>
+                                <td>Party B</td>
+                                <td class="text-success">100</td>
                             </tr>
-                        </tbody>
-                        <tbody class="text-center" id="senators">
-                             <tr class="table-success">      
-                                <td colspan="4">Senators</td>
+                             <tr>
+                                <td>President</td>
+                                <td>Jake Lopez</td>
+                                <td>Party A</td>
+                                <td class="text-success">101</td>
                             </tr>
-                        </tbody>
-                        <tbody class="text-center" id="governor">
-                            <tr class="table-success">      
-                                <td colspan="4">Governor</td>
-                            </tr>
-                        </tbody>
-                        <tbody class="text-center" id="vicegovernor">
-                             <tr class="table-success">      
-                                <td colspan="4">Vice Governor</td>
-                            </tr>
-                        </tbody>
-                        <tbody class="text-center" id="representatives">
-                             <tr class="table-success">      
-                                <td colspan="4">Representatives</td>
-                            </tr>
+                            
                         </tbody>
                     </table>
 
                 </div>
               </div>
 
-            @include('Admin.components.footer')
+            @include('StudentAdmin.components.footer')
 
         </div>
     </div>
 
 
-    @include('Admin.components.scripts')
-    @include('Admin.components.electionresult')
+    @include('StudentAdmin.components.scripts')
+    @include('StudentAdmin.components.electionresult')
 </body>
 
 </html>

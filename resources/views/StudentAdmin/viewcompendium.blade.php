@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
 
 
-@include('Admin.components.adminstyle')
+
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
@@ -29,7 +29,7 @@
                                 Overview
                             </div>
                             <h2 class="page-title">
-                                Document Files
+                                Compendium Name
                             </h2>
                         </div>
 
@@ -49,17 +49,14 @@
                         <div class="col-lg-12" style="height: 100vh; display: flex; flex-direction: column;">
                             <div class="card" style="flex: 1; display: flex; flex-direction: column;">
                                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
-                                    <h3 class="card-title">Upload Documents</h3>
+                                    <h3 class="card-title">Upload Compendium</h3>
                                     <form class="dropzone" id="dropzone-multiple"
                                         action="{{ route('UploadCompendiumFile') }}" autocomplete="off" novalidate
                                         style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
                                         @csrf
                                         <div class="page-body">
                                             <div class="container-xl">
-                                                @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
-                                                <div class="row row-deck row-cards" id="comfile">
-                                                    
-                                                </div>
+                                                <div class="row row-deck row-cards" id="comfile"></div>
                                             </div>
                                         </div>
                                         <input type="hidden" name="com_id" id="com_id" value="{{ $com_id }}">
@@ -83,13 +80,11 @@
                         <h5 class="modal-title" id="staticBackdropLabel">View File</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body"  style="max-height: 100%; max-width: 100%; overflow: auto;">
+                      <div class="modal-body">
                       <iframe src="" class="displayfile" width="100%" height="auto" frameborder="0"></iframe>
                      {{-- <embed class="displayfile" src="" width="300px" height="auto" /> --}}
                       </div>
                       <div class="modal-footer">
-                        <input type="text" name="" id="file_id" hidden>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="downloadFile()"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>Download</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
                     </div>
@@ -109,12 +104,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.4.0/dist/pptxgen.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-  
-
-    @include('Admin.components.compendiumscript')
+ <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.4.0/dist/pptxgen.min.js"></script>
+    @include('Admin.components.functionscript')
 
 
 
