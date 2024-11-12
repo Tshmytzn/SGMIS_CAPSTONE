@@ -32,6 +32,9 @@
                       <li class="nav-item">
                         <a class="nav-link" id="studentadmins-tab" data-bs-toggle="pill" href="#studentadmins"><h3>Student Admins</h3></a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="studentadmins-tab" data-bs-toggle="pill" href="#setsemestertab"><h3>Set Semester</h3></a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -260,6 +263,45 @@
 
                         </div>
                       </div>
+
+                      <div class="tab-pane fade" id="setsemestertab">
+    @php
+      $data = App\Models\SetSemester::first();
+    @endphp
+    <form action="{{ route('UpdateSemester') }}" method="POST">
+        @csrf
+        <div class="row">
+            <!-- First Semester -->
+            <div class="col-12 d-flex justify-content-center align-items-center mb-4">
+                <h1>First Semester</h1>
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="first_start">Start</label>
+                <input class="form-control" type="date" id="first_start" name="first_start" value="{{ $data->first_start ?? '' }}">
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="first_end">End</label>
+                <input class="form-control" type="date" id="first_end" name="first_end" value="{{ $data->first_end ?? '' }}">
+            </div>
+
+            <!-- Second Semester -->
+            <div class="col-12 d-flex justify-content-center align-items-center mb-4">
+                <h1>Second Semester</h1>
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="second_start">Start</label>
+                <input class="form-control" type="date" id="second_start" name="second_start" value="{{ $data->second_start ?? '' }}">
+            </div>
+            <div class="col-6 mb-4 text-center justify-content-center align-items-center">
+                <label for="second_end">End</label>
+                <input class="form-control" type="date" id="second_end" name="second_end" value="{{ $data->second_end ?? '' }}">
+            </div>
+        </div>
+        <button type="submit" class="col-12 btn btn-primary">Update</button>
+    </form>
+</div>
+
+
                     </div>
                   </div>
 
@@ -417,6 +459,36 @@
                             </div>
                           </div>
                         </div>
+
+                        <div class="modal modal-blur fade" id="Enablemodal" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <div class="modal-status bg-danger"></div>
+                              <div class="modal-body text-center py-4">
+                                <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+                                <h3>Confirm</h3>
+                                <div class="text-muted">Are you sure you want to enable this administrator?</div>
+                                <form action="" method="POST" id="enableadminform">@csrf
+                                  <input type="hidden" name="demoteadminid" id="enableadminid">
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <div class="w-100">
+                                  <div class="row">
+                                    <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                        Cancel
+                                      </a></div>
+                                    <div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal" onclick="enableAdmin()">
+                                        Yes, Enable
+                                      </a></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         {{-- demote modal --}}
 
                       {{-- upload profile pic --}}
@@ -497,6 +569,10 @@
                       <select name="studentposition" class="form-select" id="studentposition">
                         <option value="USG PRESIDENT">USG PRESIDENT</option>
                         <option value="USG SECRETARY">USG SECRETARY</option>
+                        <option value="USG SECRETARY">USG BUDGET&FINANCE</option>
+                        <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
+                        <option value="USG SECRETARY">USG SENATE SECRETARY</option>
+
                       </select>         
                   </div>
 

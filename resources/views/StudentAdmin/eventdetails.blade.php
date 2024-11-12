@@ -30,16 +30,26 @@
         <div class="page-header d-print-none">
           <div class="container-xl">
             <div class="row g-2 align-items-center">
-              <div class="col">
+              <div class="col d-flex justify-content-between w-100">
                 <!-- Page pre-title -->
+               <div>
                 <div class="page-pretitle">
-                  Overview
+                    Overview
+                  </div>
+                  <h1 class="page-title">
+                    Event Details
+                  </h1>
                 </div>
-                <h1 class="page-title">
-                  Event Details
-                </h1>
-              </div>
 
+                <button onclick="publishEvent('{{ $event_id }}', this)" id="publishEventBtn" class="btn btn-primary d-none"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mood-happy">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                    <path d="M9 9l.01 0" />
+                    <path d="M15 9l.01 0" />
+                    <path d="M8 13a4 4 0 1 0 8 0h-8" />
+                  </svg> Publish Event </button>
+
+               </div>
 
         <!-- Page body -->
         <div class="page-body">
@@ -127,13 +137,15 @@
                         <th>Description</th>
                         <th>Venue</th>
                         <th>Facilitator</th>
-                        <th>Date & Time</th>
+                        <th>Date</th>
+                        <th>Start</th>
+                        <th>End</th>
                         <th class="w-1">Action</th>
                       </tr>
                     </thead>
                     <tbody id="act_list">
                       <tr id="loading-act">
-                      <td colspan="6" class="text-center">
+                      <td colspan="8" class="text-center">
                         <div class="text-muted mb-3">Loading Activities</div>
                         <div class="progress progress-sm ">
                           <div class="progress-bar progress-bar-indeterminate"></div>
@@ -196,7 +208,7 @@
                    @endphp
                    @foreach ($dept as $d)
                    @php
-                       $eventDept = App\Models\EventDepartment::where('dept_id', $d->dept_id)->first();
+                       $eventDept = App\Models\EventDepartment::where('dept_id', $d->dept_id)->where('event_id', $event_id)->first();
                    @endphp
                    <option {{ $eventDept ? 'selected' : '' }} value="{{ $d->dept_id }}">{{ $d->dept_name }}</option>
                    @endforeach
@@ -230,6 +242,129 @@
      </div>
     </div>
 
+    <div class="modal modal-blur fade" id="viewAct" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Activity</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="card">
+                <div class="card-body">
+                  <div class="datagrid">
+                    <div class="datagrid-item">
+                      <div class="datagrid-title">Activity Name</div>
+                      <div class="datagrid-content" id="act_name_view"></div>
+                    </div>
+                    <div class="datagrid-item">
+                      <div class="datagrid-title">Facilitator</div>
+                      <div class="datagrid-content" id="act_fac_view"></div>
+                    </div>
+                    <div class="datagrid-item">
+                      <div class="datagrid-title">Venue</div>
+                      <div class="datagrid-content" id="act_venue_view"></div>
+                    </div>
+                    <div class="datagrid-item">
+                      <div class="datagrid-title">Date & Time</div>
+                      <div class="datagrid-content" id="act_date_time_view"></div>
+                    </div>
+                    <div class="datagrid-item">
+                      <div class="datagrid-title">Description</div>
+                      <div class="datagrid-content" id="act_description_view">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal modal-blur fade" id="editAct" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Activity <span id="editActTitle"></span></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editActForm" method="POST">
+              @csrf
+              <input type="hidden" name="act_id" id="act_id_edit">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Activity Name <span id="act_name_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                <input type="text" class="form-control" id="act_name_edit" name="act_name" placeholder="Activity Name">
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="mb-1">
+                    <label class="form-label">Facilitator Name <span id="act_fac_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                    <input type="text" class="form-control" id="act_fac_edit" name="act_fac" placeholder="Facilitator Name">
+                  </div>
+                </div>
+                  <div class="col-lg-12">
+                <div class="mb-1">
+                  <label class="form-label">Activity Venue <span id="act_venue_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <div class="row">
+                  <div class="col-9">
+                    <input type="text" class="form-control" id="act_venue3" name="act_venue" placeholder="Venue" hidden>
+                    <input type="text" class="form-control" id="act_venue4" name="act_venue2" placeholder="Venue" readonly>
+                  </div>
+                  <div class="col-3"><button class="btn btn-primary" type="button" id="mapModal" data-bs-toggle="modal" data-bs-target="#eventSettings" onclick="GetVenue('update')">Select Venue</button></div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="mb-3">
+                    <label class="form-label">Date <span id="act_date_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                    <input type="date" id="act_date_edit" name="act_date"class="form-control">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">Start Time <span id="act_time_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                    <input type="time" id="act_time_edit" name="act_time" class="form-control">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="form-label">End Time <span id="act_end_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                    <input type="time" id="act_end_edit" name="act_end" class="form-control">
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div>
+                    <label class="form-label">Activity Description <span id="act_description_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                    <textarea class="form-control" id="act_description_edit" name="act_description" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="close-button-act_edit" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+              <button type="button" onclick="VerifyEditEventActivity('{{route('updateEventActivities')}}', '{{route('getActDetails')}}', '{{route('deleteEventActivities')}}')" class="btn btn-primary ms-auto">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                Update Activity
+              </button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
     {{-- MODALS --}}
 
     {{-- edit event details --}}
@@ -308,6 +443,7 @@
       </div>
     </div>
 
+
     <div class="modal modal-blur fade" id="addActivity" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -339,7 +475,7 @@
                     <input type="text" class="form-control" id="act_venue" name="act_venue" placeholder="Venue" hidden>
                     <input type="text" class="form-control" id="act_venue2" name="act_venue2" placeholder="Venue" readonly>
                   </div>
-                  <div class="col-3"><button class="btn btn-primary" type="button" id="mapModal" data-bs-toggle="modal" data-bs-target="#eventSettings">Select Venue</button></div>
+                  <div class="col-3"><button class="btn btn-primary" type="button" id="mapModal" data-bs-toggle="modal" data-bs-target="#eventSettings" onclick="GetVenue('add')">Select Venue</button></div>
                   </div>
                 </div>
               </div>
@@ -347,7 +483,7 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="mb-3">
                   <label class="form-label">Date <span id="act_date_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                   <input type="date" id="act_date" name="act_date"class="form-control">
@@ -355,8 +491,14 @@
               </div>
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label class="form-label">Time <span id="act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <label class="form-label">Start Time <span id="act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
                   <input type="time" id="act_time" name="act_time" class="form-control">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mb-3">
+                  <label class="form-label">End Time <span id="end_act_time_e" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
+                  <input type="time" id="end_act_time" name="end_act_time" class="form-control">
                 </div>
               </div>
               <div class="col-lg-12">
@@ -381,121 +523,6 @@
         </div>
       </div>
     </div>
-    @include('Admin.components.layout.map')
-
-    <div class="modal modal-blur fade" id="editAct" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Edit Activity <span id="editActTitle"></span></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form id="editActForm" method="POST">
-            @csrf
-            <input type="hidden" name="act_id" id="act_id_edit">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Activity Name <span id="act_name_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
-              <input type="text" class="form-control" id="act_name_edit" name="act_name" placeholder="Activity Name">
-            </div>
-
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="mb-1">
-                  <label class="form-label">Facilitator Name <span id="act_fac_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
-                  <input type="text" class="form-control" id="act_fac_edit" name="act_fac" placeholder="Facilitator Name">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="mb-1">
-                  <label class="form-label">Activity Venue <span id="act_venue_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
-                  <input type="text" class="form-control" id="act_venue_edit" name="act_venue" placeholder="Activity Venue">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="mb-3">
-                  <label class="form-label">Date <span id="act_date_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
-                  <input type="date" id="act_date_edit" name="act_date"class="form-control">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="mb-3">
-                  <label class="form-label">Time <span id="act_time_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
-                  <input type="time" id="act_time_edit" name="act_time" class="form-control">
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div>
-                  <label class="form-label">Activity Description <span id="act_description_e_edit" style="display: none" class="text-danger">(Don't Leave this field blank)</span></label>
-                  <textarea class="form-control" id="act_description_edit" name="act_description" rows="3"></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="close-button-act_edit" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-              Cancel
-            </button>
-            <button type="button" onclick="VerifyEditEventActivity('{{route('updateEventActivities')}}', '{{route('getActDetails')}}', '{{route('deleteEventActivities')}}')" class="btn btn-primary ms-auto">
-
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-              Update Activity
-            </button>
-          </div>
-        </form>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="modal modal-blur fade" id="viewAct" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Activity</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="card">
-              <div class="card-body">
-                <div class="datagrid">
-                  <div class="datagrid-item">
-                    <div class="datagrid-title">Activity Name</div>
-                    <div class="datagrid-content" id="act_name_view"></div>
-                  </div>
-                  <div class="datagrid-item">
-                    <div class="datagrid-title">Facilitator</div>
-                    <div class="datagrid-content" id="act_fac_view"></div>
-                  </div>
-                  <div class="datagrid-item">
-                    <div class="datagrid-title">Venue</div>
-                    <div class="datagrid-content" id="act_venue_view"></div>
-                  </div>
-                  <div class="datagrid-item">
-                    <div class="datagrid-title">Date & Time</div>
-                    <div class="datagrid-content" id="act_date_time_view"></div>
-                  </div>
-                  <div class="datagrid-item">
-                    <div class="datagrid-title">Description</div>
-                    <div class="datagrid-content" id="act_description_view">
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <div class="modal modal-blur fade" id="uploadProgrammeModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -524,8 +551,7 @@
         </div>
       </div>
     </div>
-
-
+    @include('Admin.components.layout.map')
     {{-- MODALS --}}
 
 
@@ -534,6 +560,13 @@
       @csrf
       <input type="hidden" name="act_id" id="delete_act_id">
     </form>
+
+    <form method="POST" id="publishEventForm">
+        @csrf
+        <input type="hidden" id="publishEventId" name="eventId">
+    </form>
+
+    <input type="hidden" id="publishStatusHolder">
 
     {{-- Other Forms --}}
 <input type="hidden" value="{{ route('AddDeptEvent') }}" id="addDeptRoute">

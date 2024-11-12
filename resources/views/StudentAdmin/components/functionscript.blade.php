@@ -4,7 +4,6 @@
         GetDepartmentData();
         GetCourseData();
         GetSectionData();
-        GetStudentData()
 
     });
 
@@ -67,126 +66,6 @@
     //     }
     // }
 
-    function SaveStudent() {
-        var formData = $("form#SaveStudentForm").serialize();
-        $.ajax({
-            type: "POST",
-            url: "{{ route('SaveStudent') }}",
-            data: formData,
-            success: function(response) {
-                if (response.status == 'success') {
-                    alertify
-                        .alert("Message", "Student Successfully Saved", function() {
-                            alertify.message('OK');
-                            clearFormInputs('SaveStudentForm');
-                            GetStudentData();
-                            closeModal();
-
-                        });
-                } else if (response.status == 'exist') {
-                    alertify
-                        .alert("Alert", "Student Already Exist", function() {
-                            alertify.message('OK');
-                        });
-                } else if (response.status == 'empty') {
-                    alertify
-                        .alert("Warning", "Enter Student Name First!", function() {
-                            alertify.message('OK');
-                        });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
-
-    function GetStudentData(id) {
-        if (typeof id === 'undefined') {
-            document.getElementById('yearTitle').textContent = 'All Year Level';
-            const courseId = document.getElementById('AutoCourse').value;
-            $('#GetStudentTable').DataTable({
-                destroy: true,
-                ajax: {
-                    url: '{{ route('GetStudentData') }}?course_id=' + courseId,
-                    type: 'GET'
-                },
-                columns: [{
-                        data: 'school_id'
-                    },
-                    {
-                        data: 'student_firstname'
-                    },
-                    {
-                        data: 'student_middlename'
-                    },
-                    {
-                        data: 'student_lastname'
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            return row.year_level + ' - ' + row.sect_name;
-
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc" onclick="editStudentinfo(`' +
-                                row.student_id + '`,`' + row.school_id + '`,`' + row.student_firstname +
-                                '`,`' + row.student_middlename + '`,`' + row.student_lastname + '`,`' +
-                                row.student_ext + '`,`' + row.year_level + '`,`' + row.sect_name +
-                                '`)">Edit</button>';
-                        }
-                    },
-                ]
-            });
-        } else {
-            const sectId = document.getElementById('selectSectId').value
-            const sectIdArray = sectId.split(',');
-            document.getElementById('yearTitle').textContent = sectIdArray[2] + ' ' + '-' + ' ' + sectIdArray[1];
-            $('#GetStudentTable').DataTable({
-                destroy: true,
-                ajax: {
-                    url: '{{ route('GetStudentData') }}?sect_id=' + id,
-                    type: 'GET'
-                },
-                columns: [{
-                        data: 'school_id'
-                    },
-                    {
-                        data: 'student_firstname'
-                    },
-                    {
-                        data: 'student_middlename'
-                    },
-                    {
-                        data: 'student_lastname'
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            return row.year_level + ' - ' + row.sect_name;
-
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            return '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editstudentacc" onclick="editStudentinfo(`' +
-                                row.student_id + '`,`' + row.school_id + '`,`' + row.student_firstname +
-                                '`,`' + row.student_middlename + '`,`' + row.student_lastname + '`,`' +
-                                row.student_ext + '`,`' + row.year_level + '`,`' + row.sect_name +
-                                '`)">Edit</button>';
-                        }
-                    },
-
-                ]
-            });
-        }
-    }
-
     function editStudentinfo(id, sch_id, sf, sm, sl, se, yl, sc_n) {
         console.log(sc_n);
         document.getElementById('EditStudentID').value = id;
@@ -196,40 +75,6 @@
         document.getElementById('editext').value = se;
         document.getElementById('editstudentschoolid').value = sch_id;
         document.getElementById('EditModalTitle').textContent = yl + ' - ' + sc_n;
-    }
-
-    function EditStudent() {
-        var formData = $("form#EditStudentForm").serialize();
-        $.ajax({
-            type: "POST",
-            url: "{{ route('EditStudent') }}",
-            data: formData,
-            success: function(response) {
-                if (response.status == 'success') {
-                    alertify
-                        .alert("Message", "Student Successfully Edited", function() {
-                            alertify.message('OK');
-                            clearFormInputs('EditStudentForm');
-                            GetStudentData();
-                            closeModal();
-
-                        });
-                } else if (response.status == 'exist') {
-                    alertify
-                        .alert("Alert", "Student Already Exist", function() {
-                            alertify.message('OK');
-                        });
-                } else if (response.status == 'empty') {
-                    alertify
-                        .alert("Warning", "Enter Student Name First!", function() {
-                            alertify.message('OK');
-                        });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
     }
 
     function GetDepartmentData() {
@@ -253,7 +98,7 @@
             ]
         });
     }
-
+ 
     function editDeptData(id, name, image) {
         document.getElementById('EditDeptId').value = id;
         document.getElementById('EditDeptName').value = name;
@@ -435,7 +280,7 @@
                 if (response.status == 'success') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Message", "Section Successfully Updated", function() {
+                        .alert("Message", "Course Successfully Updated", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();
@@ -634,7 +479,7 @@
                     } else if (response.status == 'empty') {
                         document.getElementById('adminloader').style.display = 'none';
                         alertify
-                            .alert("Warning", "Enter Department Name First!", function() {
+                            .alert("Warning", "Department Name Required!", function() {
                                 alertify.message('OK');
                             });
                     }
@@ -679,7 +524,7 @@
                 } else if (response.status == 'empty') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Warning", "Enter Course Name First!", function() {
+                        .alert("Warning", "Course Name Required!", function() {
                             alertify.message('OK');
                         });
                 }
@@ -708,56 +553,24 @@
             }
         });
     }
+   
+    function SaveSection() {
 
-    function GetDeptDataSavestudent() {
-        const dept = document.getElementById('selectdepartment').value;
-        console.log(dept);
-        $.ajax({
-            type: "GET",
-            url: "{{ route('GetDeptData') }}?dept_id=" + dept,
-            success: function(response) {
-                $('#selectcourse').empty();
-                $('#selectcourse').append('<option>Select Course</option>');
-                response.data.forEach(function(course) {
-                    $('#selectcourse').append('<option value="' + course.course_id + '">' + course
-                        .course_name + '</option>');
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+        let isValid = true;
+        $("form#addsectionform :input").each(function() {
+            if ($(this).val() === null || $(this).val() === '') {
+                isValid = false;
+                return false; 
             }
         });
-    }
-    function GetSectData() {
-    const crs = document.getElementById('selectcourse').value;
-    const yearLevel = document.getElementById('selectYearLevel').value;
 
-    // Log the values for debugging
-    console.log(crs);
-    console.log(yearLevel);
-
-    $.ajax({
-        type: "GET",
-        url: "{{ route('GetSectData') }}",
-        data: {
-            course_id: crs,
-            year_level: yearLevel,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(response) {
-            $('#selectsection').empty();
-            response.data.forEach(function(course) {
-                $('#selectsection').append('<option value="' + course.sect_id + '">' + course.sect_name + '</option>');
+        if (!isValid) {
+            alertify.alert("Warning", "Please Fill in All fields!", function() {
+                alertify.message('OK');
             });
-        },
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
+            return; 
         }
-    });
-}
 
-
-    function SaveSection() {
         document.getElementById('adminloader').style.display = 'grid';
         var formData = $("form#addsectionform").serialize();
         $.ajax({
@@ -790,7 +603,7 @@
                 } else if (response.status == 'empty') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Warning", "Fill All Field!", function() {
+                        .alert("Warning", "Please Fill In All Fields!", function() {
                             alertify.message('OK');
                         });
                 }
@@ -1017,8 +830,8 @@
 
                 document.getElementById("adminCard").innerHTML = "";
                 response.data.forEach(function(Data) {
-
-                    var div = document.createElement("div");
+                    if(Data.admin_type == 'Super Admin'){
+                        var div = document.createElement("div");
                     div.setAttribute("id", "administrators-card");
                     div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
 
@@ -1049,12 +862,47 @@
                         <path d="M16 11l-4 4l-4 -4"/>
                         <path d="M3 12a9 9 0 0 0 18 0"/>
                     </svg>
-                    &nbsp; Demote
+                    &nbsp; Disable
                 </a>
             </div>
         </div>
     `;
                     document.getElementById("adminCard").appendChild(div);
+                    }else{
+                        var div = document.createElement("div");
+                    div.setAttribute("id", "administrators-card");
+                    div.setAttribute("class", "col-md-6 col-lg-4 admincardeffects");
+
+                    div.innerHTML = `
+        <div class="card">
+            <div class="card-body p-4 text-center">
+                <span class="avatar avatar-xl mb-3 rounded" ><img src="dept_image/${Data.admin_pic}" alt="">  </span>
+                <h3 class="m-0 mb-1">${Data.admin_name}</h3>
+                <div class="text-muted"></div>
+                <div class="mt-3">
+                    <span class="badge bg-green-lt">${Data.admin_type}</span>
+                </div>
+            </div>
+            <div class="d-flex">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editadmin" class="card-btn" onclick="EditAdministrator('${Data.admin_id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
+                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
+                        <path d="M16 5l3 3"/>
+                    </svg>
+                    &nbsp; Edit
+                </a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#Enablemodal" class="card-btn" onclick="EnableAdministrator('${Data.admin_id}')">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-dashed-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.56 3.69a9 9 0 0 0 -2.92 1.95" /><path d="M3.69 8.56a9 9 0 0 0 -.69 3.44" /><path d="M3.69 15.44a9 9 0 0 0 1.95 2.92" /><path d="M8.56 20.31a9 9 0 0 0 3.44 .69" /><path d="M15.44 20.31a9 9 0 0 0 2.92 -1.95" /><path d="M20.31 15.44a9 9 0 0 0 .69 -3.44" /><path d="M20.31 8.56a9 9 0 0 0 -1.95 -2.92" /><path d="M15.44 3.69a9 9 0 0 0 -3.44 -.69" /><path d="M9 12l2 2l4 -4" /></svg>
+                    &nbsp; Enable
+                </a>
+            </div>
+        </div>
+    `;
+                    document.getElementById("adminCard").appendChild(div);
+                    }
+                    
                     runCardAnimation();
                 });
 
@@ -1068,7 +916,50 @@
     function DemoteAdministrator(id) {
         document.getElementById('demoteadminid').value = id;
     }
+    function EnableAdministrator(id) {
+        document.getElementById('enableadminid').value = id;
+    }
+    function enableAdmin() {
+        document.getElementById('adminloader').style.display = 'grid';
+        var formData = $("form#enableadminform").serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('EnableAdmin') }}",
+            data: formData,
+            success: function(response) {
+                if (response.status == 'success') {
+                    document.getElementById('adminloader').style.display = 'none';
+                    closeModal();
+                    GetAdministratorData();
+                    alertify
+                        .alert("Message", "Admin Successfully Enabled", function() {
 
+                            alertify.message('OK');
+                            clearFormInputs('enableadminform');
+
+
+                            // reloadElementById('editsectionform');
+
+                        });
+                } else if (response.status == 'exist') {
+                    document.getElementById('adminloader').style.display = 'none';
+                    alertify
+                        .alert("Alert", "Administrator Already Exist", function() {
+                            alertify.message('OK');
+                        });
+                } else if (response.status == 'empty') {
+                    document.getElementById('adminloader').style.display = 'none';
+                    alertify
+                        .alert("Warning", "Select Administrator Name First!", function() {
+                            alertify.message('OK');
+                        });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
     function DemoteAdmin() {
         document.getElementById('adminloader').style.display = 'grid';
         var formData = $("form#demoteadminform").serialize();
@@ -1082,7 +973,7 @@
                     closeModal();
                     GetAdministratorData();
                     alertify
-                        .alert("Message", "Admin Successfully Demoted", function() {
+                        .alert("Message", "Admin Successfully Disabled", function() {
 
                             alertify.message('OK');
                             clearFormInputs('demoteadminform');
@@ -1429,326 +1320,4 @@
             }
         });
     }
-</script>
-<script>
-    $(document).ready(function() {
-        GetAllCompendium();
-        GetCompendiumFiles();
-});
-
-    function AddCompendium() {
-        document.getElementById('adminloader').style.display = 'grid';
-        var formData = $("form#uploadcompform").serialize();
-        $.ajax({
-            type: "POST",
-            url: "{{ route('AddCompendium') }}",
-            data: formData,
-            success: function(response) {
-                if (response.status == 'success') {
-                    document.getElementById('adminloader').style.display = 'none';
-                    closeModal();
-                    GetAllCompendium();
-                    // GetAllStudentAdminData();
-
-                    alertify
-                        .alert("Message", " Compendium Successfully Added", function() {
-
-                            alertify.message('OK');
-                            clearFormInputs('uploadcompform');
-                            // reloadElementById('editsectionform');
-
-                        });
-                } else if (response.status == 'exist') {
-                    document.getElementById('adminloader').style.display = 'none';
-                    alertify
-                        .alert("Alert", "Compendium Already Exist", function() {
-                            alertify.message('OK');
-                        });
-                } else if (response.status == 'empty') {
-                    document.getElementById('adminloader').style.display = 'none';
-                    alertify
-                        .alert("Warning", "Insert Compendium Name First!", function() {
-                            alertify.message('OK');
-                        });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
-
-    function GetAllCompendium() {
-    $.ajax({
-        type: "GET",
-        url: "{{ route('GetAllCompendium') }}",
-        success: function(response) {
-            // Check if the response is empty
-            if (response.data.length === 0) {
-                // Display the 'Feature Coming Soon' message
-                document.getElementById("eventsContainer").innerHTML = `
-                    <div class="page-body">
-                        <div class="container-xl d-flex flex-column justify-content-center">
-                            <div class="empty">
-                                <div class="empty-img"><img src="./static/illustrations/undraw_add_files_re_v09g.svg" height="128" alt="">
-                                </div>
-                                <p class="empty-title">No Document Found!</p>
-                                <p class="empty-subtitle text-muted">
-                                    No files have been uploaded yet. Please upload the necessary files to proceed. Thank you for your understanding.
-                                   </p>
-                                <div class="empty-action">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#uploadcomp" class="btn btn-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                                        Add Compendium
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                // Clear the container
-                document.getElementById("eventsContainer").innerHTML = "";
-
-                // Iterate over each event in the response
-                response.data.forEach(function(event) {
-                    var div = document.createElement("div");
-                    div.setAttribute("class", "col-md-3 col-sm-4 animate__animated animate__zoomIn");
-
-                    div.innerHTML = `
-                        <div class="card card-link card-link-pop folder ">
-                            <div class="ribbon ribbon-top bg-yellow">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pinned"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" /><path d="M12 16l0 5" /><path d="M8 4l8 0" /></svg>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">${event.event_name}</h3>
-                                <h4>${event.com_name}</h4>
-                                <p class="text-muted">${event.event_description}</p>
-                            </div>
-                            <!-- Card footer -->
-                            <div class="card-footer">
-                                <a href="{{ route('ViewCompendium') }}?com_id=${event.com_id}" class="btn btn-primary mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M15 3v4a1 1 0 0 0 1 1h4" />
-                                        <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z" />
-                                        <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-                                    </svg>
-                                    View Files
-                                </a>
-                            </div>
-                        </div>
-                    `;
-
-                    // Append the new event card to the container
-                    document.getElementById("eventsContainer").appendChild(div);
-                });
-            }
-        }
-    });
-}
-
-
-    Dropzone.options.dropzoneMultiple = {
-        paramName: "file",
-        maxFilesize: 20,
-        dictDefaultMessage: "Drag files here to upload",
-        autoProcessQueue: true,
-
-        init: function() {
-            var myDropzone = this;
-
-            myDropzone.on("sending", function(file, xhr, formData) {
-                formData.append("com_id", document.getElementById("com_id").value);
-            });
-
-            myDropzone.on("success", function(file, response) {
-                console.log("File uploaded successfully:", response);
-
-                if (response && response.status && response.status === 'success') {
-                   GetCompendiumFiles();
-                } else {
-                    console.error("Invalid or missing response from server");
-                }
-                myDropzone.removeAllFiles();
-            });
-
-            myDropzone.on("error", function(file, errorMessage) {
-                console.error("Error uploading file:", errorMessage);
-            });
-
-            myDropzone.on("complete", function(file) {
-                myDropzone.removeFile(file);
-            });
-        }
-    };
-
-function GetCompendiumFiles() {
-    const id = document.getElementById("com_id").value;
-
-    const encodedId = encodeURIComponent(id);
-
-    $.ajax({
-        type: "GET",
-        url: "{{ route('GetCompendiumFiles') }}?id=" + encodedId,
-        success: function(response) {
-
-            if (response && Array.isArray(response.data)) {
-                const comfileElement = document.getElementById("comfile");
-                comfileElement.innerHTML = "";
-                response.data.forEach(function(Data) {
-
-                    const fileNameWithoutExt = Data.file_name.split('.').slice(1).join('.');
-
-                    var div = document.createElement("div");
-                    div.setAttribute("class", "col-md-2 col-lg-3 admincardeffects");
-                     div.setAttribute("data-bs-toggle", "modal");
-                    div.setAttribute("data-bs-target", "#viewFile");
-                   div.setAttribute("onclick", `viewfile('${Data.file_name}')`);
-                   div.innerHTML = `
-                        <div class="card">
-                            <div class="card-body p-4 text-center">
-                                <span class="avatar avatar-xl mb-3 style="background-color:white;"><img style="background-color:white;" class="fileIcon" src="" alt="picture"></span>
-                                <embed style="display:none;" class="embeddedFile" src="compendium_file/${Data.file_name}" width="300px" height="auto" />
-                                <h3 class="m-0 mb-1">${fileNameWithoutExt}</h3>
-                                <div class="text-muted"></div>
-                                <div class="mt-3">
-                                    <span class="badge bg-green-lt"></span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                <a href="#" data-bs-toggle="modal" data-bs-target="" class="card-btn" onclick="DeleteFile('${Data.com_file_id}')">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7h16" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /><path d="M10 12l4 4m0 -4l-4 4" /></svg>
-                    Delete
-                </a>
-            </div>
-                        </div>
-                    `;
-                    comfileElement.appendChild(div);
-                    const embeddedFile = div.querySelector('.embeddedFile');
-                    const src = embeddedFile.getAttribute('src');
-                    const fileType = getFileType(src);
-                    const icon = fileTypeIcons[fileType] || 'default-icon.png';
-                    const fileIcon = div.querySelector('.fileIcon');
-                    fileIcon.src = 'compendium_file/icons/'+icon;
-                });
-                runCardAnimation();
-            } else {
-                console.error("Invalid or missing data in response");
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Error fetching compendium files:", error);
-        }
-    });
-}
-
-const fileTypeIcons = {
-    'pdf': 'pdf-icon.png',
-    'doc': 'doc-icon.png',
-    'docx': 'docx-icon.png',
-    'xls': 'xls-icon.png',
-    'xlsx': 'xlsx-icon.png',
-    'ppt': 'ppt-icon.png',
-    'pptx': 'ppt-icon.png',
-    'jpg': 'jpg-icon.png',
-    'jpeg': 'jpeg-icon.png',
-    'png': 'png-icon.png',
-    'gif': 'gif-icon.png',
-    'bmp': 'bmp-icon.png',
-    'tiff': 'tiff-icon.png',
-    'mp4': 'mp4-icon.png',
-    'mp3': 'mp3-icon.png',
-    'txt':'txt-icon.png',
-    'zip':'zip-icon.png',
-    'rar':'rar-icon.png',
-
-};
-
-function getFileType(url) {
-    const parts = url.split('.');
-    return parts[parts.length - 1].toLowerCase();
-}
-function viewfile(file) {
-    const fileType = getFileType(file);
-    const modalBody = document.querySelector('#viewFile .modal-body');
-    modalBody.innerHTML = '';  // Clear previous content
-
-    if (fileType === 'pdf' || fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif' || fileType === 'bmp' || fileType === 'tiff') {
-        modalBody.innerHTML = `<embed class="displayfile" src="compendium_file/${file}" width="100%" height="400px" />`;
-    } else if (fileType === 'doc' || fileType === 'docx') {
-        fetch(`compendium_file/${file}`)
-            .then(response => response.arrayBuffer())
-            .then(arrayBuffer => mammoth.convertToHtml({ arrayBuffer: arrayBuffer }))
-            .then(result => {
-                modalBody.innerHTML = result.value;
-            })
-            .catch(handleError);
-    } else if (fileType === 'xls' || fileType === 'xlsx') {
-        fetch(`compendium_file/${file}`)
-            .then(response => response.arrayBuffer())
-            .then(arrayBuffer => {
-                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-                const html = XLSX.utils.sheet_to_html(workbook.Sheets[workbook.SheetNames[0]]);
-                modalBody.innerHTML = html;
-            })
-            .catch(handleError);
-    } else if (fileType === 'ppt' || fileType === 'pptx') {
-        modalBody.innerHTML = `<iframe src="https://view.officeapps.live.com/op/embed.aspx?src=http://your-server/compendium_file/${file}" style="width:100%; height:600px;" frameborder="0"></iframe>`;
-    } else if (fileType === 'mp4') {
-        modalBody.innerHTML = `<video width="100%" height="400px" controls><source src="compendium_file/${file}" type="video/mp4">Your browser does not support the video tag.</video>`;
-    } else if (fileType === 'mp3') {
-        modalBody.innerHTML = `<audio controls><source src="compendium_file/${file}" type="audio/mpeg">Your browser does not support the audio element.</audio>`;
-    } else if (fileType === 'zip' || fileType === 'rar') {
-        // Trigger file download
-        const link = document.createElement('a');
-        link.href = `compendium_file/${file}`;
-        link.download = file;
-        document.body.appendChild(link);
-        link.click();
-        modalBody.innerHTML = `<p>Zip/Rar file Downloaded</p>`;
-    } else {
-        modalBody.innerHTML = `<p>Unsupported file type</p>`;
-    }
-}
-function handleError(err) {
-    console.log(err);
-}
-function DeleteFile(id) {
-
-    alertify.confirm("Warning","Are You Sure You Want To Delete This File?",
-  function(){
-    var formData = new FormData();
-    formData.append('id', id);
-    formData.append('_token', '{{ csrf_token() }}');
-
-    $.ajax({
-        type: "POST",
-        url: "{{ route('DeleteFile') }}",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            if (response.message) {
-                GetCompendiumFiles();
-                alertify
-                .alert("Message",response.message, function(){
-
-                    });
-
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-
-        }
-    });
-  },
-  function(){
-    alertify.error('Cancel');
-  });
-
-}
-
-
 </script>

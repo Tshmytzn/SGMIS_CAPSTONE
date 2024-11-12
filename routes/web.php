@@ -202,6 +202,7 @@ Route::get('Student/Evaluation/View', [SessionDetect::class, 'StudentViewEventDe
 Route::get('Student/Evaluation/Evaluate', [SessionDetect::class, 'StudentEvaluateEvent'])->name('studentEvaluate');
 Route::get('Account/Settings', function () { return view('Student.accsettings'); })->name('accountsettings');
 Route::get('/Student/Election', function () { return view('Student.electionvote'); })->name('electionvote');
+Route::get('/Student/Election/Materials', function () { return view('Student.viewelectionmaterials'); })->name('viewelectionmaterials');
 
 // tish student: post routes
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
