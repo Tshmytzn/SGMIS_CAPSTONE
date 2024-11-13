@@ -423,7 +423,7 @@
                     </div>
                     <p class="empty-title">No Campaign Materials Available</p>
                     <p class="empty-subtitle text-secondary">
-                      Try adjusting your filters or search criteria to find specific election results or candidates.
+                      Try adjusting your filters or search criteria to find specific campaign materials.
                     </p>
                   </div>`;
         }
