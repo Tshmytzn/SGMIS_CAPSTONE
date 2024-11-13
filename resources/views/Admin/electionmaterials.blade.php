@@ -135,12 +135,57 @@
                                     <div class="mb-2 col-6">
                                         <label for="firstname" class="form-label">Position</label>
                                         <select name="position" class="form-select" id="">
-                                            <option value="USG PRESIDENT">USG PRESIDENT</option>
-                                            <option value="USG SECRETARY">USG SECRETARY</option>
-                                            <option value="USG SECRETARY">USG BUDGET&FINANCE</option>
-                                            <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
-                                            <option value="USG SECRETARY">USG SENATE SECRETARY</option>
+                                           <option value="President">President</option>
+    <option value="Vice President">Vice President</option>
 
+    <!-- Senators (6 per party) -->
+    <optgroup label="Senators">
+        <option value="Senator 1">Senator 1</option>
+        <option value="Senator 2">Senator 2</option>
+        <option value="Senator 3">Senator 3</option>
+        <option value="Senator 4">Senator 4</option>
+        <option value="Senator 5">Senator 5</option>
+        <option value="Senator 6">Senator 6</option>
+    </optgroup>
+
+    <!-- Representatives -->
+    <optgroup label="Representatives">
+        <option value="BECED Representative">BECED Representative</option>
+        <option value="BSED Representative">BSED Representative</option>
+        <option value="BPED Representative">BPED Representative</option>
+        <option value="BEED Representative">BEED Representative</option>
+        <option value="BTLED Representative">BTLED Representative</option>
+        <option value="BSNED Representative">BSNED Representative</option>
+        <option value="AB SocSci Representative">AB SocSci Representative</option>
+        <option value="BS Psychology Representative">BS Psychology Representative</option>
+        <option value="AB English Representative">AB English Representative</option>
+        <option value="BPA Representative">BPA Representative</option>
+        <option value="BSAM Representative">BSAM Representative</option>
+        <option value="BSIT Representative">BSIT Representative</option>
+        <option value="BSIS Representative">BSIS Representative</option>
+        <option value="BSHM Representative">BSHM Representative</option>
+        <option value="BSCE Representative">BSCE Representative</option>
+    </optgroup>
+
+    <!-- Governors -->
+    <optgroup label="Governor">
+        <option value="Governor - College of Education">Governor - College of Education</option>
+        <option value="Governor - College of Arts and Sciences">Governor - College of Arts and Sciences</option>
+        <option value="Governor - College of Industrial Technology">Governor - College of Industrial Technology</option>
+        <option value="Governor - College of Computer Studies">Governor - College of Computer Studies</option>
+        <option value="Governor - College of Business Management and Accountancy">Governor - College of Business Management and Accountancy</option>
+        <option value="Governor - College of Engineering">Governor - College of Engineering</option>
+    </optgroup>
+
+    <!-- Vice Governors -->
+    <optgroup label="Vice Governor">
+        <option value="Vice Governor - College of Education">Vice Governor - College of Education</option>
+        <option value="Vice Governor - College of Arts and Sciences">Vice Governor - College of Arts and Sciences</option>
+        <option value="Vice Governor - College of Industrial Technology">Vice Governor - College of Industrial Technology</option>
+        <option value="Vice Governor - College of Computer Studies">Vice Governor - College of Computer Studies</option>
+        <option value="Vice Governor - College of Business Management and Accountancy">Vice Governor - College of Business Management and Accountancy</option>
+        <option value="Vice Governor - College of Engineering">Vice Governor - College of Engineering</option>
+    </optgroup>
                                         </select>
                                     </div>
 
@@ -191,11 +236,57 @@
                                     <div class="mb-2 col-6">
                                         <label for="firstname" class="form-label">Position</label>
                                         <select name="position" class="form-select" id="up_position">
-                                            <option value="USG PRESIDENT">USG PRESIDENT</option>
-                                            <option value="USG SECRETARY">USG SECRETARY</option>
-                                            <option value="USG SECRETARY">USG BUDGET&FINANCE</option>
-                                            <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
-                                            <option value="USG SECRETARY">USG SENATE SECRETARY</option>
+                                            <option value="President">President</option>
+    <option value="Vice President">Vice President</option>
+
+    <!-- Senators (6 per party) -->
+    <optgroup label="Senators">
+        <option value="Senator 1">Senator 1</option>
+        <option value="Senator 2">Senator 2</option>
+        <option value="Senator 3">Senator 3</option>
+        <option value="Senator 4">Senator 4</option>
+        <option value="Senator 5">Senator 5</option>
+        <option value="Senator 6">Senator 6</option>
+    </optgroup>
+
+    <!-- Representatives -->
+    <optgroup label="Representatives">
+        <option value="BECED Representative">BECED Representative</option>
+        <option value="BSED Representative">BSED Representative</option>
+        <option value="BPED Representative">BPED Representative</option>
+        <option value="BEED Representative">BEED Representative</option>
+        <option value="BTLED Representative">BTLED Representative</option>
+        <option value="BSNED Representative">BSNED Representative</option>
+        <option value="AB SocSci Representative">AB SocSci Representative</option>
+        <option value="BS Psychology Representative">BS Psychology Representative</option>
+        <option value="AB English Representative">AB English Representative</option>
+        <option value="BPA Representative">BPA Representative</option>
+        <option value="BSAM Representative">BSAM Representative</option>
+        <option value="BSIT Representative">BSIT Representative</option>
+        <option value="BSIS Representative">BSIS Representative</option>
+        <option value="BSHM Representative">BSHM Representative</option>
+        <option value="BSCE Representative">BSCE Representative</option>
+    </optgroup>
+
+    <!-- Governors -->
+    <optgroup label="Governor">
+        <option value="Governor - College of Education">Governor - College of Education</option>
+        <option value="Governor - College of Arts and Sciences">Governor - College of Arts and Sciences</option>
+        <option value="Governor - College of Industrial Technology">Governor - College of Industrial Technology</option>
+        <option value="Governor - College of Computer Studies">Governor - College of Computer Studies</option>
+        <option value="Governor - College of Business Management and Accountancy">Governor - College of Business Management and Accountancy</option>
+        <option value="Governor - College of Engineering">Governor - College of Engineering</option>
+    </optgroup>
+
+    <!-- Vice Governors -->
+    <optgroup label="Vice Governor">
+        <option value="Vice Governor - College of Education">Vice Governor - College of Education</option>
+        <option value="Vice Governor - College of Arts and Sciences">Vice Governor - College of Arts and Sciences</option>
+        <option value="Vice Governor - College of Industrial Technology">Vice Governor - College of Industrial Technology</option>
+        <option value="Vice Governor - College of Computer Studies">Vice Governor - College of Computer Studies</option>
+        <option value="Vice Governor - College of Business Management and Accountancy">Vice Governor - College of Business Management and Accountancy</option>
+        <option value="Vice Governor - College of Engineering">Vice Governor - College of Engineering</option>
+    </optgroup>
                                         </select>
                                     </div>
 
