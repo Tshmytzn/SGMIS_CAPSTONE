@@ -160,6 +160,8 @@ Route::post('Admin/deleteElectedOfficer', [ElectionController::class, 'deleteEle
 
 // tish budgeting controller: post routes
 Route::post('admin/GetBudgetProposal', [BudgetProposalController::class, 'getBudgetProposal'])->name('getBudgetProposal');
+Route::post('admin/UpdateBudgetProposal', [BudgetProposalController::class, 'updateBudgetProposal'])->name('updateBudgetProposal');
+
 Route::post('admin/budgetingProcess', [BudgetProposalController::class, 'budgetingProcess'])->name('budgetingProcess');
 Route::post('admin/mealProcess', [BudgetProposalController::class, 'mealProcess'])->name('mealProcess');
 Route::post('admin/otherExpensesProcess', [BudgetProposalController::class, 'otherExpensesProcess'])->name('otherExpensesProcess');
