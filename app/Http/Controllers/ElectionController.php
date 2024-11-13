@@ -67,7 +67,7 @@ class ElectionController extends Controller
         $data->elect_end = $request->voting_end_date;
         $data->save();
 
-        return response()->json(['message' => 'Election Successfully Created', 'modal' => 'createelection', 'status' => 'success']);
+        return response()->json(['message' => 'Campaign Material Successfully Created', 'modal' => 'createelection', 'status' => 'success']);
     }
     public function getElection(request $request)
     {
