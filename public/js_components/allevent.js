@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         copyClassesToDropdown: false,
         dropdownParent: 'body',
         controlInput: '<input>',
-        placeholder: 'Select Department',
+        placeholder: 'Select Colleges',
         render: {
             item: function (data, escape) {
                 if (data.customProperties) {

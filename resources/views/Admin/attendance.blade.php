@@ -78,10 +78,10 @@
                                 </div>
 
                                 <div class="col-3 mb-3">
-                                    <h4 class="mb-2 ms-2 text-white" for=""> Department </h4>
+                                    <h4 class="mb-2 ms-2 text-white" for=""> Colleges </h4>
                                     @include('Admin.components.Lloading',['load_ID' => 'lineLoading2'])
                                     <select class="form-select" name="" id="DeptId" onchange="getCourse()">
-                                        <option value=""> Select Department </option>
+                                        <option value=""> Select Colleges </option>
                                     </select>
                                 </div>
 
@@ -112,7 +112,7 @@
                                             <tr>
                                                 <th scope="col">Event Name</th>
                                                 <th scope="col">Activity</th>
-                                                <th scope="col">Department</th>
+                                                <th scope="col">Colleges</th>
                                                 <th scope="col">Course</th>
                                                 <th scope="col">Section</th>
                                                 <th scope="col">Student ID</th>

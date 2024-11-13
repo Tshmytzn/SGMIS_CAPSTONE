@@ -212,12 +212,12 @@
                 <form class="row g-3" method="POST" id="SaveStudentForm">@csrf
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Department</label>
+                    <label for="firstname" class="form-label">Colleges</label>
                     @php
                     $dept = App\Models\Department::all();
                   @endphp
                     <select class="form-select" name="selectdepartment" id="selectdepartment" onchange="GetDeptDataSavestudent()">
-                      <option>Select Department</option>
+                      <option>Select Colleges</option>
                       @foreach ($dept as $dep)
               <option value="{{$dep->dept_id}}">{{$dep->dept_name}}</option>
               @endforeach                                  

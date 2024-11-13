@@ -214,7 +214,7 @@
                                         <tr>
                                             <th>Full Name</th>
                                             <th>SCHOOL ID No.</th>
-                                            <th>Department</th>
+                                            <th>Colleges</th>
                                             <th>Course</th>
                                             <th>Actions</th>
                                         </tr>

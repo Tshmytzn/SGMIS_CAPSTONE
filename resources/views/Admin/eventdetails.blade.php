@@ -216,7 +216,7 @@
 
               <div class="card mt-2 hideme">
                 <div class="card-header d-flex justify-content-between align-items-center ">
-                  <h3 class="card-title">Participating Departments</h3>
+                  <h3 class="card-title">Participating Colleges</h3>
                   <select type="text"  class="form-select w-50 " placeholder="Select tags" id="select-tags" value="" multiple>
                    @php
                        $dept = App\Models\Department::all();
@@ -238,7 +238,7 @@
                       <div class="mb-3">
                         <a href="." class="navbar-brand navbar-brand-autodark"><img src="{{ asset('./static/logoicon.png') }}" height="50" alt=""></a>
                       </div>
-                      <div class="text-muted mb-3">Loading Departments</div>
+                      <div class="text-muted mb-3">Loading Colleges</div>
                       <div class="progress progress-sm">
                         <div class="progress-bar progress-bar-indeterminate"></div>
                       </div>

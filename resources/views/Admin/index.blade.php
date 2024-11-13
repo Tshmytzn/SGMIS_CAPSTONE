@@ -178,7 +178,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="font-weight-medium">
-                                                        Departments
+                                                      Colleges
                                                     </div>
                                                     <div class="text-muted">
                                                         @php
