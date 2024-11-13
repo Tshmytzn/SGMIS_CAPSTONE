@@ -225,7 +225,7 @@
                                             <div class="col-6 mb-3">
                                                 <label for="projectparticipant" class="form-label">Budget
                                                     Allocated</label>
-                                                <input type="text" class="form-control" id="projectparticipant"
+                                                <input type="number" class="form-control" id="projectparticipant"
                                                     name="allocated" placeholder="Enter project participant"
                                                     required>
                                             </div>
