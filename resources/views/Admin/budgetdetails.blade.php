@@ -598,6 +598,7 @@
     @include('Admin.components.scripts')
     @include('Admin.components.budgetdetailsscripts')
     @include('Admin.components.budgetmodals')
+    @include('Admin.components.updatebudgetdetailscripts')
 </body>
 
 </html>

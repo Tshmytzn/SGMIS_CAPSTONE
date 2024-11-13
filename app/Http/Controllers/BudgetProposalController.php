@@ -113,6 +113,53 @@ class BudgetProposalController extends Controller
         }
     }
 
+
+    public function updateBudgetProposal(Request $request)
+    {
+
+        $request->validate([
+            'budget_id' => 'required|exists:budget_proposals,id',
+            'objective' => 'required|string|max:255',
+            'theme' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'projectparticipant' => 'required|string|max:255',
+            'projectproponent' => 'required|string|max:255',
+            'allocated' => 'required|numeric|min:0',
+            'contactperson' => 'required|string|max:255',
+            'fundingSource' => 'required|string|max:255',
+            'additionalNotes' => 'nullable|string',
+        ]);
+
+        $budget = BudgetProposal::findOrFail($request->input('budget_id'));
+
+        $budget->objective = $request->input('objective');
+        $budget->theme = $request->input('theme');
+        $budget->location = $request->input('location');
+        $budget->project_participant = $request->input('projectparticipant');
+        $budget->project_proponent = $request->input('projectproponent');
+        $budget->total_budget = $request->input('allocated');
+        $budget->contact_person = $request->input('contactperson');
+        $budget->funding_source = $request->input('fundingSource');
+        $budget->additional_notes = $request->input('additionalNotes');
+
+        if ($budget->save()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Budget proposal updated successfully.',
+                'modal' => 'updateBudgetModal',
+                'reload' => 'reloadBudgetProposalsList'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Failed to update the budget proposal. Please try again.',
+            'modal'=>'budgetProposalUpdate'
+        ]);
+    }
+
+
+
     public function show($id)
     {
         $budget = BudgetProposal::findOrFail($id);
