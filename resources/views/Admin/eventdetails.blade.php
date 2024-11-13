@@ -18,7 +18,16 @@
 </style>
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
-
+    @php
+                                            $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                            $usertype = '';
+                                        @endphp
+                                        @php
+                                         $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
+                                         if ($studentacc) {
+                                          $usertype = $studentacc->student_position;
+                                         }
+                                        @endphp
     <div class="page">
 
 @include('Admin.components.nav', ['active' => 'Event Details'])
@@ -644,11 +653,10 @@
     }, false);
 
     window.onload = () => {
-      EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
+     EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
       LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}", 'admin');
       LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}");
       LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}","{{asset('programme_images')}}", "{{asset('static/illustrations/undraw_joyride_hnno.svg')}}", "{{route('removeProgramme')}}", "admin");
-
     }
 
   </script>
