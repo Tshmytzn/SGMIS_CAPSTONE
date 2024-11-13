@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-auto ms-auto d-print-none">
                             <div class="d-flex">
-                                <div class="me-3">
+                                {{-- <div class="me-3">
                                     <div class="input-icon">
                                         <input type="text" value="" class="form-control" placeholder="Search…">
                                         <span class="input-icon-addon">
@@ -44,7 +44,7 @@
                                             </svg>
                                         </span>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <button class="btn" style="background-color: #DF7026; color: white;"
                                     data-bs-toggle="modal" data-bs-target="#createevaluation">Create Evaluation
