@@ -57,7 +57,7 @@
 
         var formElement = document.getElementById(formId);
         var formData = new FormData(formElement); // Create a FormData object from the form element
-        formData.append('_token', '{{ csrf_token() }}'); 
+        formData.append('_token', '{{ csrf_token() }}');
 
         $.ajax({
             type: "POST",
@@ -133,40 +133,66 @@
 
                 } else {
 
-                    response.data.forEach(function(item, index) {
-                        budgetcard.innerHTML += `
-                <div class="col-md-6 col-lg-3">
-                    <div class="card">
-                        <div class="card card-stacked "></div>
-                            <div class="img-responsive img-responsive-21x10 card-img-top m-0 "
-                                style="background-image: url(./static/photos/Statistics.svg); background-size: cover; background-position: center;">
-                            </div>
+                    const usertype = "<?php echo $usertype; ?>"; // Embed the PHP variable here
 
-                            <div class="card-body p-0 m-0">
+// Your JavaScript function
+response.data.forEach(function(item, index) {
+    // Build the initial card HTML structure
+    let cardHTML = `
+        <div class="col-md-6 col-lg-3">
+            <div class="card">
+                <div class="img-responsive img-responsive-21x10 card-img-top m-0"
+                     style="background-image: url(./static/photos/Statistics.svg); background-size: cover; background-position: center;">
+                </div>
+                <div class="card-body p-0 m-0">
+                    <h3 class="card-title text-center mb-2">${item.title}</h3>
+                </div>
+                <div class="d-flex">`;
 
-                                <h3 class="card-title text-center mb-2">${item.title}</h3>
-                            </div>
-                            <div class="d-flex">
-                                <a href="/Budgeting/Details/${item.id}" class="card-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                        <path
-                                            d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                        <path d="M16 5l3 3" />
-                                    </svg>
-                                    Edit
-                                </a>
-                                
+    // Conditionally add content based on user type
+    if (usertype === 'USG PRESIDENT' || usertype === 'USG SECRETARY'|| usertype === 'USG SENATE PRESIDENT'|| usertype === 'USG SENATE SECRETARY') {
+        cardHTML += `
+            <a href="/Budgeting/Expense/${item.id}" class="card-btn">
+                View
+            </a>`;
+    }else if(usertype === 'USG BUDGET&FINANCE'){
+        cardHTML += `
+            <a href="/Budgeting/Details/${item.id}" class="card-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                    <path d="M16 5l3 3" />
+                </svg>
+                Edit
+            </a>`;
+    } else {
+        cardHTML += `
+            <a href="/Budgeting/Details/${item.id}" class="card-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                    <path d="M16 5l3 3" />
+                </svg>
+                Edit
+            </a>`;
+    }
 
-                            </div>
-                        </div>
-                         </div>
-                `;
-                    });
+    // Close the remaining tags
+    cardHTML += `
+                </div>
+            </div>
+        </div>`;
+
+    // Append the entire card HTML for each item
+    budgetcard.innerHTML += cardHTML;
+});
+
 
                 }
 

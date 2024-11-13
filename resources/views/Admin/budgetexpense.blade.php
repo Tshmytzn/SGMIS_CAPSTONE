@@ -30,7 +30,7 @@
 
     .trgreeen {
         background-color: lightgreen !important;
-    }  
+    }
     * {
         color-adjust: exact; /* Attempt to print colors as they are shown */
     }
@@ -56,12 +56,12 @@
 
     <div class="page">
 
-        
+
 
         <div class="page-wrapper">
 
             <!-- Page header -->
-            
+
 
             <!-- Page body -->
             <div class="page-body">
@@ -93,7 +93,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="committeeMealTableBody" style="text-align: center;">
-                                           
+
                                         </tbody>
                                         <tbody id="committeeMealTableBody2" style="text-align: center;">
 
@@ -121,9 +121,9 @@
                         </div>
                     </div>
 
-                   
+
                     <a>
-                        <button class="btn btn-primary w-100" id="download" onclick="saveTotal('{{ $budget->id }}')">Print & Save Budget</button>
+                        <button class="btn btn-primary w-100" id="download" onclick="saveTotal('{{ $budget->id }}')">Print</button>
                     </a>
                 </div>
                 <input type="hidden" name="bDateStart" id="bDateStart" value="{{ $budget->budget_period_start }}">
@@ -141,7 +141,7 @@
                     <input type="text" name="budget_id" id="" value="{{ $budget->id}}">
                 </form>
                 <input type="text" name="" id="temp_id"hidden>
-            
+
         </div>
     </div>
 
@@ -151,7 +151,6 @@
 
     @include('Admin.components.scripts')
     @include('Admin.components.budgetExpensesscript')
-    @include('Admin.components.budgetmodals')
 </body>
 
 </html>

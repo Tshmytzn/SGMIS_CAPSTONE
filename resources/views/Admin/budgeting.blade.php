@@ -134,7 +134,7 @@
                                                 name="location" placeholder="Enter proposal title" required>
                                         </div>
                                         </div>
-                                        
+
                                         <!-- Event Related -->
                                         <div class="row">
                                             <div class="col-6 mb-3">
@@ -210,13 +210,25 @@
                                         @php
                                             $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
                                         @endphp
-
-                                        <!-- Proposed By -->
+                                        @php
+                                         $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
+                                         $usertype = $studentacc->student_position;
+                                        @endphp
+                                        @if ($admin)
                                         <div class="mb-3">
                                             <label for="proposedBy" class="form-label">Proposed By</label>
                                             <input type="text" class="form-control" id="proposedBy"
                                                 name="proposedBy" value="{{ $admin->admin_name }}" readonly>
                                         </div>
+                                        @elseif ($studentacc)
+                                        <div class="mb-3">
+                                            <label for="proposedBy" class="form-label">Proposed By</label>
+                                            <input type="text" class="form-control" id="proposedBy"
+                                                name="proposedBy" value="{{ $studentacc->student_firstname }}" readonly>
+                                        </div>
+                                        @endif
+                                        <!-- Proposed By -->
+
                                         <!-- Submission Date -->
                                         <div class="mb-3">
                                             <label for="submissionDate" class="form-label">Submission Date</label>
