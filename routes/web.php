@@ -215,9 +215,9 @@ Route::post('Student/updatestudentPass', [StudentData::class, 'updatestudentPass
 Route::get('Student/getStudentListData', [StudentData::class, 'getStudentListData'])->name('getStudentListData');
 
 // student Admin
-Route::get('/Student_Admin/Login', function () {
-    return view('StudentAdmin.Login');
-})->name('studentAdminLogin');
+// Route::get('/Student_Admin/Login', function () {
+//     return view('StudentAdmin.Login');
+// })->name('studentAdminLogin');
 Route::post('Student/StudentAdminLogin', [StudentAdmin::class, 'StudentAdminLogin'])->name('StudentAdminLogin');
 Route::post('Student/StudentAdminLogout', [StudentAdmin::class, 'StudentAdminLogout'])->name('StudentAdminLogout');
 
