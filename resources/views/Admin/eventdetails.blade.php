@@ -19,7 +19,7 @@
   <body >
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
     @php
-                                            $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                        $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
                                             $usertype = '';
                                         @endphp
                                         @php
@@ -34,7 +34,13 @@
 
 @include('Admin.components.loading')
             <div class="page-wrapper">
-
+              @if ($usertype =='USG BUDGET&FINANCE'||$usertype =='USG SENATE PRESIDENT'||$usertype =='USG SENATE SECRETARY')
+              <style>
+                .hideme{
+                  display: none;
+                }
+              </style>
+              @endif
         <!-- Page header -->
         <div class="page-header d-print-none">
           <div class="container-xl">
@@ -50,7 +56,7 @@
                   </h1>
                 </div>
 
-                <button onclick="publishEvent('{{ $event_id }}', this)" id="publishEventBtn" class="btn btn-primary d-none"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mood-happy">
+                <button onclick="publishEvent('{{ $event_id }}', this)" id="publishEventBtn" class="btn btn-primary d-none hideme"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mood-happy">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
                     <path d="M9 9l.01 0" />
@@ -71,7 +77,7 @@
                       <div class="col d-flex justify-content-between mt-2 ">
                             <h3 style="margin-left: -3%">More Information</h3>
 
-                            <div title="Edit Event" style="border: none; background: none; margin-right:1%; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editEventDetails">
+                            <div title="Edit Event" class="hideme" style="border: none; background: none; margin-right:1%; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#editEventDetails">
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                             </div>
 
@@ -132,7 +138,7 @@
                 <div class="table-responsive mt-4">
                   <div class="d-flex align-items-center justify-content-between mb-2">
                     <h3 class="ms-4">Activity List</h1>
-                    <button  data-bs-toggle="modal" data-bs-target="#addActivity" class="btn btn-primary me-2"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                    <button  data-bs-toggle="modal" data-bs-target="#addActivity" class="btn btn-primary me-2 hideme"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M12 5l0 14" />
                       <path d="M5 12l14 0" />
@@ -170,7 +176,7 @@
                 <div class="col-auto w-100 mt-4 d-flex justify-content-between align-items-center">
                 <h3 class="ms-4"> Event Programme</h3>
                  <div class="d-flex gap-3 me-2 mb-2">
-                  <button data-bs-toggle="modal" data-bs-target="#uploadProgrammeModal" class="btn btn-primary " type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-upload">
+                  <button data-bs-toggle="modal" data-bs-target="#uploadProgrammeModal" class="btn btn-primary hideme" type="button" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-upload">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
                     <path d="M7 9l5 -5l5 5" />
@@ -208,10 +214,10 @@
 
 
 
-              <div class="card mt-2">
-                <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="card mt-2 hideme">
+                <div class="card-header d-flex justify-content-between align-items-center ">
                   <h3 class="card-title">Participating Departments</h3>
-                  <select type="text"  class="form-select w-50" placeholder="Select tags" id="select-tags" value="" multiple>
+                  <select type="text"  class="form-select w-50 " placeholder="Select tags" id="select-tags" value="" multiple>
                    @php
                        $dept = App\Models\Department::all();
                    @endphp
@@ -653,8 +659,18 @@
     }, false);
 
     window.onload = () => {
+      const usertype = "<?php echo $usertype; ?>";
+
+    if (usertype === 'USG BUDGET&FINANCE' || 
+        usertype === 'USG SENATE PRESIDENT' || 
+        usertype === 'USG SENATE SECRETARY') {
+          LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}", 'student_admin');
+      
+    } else {
+        LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}", 'admin');
+      
+    }
      EventDetailsLoad("{{route('getEventDetails')}}?event_id={{$event_id}}", "{{ asset('event_images/') }}");
-      LoadEventActivities("{{ route('getEventAct') }}?event_id={{ $event_id }}", "{{ route('deleteEventActivities') }}", "{{ route('getActDetails') }}", 'admin');
       LoadDeptEvent("{{ route('GetDeptEvent') }}?event_id={{ $event_id }}", "{{ route('getDepartment') }}", "{{ route('getCourse') }}", "{{ asset('dept_image') }}", "{{ asset('./static/illustrations/undraw_quitting_time_dm8t.svg') }}");
       LoadProgrammeList("{{ route('getProgramme') }}?event_id={{ $event_id }}","{{asset('programme_images')}}", "{{asset('static/illustrations/undraw_joyride_hnno.svg')}}", "{{route('removeProgramme')}}", "admin");
     }

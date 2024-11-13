@@ -753,10 +753,16 @@ function LoadEventActivities(route, deleteRoute, actDetails, where) {
             if (res.act.length !== 0) {
 
                 res.act.forEach(data => {
-                    act_list.innerHTML += `<tr id="act_tr${data.eact_id}" class="act_tr">
+                    act_list.innerHTML += `<tr id="act_tr${
+                        data.eact_id
+                    }" class="act_tr">
          <td > ${data.eact_name}</td>
          <td class="text-muted" >
-           ${data.eact_description.length < 15 ? data.eact_description : data.eact_description.substring(0, 15) + '....'}
+           ${
+               data.eact_description.length < 15
+                   ? data.eact_description
+                   : data.eact_description.substring(0, 15) + "...."
+           }
          </td>
          <td class="text-muted" > ${data.location_name}</td>
          <td class="text-muted" >
@@ -766,8 +772,12 @@ function LoadEventActivities(route, deleteRoute, actDetails, where) {
          ${data.eact_date}
          </td>
          <td class="text-muted">${convertToAmPm(data.eact_time)}</td>
-        <td class="text-muted">${data.eact_end == null ? '' : convertToAmPm(data.eact_end)}</td>
-         ${where === 'admin' ? `   <td class="d-flex gap-1">
+        <td class="text-muted">${
+            data.eact_end == null ? "" : convertToAmPm(data.eact_end)
+        }</td>
+         ${
+             where === "admin"
+                 ? `   <td class="d-flex gap-1">
          <button  data-bs-toggle="modal" data-bs-target="#viewAct" onclick="ViewActivity('${data.eact_id}', '${actDetails}')" class="border-0 bg-body text-info" title="View Activity" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
          <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
@@ -787,8 +797,10 @@ function LoadEventActivities(route, deleteRoute, actDetails, where) {
          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
          <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
        </svg></button>
-       </td>` : ` <td><button class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#timeinmodal" onclick="attendance('${data.eact_id}')">
-                                Attendance</button></td>`}
+       </td>`
+                 :(where=='student_admin'? '': ` <td><button class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#timeinmodal" onclick="attendance('${data.eact_id}')">
+                                Attendance</button></td>`)
+         }
        </tr>`;
                 });
 

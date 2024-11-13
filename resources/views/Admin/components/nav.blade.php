@@ -663,13 +663,34 @@
                                     </span>
                                 </a>
                             </li>
+                            <li class="nav-item {{ $active == 'Documents' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('Documents') }}">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-file-info">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                            <path
+                                                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                            <path d="M11 14h1v4h1" />
+                                            <path d="M12 11h.01" />
+                                        </svg> </span>
+                                    <span class="nav-link-title">
+                                        Documents
+                                    </span>
+                                </a>
+                            </li>
                             @elseif ($studentacc->student_position=='USG SENATE PRESIDENT'||$studentacc->student_position=='USG SENATE SECRETARY')
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{ route('Events') }}" data-bs-toggle="dropdown"
-                                    data-bs-auto-close="outside" role="button" aria-expanded="false">
-                                    <span
-                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/lifebuoy -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                <a class="nav-link" href="{{ route('Events') }}">
+                                  <span
+                                      class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                      <span
+                                          class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                             class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-event">
@@ -680,13 +701,13 @@
                                             <path d="M8 3l0 4" />
                                             <path d="M4 11l16 0" />
                                             <path d="M8 15h2v2h-2z" />
-                                        </svg> </span>
-                                    </span>
-                                    <span class="nav-link-title">
-                                        Events
-                                    </span>
-                                </a>
-
+                                        </svg>
+                                      </span>
+                                  </span>
+                                  <span class="nav-link-title">
+                                     Events
+                                  </span>
+                              </a>
                             </li>
                             <li class="nav-item {{ $active == 'Liquidation' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('Liquidation') }}">
