@@ -1,7 +1,7 @@
 <!doctype html>
 
 <html lang="en">
-  
+
 @include('Admin.components.header', ['title' => 'Settings'])
 @include('Admin.components.adminstyle')
 
@@ -60,13 +60,13 @@
                             </div>
                             </div>
                             <h3 class="card-title mt-4">Student Profile</h3>
-                          
-                           
-                           
+
+
+
                             <div class="row g-3">
                               <div class="col-md">
                                 <div class="form-label">Student Name</div>
-                                
+
                                 <input type="text" class="form-control" name="adminname" id="adminname" value="{{$adminAcc->admin_name}}">
                               </div>
                               <div class="col-md">
@@ -78,11 +78,11 @@
                             <h3 class="card-title mt-4">Password</h3>
                             <p class="card-subtitle">You can set a permanent password.</p>
                             <div>
-                              <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#updatepassword"> 
+                              <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#updatepassword">
                                 Set new password
                               </a>
                             </div>
-        
+
                           <div class="card-footer bg-transparent mt-3">
                             <div class="btn-list justify-content-end">
                               <button class="btn btn-primary" onclick="EditAdminInfo()">
@@ -90,7 +90,7 @@
                               </button>
                             </div>
                           </div>
-                        </div>                      
+                        </div>
                       </div>
                       {{-- administrator --}}
                       <div class="tab-pane fade" id="administrators">
@@ -105,7 +105,7 @@
                         <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#addnewadmin">Add Super Admin</button>
 
                     </div>
-                        
+
                         <div class="row g-5" id="adminCard">
 
                           {{-- <div id="administrators-card" class="col-md-6 col-lg-4 admincardeffects">
@@ -125,7 +125,7 @@
                                     <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
                                     <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
                                     <path d="M16 5l3 3"/>
-                                  </svg>                                
+                                  </svg>
                                   &nbsp; Edit
                                 </a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#demotemodal" class="card-btn">
@@ -140,11 +140,11 @@
                               </div>
                             </div>
                           </div> --}}
-                          
+
                       </div>
-                      
-                        
-                        
+
+
+
                       </div>
             {{-- administrator --}}
                       <div class="tab-pane fade" id="administrators">
@@ -159,7 +159,7 @@
                         <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#addnewadmin">Add Super Admin</button>
 
                     </div>
-                        
+
                         <div class="row g-5" id="adminCard">
 
                           {{-- <div id="administrators-card" class="col-md-6 col-lg-4 admincardeffects">
@@ -179,7 +179,7 @@
                                     <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
                                     <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
                                     <path d="M16 5l3 3"/>
-                                  </svg>                                
+                                  </svg>
                                   &nbsp; Edit
                                 </a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#demotemodal" class="card-btn">
@@ -193,7 +193,7 @@
                                 </a>
                               </div>
                             </div>
-                          </div> --}} 
+                          </div> --}}
                       </div>
                       </div>
       {{-- student administrator --}}
@@ -245,7 +245,7 @@
                                     <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"/>
                                     <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"/>
                                     <path d="M16 5l3 3"/>
-                                  </svg>                                
+                                  </svg>
                                   &nbsp; Edit
                                 </a>
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#studentdemote" class="card-btn">
@@ -310,7 +310,7 @@
             </div>
           </div>
         </div>
-        
+
 
         {{-- Modal --}}
         <div class="modal modal-blur fade" id="updatepassword" tabindex="-1" role="dialog" aria-hidden="true">
@@ -323,7 +323,7 @@
               <div class="modal-body">
                 <form action="" method="POST" id="UpdateAdminPassForm">
                   @csrf
-               
+
                 <div class="mb-3">
                   <label class="form-label">Old Password</label>
                   <input type="Password" class="form-control" name="oldpass" id="oldpass" placeholder="Enter Old Password">
@@ -343,7 +343,7 @@
                   Cancel
                 </a>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="ChangeAdminPass()">
-                  Update 
+                  Update
                 </button>
               </div>
             </div>
@@ -360,20 +360,20 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        
+
                         <form class="row g-3" id="addnewadministratorform" method="POST">@csrf
                         <div class="row g-2">
                           <div class="col-12">
                             <label for="adminname" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="administratorname" id="administratorname">         
+                            <input type="text" class="form-control" name="administratorname" id="administratorname">
                           </div>
                           <div class="col-6">
                             <label for="adminuser" class="form-label">Username</label>
-                              <input type="text" class="form-control" name="administratoruser" id="administratoruser">         
+                              <input type="text" class="form-control" name="administratoruser" id="administratoruser">
                           </div>
                           <div class="col-6">
                             <label for="adminpass" class="form-label">Password</label>
-                              <input type="password" class="form-control" name="administratorpass" id="administratorpass">         
+                              <input type="password" class="form-control" name="administratorpass" id="administratorpass">
                           </div>
 
                         </div>
@@ -399,26 +399,26 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                
+
                                 <form class="row g-3" id="aditadministratorform" method="POST">@csrf
                                 <div class="row g-2">
                                   <div class="col-12">
                                     <input type="hidden" name="administratorId" id="administratorId">
                                     <label for="adminname" class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="aditadministratorname" id="aditadministratorname">         
+                                    <input type="text" class="form-control" name="aditadministratorname" id="aditadministratorname">
                                   </div>
                                   <div class="col-6">
                                     <label for="adminuser" class="form-label">Username</label>
-                                      <input type="text" class="form-control" name="aditadministratoruser" id="aditadministratoruser">         
+                                      <input type="text" class="form-control" name="aditadministratoruser" id="aditadministratoruser">
                                   </div>
                                   <div class="col-6">
                                     <label for="adminpass" class="form-label">Password</label>
-                                      <input type="password" class="form-control" name="aditadministratorpass" id="aditadministratorpass">         
+                                      <input type="password" class="form-control" name="aditadministratorpass" id="aditadministratorpass">
                                   </div>
                                 </div>
-        
+
                                 </form>
-        
+
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -496,7 +496,7 @@
                           <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                             <div class="modal-content">
                               <div class="modal-body">
-                                <form action="" id="editadminpicform" method="POST">@csrf 
+                                <form action="" id="editadminpicform" method="POST">@csrf
                                 <div class="modal-title">Upload Profile Picture</div>
                                 <img src="" alt="">
                                 <input type="file" class="form-control" name="editadminpic" id="editadminpic">
@@ -517,7 +517,7 @@
                             </div>
                           </div>
                         </div>
-                        {{-- upload profile pic --}} 
+                        {{-- upload profile pic --}}
 
         {{-- Add Admin Student Modal --}}
         <div class="modal modal-blur fade" id="addstudentadmin" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -551,29 +551,29 @@
                   </table>
                 </div>
                 <hr>
-                
+
                 <form class="row g-3" id="addnewstudentadmin" method="POST">@csrf
 
                 <div class="row g-2">
                   <div class="col-12">
                     <input type="hidden" name="studentadminid" id="studentadminid">
                     <label for="adminname" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" name="studentadminname" id="studentadminname" readonly>         
+                    <input type="text" class="form-control" name="studentadminname" id="studentadminname" readonly>
                   </div>
                   <div class="col-6">
                     <label for="adminuser" class="form-label">School ID No.</label>
-                      <input type="number" class="form-control" name="studentadminschoolid" id="studentadminschoolid" readonly>         
+                      <input type="number" class="form-control" name="studentadminschoolid" id="studentadminschoolid" readonly>
                   </div>
                   <div class="col-6">
                     <label for="adminuser" class="form-label">USG Position</label>
                       <select name="studentposition" class="form-select" id="studentposition">
                         <option value="USG PRESIDENT">USG PRESIDENT</option>
                         <option value="USG SECRETARY">USG SECRETARY</option>
-                        <option value="USG SECRETARY">USG BUDGET&FINANCE</option>
-                        <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
-                        <option value="USG SECRETARY">USG SENATE SECRETARY</option>
+                        <option value="USG BUDGET&FINANCE">USG BUDGET&FINANCE</option>
+                        <option value="USG SENATE PRESIDENT">USG SENATE PRESIDENT</option>
+                        <option value="USG SENATE SECRETARY">USG SENATE SECRETARY</option>
 
-                      </select>         
+                      </select>
                   </div>
 
                 </div>
@@ -600,29 +600,32 @@
                       </div>
                       <div class="modal-body">
                         <form class="row g-3" id="editnewstudentadminform" method="POST">@csrf
-        
+
                         <div class="row g-2">
                           <div class="col-12">
                             <input type="hidden" name="editstudentadminid" id="editstudentadminid">
                             <label for="editadminname" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="editstudentadminname" id="editstudentadminname" readonly>         
+                            <input type="text" class="form-control" name="editstudentadminname" id="editstudentadminname" readonly>
                           </div>
                           <div class="col-6">
                             <label for="editadminuser" class="form-label">School ID No.</label>
-                              <input type="number" class="form-control" name="editstudentadminschoolid" id="editstudentadminschoolid" readonly>         
+                              <input type="number" class="form-control" name="editstudentadminschoolid" id="editstudentadminschoolid" readonly>
                           </div>
                           <div class="col-6">
                             <label for="editadminuser" class="form-label">USG Position</label>
                               <select name="editstudentposition" class="form-select" id="editstudentposition">
                                 <option value="USG PRESIDENT">USG PRESIDENT</option>
-                                <option value="USG SECRETARY">USG SECRETARY</option>
-                              </select>         
+                        <option value="USG SECRETARY">USG SECRETARY</option>
+                        <option value="USG BUDGET&FINANCE">USG BUDGET&FINANCE</option>
+                        <option value="USG SENATE PRESIDENT">USG SENATE PRESIDENT</option>
+                        <option value="USG SENATE SECRETARY">USG SENATE SECRETARY</option>
+                              </select>
                           </div>
-        
+
                         </div>
-        
+
                         </form>
-        
+
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -666,7 +669,7 @@
                                 {{-- demote modal --}}
 
         {{-- Modal --}}
-       
+
         @include('Admin.components.footer')
 
       </div>
@@ -674,6 +677,6 @@
 
     @include('Admin.components.scripts')
     @include('Admin.components.functionscript')
-   
+
   </body>
 </html>

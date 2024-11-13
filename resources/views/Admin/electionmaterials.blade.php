@@ -59,7 +59,7 @@
 
                     <div class="">
                         <div class="d-flex mb-2">
-                            <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Elected Officers</button>
+                            <button class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Officers</button>
                         </div>
                                 <table class="table table-bordered table-hover text-center" id="Candidates">
                                     <thead>
@@ -76,7 +76,7 @@
                                 </table>
                                 </div>
 
-                     
+
                     @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
                     <div class="row row-deck row-cards mt-4" id="cards">
 
@@ -84,7 +84,7 @@
                     </div>
                     <form action="{{route('UploadElectionMaterialFiles')}}"
       class="dropzone"
-      id="my-awesome-dropzone"></form> 
+      id="my-awesome-dropzone"></form>
                     {{-- This is a no search results illustration --}}
                     {{-- <div class="empty">
                     <div class="empty-img"><img src="./static/illustrations/undraw_voting_nvu7.svg" height="128" alt="">
@@ -94,9 +94,9 @@
                       Try adjusting your filters or search criteria to find specific election results or candidates.
                     </p>
                   </div> --}}
-                   
+
                 </div>
-                
+
             </div>
         </div>
 
@@ -141,7 +141,7 @@
                                             <option value="USG SECRETARY">USG SENATE PRESIDENT</option>
                                             <option value="USG SECRETARY">USG SENATE SECRETARY</option>
 
-                                        </select> 
+                                        </select>
                                     </div>
 
                                     <div class="mb-2 col-6">
@@ -557,7 +557,7 @@ function SelectStudent2(first,last){
     $(document).ready(function() {
         getStudentList();
         getOfficerData();
-       getMaterials(); 
+       getMaterials();
          });
 </script>
 
