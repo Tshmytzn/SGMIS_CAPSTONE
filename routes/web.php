@@ -207,6 +207,7 @@ Route::get('/Student/Election', function () { return view('Student.electionvote'
 Route::get('/Student/Election/Materials', function () { return view('Student.viewelectionmaterials'); })->name('viewelectionmaterials');
 
 Route::get('/Student/Documents', function () { return view('Student.documents'); })->name('documents');
+Route::get('/Student/ViewDocuments', function () { return view('Student.viewdocuments'); })->name('viewdocuments');
 
 
 // tish student: post routes

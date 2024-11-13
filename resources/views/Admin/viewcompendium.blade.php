@@ -3,7 +3,7 @@
 <html lang="en">
 
 
-@include('Admin.components.header', ['title' => 'Compendium'])
+@include('Admin.components.header', ['title' => 'Documents'])
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
 
