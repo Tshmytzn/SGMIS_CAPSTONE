@@ -206,6 +206,9 @@ Route::get('Account/Settings', function () { return view('Student.accsettings');
 Route::get('/Student/Election', function () { return view('Student.electionvote'); })->name('electionvote');
 Route::get('/Student/Election/Materials', function () { return view('Student.viewelectionmaterials'); })->name('viewelectionmaterials');
 
+Route::get('/Student/Documents', function () { return view('Student.documents'); })->name('documents');
+
+
 // tish student: post routes
 Route::post('Student/LoginStudent', [Login::class,'LoginStudent'])->name('LoginStudent');
 Route::post('Student/LogoutStudent', [Login::class, 'LogoutStudent'])->name('LogoutStudent');
