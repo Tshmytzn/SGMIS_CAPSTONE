@@ -34,7 +34,7 @@
                   Overview
                 </div>
                 <h2 class="page-title">
-                  Programs & Courses
+                  Programs
                 </h2>
               </div>
             </div>
@@ -54,7 +54,7 @@
                         <a href="#departments" class="nav-link active" data-bs-toggle="tab">Colleges</a>
                       </li>
                       <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="tab">Program</a>
+                        <a href="#courses" class="nav-link" data-bs-toggle="tab">Programs</a>
                       </li>
                       <li class="nav-item">
                         <a href="#sections" class="nav-link" data-bs-toggle="tab">Class</a>
@@ -74,7 +74,7 @@
                                   <div style="margin-left: -30px;">
                                     <h3>Carlos Hilado Memorial State of University Colleges </h3>
                                   </div>
-                                  <button class="btn" type="button" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add Colleges</button>
+                                  <button class="btn" type="button" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#adddepartment">Add College</button>
                               </div>
                           </div>
                       </div>
@@ -104,7 +104,7 @@
                             <div class="row">
                                 <div class="col d-flex justify-content-between mt-2 ">
                                     <div style="margin-left: -20px;">
-                                      <h3>Carlos Hilado Memorial State of University Courses </h3>
+                                      <h3>Carlos Hilado Memorial State of University Programs </h3>
                                     </div>
                                     <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addcourse">Add Program</button>
                                 </div>
@@ -116,7 +116,7 @@
                               <thead>
                                   <tr>
                                       <th>Colleges</th>
-                                       <th>Program</th>
+                                       <th>Programs</th>
                                       <th>Action</th>
                                   </tr>
                               </thead>
@@ -139,7 +139,7 @@
                               <div class="row">
                                   <div class="col d-flex justify-content-between mt-2 ">
                                       <div style="margin-left: -20px;">
-                                        <h3>Carlos Hilado Memorial State of University Courses </h3>
+                                        <h3>Carlos Hilado Memorial State of University Classes </h3>
                                       </div>
                                       <button type="button" class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#addsection">Add Class</button>
                                   </div>
@@ -151,7 +151,7 @@
                               <thead>
                                   <tr>
                                     <th>Colleges</th>
-                                    <th>Program</th>
+                                    <th>Programs</th>
                                     <th>Class</th>
                                     <th>Actions</th>
                                   </tr>
@@ -182,7 +182,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Colleges</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Add College</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -190,11 +190,11 @@
                 <form class="row g-3" id="adddepartmentform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Colleges Image</label>
+                    <label for="firstname" class="form-label">College Image</label>
                     <input type="file" class="form-control" name="departmentimage" id="departmentimage" placeholder="Colleges Name">
                   </div>
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Colleges Name</label>
+                    <label for="firstname" class="form-label">College Name</label>
                     <input type="text" class="form-control" name="department" id="department" placeholder="Colleges Name">
                   </div>
                 </div>
@@ -215,7 +215,7 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header text-white" style="background-color: #3E8A34;">
-                <h5 class="modal-title" id="staticBackdropLabel">Edit Colleges</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Edit College</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
@@ -223,14 +223,14 @@
                 <form class="row g-3" id="editdeptform" method="POST" enctype="multipart/form-data">@csrf
                 <div class="row g-2">
                   <div class="col-12">
-                    <label for="" class="form-label">Colleges Image</label>
+                    <label for="" class="form-label">College Image</label>
                     <img src="" alt="" id="deptImage" width="50%">
                      <label for="" class="btn" data-bs-toggle="modal" data-bs-target="#editdepartmentpic" onclick="editdeptpic()">
                             Change Image
                         </label>
                   </div>
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Colleges Name</label>
+                    <label for="firstname" class="form-label">College Name</label>
                     <input type="hidden" name="EditDeptId" id="EditDeptId">
                     <input type="text" class="form-control" id="EditDeptName" name="EditDeptName" placeholder="Colleges Name">
                   </div>
@@ -324,7 +324,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header text-white" style="background-color: #3E8A34;">
-                        <h5 class="modal-title" id="staticBackdropLabel">Edit Program</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Programs</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
@@ -383,7 +383,7 @@
                             </select>
                           </div>
                           <div class="col-12">
-                            <label for="firstname" class="form-label">Courses</label>
+                            <label for="firstname" class="form-label">Programs</label>
                             <select class="form-select" name="selectcourse" id="selectcourse">
 
                           </select>
@@ -439,7 +439,7 @@
                             </select>
                           </div>
                           <div class="col-12">
-                            <label for="firstname" class="form-label">Courses</label>
+                            <label for="firstname" class="form-label">Programs</label>
                             <select id="editsectioncourse" name="editsectioncourse" class="form-select">
 
                           </select>
