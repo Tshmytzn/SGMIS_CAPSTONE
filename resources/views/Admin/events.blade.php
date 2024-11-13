@@ -185,22 +185,22 @@
                                         <div class="mb-3 col-6">
                                             <label for="proposalTitle" class="form-label">Project Title</label>
                                             <input type="text" class="form-control" id="proposalTitle"
-                                                name="proposalTitle" placeholder="Enter proposal title" required>
+                                                name="proposalTitle" placeholder="Enter Project Title" required>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="proposalTitle" class="form-label">Project Objective</label>
                                             <input type="text" class="form-control" id="proposalTitle"
-                                                name="objective" placeholder="Enter proposal title" required>
+                                                name="objective" placeholder="Enter Project Objective" required>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="proposalTitle" class="form-label">Project Theme</label>
                                             <input type="text" class="form-control" id="proposalTitle"
-                                                name="theme" placeholder="Enter proposal title" required>
+                                                name="theme" placeholder="Enter Project Theme" required>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="proposalTitle" class="form-label">Project Location</label>
                                             <input type="text" class="form-control" id="proposalTitle"
-                                                name="location" placeholder="Enter proposal title" required>
+                                                name="location" placeholder="Enter Project Location" required>
                                         </div>
                                         </div>
 
@@ -210,7 +210,7 @@
                                                 <label for="projectparticipant" class="form-label">Aligned
                                                     SDG</label>
                                                 <input type="text" class="form-control" id="projectparticipant"
-                                                    name="projectparticipant" placeholder="Enter project participant"
+                                                    name="projectparticipant" placeholder="Enter Aligned SDG"
                                                     required>
                                             </div>
                                             <!-- Project Proponent -->
@@ -218,7 +218,7 @@
                                                 <label for="projectproponent" class="form-label">Project
                                                     Proponent</label>
                                                 <input type="text" class="form-control" id="projectproponent"
-                                                    name="projectproponent" placeholder="Enter project proponent"
+                                                    name="projectproponent" placeholder="Enter Project Proponent"
                                                     required>
                                             </div>
                                             <!-- Project Participant -->
@@ -226,7 +226,7 @@
                                                 <label for="projectparticipant" class="form-label">Budget
                                                     Allocated</label>
                                                 <input type="number" class="form-control" id="projectparticipant"
-                                                    name="allocated" placeholder="Enter project participant"
+                                                    name="allocated" placeholder="Enter Budget Allocated"
                                                     required>
                                             </div>
                                             <!-- Project Proponent -->
@@ -234,7 +234,7 @@
                                                 <label for="projectproponent" class="form-label">Contact
                                                     Person</label>
                                                 <input type="text" class="form-control" id="projectproponent"
-                                                    name="contactperson" placeholder="Enter project proponent"
+                                                    name="contactperson" placeholder="Enter Contact Person"
                                                     required>
                                             </div>
                                         </div>
