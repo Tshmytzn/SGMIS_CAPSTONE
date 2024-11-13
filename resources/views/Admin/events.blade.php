@@ -278,10 +278,13 @@
 
                                         @php
                                             $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                            $usertype = '';
                                         @endphp
                                         @php
                                          $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
-                                         $usertype = $studentacc->student_position;
+                                         if ($studentacc) {
+                                          $usertype = $studentacc->student_position;
+                                         }
                                         @endphp
                                         @if ($admin)
                                         <div class="mb-3">
