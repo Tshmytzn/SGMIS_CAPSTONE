@@ -144,7 +144,7 @@
                     clearFormInputs('editdeptform');
 
                     alertify
-                        .alert("Message", "Department Successfully Updated", function() {
+                        .alert("Message", "College Successfully Updated", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();
@@ -214,7 +214,7 @@
                         reloadElementById('editsectionform');
 
                         alertify
-                            .alert("Message", "Department Successfully Updated", function() {
+                            .alert("Message", "College Successfully Updated", function() {
                                 GetDepartmentData();
                                 alertify.message('OK');
 
@@ -280,7 +280,7 @@
                 if (response.status == 'success') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Message", "Course Successfully Updated", function() {
+                        .alert("Message", "Program Successfully Updated", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();
@@ -399,7 +399,7 @@
                 if (response.status == 'success') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Message", "Course Successfully Updated", function() {
+                        .alert("Message", "Program Successfully Updated", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();
@@ -457,7 +457,7 @@
                     if (response.status == 'success') {
                         document.getElementById('adminloader').style.display = 'none';
                         alertify
-                            .alert("Message", "New Department Successfully Added", function() {
+                            .alert("Message", "New College Successfully Added", function() {
                                 GetDepartmentData();
                                 alertify.message('OK');
                                 GetCourseData();
@@ -502,7 +502,7 @@
                 if (response.status == 'success') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Message", "New Course Successfully Added", function() {
+                        .alert("Message", "New Program Successfully Added", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();
@@ -581,7 +581,7 @@
                 if (response.status == 'success') {
                     document.getElementById('adminloader').style.display = 'none';
                     alertify
-                        .alert("Message", "New Section Successfully Added", function() {
+                        .alert("Message", "New Class Successfully Added", function() {
                             GetDepartmentData();
                             alertify.message('OK');
                             GetCourseData();
