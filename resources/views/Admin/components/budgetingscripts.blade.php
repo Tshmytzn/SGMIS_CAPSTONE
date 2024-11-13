@@ -134,7 +134,9 @@
                 } else {
 
                     const usertype = "<?php echo $usertype; ?>"; // Embed the PHP variable here
-
+                    if (!usertype || usertype.trim() === "") {
+                        usertype='';
+                    }
 // Your JavaScript function
 response.data.forEach(function(item, index) {
     // Build the initial card HTML structure
