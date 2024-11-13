@@ -45,7 +45,7 @@ class SchoolEvent extends Controller
     }
 
     public function GetAllEvents(Request $req){
-        if($req->where == 'admin'){
+        if($req->where == 'admin' || $req->where == 'student_admin'){
             $event = SchoolEvents::all();
         }else{
 

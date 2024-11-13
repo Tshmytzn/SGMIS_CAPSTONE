@@ -602,11 +602,12 @@
                           </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="{{ route('Events') }}" data-bs-toggle="dropdown"
-                                    data-bs-auto-close="outside" role="button" aria-expanded="false">
-                                    <span
-                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/lifebuoy -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                <a class="nav-link" href="{{ route('Events') }}">
+                                  <span
+                                      class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                      <span
+                                          class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                             class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-event">
@@ -617,13 +618,13 @@
                                             <path d="M8 3l0 4" />
                                             <path d="M4 11l16 0" />
                                             <path d="M8 15h2v2h-2z" />
-                                        </svg> </span>
-                                    </span>
-                                    <span class="nav-link-title">
-                                        Events
-                                    </span>
-                                </a>
-
+                                        </svg>
+                                      </span>
+                                  </span>
+                                  <span class="nav-link-title">
+                                     Events
+                                  </span>
+                              </a>
                             </li>
 
                             <li class="nav-item {{ $active == 'Evaluation' ? 'active' : '' }}">

@@ -39,9 +39,19 @@
                 </span>
             </div>
             </div>
-
-                <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#budgetProposalModal"> Create Event</button>
-        </div>
+           
+                                        @php
+                                         $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
+                                        @endphp
+                                        @if ($studentacc)
+                                          @if ($studentacc->student_position == 'USG BUDGET&FINANCE'|| $studentacc->student_position == 'USG SENATE PRESIDENT'|| $studentacc->student_position == 'USG SENATE SECRETARY')
+                                          @else
+                                          <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#budgetProposalModal"> Create Event</button>
+                                          @endif
+                                          @else
+                                          <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#budgetProposalModal"> Create Event</button>
+                                        @endif
+            </div>
       </div>
 
         <!-- Page body -->
@@ -278,10 +288,13 @@
 
                                         @php
                                             $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                            $usertype = '';
                                         @endphp
                                         @php
                                          $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
-                                         $usertype = $studentacc->student_position;
+                                         if ($studentacc) {
+                                          $usertype = $studentacc->student_position;
+                                         }
                                         @endphp
                                         @if ($admin)
                                         <div class="mb-3">
@@ -331,10 +344,30 @@
 @include('Admin.components.budgetingscripts')
 
 <script>
-  window.onload = function(){
-    LoadEvents("{{ route('getAllEvent') }}", "{{ asset('event_images/') }}", "{{ route('deleteEvent') }}", "{{ route('EventDetails') }}",'admin');
-  }
+  window.onload = function() {
+    const usertype = "<?php echo $usertype; ?>";
 
+    if (usertype === 'USG BUDGET&FINANCE' || 
+        usertype === 'USG SENATE PRESIDENT' || 
+        usertype === 'USG SENATE SECRETARY') {
+        
+        LoadEvents(
+            "{{ route('getAllEvent') }}", 
+            "{{ asset('event_images/') }}", 
+            "{{ route('deleteEvent') }}", 
+            "{{ route('EventDetails') }}", 
+            'student_admin'
+        );
+    } else {
+        LoadEvents(
+            "{{ route('getAllEvent') }}", 
+            "{{ asset('event_images/') }}", 
+            "{{ route('deleteEvent') }}", 
+            "{{ route('EventDetails') }}", 
+            'admin'
+        );
+    }
+};
 </script>
   </body>
 </html>
