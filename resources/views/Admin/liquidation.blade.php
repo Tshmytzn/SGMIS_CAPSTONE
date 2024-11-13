@@ -10,6 +10,16 @@
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
+@php
+                                            $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                            $usertype = '';
+                                        @endphp
+                                        @php
+                                         $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
+                                         if ($studentacc) {
+                                          $usertype = $studentacc->student_position;
+                                         }
+                                        @endphp
 
         @include('Admin.components.nav', ['active' => 'Liquidation'])
 
@@ -213,52 +223,85 @@
 }
 
 function getLiquidationData(){
+
+    
     $.ajax({
             url: 'Admin/getAllLiquidationData',
             type: 'GET',
             success: function(response) {
                 const data=response.data;
                 const rowHtml = document.getElementById('displayLiquidation');
-                rowHtml.innerHTML =``;
-                if (data.length > 0) {
-                data.forEach(element => {
-                    rowHtml.innerHTML +=`
-                    <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body">
+rowHtml.innerHTML = ""; // Clear existing content
+
+const usertype = "<?php echo $usertype; ?>";
+
+if (data.length > 0) {
+    let htmlContent = ""; // Initialize an empty string to build the HTML content
+
+    data.forEach(element => {
+        // Base HTML structure for each card
+        htmlContent += `
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body">
                         <h5 class="card-title">${element.liquidation_name} - ${element.event_name}</h5>
-                        <p class="card-text">${element.semester} | ${element.date_from}-${element.date_to}</p>
-                        <div class="row justify-content-center align-item-center text-center">
-                            <div class='col-6'>
-                                <a href="/Liquidation/Details?liquidation_id=${element.id}" class="btn btn-primary">View</a>
-                            </div>
-                            
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    `;
-                });
-            }else{
-                rowHtml.innerHTML =`
-                 <div class="page-body">
-                <div class="container-xl d-flex flex-column justify-content-center">
-                    <div class="empty">
-                        <div class="empty-img"><img src="./static/illustrations/undraw_under_construction_-46-pa.svg"
-                                height="128" alt="">
-                        </div>
-                        <p class="empty-title">No Liquidation Data Found!</p>
-                        <p class="empty-subtitle text-muted">
-                            
-                        </p>
-                        <div class="empty-action">
-                            
-                        </div>
-                    </div>
+                        <p class="card-text">${element.semester} | ${element.date_from} - ${element.date_to}</p>
+                        <div class="row justify-content-center align-items-center text-center">
+        `;
+
+        // Add different button link based on `usertype`
+        if (usertype === 'USG PRESIDENT' || usertype === 'USG SECRETARY' || 
+            usertype === 'USG SENATE PRESIDENT' || usertype === 'USG SENATE SECRETARY') {
+            
+            htmlContent += `
+                <div class="col-6">
+                    <a href="/Liquidation/Details/Print?liquidation_id=${element.id}" class="btn btn-primary">View</a>
+                </div>
+            `;
+            
+        } else if (usertype === 'USG BUDGET&FINANCE') {
+            
+            htmlContent += `
+                <div class="col-6">
+                    <a href="/Liquidation/Details?liquidation_id=${element.id}" class="btn btn-primary">View</a>
+                </div>
+            `;
+            
+        } else {
+            
+            htmlContent += `
+                <div class="col-6">
+                    <a href="/Liquidation/Details?liquidation_id=${element.id}" class="btn btn-primary">View</a>
+                </div>
+            `;
+        }
+
+        // Closing tags for each card
+        htmlContent += `
+                        </div> <!-- Closing row -->
+                    </div> <!-- Closing card-body -->
+                </div> <!-- Closing card -->
+            </div> <!-- Closing col-sm-3 -->
+        `;
+    });
+
+    // Set the accumulated HTML to `rowHtml.innerHTML`
+    rowHtml.innerHTML = htmlContent;
+} else {
+    // If there is no data, display the "No Data Found" message
+    rowHtml.innerHTML = `
+        <div class="page-body">
+            <div class="container-xl d-flex flex-column justify-content-center">
+                <div class="empty">
+                    <div class="empty-img"><img src="./static/illustrations/undraw_under_construction_-46-pa.svg" height="128" alt=""></div>
+                    <p class="empty-title">No Liquidation Data Found!</p>
+                    <p class="empty-subtitle text-muted"></p>
+                    <div class="empty-action"></div>
                 </div>
             </div>
-                `;
-            }
+        </div>
+    `;
+}
 
 
             },

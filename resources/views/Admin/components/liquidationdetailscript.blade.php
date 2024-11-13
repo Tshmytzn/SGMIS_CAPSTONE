@@ -282,9 +282,9 @@
         const formData = new FormData(form);
         formData.append('_token', '{{ csrf_token() }}');
 
-        for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
+    //     for (let [key, value] of formData.entries()) {
+    //     console.log(key, value);
+    // }
 
     $.ajax({
         type: "POST",
@@ -296,6 +296,7 @@
             console.log(response)
             document.getElementById('updateBudgetingData').style.display='none';
             getBudgetData();
+            alertify.success(response.message);
         },
         error: function(xhr, status, error) {
             const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";
@@ -497,9 +498,9 @@ function generateTable() {
     }
 
     // Log the FormData
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: '${pair[1]}'`);
-    }
+    // for (let pair of formData.entries()) {
+    //   console.log(`${pair[0]}: '${pair[1]}'`);
+    // }
         const ID = document.getElementById('liquidation_id').value
         formData.append('_token', '{{ csrf_token() }}');
         formData.append('liquidation_id', ID);
@@ -515,6 +516,7 @@ function generateTable() {
                 div.innerHTML = ``;
                 getSaveTable();
                 getLiquidationAllTotal();
+                alertify.success('Data SuccessFully Added');
             },
             error: function(xhr, status, error) {
         const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";
@@ -619,7 +621,8 @@ function saveFundAndDis(){
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
-                console.log(response)
+
+                alertify.success(response.message);
             },
             error: function(xhr, status, error) {
         const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";

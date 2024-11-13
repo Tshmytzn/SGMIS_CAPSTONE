@@ -9,9 +9,25 @@
     <script src="{{asset('./dist/js/demo-theme.min.js?1684106062')}}"></script>
 
     <div class="page">
+        @php
+                                        $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                            $usertype = '';
+                                        @endphp
+                                        @php
+                                         $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
+                                         if ($studentacc) {
+                                          $usertype = $studentacc->student_position;
+                                         }
+                                        @endphp
+@if ($usertype =='USG BUDGET&FINANCE')
 
+              <style>
+                .hideme{
+                  display: none;
+                }
+              </style>
+              @endif
 @include('Admin.components.nav', ['active' => 'Documents'])
-
             <div class="page-wrapper">
 
         <!-- Page header -->
@@ -28,17 +44,8 @@
                   Documents
                 </h2>
               </div>
-              <div class="col-auto ms-auto d-print-none">
+              <div class="col-auto ms-auto d-print-none hideme">
                 <div class="d-flex">
-                  <div class="me-3">
-                    <div class="input-icon">
-                      <input type="text" value="" class="form-control" placeholder="Search…">
-                      <span class="input-icon-addon">
-                       <!-- Download SVG icon from http://tabler-icons.io/i/search -->
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-                      </span>
-                  </div>
-                  </div>
   
                       <button class="btn" style="background-color: #DF7026; color: white;" data-bs-toggle="modal" data-bs-target="#uploadcomp"> Create Document</button>
       
@@ -225,12 +232,6 @@
                                 <p class="empty-subtitle text-muted">
                                     No files have been uploaded yet. Please upload the necessary files to proceed. Thank you for your understanding.
                                    </p>
-                                <div class="empty-action">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#uploadcomp" class="btn btn-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
-                                        Add Document
-                                    </a>
-                                </div>
                             </div>
                         </div>
                     </div>

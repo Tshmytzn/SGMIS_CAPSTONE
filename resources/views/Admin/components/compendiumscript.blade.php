@@ -3,8 +3,12 @@
         GetCompendiumFiles();
 });
 
-   
+   const usertype = "<?php echo $usertype; ?>";
 
+   if(usertype === 'USG BUDGET&FINANCE'){
+    console.log('here')
+   }else{
+    console.log('here2')
     Dropzone.options.dropzoneMultiple = {
         paramName: "file",
         maxFilesize: 20,
@@ -38,6 +42,9 @@
             });
         }
     };
+   }
+
+    
 function runCardAnimation() {
         const cards = document.querySelectorAll('.admincardeffects');
         if (cards.length > 0) {
@@ -63,48 +70,65 @@ function GetCompendiumFiles() {
         url: "{{ route('GetCompendiumFiles') }}?id=" + encodedId,
         success: function(response) {
 document.getElementById('lineLoading').style.display = 'none';
-            if (response && Array.isArray(response.data)) {
-                comfileElement.innerHTML = "";
-                response.data.forEach(function(Data) {
-
-                    const fileNameWithoutExt = Data.file_name.split('.').slice(1).join('.');
-                    var div = document.createElement("div");
-                    div.setAttribute("class", "col-md-2 col-lg-3 admincardeffects");
-                     div.setAttribute("data-bs-toggle", "modal");
-                    div.setAttribute("data-bs-target", "#viewFile");
-                   div.setAttribute("onclick", `viewfile('${Data.file_name}')`);
-                  
-                   div.innerHTML = `
-                        <div class="card">
-                            <div class="card-body p-4 text-center">
-                                <span class="avatar avatar-xl mb-3 style="background-color:white;"><img style="background-color:white;" class="fileIcon" src="" alt="picture"></span>
-                                <embed style="display:none;" class="embeddedFile" src="compendium_file/${Data.file_name}" width="300px" height="auto" />
-                                <h3 class="m-0 mb-1">${fileNameWithoutExt}</h3>
-                                <div class="text-muted"></div>
-                                <div class="mt-3">
-                                    <span class="badge bg-green-lt"></span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
+if (response && Array.isArray(response.data)) {
+    comfileElement.innerHTML = "";
+    response.data.forEach(function(Data) {
+        const fileNameWithoutExt = Data.file_name.split('.').slice(0, -1).join('.');
+        const usertype = "<?php echo $usertype; ?>";
+        
+        // Construct HTML with conditional delete button
+        const deleteButtonHTML = usertype === 'USG BUDGET&FINANCE' ? '' : `
+            <div class="d-flex">
                 <a href="#" data-bs-toggle="modal" data-bs-target="" class="card-btn" onclick="DeleteFile('${Data.com_file_id}')">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7h16" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /><path d="M10 12l4 4m0 -4l-4 4" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-trash-x">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7h16" />
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                        <path d="M10 12l4 4m0 -4l-4 4" />
+                    </svg>
                     Delete
                 </a>
             </div>
-                        </div>
-                    `;
-                    comfileElement.appendChild(div);
-                    const embeddedFile = div.querySelector('.embeddedFile');
-                    const src = embeddedFile.getAttribute('src');
-                    const fileType = getFileType(src);
-                    const icon = fileTypeIcons[fileType] || 'default-icon.png';
-                    const fileIcon = div.querySelector('.fileIcon');
-                    fileIcon.src = 'compendium_file/icons/'+icon;
-                });
-                runCardAnimation();
-            } else {
-                console.error("Invalid or missing data in response");
-            }
+        `;
+
+        // Create the full HTML for the card, including the conditional delete button
+        const div = document.createElement("div");
+        div.setAttribute("class", "col-md-2 col-lg-3 admincardeffects");
+        div.setAttribute("data-bs-toggle", "modal");
+        div.setAttribute("data-bs-target", "#viewFile");
+        div.setAttribute("onclick", `viewfile('${Data.file_name}')`);
+
+        div.innerHTML = `
+            <div class="card">
+                <div class="card-body p-4 text-center">
+                    <span class="avatar avatar-xl mb-3" style="background-color:white;">
+                        <img style="background-color:white;" class="fileIcon" src="" alt="picture">
+                    </span>
+                    <embed style="display:none;" class="embeddedFile" src="compendium_file/${Data.file_name}" width="300px" height="auto" />
+                    <h3 class="m-0 mb-1">${fileNameWithoutExt}</h3>
+                    ${deleteButtonHTML}
+                </div>
+            </div>
+        `;
+
+        // Append the div to the main container
+        comfileElement.appendChild(div);
+
+        // Set file icon based on the file type
+        const embeddedFile = div.querySelector('.embeddedFile');
+        const src = embeddedFile.getAttribute('src');
+        const fileType = getFileType(src);
+        const icon = fileTypeIcons[fileType] || 'default-icon.png';
+        const fileIcon = div.querySelector('.fileIcon');
+        fileIcon.src = 'compendium_file/icons/' + icon;
+    });
+
+    runCardAnimation();
+} else {
+    console.error("Invalid or missing data in response");
+}
+
         },
         error: function(xhr, status, error) {
             console.error("Error fetching compendium files:", error);

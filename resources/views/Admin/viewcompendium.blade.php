@@ -13,7 +13,24 @@
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
 
     <div class="page">
+        @php
+                                        $admin = App\Models\Admin::where('admin_id', session('admin_id'))->first();
+                                            $usertype = '';
+                                        @endphp
+                                        @php
+                                         $studentacc = App\Models\StudentAccounts::where('student_id', session('admin_id'))->first();
+                                         if ($studentacc) {
+                                          $usertype = $studentacc->student_position;
+                                         }
+                                        @endphp
+@if ($usertype =='USG BUDGET&FINANCE')
 
+              <style>
+                .hideme{
+                  display: none;
+                }
+              </style>
+              @endif
         @include('Admin.components.nav', ['active' => ''])
 
         <div class="page-wrapper">
@@ -50,6 +67,17 @@
                             <div class="card" style="flex: 1; display: flex; flex-direction: column;">
                                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
                                     <h3 class="card-title">Upload Documents</h3>
+                                    @if ($usertype =='USG BUDGET&FINANCE')
+                                    <input type="hidden" name="com_id" id="com_id" value="{{ $com_id }}">
+                                    <div class="page-body">
+                                            <div class="container-xl">
+                                                @include('Admin.components.lineLoading',['loadID' => 'lineLoading'])
+                                                <div class="row row-deck row-cards" id="comfile">
+                                                    
+                                                </div>
+                                            </div>
+                                    </div>
+                                    @else
                                     <form class="dropzone" id="dropzone-multiple"
                                         action="{{ route('UploadCompendiumFile') }}" autocomplete="off" novalidate
                                         style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
@@ -67,6 +95,8 @@
                                             <input name="file" type="file" multiple />
                                         </div>
                                     </form>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
