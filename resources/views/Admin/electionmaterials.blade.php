@@ -421,7 +421,7 @@
             card.innerHTML += `<div class="empty">
                     <div class="empty-img"><img src="./static/illustrations/undraw_voting_nvu7.svg" height="128" alt="">
                     </div>
-                    <p class="empty-title">No Election Results Available</p>
+                    <p class="empty-title">No Campaign Materials Available</p>
                     <p class="empty-subtitle text-secondary">
                       Try adjusting your filters or search criteria to find specific election results or candidates.
                     </p>
