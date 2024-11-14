@@ -255,9 +255,9 @@
                         cardsContainer.innerHTML = `<div class="empty">
                         <div class="empty-img"><img src="{{ asset('./static/illustrations/undraw_voting_nvu7.svg') }}" height="128" alt="">
                         </div>
-                        <p class="empty-title">No Party Results Available</p>
+                        <p class="empty-title">No Data Available</p>
                         <p class="empty-subtitle text-secondary">
-                          Try adjusting your filters or search criteria to find specific election results.
+                          Please adjust your filters or criteria to view results.
                         </p>
                       </div>`;
                     } else {
