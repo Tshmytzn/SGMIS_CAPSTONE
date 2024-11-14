@@ -129,7 +129,7 @@ class SessionDetect extends Controller
         if(Session::has('student_id')){
             return view('Student.Index');
         }else{
-            return view('Student.login');
+            return view('Student.login'); 
         }
     }
 }
