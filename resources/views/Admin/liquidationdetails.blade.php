@@ -19,6 +19,7 @@
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     @php
     $liquidation_id = $_GET['liquidation_id'];
+    $data = \App\Models\BudgetProposal::where('eventid',$liquidation_id)->first();
 @endphp
     <div class="page">
 
@@ -87,7 +88,7 @@
                                                 <td>Total Beginning Balance</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
-                                                        <input type="number" class="form-control w-75 text-center" name="tbb" oninput="calculateResult2()" id="tbb" readonly step="0.01" min="0" value="0">
+                                                        <input type="number" class="form-control w-75 text-center" name="tbb" oninput="calculateResult2()" id="tbb" readonly step="0.01" min="0" value="{{$data->total_budget}}">
                                                     </div>
                                                 </td>
                                             </tr>
@@ -104,7 +105,9 @@
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center">
                                                         <input type="number" class="form-control w-75 text-center" name="eb" id="eb" step="0.01" min="0" value="0" readonly>
+                                                        
                                                     </div>
+                                                    <span class="text-danger" id="exceedWarning" style="display: none">Total Expenses Exceed Total Budget</span>
                                                 </td>
                                             </tr>
                                             <tr>

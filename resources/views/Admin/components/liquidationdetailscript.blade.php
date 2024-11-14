@@ -63,6 +63,7 @@
             contentType: false, // Important for file uploads
             processData: false, // Important for file uploads
             success: function(response) {
+                
                 const Lid = document.getElementById('liquidation_id').value;
                 
                 function fetchDataAndProcess(callback) {
@@ -109,6 +110,7 @@
                             `;
                         });
                         document.getElementById('budgetTotal').textContent = numTotal.toFixed(2)
+                        
                         // Update the inner HTML of the preloader with the constructed table
                         preloader.innerHTML = `<table>${table}</table>`;
                         $('#svebudgetButton').hide()
@@ -215,6 +217,7 @@
             document.getElementById('summary_total').value = (budgetTotal + otherTotal).toFixed(2);
                     }
                 });
+                calculateResult2();
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
@@ -517,6 +520,7 @@ function generateTable() {
                 getSaveTable();
                 getLiquidationAllTotal();
                 alertify.success('Data SuccessFully Added');
+                calculateResult2();
             },
             error: function(xhr, status, error) {
         const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";
@@ -526,23 +530,46 @@ function generateTable() {
         });
     }
         });
+         calculateResult2();
     });
 }
 
 function calculateResult() {
-            // Get values from the inputs
-            const input1 = parseFloat(document.getElementById('coh').value) || 0;
-            const input2 = parseFloat(document.getElementById('cob').value) || 0;
+            // // Get values from the inputs
+            // const input1 = parseFloat(document.getElementById('coh').value) || 0;
+            // const input2 = parseFloat(document.getElementById('cob').value) || 0;
             
-            // Calculate the result (e.g., addition)
-            const result = input1 + input2;
+            // // Calculate the result (e.g., addition)
+            // const result = input1 + input2;
             
-            // Display the result
-            document.getElementById('tbb').value = result;
+            // // Display the result
+            // document.getElementById('tbb').value = result;
 
-            document.getElementById('coh2').value=0;
-            document.getElementById('cob2').value=0;
+            // document.getElementById('coh2').value=0;
+            // document.getElementById('cob2').value=0;
+            const input1 = document.getElementById("coh");
+            const input2 = document.getElementById("cob");
+            const input3Value = parseFloat(document.getElementById("tbb").value);
 
+            // Get the current values, defaulting to 0 if empty
+            const input1Value = parseFloat(input1.value) || 0;
+            const input2Value = parseFloat(input2.value) || 0;
+
+            // Calculate the remaining allowable amount based on the limit
+            const remaining = input3Value - (input1Value + input2Value);
+
+            // Adjust the max values for input fields dynamically
+            input1.max = input1Value + remaining >= 0 ? input1Value + remaining : input1Value;
+            input2.max = input2Value + remaining >= 0 ? input2Value + remaining : input2Value;
+
+            // Ensure neither input exceeds the allowable remaining amount
+            if (input1Value + input2Value > input3Value) {
+                if (document.activeElement === input1) {
+                    input1.value = input1.max;
+                } else if (document.activeElement === input2) {
+                    input2.value = input2.max;
+                }
+            }
             calculateResult2()
         }
 function calculateResult2() {
@@ -551,10 +578,15 @@ function calculateResult2() {
             const input2 = parseFloat(document.getElementById('te').value) || 0;
             
             // Calculate the result (e.g., addition)
-            const result = input2 - input1 ;
+            const result =  input1 - input2 ;
             
             // Display the result
             document.getElementById('eb').value = result;
+            if (result < 0) {
+                document.getElementById('exceedWarning').style.display='';
+            } else {
+                document.getElementById('exceedWarning').style.display='none';
+            }
 }
 function checkAndRestrictInput() {
             // Get input elements and their values
@@ -850,13 +882,15 @@ function getSaveTable(){
 
             // Add all HTML at once
             tableHtml.innerHTML = htmlContent;
-
+            calculateResult2();
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
                 // You can also add custom error handling here if needed
             }
         });
+         calculateResult2();
+         getLiquidationAllTotal();
 }
 function editTableData(data, id) {
     // Check if `data` is a string, and parse it if so
@@ -963,9 +997,12 @@ formData.append('_token', '{{ csrf_token() }}');  // Ensure this is used in a Bl
         success: function(response) {
             console.log(response)
            getSaveTable();
+           calculateResult2();
            alertify.alert("Message", response.message, function() {
                 alertify.message('OK');
+                calculateResult2();
             });
+            calculateResult2();
         },
         error: function(xhr, status, error) {
             const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";
@@ -1072,6 +1109,7 @@ formData.append('_token', '{{ csrf_token() }}');  // Ensure this is used in a Bl
            alertify.alert("Message", response.message, function() {
                 alertify.message('OK');
             });
+            calculateResult2();
         },
         error: function(xhr, status, error) {
             const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";
@@ -1130,6 +1168,7 @@ function saveEditedTable(formId) {
         processData: false, // Important for file uploads
         success: function(response) {
            getSaveTable();
+           calculateResult2();
         },
         error: function(xhr, status, error) {
             const message = xhr.responseJSON ? xhr.responseJSON.message : "An unexpected error occurred.";
@@ -1139,6 +1178,7 @@ function saveEditedTable(formId) {
             });
         }
     });
+    calculateResult2();
 }
 
 

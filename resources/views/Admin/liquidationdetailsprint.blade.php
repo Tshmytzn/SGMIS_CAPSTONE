@@ -101,6 +101,8 @@
                                                     <div class="d-flex justify-content-center">
                                                         <input type="number" class="form-control w-75 text-center" name="eb" id="eb" step="0.01" min="0" value="0" readonly>
                                                     </div>
+                                                    <span class="text-danger" id="exceedWarning" style="display: none">Total Expenses Exceed Total Budget</span>
+                                            
                                                 </td>
                                             </tr>
                                             <tr>
