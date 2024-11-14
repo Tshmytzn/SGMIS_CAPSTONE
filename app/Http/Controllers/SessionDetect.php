@@ -127,7 +127,7 @@ class SessionDetect extends Controller
 
     public function StudentDashboard() {
         if(Session::has('student_id')){
-            return view('Student.index');
+            return view('Student.Index');
         }else{
             return view('Student.login');
         }
