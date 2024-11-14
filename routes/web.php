@@ -37,7 +37,7 @@ Route::get('/Accounts', [SessionDetect::class, 'Accounts'])->name('Accounts');
 Route::get('/Events', [SessionDetect::class, 'Events'])->name('Events');
 Route::get('/Documents', [SessionDetect::class, 'Documents'])->name('Documents');
 Route::get('/ViewCompendium', function () { return view('Admin.viewcompendium'); })->name('ViewCompendium');
-Route::get('/blank', function () { return view('Admin.blank'); })->name('Blank');
+// Route::get('/blank', function () { return view('Admin.blank'); })->name('Blank');
 Route::get('/Settings', [SessionDetect::class, 'Settings'])->name('Settings');
 Route::get('/Login', function () { return view('Admin.login'); })->name('AdminLogin');
 Route::get('/Programs', [SessionDetect::class, 'Programs'])->name('Programs');
@@ -196,7 +196,7 @@ Route::fallback(function () {
 // STUDENT
 // tish student: get routes
 Route::get('/Student/Login', function () { return view('Student.login'); })->name('Userlogin');
-Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
+// Route::get('/Blank', function () { return view('Student.blank'); })->name('Blank');
 Route::get('Student/Dashboard', [SessionDetect::class, 'StudentDashboard'])->name('StudentDashboard');
 Route::get('Student/Event', function () { return view('Student.event'); })->name('EventDashboard');
 Route::get('Student/Evaluation', function () { return view('Student.evaluations'); })->name('EventEvaluation');
