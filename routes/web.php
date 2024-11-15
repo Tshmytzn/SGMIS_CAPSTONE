@@ -142,7 +142,7 @@ Route::post('Admin/deleteLiquidation', [LiquidationController::class, 'deleteLiq
 Route::post('Admin/liquidationDetailsData', [LiquidationController::class, 'liquidationDetailsData'])->name('liquidationDetailsData');
 // liquidationView
 Route::get('/Liquidation/Details', action: function () {
-    return view('admin.liquidationdetails');
+    return view('Admin.liquidationdetails');
 })->name('liquidationdetails');
 Route::get('/Liquidation/Details/Print', action: function () {
     return view('admin.liquidationdetailsprint');
