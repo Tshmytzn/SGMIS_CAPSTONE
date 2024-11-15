@@ -11,7 +11,7 @@ use App\Models\SchoolEvents;
 use App\Models\Committee;
 use App\Models\CommitteeMember;
 use App\Models\MealDate;
-use App\Models\DateLength;
+use App\Models\Datelength;
 use Carbon\Carbon;
 
 class BudgetProposalController extends Controller
@@ -93,7 +93,7 @@ class BudgetProposalController extends Controller
                 
                 $dayCounter++;
 
-                $data2 = new DateLength();
+                $data2 = new Datelength();
                 $data2->budget_id =$data->id;
                 $data2->meal_date = $currentDate->toDateString();
                 $data2->date_length = 'Day ' . $dayCounter;
@@ -370,7 +370,7 @@ class BudgetProposalController extends Controller
 
             $data=[];
 
-            $dateLength = DateLength::where('budget_id',$request->budget_id)->get();
+            $dateLength = Datelength::where('budget_id',$request->budget_id)->get();
             $otherExpenses = OtherExpenses::where('budget_id',$request->budget_id)->get();
             foreach ($dateLength as $dl) {
 
