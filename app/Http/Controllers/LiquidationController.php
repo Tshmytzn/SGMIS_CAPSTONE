@@ -11,7 +11,7 @@ use App\Models\OtherExpenses;
 use App\Models\Committee;
 use App\Models\CommitteeMember;
 use App\Models\MealDate;
-use App\Models\DateLength;
+use App\Models\Datelength;
 use App\Models\LiquidationBreakdown;
 use App\Models\LiquidationSummary;
 use App\Models\FundAndDisbursement;
@@ -59,7 +59,7 @@ class LiquidationController extends Controller
             case 'getB':
                 $data=[];
                 $firstevent = BudgetProposal::where('eventid', $request->id)->first();
-                $dateLength = DateLength::where('budget_id',$firstevent->id)->get();
+                $dateLength = Datelength::where('budget_id',$firstevent->id)->get();
                 $otherExpenses = OtherExpenses::where('budget_id',$firstevent->id)->get();
                 foreach ($dateLength as $dl) {
 
