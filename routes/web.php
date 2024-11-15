@@ -145,7 +145,7 @@ Route::get('/Liquidation/Details', action: function () {
     return view('Admin.liquidationdetails');
 })->name('liquidationdetails');
 Route::get('/Liquidation/Details/Print', action: function () {
-    return view('admin.liquidationdetailsprint');
+    return view('Admin.liquidationdetailsprint');
 })->name('liquidationdetailsprint');
 Route::post('Admin/saveLiquidationDoc', [LiquidationController::class, 'saveLiquidationDoc'])->name('saveLiquidationDoc');
 
