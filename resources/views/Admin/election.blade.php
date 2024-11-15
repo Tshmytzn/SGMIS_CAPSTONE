@@ -201,7 +201,7 @@
 
 
     @include('Admin.components.scripts')
-    @include('admin.components.electionscript')
+    @include('Admin.components.electionscript')
 </body>
 
 </html>
