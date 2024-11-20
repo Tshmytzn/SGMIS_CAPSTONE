@@ -75,7 +75,7 @@
                         <td>${memberCount}</td> <!-- Member count displayed in pax -->
                         <td>${item.meal}</td>
                         <td>${item.price}</td>
-                        <td>${(item.price * memberCount).toFixed(2)}</td> <!-- Display meal total price -->
+                        <td>₱${(item.price * memberCount).toFixed(2)}</td> <!-- Display meal total price -->
                     </tr>
                 `;
                             });
@@ -91,12 +91,12 @@
                     // After all committees for this meal date, display the meal date total
                     com.innerHTML += `
         <tr>
-            <td colspan="5">Total for ${element.date_length}: ${mealDateTotal.toFixed(2)}</td>
+            <td colspan="5">Total for ${element.date_length}:₱ ${mealDateTotal.toFixed(2)}</td>
         </tr>
     `;
                     summa += `<tr>
             <td>${element.date_length}</td>
-            <td>${mealDateTotal.toFixed(2)}</td>
+            <td>₱ ${mealDateTotal.toFixed(2)}</td>
             </tr>`
                     // Add meal date total to grand total
                     grandTotal += mealDateTotal;
@@ -121,7 +121,7 @@
             <td>${expense.quantity}</td>
             <td>${expense.description}</td>
             <td>${expense.price}</td>
-            <td>${expenseTotal.toFixed(2)}</td>
+            <td>₱${expenseTotal.toFixed(2)}</td>
         </tr>
     `;
 
@@ -133,24 +133,24 @@
                 // Add the final row showing the subtotal of additional expenses
                 com.innerHTML += `
     <tr>
-       <td colspan="5">Additional Expenses: ${subtotal.toFixed(2)}</td>
+       <td colspan="5">Additional Expenses:₱ ${subtotal.toFixed(2)}</td>
     </tr>
 `;
                 summa += `<tr>
         <td>Additional Expenses</td>
-        <td>${subtotal.toFixed(2)}</td>
+        <td>₱${subtotal.toFixed(2)}</td>
         </tr>`
                 // Calculate grand total and display it
                 grandTotal += subtotal; // Include subtotal in grand total
                 com.innerHTML += `
     <tr class="trgreeen">
-        <td colspan="5"><strong>Overall Total: ${grandTotal.toFixed(2)}</strong></td>
+        <td colspan="5"><strong>Overall Total:₱ ${grandTotal.toFixed(2)}</strong></td>
     </tr>
 `;
                 allTotal = grandTotal.toFixed(2);
                 summa += `<tr class="trgreeen">
         <td>Overall Total</td>
-        <td>${grandTotal.toFixed(2)}</td>
+        <td>₱${grandTotal.toFixed(2)}</td>
         </tr>`
 
                 const summary = document.getElementById('committeeMealTableBody3');

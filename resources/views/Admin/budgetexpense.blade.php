@@ -67,8 +67,68 @@
             <div class="page-body">
                 <div class="container-xl">
 
+                    
                     {{-- set meal expenses table --}}
                     <div class="row row-deck row-cards mb-2">
+                        
+                       <div class="card p-5">
+                        <img src="{{asset('party_image/chmsuheader.png')}}" alt="" class="w-100">
+                            <div class="row justify-content-center m-2">
+                                <h3 class="text-center">PROJECT PROPOSAL</h3>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <h3 class="fw-normal">
+                                    Project Name: <span class="fw-bold">{{ $budget->title }}</span>
+                                </h3>
+                                <h3 class="fw-normal">
+                                    Project Theme: <span class="fw-bold">"{{ $budget->theme }}"</span>
+                                </h3>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Objectives:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->objective }}</h3>
+                                    </div>
+                                </div>
+                                 <div>
+                                    <h3 class="fw-normal mb-2">Project Locations:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->location }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Proponent:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->project_proponent }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Contact Person:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->contact_person }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Participant:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->project_participant }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Dates:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->budget_period_start }} - {{ $budget->budget_period_end }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Funding Source:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->funding_source }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="card">
                             <div class="card-header">
                                 <div class="container mx-3" style="margin-bottom: -1%;">

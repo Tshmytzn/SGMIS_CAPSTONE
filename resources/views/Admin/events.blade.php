@@ -232,13 +232,25 @@
                                                     required>
                                             </div>
                                             <!-- Project Participant -->
-                                            <div class="col-6 mb-3">
+                                            {{-- <div class="col-6 mb-3">
                                                 <label for="projectparticipant" class="form-label">Budget
                                                     Allocated</label>
                                                 <input type="number" class="form-control" id="projectparticipant"
                                                     name="allocated" placeholder="Enter Budget Allocated"
                                                     required>
+                                                     <span class="input-group-text" id="basic-addon1">₱</span>
+  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+
+                                            </div> --}}
+                                            <div class="col-6">
+                                               <label for="projectparticipant" class="form-label">
+                                                Budget Allocated</label>
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text" id="basic-addon1">₱</span>
+                                              <input type="number" class="form-control" placeholder="Enter Budget Allocated" aria-label="Username"  name="allocated" aria-describedby="basic-addon1">
                                             </div>
+                                            </div>
+
                                             <!-- Project Proponent -->
                                             <div class="col-6 mb-3">
                                                 <label for="projectproponent" class="form-label">Contact

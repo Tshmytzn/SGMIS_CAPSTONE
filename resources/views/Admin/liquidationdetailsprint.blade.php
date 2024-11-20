@@ -34,9 +34,11 @@
 <body>
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     @php
-    $liquidation_id = $_GET['liquidation_id'];
-@endphp
-    <div class="page" id="content">
+        $liquidation_id = $_GET['liquidation_id'];
+        $liquidationData = App\Models\Liquidation::where('id',$liquidation_id)->first();
+        $budget = App\Models\BudgetProposal::where('eventid',$liquidationData->event_id)->first();
+    @endphp
+    <div class="page" id="contentprint">
         <div class="page-wrapper">
 
             <!-- Page header -->
@@ -45,6 +47,62 @@
             {{-- content --}}
             <div class="page-body">
                 <div class="container-xl">
+                    <div class="card p-5">
+                        <img src="{{asset('party_image/chmsuheader.png')}}" alt="" class="w-100">
+                            <div class="row justify-content-center m-2">
+                                <h3 class="text-center">PROJECT PROPOSAL</h3>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <h3 class="fw-normal">
+                                    Project Name: <span class="fw-bold">{{ $budget->title }}</span>
+                                </h3>
+                                <h3 class="fw-normal">
+                                    Project Theme: <span class="fw-bold">"{{ $budget->theme }}"</span>
+                                </h3>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Objectives:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->objective }}</h3>
+                                    </div>
+                                </div>
+                                 <div>
+                                    <h3 class="fw-normal mb-2">Project Locations:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->location }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Proponent:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->project_proponent }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Contact Person:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->contact_person }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Participant:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->project_participant }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Project Dates:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->budget_period_start }} - {{ $budget->budget_period_end }}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Funding Source:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->funding_source }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <div class="card">
                         <div class="card-body">
 
@@ -229,61 +287,47 @@
     @include('Admin.components.scripts')
     @include('Admin.components.liquidationdetailscript')
     <script>
-    //      document.getElementById('download').addEventListener('click', () => {
-    //     window.print();
-    // });
-
 document.getElementById('download').addEventListener('click', () => {
-    // Show loading indicator and hide download button
-    document.getElementById('adminloader').style.display = 'grid';
+    const adminLoader = document.getElementById('adminloader');
     const downloadButton = document.getElementById('download');
+    const contentPrint = document.getElementById('contentprint');
+    const liquidationId = document.getElementById('liquidation_id').value;
+
+    // Show loading indicator and hide download button
+    adminLoader.style.display = 'grid';
     downloadButton.style.display = 'none';
 
-    // Capture the content and generate PDF
-    html2canvas(document.getElementById('content'), { 
-        scale: 1.5, // Set scale to 1.5 for decent quality
+    // Capture content and generate PDF
+    html2canvas(contentPrint, {
+        scale: 1.5,  // Set scale for decent quality
         useCORS: true // Enable cross-origin images
     }).then(canvas => {
-        const { jsPDF } = window.jspdf; // Ensure jsPDF is available from the window object
-        const pdf = new jsPDF('p', 'mm', 'a4'); // Portrait orientation, mm unit, A4 size
-
-        const imgData = canvas.toDataURL('image/png', 0.7); // Set image quality to 0.7
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgData = canvas.toDataURL('image/png', 0.7);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
-
-        // Get the PDF page width and height
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = pdf.internal.pageSize.getHeight();
-
-        // Calculate dimensions and scale for the image to fit PDF
         const widthRatio = pdfWidth / imgWidth;
-        const newHeight = imgHeight * widthRatio; // Maintain aspect ratio
-        let y = 0; // Start position for the image on the first page
+        const newHeight = imgHeight * widthRatio;
+
+        let y = 0; // Position for image
 
         // Add image page by page
         while (y < newHeight) {
-            pdf.addImage(imgData, 'PNG', 0, -y, pdfWidth, newHeight); // Add image at negative y to get the visible area
-            y += pdfHeight; // Move down for the next page
-            
-            // If there's more content to render, add a new page
-            if (y < newHeight) {
-                pdf.addPage();
-            }
+            pdf.addImage(imgData, 'PNG', 0, -y, pdfWidth, newHeight);
+            y += pdf.internal.pageSize.getHeight();
+            if (y < newHeight) pdf.addPage(); // Add new page if content overflows
         }
 
-        // Create a Blob from the PDF and prepare FormData
         const pdfBlob = pdf.output('blob');
         const formData = new FormData();
 
-        // Get liquidation ID from input
-        const l_id = document.getElementById('liquidation_id').value;
-        formData.append('pdf', pdfBlob, 'document.pdf'); // Append PDF Blob
-        formData.append('l_id', l_id); // Append liquidation ID
+        formData.append('pdf', pdfBlob, 'document.pdf');
+        formData.append('l_id', liquidationId);
+        formData.append('_token', '{{ csrf_token() }}'); // CSRF token from Blade template
 
-        // Append CSRF token directly using Blade syntax
-        formData.append('_token', '{{ csrf_token() }}'); // This will be rendered on the server-side
-
-        // Submit the form via AJAX
+        // Submit via AJAX
         $.ajax({
             type: "POST",
             url: "{{ route('saveLiquidationDoc') }}",
@@ -292,25 +336,24 @@ document.getElementById('download').addEventListener('click', () => {
             processData: false,
             success: function(response) {
                 console.log('PDF saved successfully:', response);
-                 // Print the document after saving
             },
             error: function(xhr, status, error) {
                 console.error('Error saving PDF:', xhr.responseText);
             },
             complete: function() {
-                // Hide loading indicator and show button again
-                document.getElementById('adminloader').style.display = 'none';
+                adminLoader.style.display = 'none';
                 window.print();
                 downloadButton.style.display = 'block';
-                
             }
         });
     }).catch(err => {
         console.error('Error generating PDF:', err);
-        document.getElementById('adminloader').style.display = 'none'; // Hide loader if error occurs
-        downloadButton.style.display = 'block'; // Show button if error occurs
+        adminLoader.style.display = 'none';
+        downloadButton.style.display = 'block';
     });
 });
+
+   
 
     const inputs = document.querySelectorAll('.form-control');
             inputs.forEach(input => {
