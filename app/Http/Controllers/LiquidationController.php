@@ -306,7 +306,7 @@ class LiquidationController extends Controller
 
         $check = Compendium::where('event_id', $getdata->event_id)->first();
         if($check){
-            return response()->json(['message' => 'Data already added']);
+            $check->delete();
         }
         $randomNumber = $this->generateUniqueRandomNumber();
         // Create a new Compendium entry
