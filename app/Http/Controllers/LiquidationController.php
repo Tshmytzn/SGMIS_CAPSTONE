@@ -355,4 +355,22 @@ class LiquidationController extends Controller
         // Return the random number directly
         return $randomNumber;
     }
+
+    public function AddReceipt(Request $request){
+
+        $data = Liquidation::where('id', $request->id)->first();
+
+        $file = $request->file('receipt');
+        $newImageName = $request->id. '_' . $file->getClientOriginalName();
+
+        $file->move(public_path('party_image'), $newImageName);
+
+        $data = Liquidation::where('id',$request->id)->first();
+        $data->receipt= $newImageName;
+        $data->save();
+
+        return response()->json(['message' => 'Data successfully added!']); 
+
+    }
+    
 }

@@ -16,5 +16,6 @@ class Liquidation extends Model
         'semester',
         'date_from',
         'date_to',
+        'receipt'
     ];
 }

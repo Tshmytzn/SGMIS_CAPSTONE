@@ -17,6 +17,16 @@
             processData: false, // Important for file uploads
             success: function(response) {
                 event_id = response.data.event_id;
+
+                const receipt_image = response.data.receipt
+
+                const image = document.getElementById('receipt-image');
+                if (image && receipt_image) {
+                    image.src = '/party_image/' + receipt_image;
+                } else {
+                    console.error("Image element or receipt data is missing.");
+                }
+
                 getBudgetData()
             },
             error: function(xhr, status, error) {
@@ -1181,7 +1191,29 @@ function saveEditedTable(formId) {
     calculateResult2();
 }
 
+function AddReceipt() {
+    const receipt = document.getElementById('receipt-pic').files[0]; // Get the file object
+    const l_id = document.getElementById('liquidation_id').value;
 
+    const formData = new FormData();
+    formData.append('_token', '{{ csrf_token() }}');
+    formData.append('receipt', receipt); // Append the file correctly
+    formData.append('id', l_id);
+
+    $.ajax({
+        url: `{{route('AddReceipt')}}`, // Ensure the route is correct
+        type: 'POST',
+        data: formData,
+        contentType: false, // Required for FormData
+        processData: false, // Prevent jQuery from processing data
+        success: function(response) {
+            getLiquidationData();
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        },
+    });
+}
 
     $(document).ready(function() {
         getLiquidationEvent();
