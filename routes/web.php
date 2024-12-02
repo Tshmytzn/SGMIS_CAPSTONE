@@ -148,6 +148,7 @@ Route::get('/Liquidation/Details/Print', action: function () {
     return view('Admin.liquidationdetailsprint');
 })->name('liquidationdetailsprint');
 Route::post('Admin/saveLiquidationDoc', [LiquidationController::class, 'saveLiquidationDoc'])->name('saveLiquidationDoc');
+Route::post('Admin/AddReceipt', [LiquidationController::class, 'AddReceipt'])->name('AddReceipt');
 
 
 Route::post('Admin/UploadElectionMaterialFiles', [ElectionController::class, 'UploadElectionMaterialFiles'])->name('UploadElectionMaterialFiles');

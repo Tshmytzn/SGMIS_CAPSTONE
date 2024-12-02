@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('semester')->nullable();
             $table->string('date_from')->nullable();
             $table->string('date_to')->nullable();
+            $table->string('receipt')->nullable();
             $table->timestamps();
         });
     }

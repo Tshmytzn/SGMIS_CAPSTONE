@@ -216,6 +216,13 @@
 
                             <button class="btn btn-primary col-12 mb-4" onclick="generateTable()">Add Table</button>
 
+                            <div class="card-header position-relative">
+                               Liquidation Receipt
+                            </div>
+
+                            <img src="" class="img-fluid" alt="Responsive Image" id="receipt-image">
+                             <button class="btn btn-primary col-12 mb-4" data-bs-toggle="modal" data-bs-target="#receipt-modal">Add & Update Receipt</button>
+
                             <a href="{{route('liquidationdetailsprint')}}?liquidation_id={{ $liquidation_id }}"><button class="btn btn-primary col-12" >Print</button></a>
                             
                         </div>
@@ -226,6 +233,26 @@
             {{-- end contente --}}
 
             <input type="text" name="liquidation_id" id="liquidation_id" hidden value="{{ $liquidation_id }}">
+
+            <div class="modal fade" id="receipt-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Receipt</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <input type="file" class="form-control" name="receipt" id="receipt-pic">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="AddReceipt()">Save changes</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+
             @include('Admin.components.liquidationmodal')
             @include('Admin.components.footer')
 
