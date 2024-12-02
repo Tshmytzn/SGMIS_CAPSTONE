@@ -462,7 +462,7 @@
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Morning">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">Morning</label>
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Morning Snacks</label>
                                                 </div>
                                                 <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Lunch">
@@ -472,7 +472,7 @@
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Afternoon">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">Afternoon</label>
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Afternoon Snacks</label>
                                                 </div>
                                                 <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="Dinner">
