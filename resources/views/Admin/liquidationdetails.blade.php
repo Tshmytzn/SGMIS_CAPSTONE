@@ -133,7 +133,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button type="button" class="btn btn-primary col-12" onclick="saveFundAndDis()">Save</button>
+                                    <button type="button" style="width: 130px;" class="btn btn-primary m-2" onclick="saveFundAndDis()">Save</button>
                                 </div>
                             </div>
                             </form>
@@ -200,8 +200,8 @@
                                     </tfoot>
                                 </table>
                                 </div>
-                                <button type="button" class="btn btn-primary col-12" id="updateBudgetingData" onclick="updateBudgetingDataF()" style="display: none;">Update</button>
-                                <button type="button" class="btn btn-primary col-12" id="svebudgetButton" onclick="saveBudgeting()">Save</button>
+                                <button type="button" style="width: 130px;" class="btn btn-primary col-12 m-2" id="updateBudgetingData" onclick="updateBudgetingDataF()" style="display: none;">Update</button>
+                                <button type="button" style="width: 130px;" class="btn btn-primary col-12 m-2" id="svebudgetButton" onclick="saveBudgeting()">Save</button>
                             </div>
                             </form>
                             <div id="generateSaveTable" class="mb-4">
@@ -214,16 +214,16 @@
 
                             </div>
 
-                            <button class="btn btn-primary col-12 mb-4" onclick="generateTable()">Add Table</button>
+                            <button class="btn btn-primary col-12 m-2" style="width: 130px;" onclick="generateTable()">Add Table</button>
 
                             <div class="card-header position-relative">
                                Liquidation Receipt
                             </div>
 
                             <img src="" class="img-fluid" alt="Responsive Image" id="receipt-image">
-                             <button class="btn btn-primary col-12 mb-4" data-bs-toggle="modal" data-bs-target="#receipt-modal">Add & Update Receipt</button>
+                             <button class="btn btn-primary col-12 m-4" style="width: 230px;" data-bs-toggle="modal" data-bs-target="#receipt-modal">Add & Update Receipt</button>
 
-                            <a href="{{route('liquidationdetailsprint')}}?liquidation_id={{ $liquidation_id }}"><button class="btn btn-primary col-12" >Print</button></a>
+                            <a href="{{route('liquidationdetailsprint')}}?liquidation_id={{ $liquidation_id }}"><button style="width: 130px;" class="btn btn-primary col-12 m-4" >Print</button></a>
                             
                         </div>
                     </div>

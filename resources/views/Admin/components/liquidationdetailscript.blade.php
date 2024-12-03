@@ -399,11 +399,11 @@ function generateTable() {
                             </tr>
                         </tfoot>
                     </table>
-                    <button type="button" class="btn btn-warning col-12 mb-2" id="addFieldBtn_${tableId}">Add Field</button>
+                    <button type="button" class="btn btn-warning col-12 m-2" style="width: 130px;" id="addFieldBtn_${tableId}">Add Field</button>
                 </div>
                 <input type="hidden" name="total_expenses" id="totalExpenses_${tableId}" value="0">
-                <button type="submit" class="btn btn-primary col-12">Save</button>
-                <button onclick="removeDiv('${tableId}Form')" class="btn btn-danger col-12">Remove</button>
+                <button type="submit" class="btn btn-primary col-12 m-2" style="width: 130px;">Save</button>
+                <button onclick="removeDiv('${tableId}Form')" class="btn btn-danger col-12 m-2" style="width: 130px;">Remove</button>
             </div>
         </form>
     `;

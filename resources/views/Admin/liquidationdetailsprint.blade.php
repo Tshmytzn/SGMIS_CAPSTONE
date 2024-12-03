@@ -270,7 +270,7 @@
                                Liquidation Receipt
                             </div>
                             <img src="" class="img-fluid" alt="Responsive Image" id="receipt-image">
-                            <button id="download" class=" btn-primary col-12" style="background-color:lightgreen;border-radius:10px; border-color:gray; height:40px;border: 1px solid gray;">Print</button></button>
+                            <button id="download" class=" btn-primary col-12 mt-4 mb-2" style="background-color:lightgreen;border-radius:10px; border-color:gray; height:40px;border: 1px solid gray;">Print and Save File</button></button>
 
                         </div>
                     </div>
