@@ -47,7 +47,7 @@
             {{-- content --}}
             <div class="page-body">
                 <div class="container-xl">
-                    <div class="card p-5">
+                    {{-- <div class="card p-5">
                         <img src="{{asset('party_image/chmsuheader.png')}}" alt="" class="w-100">
                             <div class="row justify-content-center m-2">
                                 <h3 class="text-center">PROJECT PROPOSAL</h3>
@@ -102,7 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     <div class="card">
                         <div class="card-body">
 
