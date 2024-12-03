@@ -221,16 +221,16 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div id="formBtn">
-                                        <button type="button" class="btn btn-primary w-100" id="addCommitteeRow"
-                                            onclick="addCommentteeField()">Add Committee</button>
+                                    <div id="formBtn" class="text-center">
+                                        <button type="button" class="btn btn-primary" style="width: 130px;" id="addCommitteeRow"
+                                            onclick="addCommentteeField()">Add Committee</button> <br>
                                         <button type="button"
-                                            style="background-color: #0065a0 !important; color: #ffffff"
+                                            style="background-color: #0065a0 !important; color: #ffffff; width: 130px;"
                                             onclick="addComitteeData('committeeForm','{{ route('budgetingProcess') }}','add')"
-                                            class="btn w-100 mt-2">Save Committee</button>
-                                    </div>
-                                    <div id="formBtn2" style="display: none">
-                                        <button type="button" class="btn btn-primary w-100" id=""
+                                            class="btn mt-2">Save Committee</button>
+                                    </div> 
+                                    <div id="formBtn2" class="text-center" style="display: none">
+                                        <button type="button" class="btn btn-primary" style="width: 140px;" id=""
                                             onclick="updateCommentteeField()">Update Committee</button>
                                     </div>
                                 </form>
@@ -526,7 +526,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body text-center">
                                     <div class="row text-center mb-2">
                                         <div class="col-12 mb-2">
                                             <div class="row">
@@ -554,7 +554,7 @@
                                         </div>
                                         </form>
                                     </div>
-                                    <button class="col-12 btn btn-primary" onclick="addOtherExpensesInput()">Add Other Expenses</button>
+                                    <button class="w-25 btn btn-primary" onclick="addOtherExpensesInput()">Add Other Expenses</button>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -568,8 +568,9 @@
                     </div>
 
                     <a href="/Budgeting/Expense/{{ $budget->id }}">
-                        <button class="btn btn-primary w-100">View Budget Summary</button>
+                        <button style="width: 180px; margin-left: 550px;" class="btn btn-primary">View Budget Summary</button>
                     </a>
+
                 </div>
                 <input type="hidden" name="bDateStart" id="bDateStart" value="{{ $budget->budget_period_start }}">
                 <input type="hidden" name="bDateEnd" id="bDateEnd" value="{{ $budget->budget_period_end }}">
