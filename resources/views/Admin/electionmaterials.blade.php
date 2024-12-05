@@ -85,15 +85,6 @@
                     <form action="{{route('UploadElectionMaterialFiles')}}"
       class="dropzone"
       id="my-awesome-dropzone"></form>
-                    {{-- This is a no search results illustration --}}
-                    {{-- <div class="empty">
-                    <div class="empty-img"><img src="./static/illustrations/undraw_voting_nvu7.svg" height="128" alt="">
-                    </div>
-                    <p class="empty-title">No Election Results Available</p>
-                    <p class="empty-subtitle text-secondary">
-                      Try adjusting your filters or search criteria to find specific election results or candidates.
-                    </p>
-                  </div> --}}
 
                 </div>
 

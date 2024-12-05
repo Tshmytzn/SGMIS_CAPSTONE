@@ -3,6 +3,9 @@
 <html lang="en">
 
 @include('Admin.components.header', ['title' => 'Liquidation'])
+
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 <style>
     /* Set specific widths for the columns */
     .t1 th:nth-child(1), /* First column (Description) */
@@ -220,8 +223,12 @@
                                Liquidation Receipt
                             </div>
 
-                            <img src="" class="img-fluid" alt="Responsive Image" id="receipt-image">
-                             <button class="btn btn-primary col-12 m-4" style="width: 230px;" data-bs-toggle="modal" data-bs-target="#receipt-modal">Add & Update Receipt</button>
+                            <div class="row row-deck row-cards mt-4" id="cards">
+
+                            </div>
+                            <form action="{{route('AddReceipt')}}" class="dropzone" id="my-awesome-dropzone">
+
+                            </form>
 
                             <a href="{{route('liquidationdetailsprint')}}?liquidation_id={{ $liquidation_id }}"><button style="width: 130px;" class="btn btn-primary col-12 m-4" >Print</button></a>
                             
@@ -234,7 +241,7 @@
 
             <input type="text" name="liquidation_id" id="liquidation_id" hidden value="{{ $liquidation_id }}">
 
-            <div class="modal fade" id="receipt-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {{-- <div class="modal fade" id="receipt-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -250,7 +257,7 @@
                 </div>
                 </div>
             </div>
-            </div>
+            </div> --}}
 
 
             @include('Admin.components.liquidationmodal')

@@ -17,6 +17,7 @@ use App\Models\LiquidationSummary;
 use App\Models\FundAndDisbursement;
 use App\Models\CompendiumFile;
 use App\Models\Compendium;
+use App\Models\LiquidationReceipt;
 use Illuminate\Support\Facades\File;
 
 class LiquidationController extends Controller
@@ -356,21 +357,64 @@ class LiquidationController extends Controller
         return $randomNumber;
     }
 
-    public function AddReceipt(Request $request){
+    // public function AddReceipt(Request $request){
 
-        $data = Liquidation::where('id', $request->id)->first();
+    //     $data = new LiquidationReceipt();
 
-        $file = $request->file('receipt');
-        $newImageName = $request->id. '_' . $file->getClientOriginalName();
+    //     $file = $request->file('receipt');
+    //     $newImageName = $request->id. '_' . $file->getClientOriginalName();
 
+    //     $file->move(public_path('party_image'), name: $newImageName);
+    //     $data->liq_id = $request->id;
+    //     $data->liq_receipt= $newImageName;
+    //     $data->save();
+
+    //     return response()->json(['message' => 'Data successfully added!']); 
+
+    // }
+
+    public function AddReceipt(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|max:20480', // Max file size of 20 MB (20480 KB)
+        ]);
+
+        // Get the uploaded file from the request
+        $file = $request->file('file');
+
+        // Ensure the 'id' is present in the request
+        $id = $request->input('id');
+        if (!$id) {
+            return response()->json(['message' => 'ID is required'], 400); // Return an error if 'id' is missing
+        }
+
+        // Define a new filename with a timestamp to avoid overwriting
+        $newImageName = $id . '_' . $file->getClientOriginalName();
+
+        // Move the file to the public/election_materials directory
         $file->move(public_path('party_image'), $newImageName);
 
-        $data = Liquidation::where('id',$request->id)->first();
-        $data->receipt= $newImageName;
-        $data->save();
-
-        return response()->json(['message' => 'Data successfully added!']); 
-
+        $save = new LiquidationReceipt();
+        $save->liq_id = $id;
+        $save->liq_receipt = $newImageName;
+        $save->save();
+        // Return a JSON response with the file path and success message
+        return response()->json([
+            'message' => 'File uploaded successfully!'
+        ], 200);
     }
-    
+
+    public function getLiquidationReceipt(Request $request)
+    {
+        $data = LiquidationReceipt::where('liq_id', $request->id)->get();
+      
+        return response()->json($data);
+    }
+
+    public function deleteLiquidationReceipt(Request $request)
+    {
+        $data = LiquidationReceipt::where('id', operator: $request->id)->first();
+        $data->delete();
+        return response()->json(['status'=>'success']);
+    }
 }

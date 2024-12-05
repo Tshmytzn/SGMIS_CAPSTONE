@@ -73,7 +73,7 @@
                         
                        <div class="card p-5">
                         <img src="{{asset('party_image/chmsuheader.png')}}" alt="" class="w-100">
-                            <div class="row justify-content-center m-2">
+                            {{-- <div class="row justify-content-center m-2">
                                 <h3 class="text-center">PROJECT PROPOSAL</h3>
                             </div>
                             <div class="d-flex flex-column gap-2">
@@ -125,7 +125,7 @@
                                         <h3>{{ $budget->funding_source }}</h3>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
 

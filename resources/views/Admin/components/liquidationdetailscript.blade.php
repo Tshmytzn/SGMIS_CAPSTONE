@@ -18,14 +18,14 @@
             success: function(response) {
                 event_id = response.data.event_id;
 
-                const receipt_image = response.data.receipt
+                // const receipt_image = response.data.receipt
 
-                const image = document.getElementById('receipt-image');
-                if (image && receipt_image) {
-                    image.src = '/party_image/' + receipt_image;
-                } else {
-                    console.error("Image element or receipt data is missing.");
-                }
+                // const image = document.getElementById('receipt-image');
+                // if (image && receipt_image) {
+                //     image.src = '/party_image/' + receipt_image;
+                // } else {
+                //     console.error("Image element or receipt data is missing.");
+                // }
 
                 getBudgetData()
             },
@@ -1214,6 +1214,161 @@ function AddReceipt() {
         },
     });
 }
+const queryString = window.location.search;
+
+    // Parse the query string
+const urlParams = new URLSearchParams(queryString);
+
+    // Get a specific parameter by name
+const liqu_id = urlParams.get('liquidation_id');
+
+Dropzone.options.myAwesomeDropzone = {
+        maxFilesize: 20, // Set max file size to 20 MB
+        dictDefaultMessage: "Drag files here or click to upload",
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}" // Add CSRF token to headers
+        },
+        params: {
+            id: liqu_id // Pass the ID as a parameter
+        },
+        init: function() {
+            this.on("sending", function(file, xhr, formData) {
+                formData.append("id", liqu_id); // Add additional data (e.g., ID) dynamically
+            });
+            this.on("success", function(file, response) {
+            getLiquidationReceipt();
+            });
+            this.on("error", function(file, errorMessage) {
+                console.error("File upload error:", errorMessage);
+            });
+        }
+    };
+
+    function getLiquidationReceipt(){
+        $.ajax({
+            url: "{{route('getLiquidationReceipt')}}",
+            type: "get",
+            data: {id: liqu_id},
+            success: function(data) {
+                console.log(data)
+        const previewContainer = $('#preview-container'); // Assume you have a container for previews
+        previewContainer.empty(); // Clear previous content
+
+        if (data.length > 0) {
+            const card = document.getElementById('cards');
+            card.innerHTML = ''; // Clear existing cards
+
+            data.forEach(file => {
+                const fileName = file.liq_receipt;
+                const cleanedFileName = fileName.replace(/^1_/, ''); // Remove the prefix "1_"
+                const fileType = cleanedFileName.split('.').pop().toLowerCase(); // Get file extension
+                const fileURL = `/party_image/${fileName}`;  // Adjust the path to your file storage
+
+                // Create a card for each file
+                let cardContent = `
+                    <div class="card m-2" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">${cleanedFileName}</h5>
+                            <p class="card-text">File type: ${fileType}</p>
+                `;
+
+                // Display content based on file type
+                if (['jpg', 'jpeg', 'png', 'gif', 'ico'].includes(fileType)) {
+                    cardContent += `<img src="${fileURL}" class="card-img-top" alt="${fileName}">`;
+                } else if (['mp4', 'webm', 'ogg'].includes(fileType)) {
+                    cardContent += `
+                        <video class="card-img-top" controls>
+                            <source src="${fileURL}" type="video/${fileType}">
+                            Your browser does not support the video tag.
+                        </video>
+                    `;
+                } else if (fileType === 'pdf') {
+                    cardContent += `<img src="/compendium_file/icons/pdf-icon.png" class="card-img-top" alt="PDF Document">`;
+                } else if (['doc', 'docx'].includes(fileType)) {
+                    cardContent += `<img src="/compendium_file/icons/doc-icon.png" class="card-img-top" alt="Word Document">`;
+                } else if (['xls', 'xlsx'].includes(fileType)) {
+                    cardContent += `<img src="/compendium_file/icons/xls-icon.png" class="card-img-top" alt="Excel File">`;
+                } else {
+                    cardContent += `<img src="https://via.placeholder.com/150?text=Unsupported" class="card-img-top" alt="Unsupported File">`;
+                }
+
+                // Adding View/Download and Delete buttons
+                cardContent += `
+                            <div class="d-flex justify-content-between mt-2">
+                                <a href="${fileURL}" class="btn btn-primary" target="_blank">View / Download</a>
+                                <button class="btn btn-danger delete-btn" data-id="${file.id}">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Append the card content
+                card.innerHTML += cardContent;
+            });
+
+            // Attach click event for delete buttons
+            $('.delete-btn').on('click', function() {
+                const fileId = $(this).data('id');
+                deleteFile(fileId);
+            });
+        } else {
+            const card = document.getElementById('cards');
+            card.innerHTML = '';
+            card.innerHTML += `<div class="empty">
+                    <div class="empty-img"><img src="./static/illustrations/undraw_voting_nvu7.svg" height="128" alt="">
+                    </div>
+                    <p class="empty-title">No Liquidation Receipt Available</p>
+                    <p class="empty-subtitle text-secondary">
+                    </p>
+                  </div>`;
+        }
+    },
+    error: function(xhr, status, error) {
+        console.error('AJAX Error:', status, error);
+        $('#result').html('<p>Error fetching data.</p>'); // Display an error message
+    }
+});
+
+// Function to delete a file
+function deleteFile(fileId) {
+
+alertify.confirm("Warning","Are you sure you want to delete this file?",
+  function(){
+
+        const formData = new FormData();
+        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('id', fileId);
+        $.ajax({
+            url: `{{route('deleteLiquidationReceipt')}}`, // URL for deleting the file
+            method: 'POST', // Assuming you are using DELETE HTTP method
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(response) {
+                if (response.status === 'success') {
+                    alertify.alert("File Successfully Deleted", function(){
+                        alertify.message('OK');
+                        getLiquidationReceipt();
+                    });
+                } else {
+                    alert('Failed to delete the file.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error deleting file:', status, error);
+                alert('An error occurred while deleting the file.');
+            }
+        });
+
+  },
+  function(){
+    alertify.error('Cancel');
+  });
+
+}
+
+
+    }
 
     $(document).ready(function() {
         getLiquidationEvent();
@@ -1221,5 +1376,6 @@ function AddReceipt() {
         getSaveTable();
         getLiquidationAllTotal();
         getFunds();
+        getLiquidationReceipt()
     });
 </script>
