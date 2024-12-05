@@ -784,6 +784,25 @@ function DisplayAddForm() {
               const evaluationResult = document.getElementById('evaluationResultCharts');
               evaluationResult.innerHTML = '';
               let numCount = 1;
+
+              setText('closeEndedAverageScore', res.mean_scores[0]);
+              setText('numericAverageScorePercentage', res.mean_scores[3]);
+              setText('meanAverageScore', res.mean_scores[2]);
+              setText('numericAverageScore', res.mean_scores[1]);
+              const meanScore = res.mean_scores[2];
+
+              const feedbackMessage = document.getElementById('feedback');
+              if(meanScore > 0 && meanScore <= 49){
+                feedbackMessage.style.color = 'red';
+                setText('feedback', 'The event did not meet expectations. There\'s a significant need for improvement');
+              }else if(meanScore >= 50 && meanScore <= 74){
+                feedbackMessage.style.color = 'yellow';
+                setText('feedback', 'The event performed reasonably well, but there is room for improvement.');
+              }else if(meanScore >= 75 && meanScore <= 100){
+                feedbackMessage.style.color = 'green';
+                setText('feedback', 'Excellent performance! The event was well-received and met expectations.');
+              }
+
               res.data.forEach(d => {
                 const scaleType = chooseScale(d.eq_scale);
                 const chartId = `resultChart${d.eq_id}`;
@@ -832,6 +851,14 @@ function DisplayAddForm() {
             document.getElementById('mainLoader').style.display = 'none';
           }, error: xhr=> console.log(xhr.responseText)
       });
+  }
+
+  function setText(id, value){
+    const element = document.getElementById(id);
+
+    if(element){
+        element.textContent = value;
+    }
   }
 
   function chooseScale(scale){

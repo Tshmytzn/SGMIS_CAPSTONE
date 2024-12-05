@@ -64,6 +64,18 @@ $questionCount = App\Models\EvalQuestion::where('eval_id', $eval_id)->get()->cou
                                 </button>
                             </div>
 
+                            <div class="card mb-4 p-3">
+                                <h1>Evaluation Summary</h1>
+
+                                <p><strong>Average Score (Numeric Value Questions):</strong> <span id="numericAverageScore">0</span> - <strong>Percentage: </strong><span id="numericAverageScorePercentage">0</span>% </p>
+                                <p><strong>Positive Response Rate (Close-Ended Questions - Yes):</strong> <span id="closeEndedAverageScore">0</span>% </p>
+                                <p><strong>Mean Score:</strong> <span id="meanAverageScore">0</span>%</p>
+
+                                <p>This evaluation combines results from various question formats, including Likert scale ratings, performance scale assessments, and close-ended questions. The scores represent the overall performance and sentiment for the event based on participant feedback.</p>
+                                <h5 id="feedback" class="mt-3">
+                                    Loading Feedback.....
+                                </h5>
+                            </div>
 
 
                     </div>
