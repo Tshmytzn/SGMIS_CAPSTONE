@@ -104,7 +104,7 @@ class SessionDetect extends Controller
         }
     }
     public function StudentViewEventDetails(Request $req){
-        return view('Student.EventDetails', ['event_id'=>$req->event_id]);
+        return view('Student.Eventdetails', ['event_id'=>$req->event_id]);
     }
     public function StudentEvaluateEvent(Request $req){
         if (!$req->has('eval_id') || empty($req->eval_id)) {
