@@ -119,7 +119,7 @@ class BudgetProposalController extends Controller
 
         $request->validate([
             'budget_id' => 'required|exists:budget_proposals,id',
-            'objective' => 'required|string|max:255',
+            'objective' => 'required',
             'theme' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'projectparticipant' => 'required|string|max:255',

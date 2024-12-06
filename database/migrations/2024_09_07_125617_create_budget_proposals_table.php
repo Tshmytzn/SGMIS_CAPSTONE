@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('theme')->nullable();
             $table->string('contact_person')->nullable();
             $table->string('location')->nullable();
-            $table->string('objective')->nullable();
+            $table->longText('objective')->nullable();
             $table->timestamps();
         });
     }
