@@ -22,7 +22,8 @@
     <script src="{{ asset('./dist/js/demo-theme.min.js?1684106062') }}"></script>
     @php
     $liquidation_id = $_GET['liquidation_id'];
-    $data = \App\Models\BudgetProposal::where('eventid',$liquidation_id)->first();
+    $liq = \App\Models\Liquidation::where('id',$liquidation_id)->first();
+    $data = \App\Models\BudgetProposal::where('eventid',$liq->event_id)->first();
 @endphp
     <div class="page">
 
