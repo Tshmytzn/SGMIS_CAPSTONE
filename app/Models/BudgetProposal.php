@@ -23,6 +23,7 @@ class BudgetProposal extends Model
         'submission_date',
         'additional_notes',
         'total_budget',
+        'rational',
         'theme',
         'contact_person',
         'location',

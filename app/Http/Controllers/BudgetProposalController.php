@@ -74,6 +74,7 @@ class BudgetProposalController extends Controller
     $data->submission_date = $request->submissionDate;
     $data->additional_notes = $request->additionalNotes;
     $data->objective = $request->objective;
+    $data->rational = $request->rational;
     $data->theme = $request->theme;
     $data->location = $request->location;
     $data->contact_person = $request->contactperson;
@@ -141,6 +142,7 @@ class BudgetProposalController extends Controller
         $budget->contact_person = $request->input('contactperson');
         $budget->funding_source = $request->input('fundingSource');
         $budget->additional_notes = $request->input('additionalNotes');
+        $budget->rational = $request->rational;
 
         if ($budget->save()) {
             return response()->json([
