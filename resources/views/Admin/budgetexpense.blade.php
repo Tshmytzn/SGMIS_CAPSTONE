@@ -125,6 +125,12 @@
                                         <h3>{{ $budget->funding_source }}</h3>
                                     </div>
                                 </div>
+                                <div>
+                                    <h3 class="fw-normal mb-2">Rationale:</h3>
+                                    <div class="ms-8 me-8">
+                                        <h3>{{ $budget->rational }}</h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

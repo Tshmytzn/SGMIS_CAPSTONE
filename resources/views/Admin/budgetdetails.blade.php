@@ -12,6 +12,13 @@
         border: 2px solid red;
         /* Adjust the border thickness and color */
     }
+     .ellipsis {
+        white-space: nowrap;      /* Prevent text wrapping */
+        overflow: hidden;        /* Hide overflowed content */
+        text-overflow: ellipsis; /* Add the ellipsis (...) */
+        display: block;          /* Ensure the element behaves as a block */
+        max-width: 300px;        /* Set the maximum width (adjust as needed) */
+    }
 </style>
 
 <body>
@@ -134,14 +141,18 @@
 
                                 <div class="datagrid-item">
                                         <div class="datagrid-title">Objective</div>
-                                        <div class="datagrid-content">{{ $budget->objective }}</div>
+                                        <div class="datagrid-content ellipsis">{{ $budget->objective }}</div>
                                 </div>
                                 <!-- Proposed By -->
                                 <div class="datagrid-item">
                                         <div class="datagrid-title">Proposed By</div>
                                         <div class="datagrid-content">{{ $budget->proposed_by }}</div>
                                     </div>
-                                
+                                    
+                                <div class="datagrid-item">
+                                        <div class="datagrid-title">Rationale</div>
+                                        <div class="datagrid-content ellipsis">{{ $budget->rational }}</div>
+                                </div>
 
                                 <!-- Submission Date -->
                                 <div class="datagrid-item">
