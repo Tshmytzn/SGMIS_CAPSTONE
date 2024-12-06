@@ -199,8 +199,8 @@
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="proposalTitle" class="form-label">Project Objective</label>
-                                            <input type="text" class="form-control" id="proposalTitle"
-                                                name="objective" placeholder="Enter Project Objective" required>
+                                            <textarea type="text" class="form-control" id="proposalTitle"
+                                                name="objective" placeholder="Enter Project Objective" required></textarea>
                                         </div>
                                         <div class="mb-3 col-6">
                                             <label for="proposalTitle" class="form-label">Project Theme</label>
