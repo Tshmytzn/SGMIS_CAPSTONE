@@ -261,11 +261,18 @@
                                             </div>
                                         </div>
                                         <!-- Allocated Funds -->
-                                        <div class="mb-3">
+                                        <div class="row">
+                                        <div class="mb-3 col-6">
                                             <label for="fundingSource" class="form-label">Funding Source</label>
                                             <input type="text" class="form-control" id="fundingSource"
                                                 placeholder="Enter funding source" name="fundingSource" required>
                                         </div>
+                                        <div class="mb-3 col-6">
+                                          <label for="rational" class="form-label">Rationale</label>
+                                          <textarea class="form-control" id="rational"
+                                              placeholder="Enter Project Objective" name="rational" required></textarea>
+                                      </div>
+                                    </div>
                                     </div>
 
 

@@ -94,6 +94,12 @@
                                 <input type="text" class="form-control" id="fundingSource" value="{{ $budget->funding_source }}"
                                     placeholder="Enter funding source" name="fundingSource" required>
                             </div>
+                            <div class="mb-3 col-12">
+                                <label for="rational" class="form-label">Rationale</label>
+                                <textarea class="form-control" id="rational" 
+                                          placeholder="Enter Project Objective" name="rational" required></textarea>
+                              </div>
+                              
                         </div>
                         </div>
 
