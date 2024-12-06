@@ -164,6 +164,8 @@ class EvaluationController extends Controller
    public function LoadEvaluationResult(Request $req){
         $result = EvalQuestion::where('eval_id', $req->eval_id)->get();
 
+
+        $totalScorePerQuestion = [];
         foreach($result as $res){
             switch($res->eq_scale){
                 case "5":
@@ -173,19 +175,37 @@ class EvaluationController extends Controller
                 case "4":
                     $eval_yes = EvalResult::where('eq_id', $res->eq_id)->where('res_value', 'yes')->get()->count();
                     $eval_no = EvalResult::where('eq_id', $res->eq_id)->where('res_value', 'no')->get()->count();
+
+                    $totalYesNo = $eval_yes + $eval_no;
+
+                    $average = 100 * ($eval_yes / $totalYesNo);
+
                     $res->eval_data = [$eval_yes, $eval_no];
                     break;
                 default:
                     $eval_result = [];
                     for($i = 1; $i <= 5; $i++){
                         $data = EvalResult::where('eq_id', $res->eq_id)->where('res_value', $i)->get()->count();
+                        if($data > 0){
+                            $numericValue = EvalResult::where('eq_id', $res->eq_id)->where('res_value', $i)->get();
+                            foreach($numericValue as $value){
+                                $totalScorePerQuestion[] = $value->res_value;
+                            }
+                        }
+
                         $eval_result[] = $data;
                     }
+
                     $res->eval_data = $eval_result;
                     break;
 
             }
         }
-        return response()->json(['data'=> $result]);
+        $totalScore = array_sum($totalScorePerQuestion) / count($totalScorePerQuestion);
+
+        $totalScorePercentage = ($totalScore / 5) * 100;
+
+        $totalAveragePercentage = ($totalScorePercentage + $average) / 2;
+        return response()->json(['data'=> $result, 'mean_scores' => [$average, round($totalScore,2 ), round($totalAveragePercentage, 2), round($totalScorePercentage, 2)]]);
    }
 }

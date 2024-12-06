@@ -104,7 +104,7 @@
                                         $currentDate = Carbon\Carbon::now();
 
                                         $event = App\Models\SchoolEvents::where(
-                                            'event_start',
+                                            'event_end',
                                             '>',
                                             $currentDate,
                                         )->get();
