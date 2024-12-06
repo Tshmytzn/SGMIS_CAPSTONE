@@ -86,7 +86,7 @@
                                 <div>
                                     <h3 class="fw-normal mb-2">Project Objectives:</h3>
                                     <div class="ms-8 me-8">
-                                        <h3>{{ $budget->objective }}</h3>
+                                        <h3>{{ $budget->objective ?? 'No objective provided' }}</h3>
                                     </div>
                                 </div>
                                  <div>
@@ -128,7 +128,7 @@
                                 <div>
                                     <h3 class="fw-normal mb-2">Rationale:</h3>
                                     <div class="ms-8 me-8">
-                                        <h3>{{ $budget->rational }}</h3>
+                                        <h3>{{ $budget->rational ?? 'No rationale provided' }}</h3>
                                     </div>
                                 </div>
                             </div>
